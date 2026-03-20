@@ -47,4 +47,4 @@ Be respectful, constructive, and professional. We're all figuring this out toget
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+By contributing, you agree that your contributions will be licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).

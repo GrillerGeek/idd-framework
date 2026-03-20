@@ -89,7 +89,7 @@ This framework is early and evolving. If you're experimenting with AI-assisted d
 
 ## License
 
-This work is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). You are free to share and adapt this material for any purpose, including commercial, as long as you give appropriate credit and distribute contributions under the same license.
+This work is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). You are free to share and adapt this material for any purpose **except commercial**, as long as you give appropriate credit and distribute contributions under the same license.
 
 ---
 
