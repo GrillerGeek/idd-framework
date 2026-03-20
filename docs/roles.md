@@ -21,9 +21,9 @@ IDD redefines team roles to reflect the shift from coding-centric to specificati
 
 ## Spec Author
 
-**Focus:** Translates Intentions into Expectations; produces AI-ready Specs; ensures spec completeness.
+**Focus:** Translates Intentions into Expectations; produces AI-ready Specs; ensures specs contain enough context for autonomous execution.
 
-**Change from Traditional:** This is a **new role** that doesn't exist in traditional agile. It's a hybrid of a business analyst (who understands the domain and the "why") and a senior developer (who understands how AI agents consume instructions and what makes a spec unambiguous). This is the most critical skill gap teams will face when adopting IDD.
+**Change from Traditional:** This is a **new role** that doesn't exist in traditional agile. It's a hybrid of a business analyst (who understands the domain and the "why") and a senior developer (who understands how AI agents consume instructions and what makes a spec unambiguous). The Spec Author's primary question is: *"If a developer picked this up with no other context, could they make every implementation decision without asking anyone?"* If the answer is no, the Spec isn't done. This is the most critical skill gap teams will face when adopting IDD.
 
 **Key Activities:**
 - Decompose Intentions into verifiable Expectations with edge cases
@@ -57,9 +57,9 @@ IDD redefines team roles to reflect the shift from coding-centric to specificati
 
 ## Developer
 
-**Focus:** Partners with AI agents during execution; handles edge cases AI cannot resolve; writes integration code.
+**Focus:** Makes implementation decisions autonomously within the context of a Spec; partners with AI agents during execution; handles edge cases AI cannot resolve.
 
-**Change from Traditional:** The developer's role shifts from primary builder to AI collaborator and reviewer. Developers still write code, but primarily in areas where AI agents struggle: complex integrations, subtle edge cases, performance optimization, and areas requiring deep system knowledge. They also become the primary reviewers of AI output.
+**Change from Traditional:** In traditional agile, developers are often blocked waiting for clarification — "what did the PO mean by this story?" "is this edge case in scope?" In IDD, the Spec provides enough context that developers can answer these questions themselves. The developer's role shifts from *waiting for instructions and building* to *making autonomous decisions within clear boundaries and reviewing AI output*. This is an elevation, not a reduction — developers exercise more judgment, not less.
 
 **Key Activities:**
 - Execute Specs by orchestrating AI agents (Claude Code, Copilot, Kiro, etc.)

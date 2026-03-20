@@ -2,6 +2,10 @@
 
 ---
 
+### Doesn't this create more work upfront instead of empowering developers?
+
+It's the opposite. In traditional agile, developers are *dependent* on the PO for context — they write a vague story, the developer has questions, they wait for a conversation. IDD front-loads that context into artifacts so developers can make decisions independently. The upfront investment in defining Intentions, Expectations, and Specs pays off as fewer interruptions, less rework, and faster execution. The measure of success is that a developer picks up a Spec and builds the right thing without a single clarification conversation.
+
 ### Is IDD a replacement for Agile?
 
 IDD replaces specific agile *practices* (sprints, story points, velocity, the Epic–Feature–Story hierarchy) but preserves agile *values* — iterative delivery, working software, responding to change, and collaboration. Think of it as agile's next evolution for a world where AI changes the build equation.

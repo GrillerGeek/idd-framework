@@ -8,11 +8,15 @@ Traditional agile methodologies were designed for a world where human coding cap
 
 AI-assisted development has fundamentally changed this equation. When AI coding agents can produce working code in minutes rather than days, the bottleneck shifts from building to defining, reviewing, and validating. The process must shift with it.
 
-Intent-Driven Development (IDD) is a process framework purpose-built for teams using AI coding agents. It replaces the traditional Epic–Feature–Story hierarchy with a purpose-oriented model: **Product, Intentions, Expectations, and Specs**. It redefines team roles, ceremonies, metrics, and governance to align with the reality that specification quality — not coding velocity — is the primary constraint on delivery throughput.
+But speed is only half the story. The deeper problem is **decision bottlenecks**. In most agile teams, context lives in the Product Owner's head. Developers wait for clarification. AI agents guess when context is missing. Every vague user story creates a dependency on a conversation that may or may not happen at the right time.
+
+Intent-Driven Development (IDD) is a process framework purpose-built for teams using AI coding agents. It replaces the traditional Epic–Feature–Story hierarchy with a purpose-oriented model: **Product, Intentions, Expectations, and Specs**. The hierarchy is not a chain of command — it's a **chain of context**. Each layer gives developers and AI agents the information they need to make implementation decisions independently, without waiting for someone above them to answer questions.
+
+IDD redefines team roles, ceremonies, metrics, and governance to align with two realities: specification quality is the primary constraint on delivery throughput, and developer autonomy scales only as far as the context available to them.
 
 ### Core Thesis
 
-> When AI compresses the build phase 5–10x, the value of the process shifts from managing *what to build next* to defining *what success looks like* with enough precision that AI agents can execute against it with minimal ambiguity.
+> When AI compresses the build phase 5–10x, the value of the process shifts from managing *what to build next* to giving developers and AI agents enough context to execute autonomously — so they make the right decisions without waiting for permission.
 
 ---
 
@@ -43,25 +47,25 @@ Intent-Driven Development (IDD) is a process framework purpose-built for teams u
 
 ## 3. The Artifact Hierarchy
 
-IDD replaces work-decomposition with purpose-decomposition.
+IDD replaces work-decomposition with purpose-decomposition. The hierarchy is a **context delivery system** — each layer answers a question that developers and AI agents would otherwise have to ask someone or guess at.
 
 ```
-Product          →  Why does this exist?
-  └─ Intention   →  What should it accomplish?
-      └─ Expectation  →  How do we know it's right?
-          └─ Spec      →  How does AI build it?
+Product          →  "Here's why this exists and who it's for."
+  └─ Intention   →  "Here's what we're trying to accomplish and why it matters."
+      └─ Expectation  →  "Here's how we'll know it's right, including the edge cases."
+          └─ Spec      →  "Here's everything you need to build it."
 ```
 
-| Level | Traditional Equivalent | Purpose | Stability |
+| Level | Traditional Equivalent | Purpose | Autonomy It Enables |
 |---|---|---|---|
-| **Product** | Epic / Program | Define the problem space, vision, and value proposition | High — rarely changes |
-| **Intention** | Feature | Describe what the product should accomplish | Moderate — evolves with learning |
-| **Expectation** | Acceptance Criteria | Specify verifiable constraints and validations | Moderate — refined during spec authoring |
-| **Spec** | User Story + Tasks | Provide AI-ready build instructions | Low — iterated during execution |
+| **Product** | Epic / Program | Define the problem space, vision, and value proposition | Developer can answer "why are we building this?" without asking |
+| **Intention** | Feature | Describe what the product should accomplish | Developer can judge whether an implementation decision aligns with the goal |
+| **Expectation** | Acceptance Criteria | Specify verifiable constraints and validations | Developer knows what "done" means and how to handle edge cases |
+| **Spec** | User Story + Tasks | Provide AI-ready build instructions | Developer (or AI agent) can execute without clarification |
 
 The critical difference: the traditional hierarchy decomposes **work**. IDD decomposes **purpose**. Work decomposition is delegated to AI agents operating against well-defined Specs.
 
-For detailed field definitions for each artifact, see [artifacts.md](artifacts.md).
+When all four layers are populated, a developer should be able to pick up a Spec and make every implementation decision independently. If they can't — if they need to interrupt a PO or tech lead — the Spec isn't ready. See [Autonomy Through Context](autonomy.md) for the full philosophy.
 
 ---
 

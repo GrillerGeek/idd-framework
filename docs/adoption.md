@@ -65,9 +65,9 @@ How to introduce IDD to your team.
 
 Budget time and support for team members to develop it. The first Specs will be imperfect — that's expected. The completeness checklist catches gaps, and First-Pass Rate tracks improvement over time.
 
-### Developers may feel threatened
+### Developers get more autonomy, not less
 
-AI agents change the developer's role, not their importance. Frame IDD as **elevating** developers from repetitive building to higher-value work: architecture, review, edge case handling, and AI collaboration. The developer who can orchestrate AI effectively is more valuable, not less.
+A common first reaction is that IDD adds overhead. In reality, it removes the biggest source of developer frustration: waiting for someone to answer their questions. With a complete Spec, developers make implementation decisions independently — they're not executing orders, they're exercising judgment within clear context. Frame IDD as giving developers **more decision-making authority** because they have the information to use it well.
 
 ### Product Owners must engage more deeply
 

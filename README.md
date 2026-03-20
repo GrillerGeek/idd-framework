@@ -1,18 +1,22 @@
 # Intent-Driven Development Framework
 
-**A process framework for teams building software with AI coding agents.**
+**A process framework that gives developers and AI agents enough context to make decisions autonomously — without waiting for someone to tell them what to do.**
 
 ---
 
 ## The Problem
 
-Traditional agile methodologies — sprints, story points, backlogs — were designed for a world where human coding capacity was the primary constraint. AI coding agents have changed that equation. When the build phase compresses 5–10x, the bottleneck shifts from *building* to *defining, reviewing, and validating*.
+In most agile teams, knowledge lives in the Product Owner's head. Developers wait for clarification. AI agents guess when context is missing. Every ambiguous user story becomes a decision bottleneck — someone has to ask a question, wait for an answer, or make an assumption and hope it's right.
+
+Traditional agile methodologies were also designed for a world where human coding capacity was the primary constraint. AI coding agents have changed that equation. When the build phase compresses 5–10x, the bottleneck shifts from *building* to *defining, reviewing, and validating* — and every gap in context produces wrong output at machine speed.
 
 The frameworks haven't caught up. Teams are using 2-week sprints to manage work that takes 2 hours to build. They're estimating story points for tasks where effort is no longer the dominant variable. They're holding planning meetings to decompose work that AI agents can execute from a well-written specification.
 
 ## The Framework
 
 Intent-Driven Development (IDD) replaces work-decomposition with purpose-decomposition. Instead of asking *"what should developers work on this sprint?"* IDD asks *"what does this product need to be, and how do we know it's right?"*
+
+**The core principle:** The IDD hierarchy is not a chain of command — it's a **chain of context**. Each layer gives developers and AI agents the information they need to make implementation decisions independently, without waiting for someone above them to answer questions. When a developer understands *why* the product exists (Product), *what* it should accomplish (Intention), *how we'll know it's right* (Expectation), and *what's in and out of scope* (Spec with Boundaries), they can execute autonomously and make better decisions than any planning meeting could prescribe.
 
 ### The Hierarchy
 
@@ -32,6 +36,7 @@ Product          →  Why does this exist?
 
 ### Key Differences from Traditional Agile
 
+- **Autonomy through context** — developers and AI agents get enough information to make decisions without waiting for clarification
 - **Continuous flow** with WIP limits replaces time-boxed sprints
 - **Spec quality** is the primary throughput metric, not velocity
 - **Completeness gates** prevent underspecified work from reaching AI agents
@@ -41,16 +46,18 @@ Product          →  Why does this exist?
 
 ## Quick Start
 
-1. **Read the framework** → [`docs/framework.md`](docs/framework.md) — the complete process definition
-2. **See it in action** → [`examples/`](examples/) — a worked example using the full hierarchy
-3. **Use the templates** → [`templates/`](templates/) — copy-paste starter templates for each artifact
-4. **Understand the roles** → [`docs/roles.md`](docs/roles.md)
-5. **Set up metrics** → [`docs/metrics.md`](docs/metrics.md)
+1. **Understand the philosophy** → [`docs/autonomy.md`](docs/autonomy.md) — why context enables autonomy
+2. **Read the framework** → [`docs/framework.md`](docs/framework.md) — the complete process definition
+3. **See it in action** → [`examples/`](examples/) — a worked example using the full hierarchy
+4. **Use the templates** → [`templates/`](templates/) — copy-paste starter templates for each artifact
+5. **Understand the roles** → [`docs/roles.md`](docs/roles.md)
+6. **Set up metrics** → [`docs/metrics.md`](docs/metrics.md)
 
 ## Documentation
 
 | Document | Description |
 |----------|-------------|
+| [Autonomy Through Context](docs/autonomy.md) | The core philosophy — how the hierarchy enables developer autonomy |
 | [Framework](docs/framework.md) | Complete process definition — artifacts, lifecycle, ceremonies |
 | [Artifacts](docs/artifacts.md) | Detailed definitions and field reference for Product, Intention, Expectation, and Spec |
 | [Spec Authoring Guide](docs/spec-authoring.md) | How to write AI-ready Specs — with do's, don'ts, and the completeness checklist |
@@ -89,7 +96,7 @@ This framework is early and evolving. If you're experimenting with AI-assisted d
 
 ## License
 
-This work is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). You are free to share and adapt this material for any purpose **except commercial**, as long as you give appropriate credit and distribute contributions under the same license.
+This work is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). You are free to share and adapt this material for any purpose, including commercial, as long as you give appropriate credit and distribute contributions under the same license.
 
 ---
 
