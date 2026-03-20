@@ -1,0 +1,31 @@
+# Product Template
+#
+# The Product is the highest-level artifact in IDD.
+# It should be stable and rarely change.
+
+product:
+  id: "PROD-000"
+  name: ""                           # Working product name
+  status: "discovery"                # discovery | active | maintenance | sunset
+  owner: ""                          # Accountable individual
+
+  # PROBLEM STATEMENT — what business problem does this solve?
+  problem_statement: ""
+
+  # TARGET AUDIENCE — who benefits from this product?
+  target_audience: ""
+
+  # VALUE PROPOSITION — why does this product matter?
+  value_proposition: ""
+
+  # STRATEGIC ALIGNMENT — which organizational priorities does this serve?
+  strategic_alignment: ""
+
+  # CONTEXT — inherited by all child Specs
+  # Define once here; Specs inherit and override as needed.
+  context:
+    stack: ""
+    patterns: ""
+    conventions:
+      - ""
+    auth: ""

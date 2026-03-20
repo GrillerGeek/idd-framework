@@ -1,0 +1,51 @@
+# Spec Template
+#
+# Copy this file and fill in each section.
+# A Spec is not Ready until it passes the completeness checklist.
+# See docs/spec-authoring.md for guidance.
+
+spec:
+  id: "SPEC-000"                    # Unique identifier
+  product: ""                        # Parent Product name or ID
+  intentions: []                     # List of Intention IDs this Spec addresses
+  expectations: []                   # List of Expectation IDs this Spec implements
+  status: "draft"                    # draft | ready | in-progress | review | validating | done
+
+  # CONTEXT — everything the AI agent needs to know about your project
+  # Tip: This should be inherited from the Product level. Only override what's different.
+  context:
+    stack: ""                        # Languages, frameworks, databases, versions
+    patterns: ""                     # Architectural patterns (e.g., CQRS, MVC, vertical slice)
+    conventions:                     # Coding standards and project-specific rules
+      - ""
+    existing_code_refs:              # Files or folders the AI should reference or follow
+      - path: ""
+        note: ""
+    auth: ""                         # Authentication/authorization model
+
+  # EXPECTATIONS — what must be true when this Spec is complete
+  # Each Expectation needs: description, validation criteria, and at least 2 edge cases.
+  expectations:
+    - id: ""
+      description: ""                # What must be true
+      validation: ""                 # How to verify (pass/fail or measurable)
+      edge_cases:
+        - ""                         # Boundary condition 1
+        - ""                         # Boundary condition 2
+
+  # BOUNDARIES — what the AI must NOT do
+  # Be explicit. If you don't say it, the AI may do it.
+  boundaries:
+    - ""
+
+  # DELIVERABLES — concrete outputs the AI should produce
+  # If it's not listed, the AI may not produce it.
+  deliverables:
+    - ""
+
+  # VALIDATION — how to verify the Spec is complete
+  validation:
+    automated:                       # Things tests can verify
+      - ""
+    human_review:                    # Things humans must evaluate
+      - ""

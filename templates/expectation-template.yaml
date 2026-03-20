@@ -1,0 +1,16 @@
+# Expectation Template
+#
+# An Expectation is a verifiable constraint that makes an Intention concrete.
+# Every Expectation must have validation criteria and at least 2 edge cases.
+
+expectation:
+  id: "EXP-000"
+  intention: "INT-000"               # Parent Intention
+  description: ""                    # What must be true when this Expectation is met?
+  validation_criteria: ""            # How to verify: pass/fail or measurable
+  edge_cases:                        # Minimum 2 required
+    - ""                             # Boundary condition 1
+    - ""                             # Boundary condition 2
+  complexity: ""                     # low | medium | high (risk indicator, not effort)
+  owner: ""                          # Accountable individual
+  status: "draft"                    # draft | ready | specced | validated | done

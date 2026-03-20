@@ -1,0 +1,42 @@
+name: Framework Feedback
+description: Share feedback on the IDD framework from your experience
+title: "[Feedback] "
+labels: ["feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for sharing your experience with IDD. Your feedback helps the framework evolve.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which area does this feedback relate to?
+      options:
+        - Artifact hierarchy (Product/Intention/Expectation/Spec)
+        - Spec authoring and schema
+        - Flow model and WIP limits
+        - Roles and team structure
+        - Ceremonies
+        - Metrics
+        - Adoption and change management
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Your context
+      description: Briefly describe your team size, what AI tools you use, and how you applied IDD.
+      placeholder: "e.g., Team of 6, using Claude Code, piloted IDD for 3 weeks on an internal tool"
+    validations:
+      required: true
+
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Your feedback
+      description: What worked, what didn't, what's missing, or what you'd change.
+    validations:
+      required: true

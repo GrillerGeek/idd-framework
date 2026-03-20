@@ -1,0 +1,14 @@
+# Intention Template
+#
+# An Intention describes what the Product should accomplish.
+# Focus on outcomes, not implementation.
+
+intention:
+  id: "INT-000"
+  product: "PROD-000"               # Parent Product
+  statement: ""                      # What should the product accomplish?
+  rationale: ""                      # Why does this Intention matter?
+  priority: ""                       # critical | high | medium | low
+  dependencies: []                   # Other Intention IDs that must be fulfilled first
+  owner: ""                          # Accountable individual
+  status: "draft"                    # draft | defined | in-progress | fulfilled | deferred
