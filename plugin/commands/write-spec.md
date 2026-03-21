@@ -3,11 +3,10 @@ description: Create an AI-ready Spec from Expectations with all 5 mandatory bloc
 argument-hint: [expectation-ids...]
 ---
 
-Initialize the IDD workspace by running the init script:
+Ensure the IDD directory structure exists (create any missing directories):
+`docs/products/`, `docs/intentions/`, `docs/expectations/`, `docs/specs/`, `docs/reviews/`
 
-!`bash ${CLAUDE_PLUGIN_ROOT}/scripts/init-idd.sh`
-
-Load and follow the orchestration workflow defined in `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/SKILL.md`.
+Read `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/SKILL.md` for the full IDD workflow context and phase details.
 
 Launch the `idd-spec-author` agent to create an AI-ready Spec.
 

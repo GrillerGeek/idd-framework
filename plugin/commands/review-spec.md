@@ -3,11 +3,10 @@ description: Validate AI-generated output against a Spec's Expectations and Boun
 argument-hint: [spec-id]
 ---
 
-Initialize the IDD workspace by running the init script:
+Ensure the IDD directory structure exists (create any missing directories):
+`docs/products/`, `docs/intentions/`, `docs/expectations/`, `docs/specs/`, `docs/reviews/`
 
-!`bash ${CLAUDE_PLUGIN_ROOT}/scripts/init-idd.sh`
-
-Load and follow the orchestration workflow defined in `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/SKILL.md`.
+Read `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/SKILL.md` for the full IDD workflow context and phase details.
 
 Launch the `idd-spec-reviewer` agent to validate implementation against a Spec.
 

@@ -3,11 +3,10 @@ description: Define verifiable Expectations with edge cases for Intentions
 argument-hint: [intention-id]
 ---
 
-Initialize the IDD workspace by running the init script:
+Ensure the IDD directory structure exists (create any missing directories):
+`docs/products/`, `docs/intentions/`, `docs/expectations/`, `docs/specs/`, `docs/reviews/`
 
-!`bash ${CLAUDE_PLUGIN_ROOT}/scripts/init-idd.sh`
-
-Load and follow the orchestration workflow defined in `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/SKILL.md`.
+Read `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/SKILL.md` for the full IDD workflow context and phase details.
 
 Launch the `idd-expectation-author` agent to help the user define Expectations for an Intention.
 

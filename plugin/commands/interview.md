@@ -3,11 +3,10 @@ description: Conduct a stakeholder interview to define an IDD Product artifact
 argument-hint: [product-name]
 ---
 
-Initialize the IDD workspace by running the init script:
+Ensure the IDD directory structure exists (create any missing directories):
+`docs/products/`, `docs/intentions/`, `docs/expectations/`, `docs/specs/`, `docs/reviews/`
 
-!`bash ${CLAUDE_PLUGIN_ROOT}/scripts/init-idd.sh`
-
-Load and follow the orchestration workflow defined in `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/SKILL.md`.
+Read `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/SKILL.md` for the full IDD workflow context and phase details.
 
 Launch the `idd-product-interviewer` agent to conduct the stakeholder interview. Pass any arguments provided by the user as context for the product name or domain.
 
