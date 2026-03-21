@@ -88,6 +88,17 @@ IDD draws on ideas from many sources in the evolving conversation about AI-assis
 - [Intent Engineering](https://www.squer.io/blog/why-we-created-the-intent-engineer) (SQUER)
 - Kanban, Lean, and flow-based delivery principles
 
+## AI Agent Configuration
+
+This repo includes instructions for major AI coding agents so they can generate valid IDD artifacts without the plugin:
+
+| Agent | Config File | Notes |
+|-------|------------|-------|
+| **Any / Codex** | `AGENTS.md` | Universal reference — artifact schemas, workflow, rules |
+| **Claude Code** | `CLAUDE.md` | References AGENTS.md + plugin docs, repo conventions |
+| **GitHub Copilot** | `.github/copilot-instructions.md` | References AGENTS.md + editing conventions |
+| **Cursor** | `.cursor/rules/idd.mdc` | References AGENTS.md + key rules |
+
 ## Contributing
 
 We welcome contributions. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.

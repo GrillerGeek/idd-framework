@@ -10,6 +10,8 @@ There is no application code, no build system, no tests, and no dependencies. Th
 
 IDD builds on the Spec-Driven Development (SDD) movement but provides the **upstream layers** — what to spec and why — plus the process wrapper for how specs flow through a team. It is compatible with SDD tools like GitHub Spec Kit, Kiro, and Tessl.
 
+**For the complete IDD artifact schemas, workflow phases, and generation rules, read `AGENTS.md`.** That file is the universal reference for all AI coding agents. This file (CLAUDE.md) covers Claude Code-specific context: repo structure, plugin docs, and editing conventions.
+
 ## Repository Structure
 
 - `docs/autonomy.md` — Core philosophy: how the hierarchy enables developer autonomy (read this first)
@@ -72,6 +74,14 @@ Product (PROD-xxx)  →  Why does this exist?
 ## Spec Five-Block Structure
 
 Every Spec must contain: **Context** (stack, patterns, conventions, auth, code refs), **Expectations** (with validation criteria + edge cases), **Boundaries** (explicit prohibitions), **Deliverables** (concrete outputs), **Validation** (automated + human review).
+
+## Versioning
+
+The repo uses semver git tags. The plugin version in `plugin/.claude-plugin/plugin.json` shares the same major.minor as the spec version, with patch reserved for plugin-only iterations:
+
+- **Spec version** = major.minor (e.g., v1.1). Tagged on the repo when framework docs change.
+- **Plugin version** = major.minor.patch (e.g., 1.1.0, 1.1.1, 1.1.2). Patch increments for plugin-only changes.
+- When the spec bumps (e.g., v1.1 → v1.2), the plugin resets to `1.2.0`.
 
 ## Writing and Editing Conventions
 
