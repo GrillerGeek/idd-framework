@@ -6,10 +6,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is the **Intent-Driven Development (IDD) Framework** — a process framework (documentation, not software) for teams building software with AI coding agents. It replaces traditional agile's Epic-Feature-Story hierarchy with a purpose-oriented model: **Product → Intention → Expectation → Spec**.
 
-There is no application code, no build system, no tests, and no dependencies. The repo consists entirely of Markdown docs, YAML templates, and worked examples.
+There is no application code, no build system, no tests, and no dependencies. The repo consists entirely of Markdown docs, YAML templates, worked examples, and a Claude Code plugin.
+
+IDD builds on the Spec-Driven Development (SDD) movement but provides the **upstream layers** — what to spec and why — plus the process wrapper for how specs flow through a team. It is compatible with SDD tools like GitHub Spec Kit, Kiro, and Tessl.
 
 ## Repository Structure
 
+- `docs/autonomy.md` — Core philosophy: how the hierarchy enables developer autonomy (read this first)
 - `docs/framework.md` — Complete process definition (the canonical reference)
 - `docs/artifacts.md` — Field-level definitions for Product, Intention, Expectation, Spec
 - `docs/spec-authoring.md` — How to write AI-ready Specs (schema, five blocks, completeness checklist)
@@ -19,6 +22,29 @@ There is no application code, no build system, no tests, and no dependencies. Th
 - `docs/faq.md` — Common objections and answers
 - `examples/` — Worked examples using the full hierarchy
 - `templates/` — YAML starter templates for each artifact type
+
+## Claude Code Plugin
+
+The `plugin/` directory contains a Claude Code plugin that automates the IDD workflow. It is a separate distributable component (Apache 2.0 licensed) with its own manifest at `plugin/.claude-plugin/plugin.json`.
+
+### Commands (invoke via `/idd:*`)
+
+| Command | Purpose | Output |
+|---------|---------|--------|
+| `/idd:interview` | Stakeholder interview → Product definition | `docs/products/` |
+| `/idd:define-intentions` | Decompose Product into outcomes | `docs/intentions/` |
+| `/idd:define-expectations` | Define verifiable constraints + edge cases | `docs/expectations/` |
+| `/idd:write-spec` | Create AI-ready Spec with all 5 blocks | `docs/specs/` |
+| `/idd:tech-review` | Architectural feasibility review | Review annotations |
+| `/idd:review-spec` | Validate AI output against Spec criteria | `docs/reviews/` |
+
+### Agents (in `plugin/agents/`)
+
+Each agent maps to an IDD role: product-interviewer, intention-author, expectation-author, spec-author, tech-lead-reviewer, spec-reviewer. Commands dispatch to these agents.
+
+### Skills and References
+
+`plugin/skills/idd-orchestration/` contains the orchestration skill (SKILL.md) and reference templates that agents use to generate artifacts. These templates mirror but are distinct from the top-level `templates/` directory — the skill references are Markdown-formatted for agent consumption, while top-level templates are YAML for human use.
 
 ## Key Concepts to Preserve
 
@@ -32,6 +58,7 @@ When editing this repo, maintain these foundational positions:
 - **Context inheritance.** Context is defined at the Product level and inherited/overridden by child Specs.
 - **Spec Author is a new role** — hybrid of business analyst and senior developer.
 - **The completeness checklist** gates Specs from Draft to Ready (see `docs/spec-authoring.md`).
+- **Autonomy through context** — the hierarchy is a context delivery system, not a management structure (see `docs/autonomy.md`).
 
 ## Artifact Hierarchy and IDs
 
@@ -53,4 +80,4 @@ Every Spec must contain: **Context** (stack, patterns, conventions, auth, code r
 - Tables use `|---|` separator style consistently throughout.
 - YAML templates include inline comments explaining each field.
 - Worked examples in `examples/` should demonstrate the full hierarchy from Product through Spec.
-- The framework is licensed CC BY-NC-SA 4.0 (NonCommercial).
+- The framework docs are licensed CC BY-SA 4.0. The plugin is licensed Apache 2.0.
