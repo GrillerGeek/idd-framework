@@ -106,6 +106,7 @@ A typical IDD team might look like:
 | Spec Author | 1–2 | The critical new skill; may be a senior developer growing into the role |
 | Tech Lead | 1 | Reviews architecture and Boundaries |
 | Developer | 2–4 | AI collaborators and reviewers |
+| Reviewer | 1–2 | Often shared with Developer or Tech Lead; dedicated reviewers at scale |
 | AI Agent | N/A | Tool, not headcount — but treated as a team member with defined I/O |
 
 The **Spec Author to Developer ratio** will likely invert over time. As AI agents handle more execution, teams need more people defining *what* to build and fewer people *building* it.

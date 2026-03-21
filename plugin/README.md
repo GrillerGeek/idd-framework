@@ -35,12 +35,12 @@ Each layer gives developers and AI agents the context they need to make implemen
 
 | Command | Purpose | Artifact |
 |---------|---------|----------|
-| `/idd:interview` | Conduct a stakeholder interview | Product definition in `docs/products/` |
-| `/idd:define-intentions` | Decompose a Product into outcomes | Intentions in `docs/intentions/` |
-| `/idd:define-expectations` | Define verifiable constraints with edge cases | Expectations in `docs/expectations/` |
-| `/idd:write-spec` | Create an AI-ready Spec with all 5 mandatory blocks | Spec in `docs/specs/` |
-| `/idd:tech-review` | Review a Spec for architectural feasibility | Review annotations on Spec |
-| `/idd:review-spec` | Validate AI output against Spec criteria | Validation report in `docs/reviews/` |
+| `/idd-framework:interview` | Conduct a stakeholder interview | Product definition in `docs/products/` |
+| `/idd-framework:define-intentions` | Decompose a Product into outcomes | Intentions in `docs/intentions/` |
+| `/idd-framework:define-expectations` | Define verifiable constraints with edge cases | Expectations in `docs/expectations/` |
+| `/idd-framework:write-spec` | Create an AI-ready Spec with all 5 mandatory blocks | Spec in `docs/specs/` |
+| `/idd-framework:tech-review` | Review a Spec for architectural feasibility | Review annotations on Spec |
+| `/idd-framework:review-spec` | Validate AI output against Spec criteria | Validation report in `docs/reviews/` |
 
 Each command can be used independently. You don't have to run the full pipeline.
 
@@ -59,32 +59,32 @@ Each command can be used independently. You don't have to run the full pipeline.
 
 1. **Define your product:**
    ```
-   /idd:interview My Dashboard Project
+   /idd-framework:interview My Dashboard Project
    ```
 
 2. **Break it into intentions:**
    ```
-   /idd:define-intentions PROD-001
+   /idd-framework:define-intentions PROD-001
    ```
 
 3. **Define expectations with edge cases:**
    ```
-   /idd:define-expectations INT-001
+   /idd-framework:define-expectations INT-001
    ```
 
 4. **Write the spec:**
    ```
-   /idd:write-spec EXP-001 EXP-002
+   /idd-framework:write-spec EXP-001 EXP-002
    ```
 
 5. **Review for architectural fit:**
    ```
-   /idd:tech-review SPEC-001
+   /idd-framework:tech-review SPEC-001
    ```
 
 6. **After AI builds the code, validate:**
    ```
-   /idd:review-spec SPEC-001
+   /idd-framework:review-spec SPEC-001
    ```
 
 ## Output

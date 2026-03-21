@@ -21,11 +21,11 @@ The Product is the highest-level artifact. It defines the business problem, targ
 | Owner | Accountable individual | Product Owner (named) |
 | Status | Lifecycle state | `Discovery` · `Active` · `Maintenance` · `Sunset` |
 
-### Optional Fields
+### Recommended Fields
 
 | Field | Description |
 |---|---|
-| Context | Product-level tech stack, patterns, conventions, auth — inherited by all child Specs |
+| Context | Product-level tech stack, patterns, conventions, auth — **inherited by all child Specs**. Strongly recommended: without it, every Spec must define its own Context from scratch. |
 | Success Criteria | How do we know this Product is successful at the business level? |
 
 ### Authorship

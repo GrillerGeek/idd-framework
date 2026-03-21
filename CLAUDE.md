@@ -29,16 +29,16 @@ IDD builds on the Spec-Driven Development (SDD) movement but provides the **upst
 
 The `plugin/` directory contains a Claude Code plugin that automates the IDD workflow. It is a separate distributable component (Apache 2.0 licensed) with its own manifest at `plugin/.claude-plugin/plugin.json`.
 
-### Commands (invoke via `/idd:*`)
+### Commands (invoke via `/idd-framework:*`)
 
 | Command | Purpose | Output |
 |---------|---------|--------|
-| `/idd:interview` | Stakeholder interview → Product definition | `docs/products/` |
-| `/idd:define-intentions` | Decompose Product into outcomes | `docs/intentions/` |
-| `/idd:define-expectations` | Define verifiable constraints + edge cases | `docs/expectations/` |
-| `/idd:write-spec` | Create AI-ready Spec with all 5 blocks | `docs/specs/` |
-| `/idd:tech-review` | Architectural feasibility review | Review annotations |
-| `/idd:review-spec` | Validate AI output against Spec criteria | `docs/reviews/` |
+| `/idd-framework:interview` | Stakeholder interview → Product definition | `docs/products/` |
+| `/idd-framework:define-intentions` | Decompose Product into outcomes | `docs/intentions/` |
+| `/idd-framework:define-expectations` | Define verifiable constraints + edge cases | `docs/expectations/` |
+| `/idd-framework:write-spec` | Create AI-ready Spec with all 5 blocks | `docs/specs/` |
+| `/idd-framework:tech-review` | Architectural feasibility review | Review annotations |
+| `/idd-framework:review-spec` | Validate AI output against Spec criteria | `docs/reviews/` |
 
 ### Agents (in `plugin/agents/`)
 

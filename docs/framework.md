@@ -1,6 +1,6 @@
 # Intent-Driven Development Framework
 
-> Version 1.0 — March 2026
+> See repository tags for the current version. This document is the canonical process reference.
 
 ## 1. Executive Summary
 

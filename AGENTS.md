@@ -1,6 +1,6 @@
 # AGENTS.md — Intent-Driven Development Framework
 
-This file provides AI coding agents with the knowledge needed to create, use, and validate IDD artifacts. It is the universal reference — agent-specific config files (CLAUDE.md, .cursorrules, etc.) extend it with tool-specific details.
+This file provides AI coding agents with the knowledge needed to create, use, and validate IDD artifacts. It is the universal reference — agent-specific config files (CLAUDE.md, `.cursor/rules/`, `.github/copilot-instructions.md`) extend it with tool-specific details.
 
 For full documentation, see `docs/framework.md`. For the philosophy behind IDD, see `docs/autonomy.md`.
 
@@ -162,7 +162,7 @@ A Spec cannot enter **Ready** status until every item passes:
 
 4. **Intentions describe outcomes, not tasks.** "Users can see their health score" not "Build a health score component." Focus on what the product should accomplish, not what to build.
 
-5. **Specs should be small.** Each Spec should produce 1-3 deliverables. If a Spec covers an entire feature, split it.
+5. **Specs should be focused.** Prefer Specs that address a cohesive set of Expectations. If a Spec covers an entire feature with unrelated concerns, split it. Tightly-coupled deliverables can stay together.
 
 6. **IDs are sequential.** Check `docs/products/`, `docs/intentions/`, `docs/expectations/`, and `docs/specs/` for existing IDs before assigning new ones.
 
