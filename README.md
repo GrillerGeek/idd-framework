@@ -111,4 +111,4 @@ This work is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/
 
 ---
 
-*Intent-Driven Development was created by [Jason Robey](https://github.com/jasonrobey), motivated by the belief that when AI changes how we build, we need to change how we plan, organize, and measure.*
+*Intent-Driven Development was created by [Jason Robey](https://github.com/GrillerGeek), motivated by the belief that when AI changes how we build, we need to change how we plan, organize, and measure.*
