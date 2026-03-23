@@ -1,5 +1,9 @@
 # Intent-Driven Development Framework
 
+[![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC_BY--SA_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
+[![Claude Code Plugin](https://img.shields.io/badge/Claude_Code-plugin-blueviolet.svg)](https://claude.com/claude-code)
+[![Framework](https://img.shields.io/badge/framework-v1-green.svg)](docs/framework.md)
+
 **A process framework that gives developers and AI agents enough context to make decisions autonomously — without waiting for someone to tell them what to do.**
 
 ---

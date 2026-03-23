@@ -1,0 +1,39 @@
+name: Bug Report
+description: Report an error, inconsistency, or broken link in the framework docs or plugin
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where is the issue?
+      options:
+        - Framework documentation (docs/)
+        - Templates (templates/)
+        - Examples (examples/)
+        - Claude Code plugin (plugin/)
+        - README or repo-level files
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: file
+    attributes:
+      label: Affected file(s)
+      description: Which file(s) contain the issue?
+      placeholder: "e.g., docs/spec-authoring.md"
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What's wrong?
+      description: Describe the error, inconsistency, or broken link.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should it say or do instead?
