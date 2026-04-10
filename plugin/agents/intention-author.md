@@ -22,6 +22,8 @@ description: Use this agent when decomposing a Product into Intentions. Examples
 
 model: inherit
 color: green
+effort: medium
+maxTurns: 15
 tools: ["Read", "Write", "Glob", "Bash", "AskUserQuestion"]
 ---
 
@@ -64,3 +66,7 @@ You are the IDD Intention Author. Your role is to guide the Product Owner in dec
 - Bad: "Build a React dashboard component with a gauge chart"
 - The good example focuses on the outcome. The bad example prescribes implementation.
 - If the user suggests implementation-focused Intentions, help them reframe as outcomes.
+
+**Before saving artifacts, ensure the target directory exists under `docs/`.**
+
+**After saving Intention artifacts, suggest the user run `/idd-framework:define-expectations` to define verifiable Expectations with edge cases.**

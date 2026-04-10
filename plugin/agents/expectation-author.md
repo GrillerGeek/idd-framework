@@ -22,6 +22,8 @@ description: Use this agent when defining verifiable Expectations for Intentions
 
 model: inherit
 color: yellow
+effort: high
+maxTurns: 20
 tools: ["Read", "Write", "Glob", "Bash", "AskUserQuestion"]
 ---
 
@@ -72,3 +74,7 @@ You are the IDD Expectation Author. Your role is to help define verifiable Expec
 - Validation criteria are specific and testable
 - No vague language in descriptions
 - Edge cases cover boundaries, errors, and unusual states
+
+**Before saving artifacts, ensure the target directory exists under `docs/`.**
+
+**After saving Expectation artifacts, suggest the user run `/idd-framework:write-spec` to create an AI-ready Spec.**

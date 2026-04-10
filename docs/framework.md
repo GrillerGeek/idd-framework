@@ -119,13 +119,17 @@ IDD replaces the sprint cycle with a continuous flow model anchored by spec read
 
 A Spec is not ready for AI execution until it passes this checklist. This replaces "Definition of Ready."
 
-- [ ] Context block complete: stack, patterns, conventions, auth populated
+- [ ] Context: stack is non-empty
+- [ ] Context: patterns is non-empty
+- [ ] Context: conventions has at least one entry
+- [ ] Context: auth is non-empty
+- [ ] At least one Expectation is linked
 - [ ] All Expectations have validation criteria (pass/fail or measurable)
-- [ ] Edge cases enumerated for every Expectation (minimum 2 per)
-- [ ] Boundaries explicitly stated
-- [ ] Deliverables listed with expected output types
-- [ ] Validation split into automated and human review
-- [ ] Spec reviewed by at least one other human
+- [ ] All Expectations have at least 2 edge cases
+- [ ] Boundaries block has at least one entry
+- [ ] Deliverables block has at least one entry
+- [ ] Validation block has at least one automated and one human review item
+- [ ] Spec has been peer-reviewed by at least one other person
 
 ### Flow Model
 

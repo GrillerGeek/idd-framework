@@ -39,15 +39,4 @@ intention:
 
 ## Status Lifecycle
 
-```
-draft → defined → in-progress → fulfilled
-                               → deferred
-```
-
-## Examples
-
-**Good:** "HR can define and manage onboarding checklist templates that automatically create task lists for each new hire."
-
-**Bad:** "Build the checklist CRUD page with React and REST API."
-
-The good example focuses on the outcome (HR can manage templates). The bad example prescribes implementation.
+`draft → defined → in-progress → fulfilled | deferred`
