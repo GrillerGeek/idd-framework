@@ -31,6 +31,8 @@ The `plugin/` directory contains a Claude Code plugin that automates the IDD wor
 
 ### Commands (invoke via `/idd-framework:*`)
 
+**Core pipeline:**
+
 | Command | Purpose | Output |
 |---------|---------|--------|
 | `/idd-framework:interview` | Stakeholder interview → Product definition | `docs/products/` |
@@ -40,13 +42,24 @@ The `plugin/` directory contains a Claude Code plugin that automates the IDD wor
 | `/idd-framework:tech-review` | Architectural feasibility review | Review annotations |
 | `/idd-framework:review-spec` | Validate AI output against Spec criteria | `docs/reviews/` |
 
+**Accelerated workflows:**
+
+| Command | Purpose | Output |
+|---------|---------|--------|
+| `/idd-framework:define-outcomes` | Intentions + Expectations in one session | `docs/intentions/` + `docs/expectations/` |
+| `/idd-framework:quick-spec` | Full pipeline (INT + EXP + SPEC) in one session | All three artifact types |
+| `/idd-framework:deep-review` | Multi-perspective review with Agent Teams | `docs/reviews/` |
+
 ### Agents (in `plugin/agents/`)
 
-Each agent maps to an IDD role: product-interviewer, intention-author, expectation-author, spec-author, tech-lead-reviewer, spec-reviewer. Commands dispatch to these agents.
+Core agents map to IDD roles: product-interviewer, intention-author, expectation-author, spec-author, tech-lead-reviewer, spec-reviewer. Accelerated agents: outcome-author, quick-spec-author, deep-review-lead. Commands dispatch to these agents.
 
-### Skills and References
+### Skills, References, and Hooks
 
-`plugin/skills/idd-orchestration/` contains the orchestration skill (SKILL.md) and reference templates that agents use to generate artifacts. These templates mirror but are distinct from the top-level `templates/` directory — the skill references are Markdown-formatted for agent consumption, while top-level templates are YAML for human use.
+- `plugin/skills/idd-orchestration/` — Orchestration skill (SKILL.md) and reference templates for agent consumption. Templates are Markdown-formatted; top-level `templates/` are YAML for human use.
+- `plugin/hooks/hooks.json` — SessionStart hook auto-creates the `docs/` directory structure.
+- `plugin/bin/idd-next-id` — Helper script to auto-generate sequential artifact IDs.
+- `plugin/.claude-plugin/plugin.json` — Includes `userConfig` for `default_product_id` and `team_name`.
 
 ## Key Concepts to Preserve
 

@@ -181,6 +181,14 @@ The IDD workflow has 6 phases. You can enter at any phase:
 | 5. Tech Review | Spec artifact | Review annotations | Updates spec in `docs/specs/` |
 | 6. Validation | Spec + implementation | Validation report | `docs/reviews/` |
 
+### Accelerated Workflows
+
+Phases 2-4 can be combined for faster iteration:
+
+- **Outcomes (phases 2+3):** Define Intentions and Expectations together in one session.
+- **Quick Spec (phases 2+3+4):** Produce Intentions, Expectations, and a Spec in one session from a Product ID and feature description.
+- **Deep Review (alternative phase 5):** Multi-perspective review covering architecture, boundaries/edge cases, and deliverables/validation in parallel.
+
 ## YAML Templates
 
 Copy-paste starter templates are in `templates/`:
