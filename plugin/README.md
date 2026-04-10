@@ -33,6 +33,8 @@ Each layer gives developers and AI agents the context they need to make implemen
 
 ## Commands
 
+### Core Pipeline
+
 | Command | Purpose | Artifact |
 |---------|---------|----------|
 | `/idd-framework:interview` | Conduct a stakeholder interview | Product definition in `docs/products/` |
@@ -41,6 +43,14 @@ Each layer gives developers and AI agents the context they need to make implemen
 | `/idd-framework:write-spec` | Create an AI-ready Spec with all 5 mandatory blocks | Spec in `docs/specs/` |
 | `/idd-framework:tech-review` | Review a Spec for architectural feasibility | Review annotations on Spec |
 | `/idd-framework:review-spec` | Validate AI output against Spec criteria | Validation report in `docs/reviews/` |
+
+### Accelerated Workflows
+
+| Command | Purpose | Artifact |
+|---------|---------|----------|
+| `/idd-framework:define-outcomes` | Define Intentions + Expectations in one session | Both in `docs/intentions/` and `docs/expectations/` |
+| `/idd-framework:quick-spec` | Full pipeline — Intentions + Expectations + Spec in one session | All three artifact types |
+| `/idd-framework:deep-review` | Multi-perspective review (uses Agent Teams when available) | Deep review report in `docs/reviews/` |
 
 Each command can be used independently. You don't have to run the full pipeline.
 
@@ -54,8 +64,13 @@ Each command can be used independently. You don't have to run the full pipeline.
 | **idd-spec-author** | Creates AI-ready Specs with Context, Expectations, Boundaries, Deliverables, Validation | Cyan |
 | **idd-tech-lead-reviewer** | Reviews Specs for architectural feasibility and pattern compliance | Magenta |
 | **idd-spec-reviewer** | Validates AI output against Spec Expectations and Boundaries | Red |
+| **idd-outcome-author** | Defines Intentions + Expectations together in one session | Green |
+| **idd-quick-spec-author** | Full pipeline: Intentions + Expectations + Spec in one session | Cyan |
+| **idd-deep-review-lead** | Multi-perspective review with Agent Teams support | Magenta |
 
 ## Quick Start
+
+### Standard Pipeline (step-by-step)
 
 1. **Define your product:**
    ```
@@ -87,6 +102,15 @@ Each command can be used independently. You don't have to run the full pipeline.
    /idd-framework:review-spec SPEC-001
    ```
 
+### Fast Track (after Product is defined)
+
+```
+/idd-framework:quick-spec PROD-001 "Users can view their onboarding checklist and track progress"
+/idd-framework:tech-review SPEC-001
+```
+
+This produces Intentions, Expectations, and a Spec in a single guided session.
+
 ## Output
 
 All artifacts are saved to `docs/` in your project root:
@@ -110,6 +134,14 @@ The framework defines six roles. Each maps to a plugin agent:
 - **Developer** -- Partners with AI agents; makes autonomous decisions within Spec context
 - **AI Agent** -- Executes against Specs; produces Deliverables
 - **Reviewer** -- Validates output against Expectations and Boundaries
+
+## Plugin Features
+
+- **SessionStart hook** — Automatically creates the `docs/` directory structure when you start a session
+- **User config** — Set `default_product_id` and `team_name` at plugin install for faster workflows
+- **Helper scripts** — `idd-next-id` (in `bin/`) auto-generates the next sequential artifact ID
+- **Reviewer memory** — Tech lead and spec reviewer agents accumulate project-specific learnings across sessions
+- **Agent Teams support** — `/idd-framework:deep-review` uses parallel Agent Teams when the experimental flag is enabled, with graceful fallback to sequential review
 
 ## License
 
