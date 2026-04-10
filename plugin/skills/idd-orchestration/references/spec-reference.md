@@ -1,6 +1,10 @@
-# Spec Template
+# Spec Reference
 
 The Spec is the most important artifact in IDD. It translates human-authored Expectations into structured instructions an AI coding agent can execute. Every Spec must contain five mandatory blocks: Context, Expectations, Boundaries, Deliverables, and Validation.
+
+## The Core Principle
+
+A Spec should contain everything an AI agent needs to produce correct, reviewable output without asking clarifying questions. If the AI agent needs to guess, the Spec is incomplete.
 
 ## Template
 
@@ -55,11 +59,23 @@ Everything the AI agent needs to know about your project. Inherited from the Pro
 
 **Must include:** stack with versions, architectural patterns, coding conventions, auth model, references to existing code.
 
+**Common mistakes:**
+- Saying "use our standard patterns" (AI doesn't know your standards)
+- Omitting the auth model (AI will guess or skip it)
+- Not referencing existing code (AI invents its own structure)
+
 ### 2. Expectations
 What must be true when the Spec is complete. Each Expectation needs: description, validation criteria, and at least 2 edge cases.
 
+**The edge case rule:** AI agents build the happy path well. Your quality lives in edge cases.
+
 ### 3. Boundaries
 What the AI must NOT do. Without boundaries, AI agents will modify files you didn't want touched, add unapproved dependencies, and implement adjacent features.
+
+**Write boundaries as clear prohibitions:**
+- "Do not modify any files in `/src/auth/`"
+- "Do not add new database tables — use existing schema only"
+- "Do not implement the admin view — that is SPEC-003"
 
 ### 4. Deliverables
 Concrete outputs the AI should produce. If it's not listed, the AI may not produce it.
@@ -82,6 +98,21 @@ A Spec cannot enter **Ready** status until every item passes:
 - [ ] Deliverables block has at least one entry
 - [ ] Validation block has at least one automated and one human review item
 - [ ] Spec has been peer-reviewed by at least one other person
+
+## Anti-Patterns
+
+| Anti-Pattern | Why It's a Problem | Fix |
+|---|---|---|
+| "Make it responsive" with no detail | AI guesses at breakpoints and behavior | Specify breakpoints, layouts, and test criteria |
+| Copy-pasting Context into every Spec | Drift between copies; maintenance burden | Use Product-level Context inheritance |
+| Zero Boundaries | AI modifies anything it wants | Always include at least scope exclusions |
+| One giant Spec covering an entire feature | Too much for AI to execute coherently | Split into Specs with 1-3 deliverables each |
+| Expectations without edge cases | Happy path only | Minimum 2 edge cases per Expectation |
+| Validation with only automated checks | UX and architecture issues slip through | Always include human review items |
+
+## Token Warning
+
+If a Spec's Markdown export exceeds approximately 8,000 tokens, consider splitting it into smaller units.
 
 ## Status Lifecycle
 

@@ -47,16 +47,7 @@ Every Expectation needs at least 2 edge cases. Think about:
 |----|-------|
 | "Score on boundary (40, 70) → include in higher band" | "Handle edge cases appropriately" |
 | "No data for customer → show 'Insufficient Data' state" | "Handle errors" |
-| "Template modified after instantiation → existing checklists not affected" | "Make it work correctly" |
 
 ## Status Lifecycle
 
-```
-draft → ready → specced → validated → done
-```
-
-- **Draft:** Being authored
-- **Ready:** Validation criteria and edge cases complete
-- **Specced:** Included in a Spec
-- **Validated:** Verified against criteria
-- **Done:** Accepted by Product Owner
+`draft → ready → specced → validated → done`

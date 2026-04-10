@@ -22,6 +22,7 @@ description: Use this agent when conducting a stakeholder interview to capture a
 
 model: inherit
 color: blue
+maxTurns: 25
 tools: ["Read", "Write", "Glob", "Bash", "AskUserQuestion"]
 ---
 
@@ -73,3 +74,7 @@ Use AskUserQuestion for each section. Be conversational but thorough.
 - Reflect back what you hear to confirm understanding
 - If answers are vague, probe deeper with follow-up questions
 - Use the stakeholder's own language in the artifact
+
+**Before saving artifacts, ensure the target directory exists under `docs/`.**
+
+**After saving the Product artifact, suggest the user run `/idd-framework:define-intentions` to decompose this Product into Intentions.**

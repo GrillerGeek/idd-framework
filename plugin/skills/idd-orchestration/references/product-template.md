@@ -56,11 +56,4 @@ product:
 
 ## Status Lifecycle
 
-```
-discovery → active → maintenance → sunset
-```
-
-- **Discovery:** Problem validated, solution being explored
-- **Active:** Product is being built or enhanced
-- **Maintenance:** Stable, only bug fixes and minor updates
-- **Sunset:** Being decommissioned
+`discovery → active → maintenance → sunset`
