@@ -55,6 +55,7 @@ intention:
   rationale: "The checklist is the core workflow artifact. Without structured, reusable templates, every onboarding is improvised."
   priority: "critical"
   dependencies: []
+  expectations: ["EXP-001", "EXP-002", "EXP-003"]
   owner: "Sarah Chen"
   status: "defined"
 ```
@@ -69,6 +70,7 @@ intention:
   rationale: "The #1 complaint is 'I didn't know that was my task.' Visibility eliminates handoff gaps."
   priority: "critical"
   dependencies: ["INT-001"]
+  expectations: []
   owner: "Sarah Chen"
   status: "defined"
 ```
@@ -83,6 +85,7 @@ intention:
   rationale: "Empowering the new hire reduces HR burden and improves the first-week experience."
   priority: "high"
   dependencies: ["INT-001"]
+  expectations: []
   owner: "Sarah Chen"
   status: "defined"
 ```

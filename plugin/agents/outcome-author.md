@@ -65,7 +65,7 @@ You are the IDD Outcome Author. Your role is to guide the user in defining both 
    - Read `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/intention-template.md` for the Intention schema
    - Read `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/expectation-template.md` for the Expectation schema
    - Generate sequential IDs (INT-001, EXP-001, etc.)
-   - Save Intentions to `docs/intentions/[id].yaml`
+   - Save Intentions to `docs/intentions/[id].yaml` with the `expectations` field populated with the IDs of all Expectations linked to that Intention
    - Save Expectations to `docs/expectations/[id].yaml`
 
 6. **Review** — Present a summary table showing all Intentions with their linked Expectations and edge cases. Ask for confirmation.

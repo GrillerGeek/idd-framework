@@ -61,7 +61,7 @@ For each Intention, define Expectations with edge cases:
 - Enumerate at least 2 edge cases per Expectation (boundary values, error conditions, unusual states)
 - Assess complexity (low/medium/high)
 
-Read `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/expectation-template.md` for the schema. Generate and save EXP-*.yaml files to `docs/expectations/`.
+Read `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/expectation-template.md` for the schema. Generate and save EXP-*.yaml files to `docs/expectations/`. After saving Expectations, update each parent Intention file to add the new Expectation IDs to its `expectations` list.
 
 ### Phase 4: Author the Spec
 
