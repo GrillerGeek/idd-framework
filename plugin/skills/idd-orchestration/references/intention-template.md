@@ -12,6 +12,7 @@ intention:
   rationale: ""                      # Why does this Intention matter?
   priority: ""                       # critical | high | medium | low
   dependencies: []                   # Other Intention IDs that must be fulfilled first
+  expectations: []                   # Expectation IDs that belong to this Intention
   owner: ""                          # Accountable individual
   status: "draft"                    # draft | defined | in-progress | fulfilled | deferred
 ```
@@ -26,6 +27,7 @@ intention:
 | `rationale` | Yes | Why this Intention matters to the Product |
 | `priority` | Yes | critical, high, medium, or low |
 | `dependencies` | No | Other Intention IDs that must be fulfilled first |
+| `expectations` | No | Expectation IDs that belong to this Intention — populated as Expectations are created |
 | `owner` | Yes | Person accountable for this Intention |
 | `status` | Yes | Current state in the lifecycle |
 
