@@ -86,7 +86,8 @@ expectation:
     - ""                          # Boundary condition 2
   complexity: ""                  # low | medium | high (risk indicator, not effort)
   owner: ""
-  status: "draft"                 # draft | ready | specced | validated | done
+  status: "draft"                 # draft | ready | specced | validated | done | deferred
+  deferred_reason: ""             # optional: required when status is "deferred"; explain why and when it will be revisited
 ```
 
 ### Spec (The Unit of Work)

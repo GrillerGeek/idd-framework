@@ -15,7 +15,8 @@ expectation:
     - ""                             # Boundary condition 2
   complexity: ""                     # low | medium | high (risk indicator, not effort)
   owner: ""                          # Accountable individual
-  status: "draft"                    # draft | ready | specced | validated | done
+  status: "draft"                    # draft | ready | specced | validated | done | deferred
+  deferred_reason: ""                # optional: required when status is "deferred"; explain why and when it will be revisited
 ```
 
 ## Field Descriptions
@@ -30,6 +31,7 @@ expectation:
 | `complexity` | Yes | low, medium, or high — a risk indicator, not effort estimate |
 | `owner` | Yes | Person accountable |
 | `status` | Yes | Current state in the lifecycle |
+| `deferred_reason` | When deferred | Why the Expectation is deferred and when it will be revisited |
 
 ## Edge Case Guidance
 
@@ -50,4 +52,7 @@ Every Expectation needs at least 2 edge cases. Think about:
 
 ## Status Lifecycle
 
-`draft → ready → specced → validated → done`
+`draft → ready → specced → validated → done | deferred`
+`deferred → ready` (when the blocker is resolved)
+
+A `deferred` Expectation is real and acknowledged but intentionally out of scope for the current delivery cycle — for example, blocked on an external team or infrastructure dependency. Use `deferred` (with a mandatory `deferred_reason`) so the parent Intention can be marked `fulfilled` while the Expectation remains visible and actionable for a future cycle. When the blocker is resolved, transition the Expectation back to `ready` to re-enter the active workflow.
