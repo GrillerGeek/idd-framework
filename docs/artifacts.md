@@ -78,7 +78,8 @@ An Expectation is a verifiable constraint or validation that makes an Intention 
 | Edge Cases | Boundary conditions and error scenarios (minimum 2) | "No data for customer → show 'Insufficient Data' state, not zero" / "Score exactly on boundary (40, 70) → include in higher band" |
 | Complexity | Risk/uncertainty indicator | `Low` · `Medium` · `High` |
 | Owner | Accountable person | Spec Author |
-| Status | Current state | `Draft` · `Ready` · `Specced` · `Validated` · `Done` |
+| Status | Current state | `Draft` · `Ready` · `Specced` · `Validated` · `Done` · `Deferred` |
+| Deferred Reason | Why this Expectation is deferred *(required when status is `Deferred`)* | Blocked on IT team delivering production TLS certificate; does not block feature delivery |
 
 ### Writing Good Expectations
 
