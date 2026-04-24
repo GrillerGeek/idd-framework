@@ -10,7 +10,9 @@ Available Expectations:
 Existing Specs:
 !`ls docs/specs/*.yaml 2>/dev/null | head -20 || echo "No specs yet."`
 
-Launch the `idd-spec-author` agent to create an AI-ready Spec.
+Launch the `idd-spec-author` subagent to create an AI-ready Spec.
+
+**Model directive:** When dispatching this subagent, you MUST explicitly pass `model: "sonnet"` to the Agent/Task tool call. This subagent is tuned for Sonnet 4.6 (5-block synthesis with codebase pattern scanning) and must not inherit the main session's model. Do NOT skip this parameter.
 
 If `$ARGUMENTS` contains expectation IDs (e.g., EXP-001 EXP-002), pass them to the agent so it can load the correct Expectation artifacts from `docs/expectations/`.
 

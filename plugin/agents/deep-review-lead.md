@@ -20,7 +20,7 @@ description: Use this agent for multi-perspective Spec reviews. Examples:
   </commentary>
   </example>
 
-model: inherit
+model: opus
 color: magenta
 effort: high
 maxTurns: 15

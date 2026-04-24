@@ -20,7 +20,7 @@ description: Use this agent when defining both Intentions and Expectations toget
   </commentary>
   </example>
 
-model: inherit
+model: sonnet
 color: green
 effort: high
 maxTurns: 25

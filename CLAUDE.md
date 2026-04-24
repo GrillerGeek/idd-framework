@@ -54,6 +54,14 @@ The `plugin/` directory contains a Claude Code plugin that automates the IDD wor
 
 Core agents map to IDD roles: product-interviewer, intention-author, expectation-author, spec-author, tech-lead-reviewer, spec-reviewer. Accelerated agents: outcome-author, quick-spec-author, deep-review-lead. Commands dispatch to these agents.
 
+**Model assignment strategy** (in each agent's frontmatter `model:` field):
+
+- **opus** — reasoning-heavy synthesis: `deep-review-lead`, `tech-lead-reviewer`
+- **sonnet** — structured synthesis with codebase scanning: `spec-author`, `quick-spec-author`, `spec-reviewer`, `outcome-author`
+- **haiku** — template-guided Q&A and decomposition: `product-interviewer`, `intention-author`, `expectation-author`
+
+Assignments are explicit (not `inherit`) so a user running Opus in their main session doesn't pay Opus rates for a stakeholder interview. When editing agents, preserve the model assignment unless the agent's responsibilities materially change tier.
+
 ### Skills, References, and Hooks
 
 - `plugin/skills/idd-orchestration/` — Orchestration skill (SKILL.md) and reference templates for agent consumption. Templates are Markdown-formatted; top-level `templates/` are YAML for human use.

@@ -20,7 +20,7 @@ description: Use this agent when validating AI output against a Spec's Expectati
   </commentary>
   </example>
 
-model: inherit
+model: sonnet
 color: red
 effort: medium
 maxTurns: 10

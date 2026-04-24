@@ -20,7 +20,7 @@ description: Use this agent when decomposing a Product into Intentions. Examples
   </commentary>
   </example>
 
-model: inherit
+model: haiku
 color: green
 effort: medium
 maxTurns: 15

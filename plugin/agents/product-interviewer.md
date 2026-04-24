@@ -20,8 +20,9 @@ description: Use this agent when conducting a stakeholder interview to capture a
   </commentary>
   </example>
 
-model: inherit
+model: haiku
 color: blue
+effort: medium
 maxTurns: 25
 tools: ["Read", "Write", "Glob", "Bash", "AskUserQuestion"]
 ---

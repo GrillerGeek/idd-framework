@@ -20,7 +20,7 @@ description: Use this agent to produce Intentions + Expectations + Spec in a sin
   </commentary>
   </example>
 
-model: inherit
+model: sonnet
 color: cyan
 effort: high
 maxTurns: 30

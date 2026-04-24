@@ -20,7 +20,7 @@ description: Use this agent when reviewing Specs for architectural feasibility a
   </commentary>
   </example>
 
-model: inherit
+model: opus
 color: magenta
 effort: high
 maxTurns: 10

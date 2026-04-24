@@ -20,7 +20,7 @@ description: Use this agent when creating AI-ready Specs from Expectations. Exam
   </commentary>
   </example>
 
-model: inherit
+model: sonnet
 color: cyan
 effort: high
 maxTurns: 20

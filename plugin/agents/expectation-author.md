@@ -20,9 +20,9 @@ description: Use this agent when defining verifiable Expectations for Intentions
   </commentary>
   </example>
 
-model: inherit
+model: haiku
 color: yellow
-effort: high
+effort: medium
 maxTurns: 20
 tools: ["Read", "Write", "Glob", "Bash", "AskUserQuestion"]
 ---
