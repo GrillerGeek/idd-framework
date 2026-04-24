@@ -68,6 +68,7 @@ intention:
   rationale: ""                   # Why does this Intention matter?
   priority: ""                    # critical | high | medium | low
   dependencies: []                # Other Intention IDs that must be fulfilled first
+  expectations: []                # Expectation IDs that belong to this Intention
   owner: ""
   status: "draft"                 # draft | defined | in-progress | fulfilled | deferred
 ```

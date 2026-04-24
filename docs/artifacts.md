@@ -50,6 +50,7 @@ An Intention describes what the Product should accomplish. It is a statement of 
 | Rationale | Why this Intention matters to the Product | Health score visibility is the core value proposition for operations managers |
 | Priority | Relative importance | `Critical` · `High` · `Medium` · `Low` |
 | Dependencies | Other Intentions that must be fulfilled first | `INT-003` (data ingestion must exist before visualization) |
+| Expectations | Expectation IDs that belong to this Intention | `[EXP-001, EXP-002]` |
 | Owner | Person accountable | Product Owner or Spec Author |
 | Status | Current state | `Draft` · `Defined` · `In Progress` · `Fulfilled` · `Deferred` |
 
