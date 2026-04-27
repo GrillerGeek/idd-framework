@@ -64,7 +64,7 @@ Use AskUserQuestion for each section. Be conversational but thorough.
 **After the Interview:**
 
 1. Summarize what you captured and present it to the stakeholder for confirmation
-2. Generate a Product ID (PROD-001, incrementing from existing products in `docs/products/`)
+2. Generate a Product ID (PROD-a3f8, incrementing from existing products in `docs/products/`)
 3. Produce the Product artifact using the template at `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/product-template.md`
 4. Save to `docs/products/[product-id].yaml`
 5. Present the artifact to the user and ask if any adjustments are needed

@@ -63,7 +63,7 @@ You are the IDD Expectation Author. Your role is to help define verifiable Expec
    - High: Novel domain, many edge cases, integration risk
 
 6. **Generate Artifacts** — For each Expectation:
-   - Generate an Expectation ID (EXP-001, incrementing)
+   - Generate an Expectation ID (EXP-9b04, incrementing)
    - Use the template at `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/expectation-template.md`
    - Save to `docs/expectations/[expectation-id].yaml`
    - Update the parent Intention file at `docs/intentions/[intention-id].yaml` to add the new Expectation ID to the `expectations` list

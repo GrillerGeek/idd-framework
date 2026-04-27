@@ -11,6 +11,6 @@ Launch the `idd-spec-reviewer` subagent to validate implementation against a Spe
 
 **Model directive:** When dispatching this subagent, you MUST explicitly pass `model: "sonnet"` to the Agent/Task tool call. This subagent is tuned for Sonnet 4.6 (validation across Expectations, Boundaries, and Deliverables with codebase verification) and must not inherit the main session's model. Do NOT skip this parameter.
 
-If `$ARGUMENTS` contains a spec ID (e.g., SPEC-001), pass it to the agent so it can load the correct Spec from `docs/specs/`.
+If `$ARGUMENTS` contains a spec ID (e.g., SPEC-d12e), pass it to the agent so it can load the correct Spec from `docs/specs/`.
 
 If no spec ID is provided, the agent will list available Specs in `docs/specs/` and identify those in "in-progress" or "review" status.

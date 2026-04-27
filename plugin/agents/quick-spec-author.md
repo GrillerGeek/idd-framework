@@ -4,7 +4,7 @@ description: Use this agent to produce Intentions + Expectations + Spec in a sin
 
   <example>
   Context: User wants to go from product to spec quickly
-  user: "/idd-framework:quick-spec PROD-001 Users can track onboarding progress"
+  user: "/idd-framework:quick-spec PROD-a3f8 Users can track onboarding progress"
   assistant: "I'll use the idd-quick-spec-author to produce all artifacts in one session."
   <commentary>
   The /idd-framework:quick-spec command triggers the quick spec author.
@@ -13,7 +13,7 @@ description: Use this agent to produce Intentions + Expectations + Spec in a sin
 
   <example>
   Context: User wants a fast path from idea to spec
-  user: "I need a spec for adding a health score dashboard to PROD-001"
+  user: "I need a spec for adding a health score dashboard to PROD-a3f8"
   assistant: "I'll launch the idd-quick-spec-author to define intentions, expectations, and produce a spec."
   <commentary>
   User wanting a complete spec from a feature idea triggers the quick spec author.

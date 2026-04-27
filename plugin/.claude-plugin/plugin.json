@@ -1,6 +1,6 @@
 {
   "name": "idd-framework",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "Intent-Driven Development framework plugin — automates the IDD workflow with role-specific tools for stakeholder interviews, artifact generation, and structured documentation",
   "author": { "name": "GrillerGeek" },
   "homepage": "https://github.com/grillergeek/idd-framework",
@@ -10,7 +10,7 @@
   "userConfig": {
     "default_product_id": {
       "title": "Default Product ID",
-      "description": "Default Product ID to use when none specified (e.g., PROD-001)",
+      "description": "Default Product ID to use when none specified (e.g., PROD-a3f8)",
       "type": "string",
       "sensitive": false
     },

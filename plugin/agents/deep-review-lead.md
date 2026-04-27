@@ -4,7 +4,7 @@ description: Use this agent for multi-perspective Spec reviews. Examples:
 
   <example>
   Context: User wants a thorough, multi-angle review of a spec
-  user: "/idd-framework:deep-review SPEC-001"
+  user: "/idd-framework:deep-review SPEC-d12e"
   assistant: "I'll use the idd-deep-review-lead to conduct a multi-perspective review."
   <commentary>
   The /idd-framework:deep-review command triggers the deep review lead.

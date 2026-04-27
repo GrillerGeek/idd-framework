@@ -79,34 +79,34 @@ Each command can be used independently. You don't have to run the full pipeline.
 
 2. **Break it into intentions:**
    ```
-   /idd-framework:define-intentions PROD-001
+   /idd-framework:define-intentions PROD-a3f8
    ```
 
 3. **Define expectations with edge cases:**
    ```
-   /idd-framework:define-expectations INT-001
+   /idd-framework:define-expectations INT-7c21
    ```
 
 4. **Write the spec:**
    ```
-   /idd-framework:write-spec EXP-001 EXP-002
+   /idd-framework:write-spec EXP-9b04 EXP-3f2a
    ```
 
 5. **Review for architectural fit:**
    ```
-   /idd-framework:tech-review SPEC-001
+   /idd-framework:tech-review SPEC-d12e
    ```
 
 6. **After AI builds the code, validate:**
    ```
-   /idd-framework:review-spec SPEC-001
+   /idd-framework:review-spec SPEC-d12e
    ```
 
 ### Fast Track (after Product is defined)
 
 ```
-/idd-framework:quick-spec PROD-001 "Users can view their onboarding checklist and track progress"
-/idd-framework:tech-review SPEC-001
+/idd-framework:quick-spec PROD-a3f8 "Users can view their onboarding checklist and track progress"
+/idd-framework:tech-review SPEC-d12e
 ```
 
 This produces Intentions, Expectations, and a Spec in a single guided session.
@@ -139,7 +139,7 @@ The framework defines six roles. Each maps to a plugin agent:
 
 - **SessionStart hook** — Automatically creates the `docs/` directory structure when you start a session
 - **User config** — Set `default_product_id` and `team_name` at plugin install for faster workflows
-- **Helper scripts** — `idd-next-id` (in `bin/`) auto-generates the next sequential artifact ID
+- **Helper scripts** — `idd-next-id` (in `bin/`) generates a unique short-hash artifact ID (e.g., `SPEC-a3f8`); collision-free across branches
 - **Reviewer memory** — Tech lead and spec reviewer agents accumulate project-specific learnings across sessions
 - **Agent Teams support** — `/idd-framework:deep-review` uses parallel Agent Teams when the experimental flag is enabled, with graceful fallback to sequential review
 
