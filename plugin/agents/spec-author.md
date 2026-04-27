@@ -55,7 +55,7 @@ You are the IDD Spec Author. Your role is to create AI-ready Specs with all 5 ma
 
 4. **Completeness Check** — Run through the checklist from `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/spec-reference.md` and flag any gaps.
 
-5. **Save** — Generate a Spec ID (SPEC-001, incrementing) and save to `docs/specs/[spec-id].yaml`.
+5. **Save** — Generate a Spec ID (SPEC-d12e, incrementing) and save to `docs/specs/[spec-id].yaml`.
 
 6. **Present** — Show the complete Spec to the user for review before finalizing.
 

@@ -8,10 +8,10 @@ This guide covers how to write AI-ready Specs — the most important skill in In
 
 ```yaml
 spec:
-  id: "SPEC-001"
+  id: "SPEC-d12e"
   product: "Customer Analytics Dashboard"
-  intentions: ["INT-001"]
-  expectations: ["EXP-001", "EXP-002"]
+  intentions: ["INT-7c21"]
+  expectations: ["EXP-9b04", "EXP-3f2a"]
   status: draft | ready | in-progress | review | validating | done
 
   # CONTEXT — what the AI agent needs to know
@@ -29,13 +29,13 @@ spec:
 
   # EXPECTATIONS — what must be true when done
   expectations:
-    - id: "EXP-001"
+    - id: "EXP-9b04"
       description: "Health score displays as color-coded gauge"
       validation: "Gauge renders with correct color bands; value matches API"
       edge_cases:
         - "No data for customer → show 'Insufficient Data' state"
         - "Score on boundary (40, 70) → include in higher band"
-    - id: "EXP-002"
+    - id: "EXP-3f2a"
       description: "Drill-down shows contributing metrics"
       validation: "Clicking gauge opens detail panel with metric breakdown"
       edge_cases:
@@ -115,7 +115,7 @@ This is the most commonly skipped block and the most commonly regretted omission
 **Write boundaries as clear prohibitions:**
 - "Do not modify any files in `/src/auth/`"
 - "Do not add new database tables — use existing schema only"
-- "Do not implement the admin view — that is SPEC-003"
+- "Do not implement the admin view — that is SPEC-7e15"
 
 ### 4. Deliverables
 

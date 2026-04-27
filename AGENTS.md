@@ -13,13 +13,13 @@ Intent-Driven Development replaces agile's work-decomposition (Epic > Feature > 
 ## Artifact Hierarchy
 
 ```
-Product (PROD-xxx)  →  Why does this exist?
-  └─ Intention (INT-xxx)  →  What should it accomplish?
-      └─ Expectation (EXP-xxx)  →  How do we know it's right?
-          └─ Spec (SPEC-xxx)  →  How does AI build it?
+Product (PROD-a3f8)  →  Why does this exist?
+  └─ Intention (INT-7c21)  →  What should it accomplish?
+      └─ Expectation (EXP-9b04)  →  How do we know it's right?
+          └─ Spec (SPEC-d12e)  →  How does AI build it?
 ```
 
-IDs are sequential within their type (PROD-001, INT-001, EXP-001, SPEC-001). Check existing artifacts in `docs/` before assigning new IDs.
+IDs are short random hashes (e.g., `PROD-a3f8`) — typically 4 hex characters, extending to 6 or 8 if a collision is detected at generation time. Use `idd-next-id <type>` to generate a new ID; the script guarantees uniqueness against existing artifacts. IDs are immutable once assigned.
 
 ## Output Directories
 
@@ -42,7 +42,7 @@ Create these directories if they don't exist before saving artifacts.
 
 ```yaml
 product:
-  id: "PROD-001"
+  id: "PROD-a3f8"
   name: ""                        # Working product name
   status: "discovery"             # discovery | active | maintenance | sunset
   owner: ""                       # Accountable individual
@@ -62,8 +62,8 @@ product:
 
 ```yaml
 intention:
-  id: "INT-001"
-  product: "PROD-001"             # Parent Product
+  id: "INT-7c21"
+  product: "PROD-a3f8"             # Parent Product
   statement: ""                   # What should the product accomplish? (outcome, not task)
   rationale: ""                   # Why does this Intention matter?
   priority: ""                    # critical | high | medium | low
@@ -77,8 +77,8 @@ intention:
 
 ```yaml
 expectation:
-  id: "EXP-001"
-  intention: "INT-001"            # Parent Intention
+  id: "EXP-9b04"
+  intention: "INT-7c21"            # Parent Intention
   description: ""                 # What must be true when this is met?
   validation_criteria: ""         # How to verify: pass/fail or measurable
   edge_cases:                     # MINIMUM 2 REQUIRED
@@ -96,7 +96,7 @@ Every Spec has **five mandatory blocks**. A Spec cannot be marked Ready until al
 
 ```yaml
 spec:
-  id: "SPEC-001"
+  id: "SPEC-d12e"
   product: ""                     # Parent Product name or ID
   intentions: []                  # Intention IDs this Spec addresses
   expectations: []                # Expectation IDs this Spec implements
@@ -115,7 +115,7 @@ spec:
 
   # BLOCK 2: EXPECTATIONS — what must be true when done
   expectations:
-    - id: "EXP-001"
+    - id: "EXP-9b04"
       description: ""             # Required behavior
       validation: ""              # Pass/fail or measurable criteria
       edge_cases:
@@ -166,7 +166,7 @@ A Spec cannot enter **Ready** status until every item passes:
 
 5. **Specs should be focused.** Prefer Specs that address a cohesive set of Expectations. If a Spec covers an entire feature with unrelated concerns, split it. Tightly-coupled deliverables can stay together.
 
-6. **IDs are sequential.** Check `docs/products/`, `docs/intentions/`, `docs/expectations/`, and `docs/specs/` for existing IDs before assigning new ones.
+6. **IDs are random short hashes.** Use `idd-next-id <type>` (in `plugin/bin/`) to generate a new ID — it produces a 4-hex-char suffix like `SPEC-a3f8` and ensures uniqueness against existing files in the working tree. IDs are immutable once assigned. Pre-existing sequential IDs in the form `SPEC-001`, `INT-002`, etc. remain valid; mixed format is supported indefinitely.
 
 7. **Status lifecycle.** Artifacts progress through their status values in order. Don't skip states.
 

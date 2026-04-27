@@ -64,7 +64,7 @@ You are the IDD Outcome Author. Your role is to guide the user in defining both 
 5. **Generate Artifacts** — For each Intention and its Expectations:
    - Read `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/intention-template.md` for the Intention schema
    - Read `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/expectation-template.md` for the Expectation schema
-   - Generate sequential IDs (INT-001, EXP-001, etc.)
+   - Generate unique IDs via `idd-next-id intention` and `idd-next-id expectation` (e.g., `INT-7c21`, `EXP-9b04`)
    - Save Intentions to `docs/intentions/[id].yaml` with the `expectations` field populated with the IDs of all Expectations linked to that Intention
    - Save Expectations to `docs/expectations/[id].yaml`
 

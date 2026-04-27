@@ -13,7 +13,7 @@ description: Use this agent when validating AI output against a Spec's Expectati
 
   <example>
   Context: User has AI-generated code and wants to check it
-  user: "Validate this implementation against SPEC-001"
+  user: "Validate this implementation against SPEC-d12e"
   assistant: "I'll launch the idd-spec-reviewer to validate against the Spec."
   <commentary>
   User wanting to validate output triggers the spec reviewer.
@@ -84,7 +84,7 @@ You are the IDD Spec Reviewer. Your role is to validate AI-generated output agai
 ## Expectation Results
 | ID | Description | Status | Notes |
 |----|-------------|--------|-------|
-| EXP-001 | ... | Pass/Partial/Fail | ... |
+| EXP-9b04 | ... | Pass/Partial/Fail | ... |
 
 ## Boundary Results
 | Boundary | Status | Evidence |

@@ -1,47 +1,45 @@
 #!/bin/bash
-# idd-next-id: Generate the next sequential ID for an IDD artifact type
+# idd-next-id: Generate a unique ID for an IDD artifact type
 # Usage: idd-next-id <type>
 # Types: product, intention, expectation, spec
-# Example: idd-next-id spec → outputs SPEC-003
+# Example: idd-next-id spec → outputs SPEC-a3f8
+#
+# IDs are random short hashes (4 hex chars by default) rather than sequential.
+# This eliminates merge collisions when multiple contributors create artifacts
+# concurrently on different branches — there is no shared counter to coordinate.
+# On rare collision against an existing on-disk file, the script extends to 6
+# then 8 hex chars before giving up.
 
 set -euo pipefail
 
 TYPE="${1:-}"
 
 case "$TYPE" in
-  product|products)
-    PREFIX="PROD"
-    DIR="docs/products"
-    ;;
-  intention|intentions)
-    PREFIX="INT"
-    DIR="docs/intentions"
-    ;;
-  expectation|expectations)
-    PREFIX="EXP"
-    DIR="docs/expectations"
-    ;;
-  spec|specs)
-    PREFIX="SPEC"
-    DIR="docs/specs"
-    ;;
+  product|products)         PREFIX="PROD"; DIR="docs/products" ;;
+  intention|intentions)     PREFIX="INT";  DIR="docs/intentions" ;;
+  expectation|expectations) PREFIX="EXP";  DIR="docs/expectations" ;;
+  spec|specs)               PREFIX="SPEC"; DIR="docs/specs" ;;
   *)
     echo "Usage: idd-next-id <product|intention|expectation|spec>" >&2
     exit 1
     ;;
 esac
 
-# Find the highest existing ID number
-MAX_NUM=0
-if [ -d "$DIR" ]; then
-  for file in "$DIR"/${PREFIX}-*.yaml; do
-    [ -e "$file" ] || continue
-    NUM=$(basename "$file" | grep -oP "${PREFIX}-\K[0-9]+" | head -1)
-    if [ -n "$NUM" ] && [ "$NUM" -gt "$MAX_NUM" ]; then
-      MAX_NUM=$NUM
+gen_hash() {
+  # $1 = number of bytes (each byte = 2 hex chars)
+  od -An -tx1 -N"$1" /dev/urandom | tr -d ' \n'
+}
+
+# Try 4-hex first (2 bytes), extend to 6 then 8 on persistent collisions.
+for bytes in 2 3 4; do
+  for attempt in 1 2 3 4 5; do
+    ID="$(gen_hash "$bytes")"
+    if [ ! -e "$DIR/${PREFIX}-${ID}.yaml" ]; then
+      printf "%s-%s\n" "$PREFIX" "$ID"
+      exit 0
     fi
   done
-fi
+done
 
-NEXT_NUM=$((MAX_NUM + 1))
-printf "%s-%03d\n" "$PREFIX" "$NEXT_NUM"
+echo "idd-next-id: failed to generate unique ID after 15 attempts" >&2
+exit 1

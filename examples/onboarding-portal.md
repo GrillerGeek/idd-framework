@@ -8,7 +8,7 @@ This example walks through the full IDD hierarchy for a realistic internal tool.
 
 ```yaml
 product:
-  id: "PROD-001"
+  id: "PROD-a3f8"
   name: "Onboarding Portal"
   status: "active"
   owner: "Sarah Chen"
@@ -45,46 +45,46 @@ product:
 
 ## Intentions
 
-### INT-001: Onboarding Checklist Management
+### INT-7c21: Onboarding Checklist Management
 
 ```yaml
 intention:
-  id: "INT-001"
-  product: "PROD-001"
+  id: "INT-7c21"
+  product: "PROD-a3f8"
   statement: "HR can define and manage onboarding checklist templates that automatically create task lists for each new hire."
   rationale: "The checklist is the core workflow artifact. Without structured, reusable templates, every onboarding is improvised."
   priority: "critical"
   dependencies: []
-  expectations: ["EXP-001", "EXP-002", "EXP-003"]
+  expectations: ["EXP-9b04", "EXP-3f2a", "EXP-5d8b"]
   owner: "Sarah Chen"
   status: "defined"
 ```
 
-### INT-002: Cross-Team Visibility
+### INT-3e4f: Cross-Team Visibility
 
 ```yaml
 intention:
-  id: "INT-002"
-  product: "PROD-001"
+  id: "INT-3e4f"
+  product: "PROD-a3f8"
   statement: "HR, IT, and hiring managers can see the real-time status of every onboarding in progress, filtered to their responsibilities."
   rationale: "The #1 complaint is 'I didn't know that was my task.' Visibility eliminates handoff gaps."
   priority: "critical"
-  dependencies: ["INT-001"]
+  dependencies: ["INT-7c21"]
   expectations: []
   owner: "Sarah Chen"
   status: "defined"
 ```
 
-### INT-003: New Employee Self-Service
+### INT-c8a4: New Employee Self-Service
 
 ```yaml
 intention:
-  id: "INT-003"
-  product: "PROD-001"
+  id: "INT-c8a4"
+  product: "PROD-a3f8"
   statement: "New employees can view their onboarding progress, complete assigned tasks (document uploads, acknowledgments), and see their first-week schedule."
   rationale: "Empowering the new hire reduces HR burden and improves the first-week experience."
   priority: "high"
-  dependencies: ["INT-001"]
+  dependencies: ["INT-7c21"]
   expectations: []
   owner: "Sarah Chen"
   status: "defined"
@@ -92,11 +92,11 @@ intention:
 
 ---
 
-## Expectations (for INT-001)
+## Expectations (for INT-7c21)
 
 ```yaml
-- id: "EXP-001"
-  intention: "INT-001"
+- id: "EXP-9b04"
+  intention: "INT-7c21"
   description: "HR can create a checklist template with named tasks, each assigned to a role (HR, IT, Manager, or Employee) with a due-by offset in days from start date."
   validation_criteria: "Template creation form saves all fields; template appears in template list; tasks display with role badges and day offsets."
   edge_cases:
@@ -106,8 +106,8 @@ intention:
   complexity: "low"
   status: "ready"
 
-- id: "EXP-002"
-  intention: "INT-001"
+- id: "EXP-3f2a"
+  intention: "INT-7c21"
   description: "When a new hire is added, the system instantiates a checklist from the selected template, calculating actual due dates from the start date."
   validation_criteria: "New hire creation triggers checklist generation; each task has a concrete due date; task list visible on the new hire's onboarding page."
   edge_cases:
@@ -117,8 +117,8 @@ intention:
   complexity: "medium"
   status: "ready"
 
-- id: "EXP-003"
-  intention: "INT-001"
+- id: "EXP-5d8b"
+  intention: "INT-7c21"
   description: "Tasks can be marked complete by the assigned role, with a timestamp and the completing user recorded."
   validation_criteria: "Checkbox on task toggles completion; timestamp and user recorded; completion is reflected in progress calculations."
   edge_cases:
@@ -131,14 +131,14 @@ intention:
 
 ---
 
-## Spec (for EXP-001 + EXP-002 + EXP-003)
+## Spec (for EXP-9b04 + EXP-3f2a + EXP-5d8b)
 
 ```yaml
 spec:
-  id: "SPEC-001"
-  product: "PROD-001"
-  intentions: ["INT-001"]
-  expectations: ["EXP-001", "EXP-002", "EXP-003"]
+  id: "SPEC-d12e"
+  product: "PROD-a3f8"
+  intentions: ["INT-7c21"]
+  expectations: ["EXP-9b04", "EXP-3f2a", "EXP-5d8b"]
   status: "ready"
 
   context:
@@ -155,7 +155,7 @@ spec:
     auth: "SSO via OIDC; role field on user record (hr, it, manager, employee); middleware validates role on protected routes"
 
   expectations:
-    - id: "EXP-001"
+    - id: "EXP-9b04"
       description: "HR can create checklist templates with tasks, role assignments, and day offsets"
       validation: "Form saves; template appears in list; tasks show role badges and offsets"
       edge_cases:
@@ -163,7 +163,7 @@ spec:
         - "Offset 0 → displayed as 'Day 1'"
         - "Duplicate task names → allowed"
 
-    - id: "EXP-002"
+    - id: "EXP-3f2a"
       description: "New hire creation instantiates checklist with concrete due dates"
       validation: "Checklist generated from template; dates calculated; visible on onboarding page"
       edge_cases:
@@ -171,7 +171,7 @@ spec:
         - "Start date in past → overdue tasks flagged"
         - "Template modified after instantiation → no effect on existing"
 
-    - id: "EXP-003"
+    - id: "EXP-5d8b"
       description: "Tasks can be marked complete with timestamp and user recorded"
       validation: "Checkbox toggles; timestamp recorded; progress recalculated"
       edge_cases:
@@ -180,8 +180,8 @@ spec:
         - "All complete → status auto-updates"
 
   boundaries:
-    - "Do not implement email notifications — that is SPEC-003"
-    - "Do not implement document upload functionality — that is SPEC-004"
+    - "Do not implement email notifications — that is SPEC-7e15"
+    - "Do not implement document upload functionality — that is SPEC-4b62"
     - "Do not modify the existing user/auth tables"
     - "Do not implement a calendar or scheduling view"
 

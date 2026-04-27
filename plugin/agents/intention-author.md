@@ -52,7 +52,7 @@ You are the IDD Intention Author. Your role is to guide the Product Owner in dec
    - Identify dependencies between Intentions
 
 4. **Generate Artifacts** — For each Intention:
-   - Generate an Intention ID (INT-001, incrementing)
+   - Generate an Intention ID (INT-7c21, incrementing)
    - Use the template at `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/intention-template.md`
    - Save to `docs/intentions/[intention-id].yaml`
 

@@ -12,7 +12,7 @@ The Product is the highest-level artifact. It defines the business problem, targ
 
 | Field | Description | Example |
 |---|---|---|
-| Product ID | Unique identifier | `PROD-001` |
+| Product ID | Unique identifier | `PROD-a3f8` |
 | Name | Working product name | Customer Analytics Dashboard |
 | Problem Statement | What business problem this solves | Operations teams lack real-time visibility into customer health metrics, leading to delayed interventions and churn |
 | Target Audience | Who benefits | Operations managers, customer success teams, account executives |
@@ -44,13 +44,13 @@ An Intention describes what the Product should accomplish. It is a statement of 
 
 | Field | Description | Example |
 |---|---|---|
-| Intention ID | Unique identifier scoped to Product | `INT-001` |
-| Product ID | Parent Product reference | `PROD-001` |
+| Intention ID | Unique identifier scoped to Product | `INT-7c21` |
+| Product ID | Parent Product reference | `PROD-a3f8` |
 | Statement | What the product should accomplish | Users can view customer health scores with drill-down into contributing metrics |
 | Rationale | Why this Intention matters to the Product | Health score visibility is the core value proposition for operations managers |
 | Priority | Relative importance | `Critical` · `High` · `Medium` · `Low` |
-| Dependencies | Other Intentions that must be fulfilled first | `INT-003` (data ingestion must exist before visualization) |
-| Expectations | Expectation IDs that belong to this Intention | `[EXP-001, EXP-002]` |
+| Dependencies | Other Intentions that must be fulfilled first | `INT-c8a4` (data ingestion must exist before visualization) |
+| Expectations | Expectation IDs that belong to this Intention | `[EXP-9b04, EXP-3f2a]` |
 | Owner | Person accountable | Product Owner or Spec Author |
 | Status | Current state | `Draft` · `Defined` · `In Progress` · `Fulfilled` · `Deferred` |
 
@@ -71,8 +71,8 @@ An Expectation is a verifiable constraint or validation that makes an Intention 
 
 | Field | Description | Example |
 |---|---|---|
-| Expectation ID | Unique identifier scoped to Intention | `EXP-001` |
-| Intention ID | Parent Intention reference | `INT-001` |
+| Expectation ID | Unique identifier scoped to Intention | `EXP-9b04` |
+| Intention ID | Parent Intention reference | `INT-7c21` |
 | Description | What must be true when met | Health score displays as a color-coded gauge with numeric value |
 | Validation Criteria | How to verify: pass/fail, measurable, demonstrable | Gauge renders with correct color bands (red < 40, yellow 40–70, green > 70); numeric value matches API response |
 | Edge Cases | Boundary conditions and error scenarios (minimum 2) | "No data for customer → show 'Insufficient Data' state, not zero" / "Score exactly on boundary (40, 70) → include in higher band" |
@@ -106,7 +106,7 @@ The Spec is the translation artifact that converts Expectations into structured 
 
 | Field | Description |
 |---|---|
-| Spec ID | Unique identifier (e.g., `SPEC-001`) |
+| Spec ID | Unique identifier (e.g., `SPEC-d12e`) |
 | Product ID | Parent Product reference |
 | Intention ID(s) | Which Intention(s) this Spec addresses |
 | Expectation ID(s) | Which Expectation(s) this Spec implements |
