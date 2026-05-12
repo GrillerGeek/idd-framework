@@ -51,7 +51,7 @@ Decompose the feature description into 2-4 outcome-focused Intentions:
 - Assign priorities and identify dependencies
 - Present to the user for quick confirmation/adjustment
 
-Read `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/intention-template.md` for the schema. Generate and save INT-*.yaml files to `docs/intentions/`.
+Read `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/intention-template.md` for the schema. Generate IDs by running `idd-next-id intention` for each artifact. Save INT-*.yaml files to `docs/intentions/`.
 
 ### Phase 3: Define Expectations
 
@@ -61,7 +61,7 @@ For each Intention, define Expectations with edge cases:
 - Enumerate at least 2 edge cases per Expectation (boundary values, error conditions, unusual states)
 - Assess complexity (low/medium/high)
 
-Read `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/expectation-template.md` for the schema. Generate and save EXP-*.yaml files to `docs/expectations/`. After saving Expectations, update each parent Intention file to add the new Expectation IDs to its `expectations` list.
+Read `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/expectation-template.md` for the schema. Generate IDs by running `idd-next-id expectation` for each artifact. Save EXP-*.yaml files to `docs/expectations/`. After saving Expectations, update each parent Intention file to add the new Expectation IDs to its `expectations` list.
 
 ### Phase 4: Author the Spec
 
@@ -84,7 +84,7 @@ Read `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/spec-reference.m
 
 **Validation Block** — Split into automated (tests, type checks, contract checks) and human review (UX, architecture, data accuracy).
 
-Run the completeness checklist. Generate and save SPEC-*.yaml to `docs/specs/`.
+Run the completeness checklist. Generate the Spec ID by running `idd-next-id spec`. Save SPEC-*.yaml to `docs/specs/`.
 
 ### Phase 5: Present Summary
 
