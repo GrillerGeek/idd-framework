@@ -52,6 +52,12 @@ Each layer gives developers and AI agents the context they need to make implemen
 | `/idd-framework:quick-spec` | Full pipeline — Intentions + Expectations + Spec in one session | All three artifact types |
 | `/idd-framework:deep-review` | Multi-perspective review (uses Agent Teams when available) | Deep review report in `docs/reviews/` |
 
+### Tooling
+
+| Command | Purpose | Artifact |
+|---------|---------|----------|
+| `/idd-framework:forge` | Launch the [Forge](https://github.com/JasonRobey-Burke/Forge) web UI for browsing and editing IDD artifacts | Local server at `http://localhost:4000` |
+
 Each command can be used independently. You don't have to run the full pipeline.
 
 ## Agents

@@ -50,6 +50,12 @@ The `plugin/` directory contains a Claude Code plugin that automates the IDD wor
 | `/idd-framework:quick-spec` | Full pipeline (INT + EXP + SPEC) in one session | All three artifact types |
 | `/idd-framework:deep-review` | Multi-perspective review with Agent Teams | `docs/reviews/` |
 
+**Tooling:**
+
+| Command | Purpose | Output |
+|---------|---------|--------|
+| `/idd-framework:forge` | Launch the [Forge](https://github.com/JasonRobey-Burke/Forge) web UI in the background via `npx @jasonrobey/idd-forge` | Local server at `http://localhost:4000` |
+
 ### Agents (in `plugin/agents/`)
 
 Core agents map to IDD roles: product-interviewer, intention-author, expectation-author, spec-author, tech-lead-reviewer, spec-reviewer. Accelerated agents: outcome-author, quick-spec-author, deep-review-lead. Commands dispatch to these agents.
