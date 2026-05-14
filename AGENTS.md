@@ -42,7 +42,7 @@ Create these directories if they don't exist before saving artifacts.
 
 ```yaml
 product:
-  id: "PROD-a3f8"
+  id: "PROD-a3f8"                 # run `idd-next-id product`; or generate a random 4-char hex suffix — never sequential
   name: ""                        # Working product name
   status: "discovery"             # discovery | active | maintenance | sunset
   owner: ""                       # Accountable individual
@@ -62,7 +62,7 @@ product:
 
 ```yaml
 intention:
-  id: "INT-7c21"
+  id: "INT-7c21"                  # run `idd-next-id intention`; or generate a random 4-char hex suffix — never sequential
   product: "PROD-a3f8"             # Parent Product
   statement: ""                   # What should the product accomplish? (outcome, not task)
   rationale: ""                   # Why does this Intention matter?
@@ -77,7 +77,7 @@ intention:
 
 ```yaml
 expectation:
-  id: "EXP-9b04"
+  id: "EXP-9b04"                  # run `idd-next-id expectation`; or generate a random 4-char hex suffix — never sequential
   intention: "INT-7c21"            # Parent Intention
   description: ""                 # What must be true when this is met?
   validation_criteria: ""         # How to verify: pass/fail or measurable
@@ -96,7 +96,7 @@ Every Spec has **five mandatory blocks**. A Spec cannot be marked Ready until al
 
 ```yaml
 spec:
-  id: "SPEC-d12e"
+  id: "SPEC-d12e"                 # run `idd-next-id spec`; or generate a random 4-char hex suffix — never sequential
   product: ""                     # Parent Product name or ID
   intentions: []                  # Intention IDs this Spec addresses
   expectations: []                # Expectation IDs this Spec implements
