@@ -1,15 +1,3 @@
 {
-  "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "mkdir -p docs/products docs/intentions docs/expectations docs/specs docs/reviews",
-            "statusMessage": "Initializing IDD directory structure..."
-          }
-        ]
-      }
-    ]
-  }
+  "hooks": {}
 }

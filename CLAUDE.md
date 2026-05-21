@@ -71,7 +71,7 @@ Assignments are explicit (not `inherit`) so a user running Opus in their main se
 ### Skills, References, and Hooks
 
 - `plugin/skills/idd-orchestration/` — Orchestration skill (SKILL.md) and reference templates for agent consumption. Templates are Markdown-formatted; top-level `templates/` are YAML for human use.
-- `plugin/hooks/hooks.json` — SessionStart hook auto-creates the `docs/` directory structure.
+- `plugin/hooks/hooks.json` — Hook configuration (no startup directory side effects).
 - `plugin/bin/idd-next-id` — Helper script to auto-generate unique hash-based artifact IDs (e.g., `SPEC-a3f8`).
 - `plugin/.claude-plugin/plugin.json` — Includes `userConfig` for `default_product_id` and `team_name`.
 

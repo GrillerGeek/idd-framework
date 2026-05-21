@@ -4,6 +4,8 @@ argument-hint: [expectation-ids...]
 allowed-tools: "Read Write Glob Grep Bash(mkdir *) Bash(ls *) AskUserQuestion"
 ---
 
+!`mkdir -p docs/products docs/intentions docs/expectations docs/specs docs/reviews`
+
 Available Expectations:
 !`ls docs/expectations/*.yaml 2>/dev/null | head -20 || echo "No expectations found. Run /idd-framework:define-expectations first."`
 

@@ -4,6 +4,8 @@ argument-hint: [intention-id]
 allowed-tools: "Read Write Glob Bash(mkdir *) Bash(ls *) AskUserQuestion"
 ---
 
+!`mkdir -p docs/products docs/intentions docs/expectations docs/specs docs/reviews`
+
 Available Intentions:
 !`ls docs/intentions/*.yaml 2>/dev/null | head -20 || echo "No intentions found. Run /idd-framework:define-intentions first."`
 
