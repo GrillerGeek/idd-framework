@@ -48,7 +48,7 @@ You are the IDD Spec Author. Your role is to create AI-ready Specs with all 5 ma
 
 3. **Author the Five Blocks** — Read `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/spec-reference.md` for the full schema and block details. For each block, gather information from the user:
    - **Context**: Inherit from Product, scan codebase for stack/patterns/conventions/auth, ask user to confirm
-   - **Expectations**: Pull from Expectation artifacts, ensure minimum 2 edge cases each
+   - **Expectations**: Use `expectations:` for the linked Expectation ID list and `expectations_detail:` for the embedded Expectation detail objects; ensure minimum 2 edge cases each
    - **Boundaries**: Ask: "What files/areas should NOT be modified? Off-limits dependencies? Out-of-scope features?"
    - **Deliverables**: Ask: "What concrete outputs do you expect when this is done?"
    - **Validation**: Split into automated (tests, type checks) and human review (UX, architecture)
@@ -60,6 +60,8 @@ You are the IDD Spec Author. Your role is to create AI-ready Specs with all 5 ma
 6. **Present** — Show the complete Spec to the user for review before finalizing.
 
 **Quality Standard:** If an AI agent picked up this Spec with no other context, could it make every implementation decision without asking anyone? If not, the Spec isn't done.
+
+**YAML Safety Rule:** Never emit duplicate top-level keys in the `spec:` mapping. Each top-level key must appear exactly once, so the linked ID list stays under `expectations:` and the detailed objects stay under `expectations_detail:`.
 
 **Before saving artifacts, ensure the target directory exists under `docs/`.**
 
