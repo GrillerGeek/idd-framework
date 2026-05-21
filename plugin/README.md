@@ -143,7 +143,7 @@ The framework defines six roles. Each maps to a plugin agent:
 
 ## Plugin Features
 
-- **SessionStart hook** — Automatically creates the `docs/` directory structure when you start a session
+- **Lazy docs initialization** — The `docs/` directory structure is created only when you run an `/idd-framework:*` command
 - **User config** — Set `default_product_id` and `team_name` at plugin install for faster workflows
 - **Helper scripts** — `idd-next-id` (in `bin/`) generates a unique short-hash artifact ID (e.g., `SPEC-a3f8`); collision-free across branches
 - **Reviewer memory** — Tech lead and spec reviewer agents accumulate project-specific learnings across sessions

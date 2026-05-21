@@ -4,6 +4,8 @@ argument-hint: [product-id]
 allowed-tools: "Read Write Glob Bash(mkdir *) Bash(ls *) AskUserQuestion"
 ---
 
+!`mkdir -p docs/products docs/intentions docs/expectations docs/specs docs/reviews`
+
 Available Products:
 !`ls docs/products/*.yaml 2>/dev/null | head -20 || echo "No products found. Run /idd-framework:interview first."`
 

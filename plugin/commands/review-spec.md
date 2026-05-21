@@ -4,6 +4,8 @@ argument-hint: [spec-id]
 allowed-tools: "Read Write Glob Grep Bash(mkdir *) Bash(ls *)"
 ---
 
+!`mkdir -p docs/products docs/intentions docs/expectations docs/specs docs/reviews`
+
 Available Specs:
 !`ls docs/specs/*.yaml 2>/dev/null | head -20 || echo "No specs found. Run /idd-framework:write-spec first."`
 
