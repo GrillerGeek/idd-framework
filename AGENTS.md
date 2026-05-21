@@ -99,7 +99,7 @@ spec:
   id: "SPEC-d12e"                 # run `idd-next-id spec`; or generate a random 4-char hex suffix — never sequential
   product: ""                     # Parent Product name or ID
   intentions: []                  # Intention IDs this Spec addresses
-  expectations: []                # Expectation IDs this Spec implements
+  expectations: []                # Linked Expectation IDs this Spec implements
   status: "draft"                 # draft | ready | in-progress | review | validating | done
 
   # BLOCK 1: CONTEXT — what the AI agent needs to know
@@ -113,8 +113,8 @@ spec:
         note: ""
     auth: ""                      # Authentication/authorization model
 
-  # BLOCK 2: EXPECTATIONS — what must be true when done
-  expectations:
+  # BLOCK 2: EXPECTATIONS DETAIL — embedded detail objects for the linked Expectation IDs
+  expectations_detail:
     - id: "EXP-9b04"
       description: ""             # Required behavior
       validation: ""              # Pass/fail or measurable criteria

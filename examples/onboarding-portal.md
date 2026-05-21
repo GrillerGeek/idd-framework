@@ -154,7 +154,7 @@ spec:
         note: "Follow existing feature folder structure for new onboarding feature"
     auth: "SSO via OIDC; role field on user record (hr, it, manager, employee); middleware validates role on protected routes"
 
-  expectations:
+  expectations_detail:
     - id: "EXP-9b04"
       description: "HR can create checklist templates with tasks, role assignments, and day offsets"
       validation: "Form saves; template appears in list; tasks show role badges and offsets"

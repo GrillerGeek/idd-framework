@@ -73,7 +73,7 @@ Read `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/spec-reference.m
 - Check for auth configuration files
 - Ask the user to confirm or adjust
 
-**Expectations Block** — Pull from the Expectation artifacts just created. Include all validation criteria and edge cases.
+**Expectations Block** — Write the linked Expectation IDs under `expectations:` and the embedded detail objects under `expectations_detail:`. Include all validation criteria and edge cases.
 
 **Boundaries Block** — Ask the user:
 - "What files or areas should NOT be modified?"
@@ -94,6 +94,8 @@ Show all generated artifacts in a summary table:
 - Spec with completeness status
 
 **Quality Standard:** If an AI agent picked up this Spec with no other context, could it make every implementation decision without asking anyone? If not, the Spec isn't done.
+
+**YAML Safety Rule:** Never emit duplicate top-level keys in the `spec:` mapping. Each top-level key must appear exactly once, so do not write a second `expectations:` key.
 
 **Token warning:** If the Spec exceeds ~8,000 tokens, consider splitting into smaller Specs.
 

@@ -27,8 +27,8 @@ spec:
         note: "Follow existing feature folder structure"
     auth: "OAuth 2.0 with JWT bearer tokens; role-based access"
 
-  # EXPECTATIONS — what must be true when done
-  expectations:
+  # EXPECTATIONS DETAIL — embedded detail objects for the linked Expectation IDs
+  expectations_detail:
     - id: "EXP-9b04"
       description: "Health score displays as color-coded gauge"
       validation: "Gauge renders with correct color bands; value matches API"
@@ -68,6 +68,8 @@ spec:
       - "Data accuracy spot-check against source data"
       - "Code follows established patterns in existing feature folders"
 ```
+
+Use `expectations:` for the linked Expectation IDs and `expectations_detail:` for the embedded detail records. Do not repeat a top-level YAML key inside `spec:`.
 
 ---
 
