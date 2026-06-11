@@ -1,0 +1,29 @@
+expectation:
+  id: "EXP-5c33"
+  intention: "INT-ecad"
+  description: >
+    Portfolio coverage analysis: when multiple Specs are gap-checked together
+    (several Specs serving one Product or Intention set), the gap-checker
+    unions their Deliverables and checks the joint impact surface against that
+    union — reporting each unowned file exactly once, with a suggestion of
+    which Spec is the most natural owner.
+  validation_criteria: >
+    Pass: gap-checking two or more Specs in one invocation produces a single
+    portfolio Coverage section; a file in the joint impact surface owned by no
+    Spec appears exactly once with an ownership suggestion; a file owned by one
+    Spec but referenced by another's concepts is not reported as an omission.
+    Fail: the same omission is reported per-Spec creating duplicates, or
+    cross-Spec ownership is not recognized, or no ownership suggestion is given.
+  edge_cases:
+    - >
+      Overlapping deliverables: two Specs both list the same file as a
+      Deliverable. Portfolio analysis must flag this as a conflict finding
+      (two owners is as dangerous as zero — concurrent execution would
+      collide), distinct from an omission.
+    - >
+      Single-Spec invocation: portfolio mode with one Spec must degrade
+      gracefully to the single-Spec coverage analysis of EXP-f6f2 — same
+      report schema, no portfolio-only language implying other Specs exist.
+  complexity: "medium"
+  owner: "Jason Robey"
+  status: "validated"

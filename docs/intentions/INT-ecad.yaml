@@ -1,0 +1,18 @@
+intention:
+  id: "INT-ecad"
+  product: "PROD-f67b"
+  statement: >
+    The gap-check gate detects omissions, not just defects: it reports what a
+    Spec (or a set of Specs) fails to cover — files and documents that reference
+    the concepts being changed but are owned by no Spec — before execution begins.
+  rationale: >
+    The v1.3 release proved the gate catches internal defects (16 blockers in
+    four checklist-passing Specs), but a coverage hole shipped anyway: README,
+    adoption.md, and faq.md referenced concepts v1.3 changed, yet no Spec owned
+    them, and per-Spec review verified internal coherence only. The gate must
+    also ask what the change set omits.
+  priority: "high"
+  dependencies: ["INT-08e4"]   # extends the gap-check gate shipped in v1.3
+  expectations: ["EXP-f6f2", "EXP-5c33", "EXP-49f2"]
+  owner: "Jason Robey"
+  status: "fulfilled"

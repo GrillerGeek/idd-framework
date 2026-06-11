@@ -98,3 +98,11 @@ that concurrent Spec execution needs per-run write tracking.
 
 The gate ran clean on the second round and execution produced zero boundary
 violations. The pipeline this example demonstrates is the pipeline that built it.
+
+## Postscript: v1.4
+
+The v1.3 release inadvertently demonstrated the exact problem that v1.4 was built to solve. When the gap-check gate was designed, its scope covered adversarial content analysis — ambiguity, contradictions, missing context. What it did not cover was the *omission question*: are there published documents that reference the concepts this Spec changes but are owned by no Deliverable?
+
+A retrospective review found three files in that category. The gap-check gate report, the framework lifecycle table, and the FAQ entry all referenced the gap-check stage's described activities — but none of those files were listed as Deliverables in any v1.3 Spec. The content was consistent at release because the authors happened to update those files by hand, but no Spec required or validated those updates. Had any one of them been missed, a published document would have silently diverged from the release with no Blocker or Warning to surface it.
+
+That coverage hole became SPEC-e330 and the v1.4 coverage analysis feature: the gap-check stage now derives each Spec's impact surface — all repository files referencing the changed concepts — and reports every file owned by no Deliverable as a candidate omission. The most expensive gaps are often not defects in what was written, but omissions in what was never assigned.

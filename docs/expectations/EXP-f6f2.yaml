@@ -1,0 +1,34 @@
+expectation:
+  id: "EXP-f6f2"
+  intention: "INT-ecad"
+  description: >
+    Single-Spec coverage analysis: during a gap-check, after per-block and
+    cross-block analysis, the gap-checker derives the Spec's impact surface —
+    repository files that reference the concepts, terms, or files the Spec's
+    Deliverables change — and reports every impact-surface file that no
+    Deliverable owns as a candidate omission.
+  validation_criteria: >
+    Pass: gap-checking a Spec that renames or extends a concept referenced in
+    files outside its Deliverables produces a Coverage section in the report
+    listing those files; each candidate omission states the evidence (which
+    concept, which file, where referenced). Candidate omissions default to
+    Warning severity; one is a Blocker only if an Expectation's validation
+    criteria depend on a file no Deliverable owns.
+    Fail: the report has no Coverage section, or omissions are reported without
+    evidence, or all omissions are hard-classified as Blockers.
+  edge_cases:
+    - >
+      Deliberate omission: the Spec's Boundaries explicitly exclude a file
+      (e.g., "do not modify adoption.md"). The coverage analysis must still
+      list the file if it is in the impact surface, but note the Boundary and
+      classify it as informational/Warning — surfacing the tension rather than
+      silently honoring the exclusion, because the exclusion may predate the
+      concept change.
+    - >
+      Zero-omission run: a Spec whose Deliverables fully cover its impact
+      surface must produce a Coverage section reading "no candidate omissions"
+      — the section is mandatory even when empty, so its absence is always a
+      schema violation rather than ambiguous good news.
+  complexity: "medium"
+  owner: "Jason Robey"
+  status: "validated"

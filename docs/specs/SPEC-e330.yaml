@@ -1,0 +1,218 @@
+spec:
+  id: "SPEC-e330"
+  product: "PROD-f67b"
+  intentions: ["INT-ecad"]
+  expectations: ["EXP-f6f2", "EXP-5c33", "EXP-49f2"]
+  status: "done"
+
+  # CONTEXT — what the AI agent needs to know
+  context:
+    stack: >
+      Markdown documentation, YAML artifact schemas, and a Claude Code plugin
+      (Markdown command/agent definitions, JSON manifest at
+      plugin/.claude-plugin/plugin.json, Bash helper plugin/bin/idd-next-id).
+      No application code, build system, or tests. All changes are plain-text
+      edits to .md and .json files.
+    patterns: >
+      Plugin commands in plugin/commands/ dispatch named agents in
+      plugin/agents/ with explicit model tiers; commands and agents are
+      auto-discovered from their directories (plugin.json has NO registration
+      arrays). The gap-checker agent follows a numbered-step structure
+      (Step 1 load, Step 2 precondition, Step 3a per-block / 3b cross-block
+      analysis, Step 4 classify, Step 5 report schema, Step 6 halt rules,
+      Absolute Constraints). Framework docs in docs/ are tool-agnostic; plugin
+      internals may be tool-specific.
+    conventions:
+      - "All content ADDED to docs/*.md must be tool-agnostic — say 'the gap-check stage/gate', never 'the gap-check command'; tool/model reference count in top-level docs/*.md must not increase (baseline 2, grandfathered)"
+      - "Tables use |---| separator style; additive changes only — no renames/removals of existing schema or report fields"
+      - "Model references in plugin/ prose are version-agnostic tier language ('the current Opus generation'); grep -rE '(Haiku|Sonnet|Opus) 4\\.[0-9]' plugin/ must stay empty"
+      - "Versioning: framework docs change → spec tag v1.4; plugin version becomes 1.4.0"
+      - "The seven flow-board phases and the lifecycle table numbering in docs/framework.md must NOT change — coverage analysis expands the existing Gap-Check Gate phase's described activities"
+    existing_code_refs:
+      - path: "plugin/agents/idd-gap-checker.md"
+        note: >
+          Primary modification target. Insert a new 'Step 3c — Coverage /
+          Omission Analysis' between the existing '3b — Cross-Block
+          Contradiction Analysis' and 'Step 4 — Classify and Score Each
+          Finding'. Extend the Step 5 report schema with a mandatory
+          '## Coverage' section. Extend Step 1 to accept multiple spec IDs.
+          Do not alter the Absolute Constraints, the report-only rule, the
+          two-layer write design, or existing finding-entry fields.
+      - path: "plugin/commands/gap-check.md"
+        note: >
+          Secondary target. Currently accepts a single optional spec ID.
+          Extend to accept multiple spec IDs (space-separated) or the literal
+          'all' (= every Spec in 'ready' or 'review' status), and explain that
+          multi-Spec invocations produce one report per Spec PLUS a single
+          portfolio coverage section in a combined coverage report saved to
+          docs/reviews/. The command-layer gap_check annotation behavior is
+          unchanged and applies per Spec.
+      - path: "AGENTS.md"
+        note: >
+          'The Gap-Check Gate (Phase 6)' section exists (added in v1.3).
+          Append a short 'Coverage analysis' paragraph documenting: impact
+          surface derivation, Warning-by-default severity, the
+          validation-dependency Blocker rule, portfolio mode, and the
+          mandatory (even when empty) Coverage report section.
+      - path: "docs/framework.md"
+        note: >
+          Lifecycle table Phase '3. Gap-Check Gate' row (Activities column)
+          currently describes adversarial review for ambiguity, contradictions,
+          and missing context. Extend the Activities text to include the
+          omission sweep (coverage of the change's impact surface). Do not add
+          a row, do not renumber, do not alter Gate Criteria except appending
+          'coverage omissions reviewed'.
+      - path: "docs/faq.md"
+        note: >
+          The entry 'What is the gap-check gate, and why isn't the completeness
+          checklist enough?' exists. Append one or two sentences: the gate also
+          performs coverage analysis — reporting files that reference the
+          changed concepts but are owned by no Spec — because the most
+          expensive gaps are often omissions, not defects.
+      - path: "examples/self-hosted-v13.md"
+        note: >
+          Add a short postscript section (## Postscript: v1.4) recording that
+          this very release demonstrated the coverage hole — three published
+          documents referenced changed concepts but were owned by no Spec —
+          and that the omission became the v1.4 coverage analysis. Keep it
+          tool-agnostic like the rest of the file.
+      - path: "plugin/.claude-plugin/plugin.json"
+        note: >
+          Version bump "1.3.0" → "1.4.0". No other manifest changes; commands
+          and agents are auto-discovered (no registration arrays exist).
+    auth: >
+      N/A — public open-source repository (GrillerGeek/idd-framework); changes
+      flow through commits to main.
+
+  # EXPECTATIONS — what must be true when done
+  expectations:
+    - id: "EXP-f6f2"
+      description: >
+        Single-Spec coverage analysis: the gap-checker derives the Spec's
+        impact surface (files referencing the concepts, terms, or files the
+        Deliverables change) and reports every impact-surface file owned by no
+        Deliverable as a candidate omission with evidence.
+      validation: >
+        Step 3c in the agent file instructs: (1) extract search terms from the
+        Spec using this rule — (a) the basename of every Deliverable file path,
+        (b) every section heading, field name, command/stage name, or concept
+        term that a Deliverable's description states it adds, renames, or
+        removes (the quoted or capitalized names in the deliverable text), and
+        (c) any term an Expectation explicitly names as introduced or changed;
+        (2) search the repository for those terms (Grep/Glob) within the
+        IMPACT-SURFACE SCOPE — all repository text files EXCEPT the artifact
+        YAML trees (docs/products/, docs/intentions/, docs/expectations/,
+        docs/specs/, docs/reviews/), which legitimately reference the concepts
+        being changed; templates/ and examples/ ARE in scope; (3) for each
+        in-scope file that matches but is not a Deliverable, emit a Coverage
+        entry with EXACTLY four fields: file, evidence (term + where it
+        appears), severity, suggested disposition. Severity defaults to
+        Warning; Blocker only when an Expectation's validation criteria depend
+        on a file no Deliverable owns. Disposition is one of: add-to-deliverables,
+        assign-to-<spec-id>, or accept-omission (with stated reason). Listing a
+        file in a Coverage entry is ALWAYS permitted regardless of Boundaries —
+        coverage entries are report content, not modifications; Boundaries
+        govern edits, not mentions. The '## Coverage' report section is
+        mandatory even when empty ('No candidate omissions.').
+      edge_cases:
+        - >
+          A file is in the impact surface but a Boundary explicitly excludes
+          it: still listed, with the Boundary cited and Warning severity — the
+          tension is surfaced, not silently honored.
+        - >
+          Zero omissions: the Coverage section must still appear, reading 'No
+          candidate omissions.' — absence of the section is a schema violation,
+          never good news.
+    - id: "EXP-5c33"
+      description: >
+        Portfolio coverage analysis: multiple Specs gap-checked in one
+        invocation are analyzed against the UNION of their Deliverables; each
+        unowned impact-surface file is reported exactly once with an ownership
+        suggestion; files owned by any Spec in the set are not omissions.
+      validation: >
+        The agent's Step 1 accepts multiple spec IDs; Step 3c, when more than
+        one Spec is loaded, unions Deliverables before the omission sweep and
+        writes the portfolio Coverage section into a combined coverage report
+        at docs/reviews/portfolio-coverage-YYYY-MM-DD.md (ISO date of the run;
+        if the file exists, append a -2, -3... suffix). Per-Spec reports KEEP
+        the existing filename convention <spec-id>-gap-check.md exactly — the
+        command layer's annotation logic depends on it — and each per-Spec
+        Coverage section is scoped to that Spec's own Deliverables with a
+        one-line pointer to the portfolio report. CONFLICT findings (a file
+        owned by two or more Specs) use the same four entry fields as
+        omissions — file, evidence (naming both owning Specs), severity
+        (Warning), suggested disposition — and appear only in the portfolio
+        Coverage section.
+      edge_cases:
+        - >
+          Two Specs list the same file as a Deliverable: reported as a CONFLICT
+          finding (Warning) in the portfolio section — two owners risk
+          concurrent-execution collisions; distinct from an omission.
+        - >
+          Portfolio invocation with a single Spec: degrades to single-Spec
+          analysis; no portfolio coverage report is created and no language
+          implies sibling Specs exist.
+    - id: "EXP-49f2"
+      description: >
+        Published guidance documents coverage analysis tool-agnostically in
+        framework.md (gate activities), AGENTS.md (coverage paragraph), and
+        faq.md (gap-check entry extension).
+      validation: >
+        grep -i 'coverage' docs/framework.md AGENTS.md docs/faq.md each return
+        at least one match in the gap-check context; tool/model reference count
+        in top-level docs/*.md does not increase from baseline 2; the
+        seven-phase flow board and lifecycle numbering are unchanged.
+      edge_cases:
+        - >
+          Writer reflex says 'the gap-check command': all new docs/ prose must
+          use 'stage'/'gate' phrasing — verified by the regression count.
+        - >
+          Phase renumbering temptation: lifecycle table keeps rows 1–7 exactly;
+          only the Phase 3 Activities and Gate Criteria text expands.
+
+  # BOUNDARIES — what the implementing agent must NOT do
+  boundaries:
+    - "Do not weaken the gap-checker's report-only rule, the two-layer write design, the halt-on-Blockers rule, or any Absolute Constraint in plugin/agents/idd-gap-checker.md"
+    - "Do not remove or rename any existing report schema field or step — the Coverage section and Step 3c are additions only"
+    - "Coverage findings default to Warning; do not make omissions unconditionally Blockers (deliberate scoping is legitimate); the only Blocker path is the validation-dependency rule in EXP-f6f2"
+    - "Do not add a lifecycle phase, renumber phases, or alter the seven flow-board phases in docs/framework.md"
+    - "Do not modify any plugin agent or command file other than idd-gap-checker.md and gap-check.md"
+    - "Do not introduce tool, command, or model references into docs/*.md (regression count must stay at 2); plugin/ prose stays version-agnostic about models"
+    - "Do not modify anything Forge-related, the templates/ directory, or artifact YAMLs under docs/ other than this Spec's own status transitions (owned by the command layer)"
+
+  # DELIVERABLES — concrete outputs
+  deliverables:
+    - "plugin/agents/idd-gap-checker.md — Step 3c Coverage/Omission Analysis (term-extraction rule, impact-surface scope, omission sweep, severity rules, disposition enum, portfolio union behavior incl. CONFLICT findings), Step 1 multi-Spec loading, Step 5 schema gains mandatory '## Coverage' section (entry fields exactly: file, evidence, severity, suggested disposition)"
+    - "plugin/commands/gap-check.md — multi-ID and 'all' invocation forms; portfolio coverage report location; per-Spec annotation behavior unchanged"
+    - "AGENTS.md — coverage analysis paragraph appended to 'The Gap-Check Gate (Phase 6)' section"
+    - "docs/framework.md — Phase 3 'Gap-Check Gate' row: Activities text extended with the omission sweep; Gate Criteria appends 'coverage omissions reviewed'"
+    - "docs/faq.md — gap-check entry extended with coverage analysis (1–2 sentences)"
+    - "examples/self-hosted-v13.md — '## Postscript: v1.4' section on the coverage hole this release demonstrated"
+    - "plugin/.claude-plugin/plugin.json — version 1.4.0"
+
+  # VALIDATION — how to verify
+  validation:
+    automated:
+      - "grep -c 'Coverage' plugin/agents/idd-gap-checker.md returns ≥3 (step heading, report schema section, severity rule)"
+      - "grep -i 'coverage' docs/framework.md docs/faq.md plugin/commands/gap-check.md — each file returns ≥1 match"
+      - "AGENTS.md coverage paragraph is substantive: grep -i 'impact surface' AGENTS.md ≥1 AND grep -i 'portfolio' AGENTS.md ≥1 AND the paragraph states the Warning-by-default rule (grep -i 'warning' in the gap-check section)"
+      - "The new postscript section of examples/self-hosted-v13.md contains zero tool/model references: grep -iE 'claude|sonnet|haiku|opus|/idd-framework' examples/self-hosted-v13.md returns zero matches (file is currently clean and must stay clean)"
+      - "grep '\"version\"' plugin/.claude-plugin/plugin.json shows 1.4.0"
+      - "grep -rE '(Haiku|Sonnet|Opus) 4\\.[0-9]' plugin/ returns zero matches"
+      - "Tool-agnosticism regression: grep -roiE 'claude code|/idd-framework|claude-code|sonnet|haiku|opus' docs/*.md | wc -l returns ≤2"
+      - "grep -c 'Gap-Check' docs/framework.md lifecycle table still shows exactly one phase row; flow board still lists seven phases (manual grep for 'seven phases')"
+      - "python3 yaml.safe_load passes on all docs/**/*.yaml"
+    human_review:
+      - "Step 3c semantics: impact-surface derivation is described concretely enough that two implementing agents would search for the same kinds of terms"
+      - "Coverage severity rules read as Warning-by-default with the single validation-dependency Blocker path"
+      - "FAQ and framework.md additions read naturally and stay tool-agnostic"
+      - "The postscript in examples/self-hosted-v13.md is honest about the miss and tool-agnostic"
+
+  # GAP-CHECK ANNOTATION — written by the command layer
+  gap_check:
+    status: "passed"
+    blockers: 0
+    warnings: 0
+    rounds: 2
+    report: "docs/reviews/SPEC-e330-gap-check.md"
+    date: "2026-06-10"

@@ -1,0 +1,30 @@
+expectation:
+  id: "EXP-49f2"
+  intention: "INT-ecad"
+  description: >
+    Published guidance documents coverage analysis tool-agnostically: the
+    framework docs describe the gap-check gate as detecting both internal
+    defects and omissions, and the universal agent reference explains the
+    coverage step so any tooling can implement it.
+  validation_criteria: >
+    Pass: the gap-check gate's description in the process lifecycle covers the
+    omission sweep; the universal agent reference (AGENTS.md) documents
+    coverage analysis including the Warning-by-default severity rule; the FAQ's
+    gap-check entry mentions coverage; no new content names a specific tool,
+    command, or model in docs/.
+    Fail: any of the three locations is silent on coverage, or new docs/
+    content introduces tool-specific references.
+  edge_cases:
+    - >
+      Tool-agnosticism regression: the additions must not increase the count of
+      tool/model references in top-level docs/*.md (baseline 2, grandfathered).
+      A writer naturally wants to say "the gap-check command" — the docs must
+      say "the gap-check stage/gate" instead.
+    - >
+      Phase renumbering temptation: coverage analysis is part of the existing
+      Gap-Check Gate phase, not a new phase. The lifecycle table must keep its
+      seven flow-board phases and current numbering; only the gate's described
+      activities expand.
+  complexity: "low"
+  owner: "Jason Robey"
+  status: "validated"

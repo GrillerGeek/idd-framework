@@ -37,13 +37,16 @@ You are the IDD Gap Checker. Your role is adversarial: you simulate being the AI
 
 ## Step 1 — Load the Spec
 
-If `$ARGUMENTS` specifies a spec ID, read `docs/specs/<id>.yaml`. Otherwise, list available Specs with:
+`$ARGUMENTS` may contain one spec ID, multiple space-separated spec IDs (e.g., `SPEC-a1b2 SPEC-c3d4`), or the literal `all`. Resolve the target set:
 
-```bash
-ls docs/specs/*.yaml 2>/dev/null | head -20
-```
+- **Single ID** — read `docs/specs/<id>.yaml` directly.
+- **Multiple IDs** — read each listed YAML file in turn; collect all into a working set.
+- **`all`** — list `docs/specs/*.yaml` and collect every Spec with status `"ready"` or `"review"` into the working set.
+- **No argument** — list available Specs with `ls docs/specs/*.yaml 2>/dev/null | head -20`, identify those in "ready" or "review" status, and prompt or select one.
 
-Identify those in "ready" or "review" status. If none qualify, report and exit.
+If the working set contains zero qualifying Specs, report and exit.
+
+**Multi-Spec runs:** When the working set contains more than one Spec, run Steps 2–5 independently for each Spec (producing one per-Spec gap-check report at `docs/reviews/<spec-id>-gap-check.md`), then run Step 3c a second time in **portfolio mode** across the union of all Deliverables (see Step 3c).
 
 ---
 
@@ -112,6 +115,37 @@ Pairs to check explicitly:
 - **Expectations vs. Deliverables:** Are there Expectations that reference outputs not listed in Deliverables, or Deliverables that satisfy no stated Expectation?
 - **Deliverables vs. Validation:** Is every Deliverable covered by at least one validation item?
 
+### 3c — Coverage / Omission Analysis
+
+After completing Steps 3a and 3b, perform an omission sweep to identify files that reference the changed concepts but are owned by no Deliverable.
+
+**Term extraction (apply this rule exactly):**
+
+1. **(a) File basenames** — take the basename of every path listed in the Spec's Deliverables (e.g., `idd-gap-checker.md` from `plugin/agents/idd-gap-checker.md`).
+2. **(b) Named concepts in Deliverable descriptions** — extract every section heading, field name, command/stage name, or concept term that a Deliverable description states it *adds*, *renames*, or *removes* (the quoted or capitalized names in the deliverable text).
+3. **(c) Terms named in Expectations** — extract any term an Expectation explicitly names as *introduced* or *changed*.
+
+Search for these terms across the **impact-surface scope** using Grep/Glob: all repository text files **except** the artifact YAML trees (`docs/products/`, `docs/intentions/`, `docs/expectations/`, `docs/specs/`, `docs/reviews/`), which legitimately reference the concepts being changed. `templates/` and `examples/` **are** in scope.
+
+**For each in-scope file that matches a search term but is not listed as a Deliverable**, emit a Coverage entry with exactly these four fields:
+
+```
+- **file:** <path>
+  **evidence:** <matched term> — found in <location within file>
+  **severity:** Warning | Blocker
+  **suggested disposition:** add-to-deliverables | assign-to-<spec-id> | accept-omission (<reason>)
+```
+
+**Severity rules:**
+- **Warning** (default) — the file references the changed concepts but its omission does not block any Expectation's validation criteria from passing.
+- **Blocker** — only when an Expectation's validation criteria explicitly depend on this file and no Deliverable owns it. (Deliberate scoping by the Spec Author is legitimate; do not escalate based on relevance alone.)
+
+**Boundaries and Coverage entries:** Listing a file in a Coverage entry is always permitted regardless of Boundaries — Coverage entries are report content, not modifications. If a Boundary explicitly excludes a file that is also in the impact surface, still list it with the Boundary cited and Warning severity so the tension is surfaced, not silently honored.
+
+**Portfolio mode (multi-Spec runs only):** After all per-Spec gap-check reports are written, perform one additional coverage sweep using the **union** of all Deliverables across the working set as the owned-file set. Files owned by any Spec in the set are not omissions in portfolio mode. Save the portfolio Coverage section to `docs/reviews/portfolio-coverage-<YYYY-MM-DD>.md` (ISO date of the run; if the file already exists, append a `-2`, `-3` … suffix). **CONFLICT findings** — files listed as Deliverables in two or more Specs — use the same four-field format (file, evidence naming both owning Specs, severity: Warning, suggested disposition) and appear only in the portfolio Coverage section. In each per-Spec gap-check report, include a one-line pointer to the portfolio report in the Coverage section rather than duplicating portfolio findings.
+
+**Portfolio with a single Spec:** Degrades to single-Spec analysis; no portfolio coverage report is created and no language implies sibling Specs exist.
+
 ---
 
 ## Step 4 — Classify and Score Each Finding
@@ -154,6 +188,24 @@ Then, one entry per finding with ALL of the following fields — do not omit any
 Number findings sequentially (GC-1, GC-2, ...). Group Blockers first, then Warnings.
 
 If there are zero findings, the report body after the summary line may simply read: "No findings. The Spec is clear and self-consistent."
+
+After all GC-N findings (or the zero-findings note), append the mandatory Coverage section:
+
+```
+## Coverage
+
+<one Coverage entry per candidate omission, using the four-field format from Step 3c>
+```
+
+If there are zero candidate omissions, the section must still appear and must read exactly:
+
+```
+## Coverage
+
+No candidate omissions.
+```
+
+Omitting the `## Coverage` section entirely is a schema violation — it is never acceptable regardless of the omission count. In a multi-Spec run, each per-Spec report's Coverage section is scoped to that Spec's own Deliverables and includes a one-line pointer to the portfolio coverage report.
 
 ---
 
