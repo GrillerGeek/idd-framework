@@ -14,8 +14,9 @@ How to introduce IDD to your team.
 - Select a pilot Product (see criteria below)
 - Define the Product, 3–5 Intentions, and initial Expectations
 - Use manual tracking: Markdown Specs in a Git repo + a simple Kanban board (Trello, GitHub Projects, or a whiteboard)
-- Write 2–3 Specs and execute them with AI agents
-- Measure baseline Spec Cycle Time, First-Pass Rate, and Review Queue Depth
+- Write 2–3 Specs and gap-check each one before execution — have a second AI agent or reviewer simulate the implementer and report every point of guesswork (see the Gap-Check Gate in [framework.md](framework.md))
+- Execute the Specs with AI agents; have each agent self-verify and produce an Execution Report, including any spec gaps it encountered
+- Measure baseline Spec Cycle Time, First-Pass Rate, Gap-Check Findings per Spec, and Review Queue Depth
 - Conduct a Process Retro at weeks 2 and 4
 
 **Pilot Product Criteria:**
@@ -63,7 +64,7 @@ How to introduce IDD to your team.
 
 ### Spec authoring is a new skill
 
-Budget time and support for team members to develop it. The first Specs will be imperfect — that's expected. The completeness checklist catches gaps, and First-Pass Rate tracks improvement over time.
+Budget time and support for team members to develop it. The first Specs will be imperfect — that's expected. The completeness checklist catches missing pieces, the gap-check gate catches ambiguity and contradictions before they reach execution, and Gap-Check Findings per Spec plus First-Pass Rate track improvement over time.
 
 ### Developers get more autonomy, not less
 
@@ -100,7 +101,9 @@ If you want to try IDD with the smallest possible investment:
 3. Write 2–3 **Intentions** (what should it accomplish?)
 4. For each Intention, write **Expectations** with edge cases
 5. Write one **Spec** using the [template](../templates/spec-template.yaml)
-6. Export the Spec as Markdown and paste it into your AI coding agent
-7. Compare the output quality to your usual approach
+6. **Gap-check it:** ask an AI agent to simulate implementing the Spec and report every point where it would have to guess — ambiguities, contradictions between blocks, edge cases that don't constrain anything. Fix what it finds *in the Spec*, then re-check.
+7. Export the Spec as Markdown and paste it into your AI coding agent
+8. Ask the agent to finish by verifying its output against every Expectation, Boundary, and Deliverable, and to list anything the Spec left ambiguous
+9. Compare the output quality to your usual approach
 
-That's it. No tooling, no ceremonies, no role changes. Just better input to AI.
+That's it. No tooling, no ceremonies, no role changes. Just better input to AI — and a gate that proves the input was ready.

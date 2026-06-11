@@ -18,6 +18,14 @@ Spec-Driven Development (SDD) focuses on the **spec-to-code pipeline** — how t
 
 No. You can start with Markdown files in a Git repo and a simple Kanban board. The templates in this repo are designed for that. Purpose-built tooling helps at scale but isn't required for a pilot.
 
+### What is the gap-check gate, and why isn't the completeness checklist enough?
+
+The completeness checklist verifies that every Spec block is *present* — it cannot tell whether the content is any good. The gap-check gate closes that hole: before execution, a reviewing agent simulates being the implementer and reports every point where it would have to guess — ambiguous Expectations, contradictions between blocks, filler edge cases, unverifiable validation criteria. Findings are classified as Blockers (implementations would diverge wrongly) or Warnings (implementations would be inconsistent), and a Spec with unresolved Blockers does not execute. Crucially, the gap-checker never fixes anything: gaps are resolved in the Spec by its author, so the Spec remains the complete contract. In practice, the gate's biggest catches are confident factual errors — a Spec describing a codebase reality that doesn't exist — which no presence-based checklist can see.
+
+### What is an Execution Report?
+
+The artifact an executing agent produces when it finishes a Spec: a restatement of the Boundaries it worked under, a self-verification table covering every Expectation (with its edge cases), every Boundary, and every Deliverable, and a mandatory "spec gaps encountered" section listing each point where the Spec was ambiguous or silent — even when the agent resolved it sensibly. That last section is the feedback loop: it tells Spec Authors exactly where the next Spec needs to be sharper.
+
 ### What if my team isn't using AI coding agents yet?
 
 IDD's artifact hierarchy (Product → Intentions → Expectations) is valuable even without AI agents — it provides clearer requirements and better acceptance criteria than Epics/Features/Stories. The Spec layer becomes essential once you're using AI agents, but the upstream layers stand on their own.

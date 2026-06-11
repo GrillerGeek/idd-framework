@@ -2,7 +2,7 @@
 
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC_BY--SA_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 [![Claude Code Plugin](https://img.shields.io/badge/Claude_Code-plugin-blueviolet.svg)](https://claude.com/claude-code)
-[![Framework](https://img.shields.io/badge/framework-v1-green.svg)](docs/framework.md)
+[![Framework](https://img.shields.io/badge/framework-v1.3-green.svg)](docs/framework.md)
 
 **A process framework that gives developers and AI agents enough context to make decisions autonomously — without waiting for someone to tell them what to do.**
 
@@ -44,6 +44,8 @@ Product          →  Why does this exist?
 - **Continuous flow** with WIP limits replaces time-boxed sprints
 - **Spec quality** is the primary throughput metric, not velocity
 - **Completeness gates** prevent underspecified work from reaching AI agents
+- **An adversarial gap-check gate** simulates the implementing agent before execution — ambiguities, contradictions, and weak edge cases are found and fixed in the Spec before any code is written
+- **Managed execution** — the implementing agent restates Boundaries before building, self-verifies against every Expectation and Deliverable, and files an Execution Report whose "spec gaps encountered" section feeds back into Spec quality
 - **Boundaries** (what AI must *not* do) are a first-class artifact field
 - **Context inheritance** eliminates repeated boilerplate across specs
 - A new **Spec Author** role bridges business intent and AI execution
@@ -52,7 +54,7 @@ Product          →  Why does this exist?
 
 1. **Understand the philosophy** → [`docs/autonomy.md`](docs/autonomy.md) — why context enables autonomy
 2. **Read the framework** → [`docs/framework.md`](docs/framework.md) — the complete process definition
-3. **See it in action** → [`examples/`](examples/) — a worked example using the full hierarchy
+3. **See it in action** → [`examples/`](examples/) — a worked example using the full hierarchy, plus a [real case study](examples/self-hosted-v13.md) of IDD building its own v1.3 release (the gap-check gate caught 16 defects in Specs that had passed the completeness checklist)
 4. **Use the templates** → [`templates/`](templates/) — copy-paste starter templates for each artifact
 5. **Understand the roles** → [`docs/roles.md`](docs/roles.md)
 6. **Set up metrics** → [`docs/metrics.md`](docs/metrics.md)
