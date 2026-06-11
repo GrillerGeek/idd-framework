@@ -119,3 +119,5 @@ A Spec that covers too much ground degrades the quality of the executing agent's
 ```
 draft → ready → in-progress → review → validating → done
 ```
+
+A `done` Spec is eligible for `/idd-framework:archive` once its completion is spot-verified against the codebase — it is distilled into `docs/idd-ledger.yaml` and removed from disk (full text recoverable via the archive git tag). There is no `archived` status.

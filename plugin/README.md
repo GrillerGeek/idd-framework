@@ -43,6 +43,7 @@ Each layer gives developers and AI agents the context they need to make implemen
 | `/idd-framework:write-spec` | Create an AI-ready Spec with all 5 mandatory blocks | Spec in `docs/specs/` |
 | `/idd-framework:tech-review` | Review a Spec for architectural feasibility | Review annotations on Spec |
 | `/idd-framework:review-spec` | Validate AI output against Spec criteria | Validation report in `docs/reviews/` |
+| `/idd-framework:archive` | Consolidate terminal artifacts into the roll-up ledger (classify → human review → apply) | Archive manifest in `docs/reviews/`, then `docs/idd-ledger.yaml` |
 
 ### Accelerated Workflows
 
@@ -73,6 +74,7 @@ Each command can be used independently. You don't have to run the full pipeline.
 | **idd-outcome-author** | Defines Intentions + Expectations together in one session | Green |
 | **idd-quick-spec-author** | Full pipeline: Intentions + Expectations + Spec in one session | Cyan |
 | **idd-deep-review-lead** | Multi-perspective review with Agent Teams support | Magenta |
+| **idd-archivist** | Consolidates terminal artifacts into `docs/idd-ledger.yaml` (classify + distill) | Purple |
 
 ## Quick Start
 
@@ -128,7 +130,10 @@ docs/
   expectations/   # Expectation artifacts with edge cases (YAML)
   specs/          # AI-ready Specs with 5 mandatory blocks (YAML)
   reviews/        # Validation reports (Markdown)
+  idd-ledger.yaml # Archive ledger: distilled records of completed/retired artifacts
 ```
+
+Completed artifacts don't accumulate forever: `/idd-framework:archive` rolls terminal artifacts into `docs/idd-ledger.yaml` and deletes the originals, with a git tag per archive run so any artifact's full text remains one `git show <tag>:<path>` away.
 
 ## IDD Roles
 

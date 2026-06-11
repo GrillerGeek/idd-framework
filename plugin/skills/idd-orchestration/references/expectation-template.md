@@ -56,3 +56,5 @@ Every Expectation needs at least 2 edge cases. Think about:
 `deferred → ready` (when the blocker is resolved)
 
 A `deferred` Expectation is real and acknowledged but intentionally out of scope for the current delivery cycle — for example, blocked on an external team or infrastructure dependency. Use `deferred` (with a mandatory `deferred_reason`) so the parent Intention can be marked `fulfilled` while the Expectation remains visible and actionable for a future cycle. When the blocker is resolved, transition the Expectation back to `ready` to re-enter the active workflow.
+
+Terminal Expectations (`done`/`validated`, or `deferred` with no live obligation) are eligible for `/idd-framework:archive` — distilled into `docs/idd-ledger.yaml` and removed from disk (full text recoverable via the archive git tag). There is no `archived` status.

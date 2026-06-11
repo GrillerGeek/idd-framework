@@ -19,6 +19,7 @@ Intent-Driven Development decomposes purpose into four levels — Product, Inten
 | 6. Gap-Check | `/idd-framework:gap-check` | gap-checker | Gap-check report + `gap_check` annotation | `docs/reviews/` + annotation in `docs/specs/` |
 | 7. Implementation | `/idd-framework:implement-spec` | spec-implementer | Deliverables + Execution Report | Codebase + `docs/reviews/` |
 | 8. Validation | `/idd-framework:review-spec` | spec-reviewer | Validation report | `docs/reviews/` |
+| 9. Archival | `/idd-framework:archive` | idd-archivist | Archive manifest, then ledger records | `docs/reviews/` (manifest) + `docs/idd-ledger.yaml` |
 
 **Accelerated workflows:**
 - `/idd-framework:define-outcomes` — Combines Intentions + Expectations in one session
@@ -37,6 +38,11 @@ Users can enter the workflow at any phase:
 - **Have a spec ready to gate?** Run `/idd-framework:gap-check` — every Spec passes the gap-check gate before execution
 - **Have a gated spec to build?** Run `/idd-framework:implement-spec`
 - **Have AI output to validate?** Start at `/idd-framework:review-spec`
+- **Artifact dirs overflowing with finished work?** Run `/idd-framework:archive`
+
+## Archival
+
+Terminal artifacts (Intentions `fulfilled`, Expectations `done`/`validated`, Specs `done`, and anything `superseded` or `deferred`) are consolidated by `/idd-framework:archive`: each is distilled to a compact record in `docs/idd-ledger.yaml` and its YAML file is **deleted**, keeping the active directories — and therefore discovery globs, gap-checks, and counts — limited to live work. Nothing is lost: every archive run tags HEAD first, so any artifact's full text is recoverable with `git show <tag>:<path>`. There is no `archived` lifecycle status; archived artifacts cease to exist on disk by design. The flow is two-step: classify (read-only manifest for human review) then `--apply` (tag → ledger → delete → commit). Schema and classification rules: `references/ledger-reference.md`.
 
 ## Agents
 
@@ -53,6 +59,7 @@ Users can enter the workflow at any phase:
 | `idd-deep-review-lead` | magenta | **opus** | Multi-perspective Spec review (parallel by default) |
 | `idd-gap-checker` | red | **opus** | Adversarial pre-execution gate: simulates the implementing agent, reports Blocker/Warning findings (report-only) |
 | `idd-spec-implementer` | orange | **sonnet** | Executes a gated Spec: restates Boundaries, implements, self-verifies, emits Execution Report |
+| `idd-archivist` | purple | **sonnet** | Consolidates terminal artifacts into the roll-up ledger: classify (manifest) + apply (distill records) |
 
 ## CRITICAL: Model Dispatch Rule
 
