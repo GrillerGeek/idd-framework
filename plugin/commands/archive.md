@@ -35,7 +35,7 @@ Pass `$ARGUMENTS` to the agent unchanged so it can resolve the mode, EXCEPT the 
 Execute strictly in this order — the tag MUST precede any deletion:
 
 1. **Preflight:** `git status --porcelain` must be empty (clean tree). Abort with a clear message otherwise. The manifest itself must be committed (it is part of the pre-archive snapshot).
-2. **Tag:** `git tag idd-archive-<YYYY-MM>` on HEAD. If the tag exists (second run in a month), use `idd-archive-<YYYY-MM>-2`, `-3`, etc. Every archived file is still present at this tag.
+2. **Tag:** `git tag -a idd-archive-<YYYY-MM> -m "IDD archive run: artifacts present at this commit"` on HEAD — the tag MUST be annotated, or `git push --follow-tags` (step 8) will silently skip it. If the tag exists (second run in a month), use `idd-archive-<YYYY-MM>-2`, `-3`, etc. Every archived file is still present at this tag.
 3. **Distill:** dispatch `idd-archivist` (apply mode, `model: "sonnet"`) with the manifest path and the tag name. It creates/updates `docs/idd-ledger.yaml` and returns the record count.
 4. **Reconcile before deleting:** ledger records added MUST equal manifest `disposition: archive` rows. On mismatch, stop and surface — do not delete anything.
 5. **Delete:** `git rm` every manifest row's `path` with `disposition: archive`; `git rm` every `reviews:` entry with `action: delete`; `git mv` every `action: move-to-archive` review to `docs/archive/`; `git rm` the manifest itself (recoverable at the tag).
