@@ -1,0 +1,30 @@
+expectation:
+  id: "EXP-b1ed"
+  intention: "INT-08e4"
+  description: >
+    The gap-check gate produces at least one Blocker finding when run against a
+    deliberately flawed Spec — one that has all five blocks present but contains
+    injected content defects (vague validation criteria, an edge case that restates
+    the happy path, a Boundary that contradicts a Deliverable). It produces zero
+    Blockers and zero Warnings when run against a clean reference Spec.
+  validation_criteria: >
+    Pass: flawed test Spec → gate output contains ≥1 finding classified as Blocker;
+    clean reference Spec → gate output contains 0 Blockers and 0 Warnings.
+    Fail: either flawed Spec produces no Blockers, or clean Spec produces any finding.
+  edge_cases:
+    - >
+      Spec has all five blocks present and the completeness checklist passes, but
+      every edge case merely restates the happy-path input with minor wording
+      variation (e.g., "valid input" / "also valid input"). Gate must flag these as
+      Blockers, not Warnings, because filler edge cases are a high-risk defect.
+    - >
+      Spec has a Boundary ("Do not modify auth/") and a Deliverable ("Update
+      auth/session.ts"). Gate must detect the contradiction and emit a Blocker, even
+      though each individual block is internally well-formed.
+    - >
+      Spec has a vague validation criterion ("behaves correctly under load") with no
+      measurable threshold. Gate must emit a Blocker, not a Warning, because
+      unverifiable criteria block downstream validation.
+  complexity: "high"
+  owner: "Jason Robey"
+  status: "validated"

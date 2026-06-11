@@ -18,7 +18,7 @@ In a typical agile team, developers constantly wait:
 
 Each of these waits is a **decision that the developer could have made** if they had sufficient context. The sprint model tries to front-load this context in planning meetings, but a 2-hour planning session can't transfer enough context for 2 weeks of decisions. So developers either guess (and risk rework) or wait (and lose momentum).
 
-AI agents make this problem worse, not better. An AI agent that encounters ambiguity doesn't wait — it guesses. And it guesses at machine speed, producing wrong output faster than anyone can catch it.
+AI agents make this problem worse, not better. An AI agent that encounters ambiguity doesn't wait — it guesses. And it guesses at machine speed, producing wrong output faster than anyone can catch it. IDD addresses this directly: before an agent begins any implementation work, the Spec passes through an adversarial gap-check gate that surfaces ambiguity, contradictions, and missing context as explicit findings. Blockers halt execution until the Spec is corrected. The agent does not improvise around gaps — it surfaces them and stops. This is the gap-check doctrine: gaps are found before code is written, fixed in the Spec by a human, and never patched silently at execution time. The speed advantage of AI execution is only safe when the Spec is complete enough to eliminate guessing; the gap-check gate machine-enforces that completeness before the first line of code is written.
 
 ## Context as the Solution
 

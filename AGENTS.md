@@ -172,7 +172,7 @@ A Spec cannot enter **Ready** status until every item passes:
 
 ## Workflow Phases
 
-The IDD workflow has 6 phases. You can enter at any phase:
+The IDD workflow has 8 phases. You can enter at any phase:
 
 | Phase | Input | Output | Directory |
 |-------|-------|--------|-----------|
@@ -181,7 +181,30 @@ The IDD workflow has 6 phases. You can enter at any phase:
 | 3. Expectations | Intention artifact | Expectation YAMLs | `docs/expectations/` |
 | 4. Spec | Expectation artifacts | Spec YAML | `docs/specs/` |
 | 5. Tech Review | Spec artifact | Review annotations | Updates spec in `docs/specs/` |
-| 6. Validation | Spec + implementation | Validation report | `docs/reviews/` |
+| 6. Gap-Check | Spec artifact | Gap-check report + `gap_check` annotation | `docs/reviews/` + annotation in `docs/specs/` |
+| 7. Implementation | Gated Spec | Deliverables + Execution Report | Codebase + `docs/reviews/` |
+| 8. Validation | Spec + implementation | Validation report | `docs/reviews/` |
+
+### The Gap-Check Gate (Phase 6)
+
+Before execution, every Spec passes an adversarial gap-check: a reviewing agent simulates being the implementing agent and reports every point where it would have to guess — ambiguous Expectations, contradictions between blocks, filler edge cases, vague Context, unverifiable validation criteria. Findings are classified **Blocker** (implementations would diverge wrongly) or **Warning** (implementations would be inconsistent). The completeness checklist (items 1–10; item 11, peer review, is a human fact outside the gate) is a machine-verifiable *precondition* — the gap-check attacks content, not presence.
+
+Rules: the gap-checker is report-only and never edits the Spec's content blocks; gaps are fixed in the Spec by its author, never improvised around; a Spec with unresolved Blockers cannot proceed to execution. Results are recorded in an additive, optional `gap_check` annotation on the Spec:
+
+```yaml
+  gap_check:                      # optional; written by orchestration after a gap-check run
+    status: "passed"              # passed | blocked | warnings
+    blockers: 0
+    warnings: 0
+    report: "docs/reviews/<spec-id>-gap-check.md"
+    date: "YYYY-MM-DD"
+```
+
+Pre-existing Specs without this field remain valid.
+
+### Managed Execution (Phase 7)
+
+The implementing agent executes a gated Spec under a fixed protocol: (1) confirm the Spec is ready with `gap_check.status: passed`; (2) restate every Boundary verbatim before the first file modification; (3) implement within Context and Boundaries — if a gap is found mid-build, apply the blocker-grade test (would alternative resolutions change validation outcomes, cross a Boundary, or change a Deliverable's shape?): blocker-grade → stop and report; minor → best-effort choice, documented; (4) self-verify with a table covering every edge case, Boundary, and Deliverable; (5) emit an **Execution Report** to `docs/reviews/` with a mandatory `spec_gaps_encountered` section — the signal that feeds future Spec quality. Status transitions (`ready → in-progress → review`) belong to the orchestration layer, not the implementing agent.
 
 ### Accelerated Workflows
 

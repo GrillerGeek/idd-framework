@@ -1,0 +1,37 @@
+expectation:
+  id: "EXP-2241"
+  intention: "INT-294f"
+  description: >
+    framework.md, artifacts.md, roles.md, and metrics.md are updated consistently
+    for v1.3: the new pipeline stages (gap-check gate, execution report) appear in
+    framework.md; artifacts.md reflects any additive schema changes; roles.md grants
+    the AI Agent role explicit self-verification duties; metrics.md adds gap-check
+    findings per Spec as a leading quality indicator. A worked example demonstrating
+    the complete v1.3 pipeline (gap-check through execution report) exists in
+    examples/.
+  validation_criteria: >
+    Pass: each of the five named docs contains v1.3-specific content (can be
+    verified by searching for "gap-check" or "self-verification" or "execution
+    report" in each file); examples/ contains at least one end-to-end example that
+    references both the gap-check gate output and the execution report; no doc
+    references a pipeline stage that contradicts another doc.
+    Fail: any of the five files still describes the pre-v1.3 pipeline without
+    acknowledging the new stages, or the worked example covers only the pre-v1.3
+    flow.
+  edge_cases:
+    - >
+      Schema changes to artifacts.md are additive (per the hard boundary), but a
+      reviewer reading artifacts.md alongside an existing pre-v1.3 artifact YAML
+      might see fields documented that don't exist in their artifact. The doc must
+      include a migration note explaining that new fields are optional and existing
+      artifacts remain valid without them — otherwise practitioners will think their
+      artifacts are broken.
+    - >
+      The worked example in examples/ demonstrates the full pipeline but was written
+      before the gap-check gate behavior was fully specified. If the example Spec is
+      "clean" (no Blockers), the example must explicitly show a clean gate run with
+      zero findings — not skip the gate step — so readers see that the gate is always
+      run, not only when problems are expected.
+  complexity: "medium"
+  owner: "Jason Robey"
+  status: "validated"

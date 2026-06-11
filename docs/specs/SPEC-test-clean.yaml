@@ -1,0 +1,168 @@
+# SPEC-test-clean.yaml
+# Clean reference Spec for idd-gap-checker validation (EXP-b1ed).
+# Must pass completeness checklist items 1–10 and produce zero Blockers.
+# Subject matter: a fictional "API Rate Limit Headers" feature.
+
+spec:
+  id: "SPEC-test-clean"
+  product: "PROD-test"
+  intentions:
+    - "INT-test02"
+  expectations:
+    - "EXP-cl01"
+    - "EXP-cl02"
+  status: "ready"
+
+  context:
+    stack: >
+      TypeScript 5.3, Node.js 20, Express 4.18. The API layer lives under
+      src/api/. Middleware lives under src/middleware/. No database interaction
+      in this Spec — rate-limit state is held in memory via an in-process
+      sliding-window counter (src/lib/rateLimiter.ts, already implemented).
+    patterns: >
+      Express middleware chain: each incoming request passes through global
+      middleware registered in src/app.ts before hitting route handlers.
+      Rate-limit middleware reads and updates the in-memory counter, then
+      attaches limit metadata to res.locals before calling next(). Route
+      handlers must not read the counter directly — they read from res.locals.
+    conventions:
+      - "Middleware files export a single default function with signature (req, res, next) => void"
+      - "Header names follow the IETF draft standard: RateLimit-Limit, RateLimit-Remaining, RateLimit-Reset"
+      - "All integer header values are serialized as decimal strings (not numbers) per the standard"
+      - "res.locals.rateLimit is the shared interface; type definition lives in src/types/locals.d.ts"
+    existing_code_refs:
+      - path: "src/lib/rateLimiter.ts"
+        note: >
+          Already-implemented sliding-window counter. Exports getCounterState(key: string)
+          returning { count: number, windowResetAt: number } where windowResetAt is a
+          Unix timestamp in seconds. The gap-check agent must read this file to understand
+          the exact interface before implementing the middleware.
+      - path: "src/middleware/auth.ts"
+        note: >
+          Reference for middleware file structure, TypeScript typing, and the
+          pattern of attaching values to res.locals.
+      - path: "src/types/locals.d.ts"
+        note: >
+          Type declarations for Express res.locals. The implementing agent must
+          add a rateLimit property to this file per the type defined in this Spec.
+    auth: >
+      N/A for this Spec. The rate-limit middleware runs before auth middleware
+      and applies to all requests regardless of authentication state. The
+      rate-limit key is the client IP address (req.ip).
+
+  expectations:
+    - id: "EXP-cl01"
+      description: >
+        Every HTTP response from the API includes three rate-limit headers:
+        RateLimit-Limit (the maximum requests allowed in the window),
+        RateLimit-Remaining (requests remaining in the current window),
+        and RateLimit-Reset (Unix timestamp in seconds when the window resets).
+        All three headers must be present on every response, including error
+        responses (4xx, 5xx), redirects (3xx), and successful responses (2xx).
+      validation: >
+        PASS condition: make 5 consecutive GET requests to any API endpoint.
+        Every response (HTTP 200 or otherwise) must include all three headers.
+        RateLimit-Remaining must decrease by 1 for each request in the same
+        window period, starting from (RateLimit-Limit - 1) on the first request.
+        RateLimit-Reset must be a valid Unix timestamp in seconds (13-digit
+        values are milliseconds and are a failure). RateLimit-Limit must equal
+        the configured limit value (default: 100 requests per 60-second window).
+      edge_cases:
+        - >
+          A request that would exceed the rate limit (RateLimit-Remaining is
+          already 0). The response must be HTTP 429, must still include all
+          three rate-limit headers (with RateLimit-Remaining: 0), and must
+          include a Retry-After header equal to the RateLimit-Reset value.
+          The route handler must not be invoked for a rate-limited request.
+        - >
+          Two requests arrive within the same millisecond (simulated by
+          freezing Date.now in the test). Both requests must be counted and
+          RateLimit-Remaining must reflect both decrements — the counter must
+          not be subject to a TOCTOU race where both requests read a "0
+          remaining" count and both succeed. Use a synchronous check-and-decrement
+          on the in-memory counter to prevent this.
+
+    - id: "EXP-cl02"
+      description: >
+        The rate-limit middleware attaches its computed values to res.locals.rateLimit
+        before calling next(), making them available to any downstream middleware
+        or route handler without re-reading the counter. The shape of res.locals.rateLimit
+        is: { limit: number, remaining: number, resetAt: number }.
+      validation: >
+        PASS condition: in a unit test, mount a test route that reads
+        res.locals.rateLimit and returns it as JSON. Confirm the response body
+        contains all three fields with correct types (limit and remaining are
+        integers >= 0; resetAt is an integer Unix timestamp in seconds with
+        value > 1_700_000_000). Confirm that the middleware writes these values
+        before calling next() by asserting the test route receives them without
+        calling getCounterState() itself.
+      edge_cases:
+        - >
+          A response handler that calls res.end() directly (bypassing Express's
+          res.json()) still emits the rate-limit headers, because the middleware
+          sets them with res.set() before calling next(), not in an after-response
+          hook. Verify with a test route that uses res.end('ok') — all three
+          headers must be present.
+        - >
+          The res.locals.rateLimit object is read-only after the middleware sets
+          it (downstream code must not mutate the counter state via locals).
+          Verify by attempting to overwrite res.locals.rateLimit.remaining in a
+          downstream middleware — the overwrite does not affect the already-sent
+          headers because headers are written by the rate-limit middleware, not
+          by the downstream reader.
+
+  boundaries:
+    - "Do not modify src/lib/rateLimiter.ts — that module is already implemented and is not in scope for this Spec."
+    - "Do not add new npm dependencies — implement using only Node.js built-ins and already-installed packages."
+    - "Do not implement a distributed (Redis-backed) rate limiter — in-memory only for this Spec."
+    - "Do not modify any existing route handler files — the middleware must be registered globally in src/app.ts only."
+    - "Do not modify the Express response object prototype — only use res.set() and res.locals for header and locals writes."
+
+  deliverables:
+    - >
+      src/middleware/rateLimitHeaders.ts — New middleware file. Reads the counter
+      state from src/lib/rateLimiter.ts using getCounterState(req.ip), sets the
+      three IETF rate-limit headers via res.set(), attaches the rateLimit object to
+      res.locals, and either calls next() (under limit) or calls res.status(429).json(...)
+      with a Retry-After header (at or over limit).
+    - >
+      src/types/locals.d.ts — Updated type declaration file. Add a rateLimit field
+      to the Express.Locals interface with type { limit: number, remaining: number,
+      resetAt: number }. This is an additive change — no existing field may be removed
+      or renamed.
+    - >
+      src/app.ts — Updated application entry point. Register rateLimitHeaders as
+      global middleware (app.use(rateLimitHeaders)) before all route registrations.
+      This is the only change to this file.
+
+  validation:
+    automated:
+      - >
+        Run the existing test suite (npm test) — all pre-existing tests must pass
+        after the changes.
+      - >
+        Unit test for rateLimitHeaders middleware: mock getCounterState to return
+        { count: 50, windowResetAt: 1700000060 } with a configured limit of 100.
+        Assert response headers include RateLimit-Limit: "100",
+        RateLimit-Remaining: "50", RateLimit-Reset: "1700000060" (decimal strings).
+      - >
+        Unit test for over-limit behavior: mock getCounterState to return
+        { count: 100, windowResetAt: 1700000060 } with limit 100 (remaining = 0).
+        Assert HTTP 429, headers RateLimit-Remaining: "0",
+        Retry-After: "1700000060", and that next() is NOT called.
+      - >
+        TypeScript compilation check (npx tsc --noEmit) must pass with zero errors
+        after the src/types/locals.d.ts change.
+    human_review:
+      - >
+        Verify RateLimit-Reset values are Unix timestamps in seconds (not milliseconds).
+        A value above 9_999_999_999 is milliseconds and is wrong — reject if found.
+      - >
+        Verify the middleware is registered before all route registrations in
+        src/app.ts, not after. Order matters: a middleware registered after a route
+        will not run for that route.
+      - >
+        Verify the TOCTOU edge case handling — the check-and-decrement operation in
+        the counter must be atomic in the context of a single-threaded Node.js event
+        loop (synchronous read-modify-write with no await between the check and the
+        decrement).

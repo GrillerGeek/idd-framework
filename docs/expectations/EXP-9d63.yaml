@@ -1,0 +1,31 @@
+expectation:
+  id: "EXP-9d63"
+  intention: "INT-43b9"
+  description: >
+    The execution report is written to docs/reviews/ as a structured YAML or
+    Markdown file and includes a "spec gaps encountered" section that lists every
+    ambiguity, missing detail, or stale reference the agent hit during implementation.
+    This section is the retro loop input: it is reviewed by the Spec Author before
+    the Spec is marked done and feeds improvements into the parent Spec or future
+    Specs for the same product.
+  validation_criteria: >
+    Pass: docs/reviews/ contains a file named with the Spec ID and run timestamp;
+    the file has a "spec_gaps_encountered" section (may be empty list if none found);
+    non-empty gap lists include the Spec field reference, the gap description, and
+    a suggested resolution.
+    Fail: execution completes without a report file, report exists but lacks the
+    spec_gaps_encountered section, or gap entries omit the Spec field reference.
+  edge_cases:
+    - >
+      Agent encounters zero gaps during implementation (Spec was clean and complete).
+      The "spec_gaps_encountered" section must still appear in the report as an
+      empty list — its absence would be indistinguishable from a missing report,
+      making retro review unreliable.
+    - >
+      Two agents run the same Spec concurrently (parallel Spec execution). Both
+      write to docs/reviews/ with the same Spec ID. Each must include a unique
+      timestamp or agent-run identifier in the filename to prevent overwrite; the
+      retro reviewer sees both reports.
+  complexity: "medium"
+  owner: "Jason Robey"
+  status: "validated"

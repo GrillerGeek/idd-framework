@@ -1,0 +1,32 @@
+expectation:
+  id: "EXP-4739"
+  intention: "INT-294f"
+  description: >
+    autonomy.md is updated to introduce the gap-check doctrine as a first-class
+    principle: the passage about "AI guesses at machine speed" is revised to frame
+    the gap-check gate and agent self-verification as the mechanisms by which agents
+    surface gaps rather than improvise — strengthening, not relaxing, the
+    Spec-is-the-contract doctrine. The updated passage must be tool-agnostic.
+  validation_criteria: >
+    Pass: autonomy.md contains a passage that (a) describes the gap-check gate by
+    name or clear description, (b) states that agents surface gaps and halt rather
+    than improvise, (c) makes no reference to Claude Code or any specific tool.
+    Fail: autonomy.md still describes the pre-v1.3 fire-and-forget agent model
+    without addressing gaps, or the update contains plugin-specific language.
+  edge_cases:
+    - >
+      The original "AI guesses at machine speed" passage is cited verbatim in an
+      external article or talk. Changing it eliminates the citation's accuracy.
+      This is an acceptable tradeoff — doctrine accuracy takes precedence — but the
+      updated passage should preserve the core insight (speed of AI action amplifies
+      the cost of bad context) while adding the gap-check framing, rather than
+      deleting the passage entirely.
+    - >
+      A contributor updates autonomy.md to describe the gap-check gate but
+      accidentally introduces plugin-specific language (e.g., references
+      "/idd-framework:gap-check command"). The docs convention (tool-agnostic in
+      docs/) must be enforced: the gate is described at the process level, not
+      the command level, in all docs/ files.
+  complexity: "medium"
+  owner: "Jason Robey"
+  status: "validated"

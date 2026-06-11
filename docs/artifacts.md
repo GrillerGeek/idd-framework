@@ -130,3 +130,19 @@ Context is defined once at the Product level and inherited by all child Specs. I
 | Auth | Product | Spec may narrow (e.g., specific roles) |
 
 For the complete Spec schema and authoring best practices, see [spec-authoring.md](spec-authoring.md).
+
+### Optional Fields
+
+The following fields are added by the v1.3 pipeline and are not required on pre-existing Specs.
+
+**gap_check** — Records the outcome of the gap-check gate run before execution.
+
+| Sub-Field | Type / Valid Values | Description |
+|---|---|---|
+| `status` | `pass` · `blocked` · `warned` | Result of the gap-check run: `pass` means zero Blockers and zero Warnings; `warned` means zero Blockers but at least one Warning reviewed and accepted; `blocked` means at least one Blocker remains unresolved |
+| `blockers` | integer | Count of Blocker-grade findings at the time of the run |
+| `warnings` | integer | Count of Warning-grade findings at the time of the run |
+| `report` | file path string | Path to the gap-check report file (e.g., `docs/reviews/gap-check-SPEC-d12e.md`) |
+| `date` | ISO 8601 date | Date the gap-check gate was run |
+
+Pre-v1.3 artifacts that do not include the `gap_check` field remain valid; the field is optional and its absence does not indicate an incomplete Spec.

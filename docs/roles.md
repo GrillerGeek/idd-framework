@@ -30,7 +30,8 @@ IDD redefines team roles to reflect the shift from coding-centric to specificati
 - Author Specs with complete Context, Boundaries, Deliverables, and Validation blocks
 - Ensure Specs pass the completeness checklist before entering Ready
 - Collaborate with Tech Lead on Context block accuracy
-- Iterate on Specs when AI output reveals gaps
+- Resolve gap-check Blockers and review Warnings before execution begins — gap-check findings are direct feedback on Spec quality and must be addressed in the Spec, not worked around at execution time
+- Iterate on Specs when AI output or Execution Reports reveal gaps
 
 **Skills Required:**
 - Domain knowledge sufficient to write meaningful Expectations
@@ -76,9 +77,14 @@ IDD redefines team roles to reflect the shift from coding-centric to specificati
 
 **Change from Traditional:** AI agents are treated as a defined team member with specific inputs (Specs) and outputs (Deliverables). They are not magic — they are as good as the Specs they receive.
 
-**Inputs:** AI-ready Spec (YAML or Markdown export)
-**Outputs:** Code, tests, documentation as defined in Deliverables block
+**Inputs:** AI-ready Spec (YAML or Markdown export) that has passed the gap-check gate
+**Outputs:** Code, tests, documentation as defined in Deliverables block; Execution Report
 **Constraints:** Bounded by the Spec's Boundaries block
+
+**Self-Verification Duties:**
+1. **Restate every Boundary from the Spec before beginning any implementation work.** This is not optional ceremony — it anchors execution to the contract and prevents scope drift from the first action.
+2. **Self-verify against every Expectation, every Boundary, and every Deliverable upon completion, producing a self-verification table.** Each item is marked satisfied, violated, or missing with a one-sentence evidence pointer.
+3. **Produce an Execution Report recording any Spec gaps encountered during execution.** The report captures every Boundary acknowledged, the full self-verification table, and a mandatory Spec Gaps section (present even when empty). It is filed in docs/reviews/ alongside the gap-check report.
 
 ---
 
@@ -91,6 +97,7 @@ IDD redefines team roles to reflect the shift from coding-centric to specificati
 **Key Activities:**
 - Review AI output against Expectations: does it do what the Spec says?
 - Review against Boundaries: did it touch things it shouldn't have?
+- Review the Execution Report: examine any Spec gaps the agent encountered and verify the resolutions are appropriate
 - Review for architectural fit, code quality, and test coverage
 - Approve or return with specific, Spec-referenced feedback
 

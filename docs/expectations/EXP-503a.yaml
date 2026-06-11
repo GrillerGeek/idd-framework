@@ -1,0 +1,34 @@
+expectation:
+  id: "EXP-503a"
+  intention: "INT-294f"
+  description: >
+    The ~8K token Spec size guidance in docs/ is reframed: the stated concern shifts
+    from "fits in the context window" to "maintains agent attention quality across
+    the full Spec" — with the practical implication that very large Specs should be
+    split not because of hard token limits but because attention dilution degrades
+    execution quality. All references to a specific token number are replaced with
+    principle-based guidance.
+  validation_criteria: >
+    Pass: grep for "8K", "8,000", "8000", "context window" in docs/ returns zero
+    hits in Spec-size guidance; the updated guidance uses "attention quality" or
+    equivalent framing and gives a principle (e.g., "if a reviewer cannot hold all
+    Expectations in mind simultaneously, split the Spec") rather than a token count.
+    Fail: any token-count threshold remains in docs/ Spec-size guidance, or the
+    updated guidance omits a practical splitting heuristic.
+  edge_cases:
+    - >
+      The token-count language appears in both docs/spec-authoring.md and in
+      plugin/skills/idd-orchestration/references/spec-reference.md (the '##
+      Token Warning' section at lines 113-115). Both locations must be updated
+      consistently; updating only the primary doc while leaving the plugin
+      reference creates a contradiction that erodes practitioner trust and
+      breaks agent behavior.
+    - >
+      A future contributor reads the updated guidance and concludes there is now no
+      size limit, writing a 40-Expectation Spec. The guidance must include a concrete
+      signal for "too large" (e.g., a self-check question, not a number) to prevent
+      this misreading — principle-based guidance without any practical anchor is not
+      an improvement.
+  complexity: "low"
+  owner: "Jason Robey"
+  status: "validated"

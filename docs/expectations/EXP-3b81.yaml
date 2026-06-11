@@ -1,0 +1,32 @@
+expectation:
+  id: "EXP-3b81"
+  intention: "INT-0d38"
+  description: >
+    The expectation-author agent proposes a candidate list of edge cases for each
+    Expectation and presents them to the human for confirmation, addition, or
+    rejection — rather than waiting for the human to invent edge cases unprompted.
+    Proposed edge cases are clearly labeled as proposals; none are saved to the
+    artifact until the human explicitly confirms them.
+  validation_criteria: >
+    Pass: expectation-author session for a new Intention produces a numbered list
+    of proposed edge cases per Expectation before writing any YAML; human can
+    confirm, modify, or reject each proposal; only confirmed edge cases appear in
+    the saved Expectation YAML.
+    Fail: agent writes edge cases to YAML without human confirmation, or agent
+    produces no proposals and waits for the human to provide all edge cases.
+  edge_cases:
+    - >
+      Human rejects all proposed edge cases for an Expectation (finds them all
+      generic or irrelevant). Agent must prompt for human-supplied edge cases and
+      must not save the Expectation with zero edge cases — the 2-edge-case minimum
+      is a hard requirement that survives human rejection of proposals.
+    - >
+      Agent proposes edge cases that closely mirror the Expectation's happy path
+      (i.e., the same quality problem the gate is designed to catch). This is a
+      self-referential quality failure: the human confirmation step must include
+      a brief explanation from the agent of why each proposed edge case is
+      meaningfully distinct from the base case, so the human can evaluate quality,
+      not just accept a list.
+  complexity: "medium"
+  owner: "Jason Robey"
+  status: "validated"

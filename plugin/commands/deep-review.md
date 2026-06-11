@@ -11,10 +11,10 @@ Available Specs:
 
 Launch the `idd-deep-review-lead` subagent to conduct a multi-perspective review of a Spec.
 
-**Model directive:** When dispatching this subagent, you MUST explicitly pass `model: "opus"` to the Agent/Task tool call. This subagent requires Opus 4.7 for parallel multi-perspective synthesis (architecture, boundaries, deliverables) and cannot be downgraded. Do NOT skip this parameter. If the deep-review-lead itself spawns sub-reviewers for the parallel perspectives, those may use Sonnet — but the lead agent must be Opus.
+**Model directive:** When dispatching this subagent, you MUST explicitly pass `model: "opus"` to the Agent/Task tool call. This subagent requires the current Opus generation for parallel multi-perspective synthesis (architecture, boundaries, deliverables) and cannot be downgraded. Do NOT skip this parameter. If the deep-review-lead itself spawns sub-reviewers for the parallel perspectives, those may use Sonnet — but the lead agent must be Opus.
 
 If `$ARGUMENTS` contains a spec ID (e.g., SPEC-d12e), pass it to the agent so it can load the correct Spec from `docs/specs/`.
 
 If no spec ID is provided, the agent will list available Specs and identify those in "ready" or "review" status.
 
-This command uses Agent Teams (experimental) for parallel review when available. If Agent Teams are not enabled, the agent conducts a thorough sequential review covering all three perspectives.
+This command uses parallel dispatch as the default path for multi-perspective review (architecture, boundaries, deliverables). If parallel dispatch is unavailable in the runtime, the agent conducts a thorough sequential review covering all three perspectives as a documented fallback.

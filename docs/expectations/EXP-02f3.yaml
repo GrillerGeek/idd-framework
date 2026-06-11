@@ -1,0 +1,29 @@
+expectation:
+  id: "EXP-02f3"
+  intention: "INT-43b9"
+  description: >
+    After completing implementation, the implementing agent self-verifies its output
+    against every Expectation, Boundary, and Deliverable in the Spec, and emits a
+    pass/fail result for each item. Any item that cannot be verified (e.g., requires
+    a running service) is marked "unverifiable at build time" with a reason, never
+    silently skipped.
+  validation_criteria: >
+    Pass: execution report contains a self-verification table with one row per
+    Expectation, one row per Boundary, and one row per Deliverable; each row has
+    status (pass / fail / unverifiable) and a one-line evidence note.
+    Fail: any Spec item is absent from the table, or any item is marked pass without
+    an evidence note, or any item is silently omitted.
+  edge_cases:
+    - >
+      Spec contains 10 Expectations but implementation only touches code relevant
+      to 7. The agent must mark the remaining 3 as "unverifiable — no implementation
+      path touches this Expectation" and include them in the "spec gaps encountered"
+      section, not omit them from the report.
+    - >
+      One Deliverable is "updated docs/reviews/ report" — a file the agent itself
+      is writing. The agent must verify its own output file exists and is non-empty
+      before marking that Deliverable as pass; self-referential verification is not
+      an exception to the verification requirement.
+  complexity: "high"
+  owner: "Jason Robey"
+  status: "validated"

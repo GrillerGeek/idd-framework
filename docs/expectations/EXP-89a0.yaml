@@ -1,0 +1,30 @@
+expectation:
+  id: "EXP-89a0"
+  intention: "INT-08e4"
+  description: >
+    The gap-check gate is positioned as a precondition after the completeness
+    checklist passes and before execution begins. The existing completeness checklist
+    (block-presence verification) is not replaced or merged into the gate — it
+    remains a separate, earlier guard that must pass before the gate runs.
+  validation_criteria: >
+    Pass: attempting to run the gap-check gate on a Spec that has not yet passed
+    the completeness checklist produces an early-exit error ("completeness check
+    required first") rather than a gap-check finding report.
+    Pass: a Spec that passes completeness but fails the gap-check gate is held at
+    "ready" status and cannot be moved to "in-progress" until Blockers are resolved.
+    Fail: gap-check runs on an incomplete Spec, or a Blocker-flagged Spec proceeds
+    to execution.
+  edge_cases:
+    - >
+      Spec has exactly the minimum required content in every block (one convention,
+      one automated validation item, two edge cases per Expectation that are
+      technically distinct but semantically thin). Completeness checklist passes.
+      Gap-check must still evaluate content quality independently and may emit
+      Blockers even though structural requirements are met.
+    - >
+      Team runs gap-check manually mid-draft before completeness checklist passes
+      (e.g., to get early feedback on a partial Spec). The gate must reject with a
+      clear message rather than producing a partial or misleading finding report.
+  complexity: "medium"
+  owner: "Jason Robey"
+  status: "validated"

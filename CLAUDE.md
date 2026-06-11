@@ -40,6 +40,8 @@ The `plugin/` directory contains a Claude Code plugin that automates the IDD wor
 | `/idd-framework:define-expectations` | Define verifiable constraints + edge cases | `docs/expectations/` |
 | `/idd-framework:write-spec` | Create AI-ready Spec with all 5 blocks | `docs/specs/` |
 | `/idd-framework:tech-review` | Architectural feasibility review | Review annotations |
+| `/idd-framework:gap-check` | Adversarial pre-execution gate: attacks Spec content for ambiguity, contradictions, filler edge cases | `docs/reviews/` + `gap_check` annotation |
+| `/idd-framework:implement-spec` | Managed execution: boundary restatement, build, self-verify, execution report | Codebase + `docs/reviews/` |
 | `/idd-framework:review-spec` | Validate AI output against Spec criteria | `docs/reviews/` |
 
 **Accelerated workflows:**
@@ -58,12 +60,12 @@ The `plugin/` directory contains a Claude Code plugin that automates the IDD wor
 
 ### Agents (in `plugin/agents/`)
 
-Core agents map to IDD roles: product-interviewer, intention-author, expectation-author, spec-author, tech-lead-reviewer, spec-reviewer. Accelerated agents: outcome-author, quick-spec-author, deep-review-lead. Commands dispatch to these agents.
+Core agents map to IDD roles: product-interviewer, intention-author, expectation-author, spec-author, tech-lead-reviewer, spec-reviewer. Accelerated agents: outcome-author, quick-spec-author, deep-review-lead. v1.3 pipeline agents: idd-gap-checker (adversarial pre-execution gate, report-only) and idd-spec-implementer (managed execution with self-verification). Commands dispatch to these agents.
 
 **Model assignment strategy** (in each agent's frontmatter `model:` field):
 
-- **opus** — reasoning-heavy synthesis: `deep-review-lead`, `tech-lead-reviewer`
-- **sonnet** — structured synthesis with codebase scanning: `spec-author`, `quick-spec-author`, `spec-reviewer`, `outcome-author`
+- **opus** — reasoning-heavy synthesis: `deep-review-lead`, `tech-lead-reviewer`, `idd-gap-checker` (adversarial cross-block analysis)
+- **sonnet** — structured synthesis with codebase scanning: `spec-author`, `quick-spec-author`, `spec-reviewer`, `outcome-author`, `idd-spec-implementer`
 - **haiku** — template-guided Q&A and decomposition: `product-interviewer`, `intention-author`, `expectation-author`
 
 Assignments are explicit (not `inherit`) so a user running Opus in their main session doesn't pay Opus rates for a stakeholder interview. When editing agents, preserve the model assignment unless the agent's responsibilities materially change tier.
@@ -87,6 +89,8 @@ When editing this repo, maintain these foundational positions:
 - **Context inheritance.** Context is defined at the Product level and inherited/overridden by child Specs.
 - **Spec Author is a new role** — hybrid of business analyst and senior developer.
 - **The completeness checklist** gates Specs from Draft to Ready (see `docs/spec-authoring.md`).
+- **The gap-check gate is mandatory and doctrine-strengthening.** Every Spec passes an adversarial content review before execution; gaps are fixed in the Spec by humans — agents surface gaps, never improvise around them. The gap-checker is report-only.
+- **Execution is a managed stage.** The implementing agent restates Boundaries first, self-verifies against every Expectation/Boundary/Deliverable, and files an Execution Report whose `spec_gaps_encountered` section feeds future Spec quality.
 - **Autonomy through context** — the hierarchy is a context delivery system, not a management structure (see `docs/autonomy.md`).
 
 ## Artifact Hierarchy and IDs

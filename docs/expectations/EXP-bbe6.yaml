@@ -1,0 +1,28 @@
+expectation:
+  id: "EXP-bbe6"
+  intention: "INT-43b9"
+  description: >
+    Before writing any code, the implementing agent produces a verbatim restatement
+    of every Boundary from the Spec in its own words, confirming it has read and
+    understood the prohibitions. This restatement is the first artifact in the
+    execution record and must appear before any file is modified.
+  validation_criteria: >
+    Pass: execution record contains a "Boundaries Acknowledged" section listing each
+    Boundary from the Spec by index, with a paraphrase demonstrating comprehension,
+    and this section is timestamped before the first file modification.
+    Fail: any file is modified before the Boundaries Acknowledged section exists, or
+    any Boundary from the Spec is absent from the restatement.
+  edge_cases:
+    - >
+      Spec contains a Boundary that references a file path that no longer exists in
+      the codebase (stale path). Agent must still restate the Boundary verbatim and
+      flag the stale reference in the "spec gaps encountered" section — it must not
+      silently skip a Boundary because it cannot locate the referenced path.
+    - >
+      Spec has no Boundaries block (pre-v1.3 Spec that passed the old completeness
+      checklist without a Boundaries block). Agent must emit a gap finding and halt
+      rather than proceeding without boundary acknowledgement, because the absence
+      of a Boundaries block is itself a Blocker-level content gap.
+  complexity: "medium"
+  owner: "Jason Robey"
+  status: "validated"

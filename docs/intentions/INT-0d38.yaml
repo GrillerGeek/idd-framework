@@ -1,0 +1,25 @@
+intention:
+  id: "INT-0d38"
+  product: "PROD-f67b"
+  statement: >
+    All nine plugin agents exploit current-generation model capabilities: extended
+    thinking is applied where reasoning is the bottleneck, the deep-review agent
+    runs its perspectives in parallel by default, model pins are refreshed, and the
+    expectation-author proposes edge cases for human confirmation rather than waiting
+    for the human to invent them — while the haiku/sonnet/opus cost-tier strategy is
+    preserved.
+  rationale: >
+    The plugin's agents were calibrated for 2024-era models. Extended thinking,
+    larger context windows, and improved instruction-following unlock meaningful
+    quality gains — particularly in the reasoning-heavy review agents and the
+    expectation-author, where waiting for human-invented edge cases is now the
+    quality bottleneck. Preserving the cost-tier strategy keeps the plugin economical
+    for teams running it at scale.
+  priority: "high"
+  dependencies: []
+  expectations:
+    - "EXP-7110"
+    - "EXP-d261"
+    - "EXP-3b81"
+  owner: "Jason Robey"
+  status: "fulfilled"

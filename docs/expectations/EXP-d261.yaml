@@ -1,0 +1,32 @@
+expectation:
+  id: "EXP-d261"
+  intention: "INT-0d38"
+  description: >
+    The deep-review-lead agent dispatches its sub-perspectives in parallel by
+    default; sequential dispatch is retained as a documented fallback for
+    environments where parallel agent execution is not supported. The agent
+    definition makes the dispatch mode explicit and configurable, not hardcoded.
+  validation_criteria: >
+    Pass: deep-review-lead agent file dispatches sub-agents using a parallel
+    dispatch pattern by default; the file documents the sequential fallback
+    condition; running a deep review on a test Spec produces sub-perspective
+    outputs that are timestamped within the same window rather than strictly
+    sequential timestamps.
+    Fail: deep-review-lead runs sub-perspectives sequentially by default with no
+    parallel path, or the fallback condition is undocumented.
+  edge_cases:
+    - >
+      Parallel agent execution is available but one sub-perspective agent fails
+      mid-run (e.g., hits a context limit). deep-review-lead must collect the
+      successful sub-perspective outputs and emit a partial review report with the
+      failed perspective marked as "error — see reason" rather than aborting the
+      entire review or silently omitting the failed perspective.
+    - >
+      User invokes deep-review on a Spec with a very large context (many
+      Expectations, large codebase refs). Running all perspectives in parallel
+      could exhaust available agent slots. The agent must either document a
+      maximum parallelism ceiling or implement graceful degradation to sequential
+      when slot limits are hit, rather than throwing an unhandled error.
+  complexity: "high"
+  owner: "Jason Robey"
+  status: "validated"

@@ -1,0 +1,162 @@
+# SPEC-test-flawed.yaml
+# Test fixture for idd-gap-checker validation (EXP-b1ed).
+# This Spec passes completeness checklist items 1–10 structurally but contains
+# exactly three injected content defects enumerated in planted_defects below.
+# Subject matter: a fictional "User Notification Preferences" feature.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PLANTED DEFECT MANIFEST
+# ─────────────────────────────────────────────────────────────────────────────
+# Each entry names the defect class, the Spec block, and the field where the
+# defect was injected. The gap-checker's Blocker findings must correspond to
+# entries here (or be triaged as genuine new finds).
+#
+# DEFECT-1:
+#   defect_class: unverifiable_validation_criterion
+#   block: expectations
+#   expectation_id: EXP-fx01
+#   field: validation
+#   description: >
+#     The validation criterion "the preference update performs well under load"
+#     has no measurable threshold, unit, or pass/fail condition. Each implementor
+#     will choose their own bar, causing divergent implementations.
+#
+# DEFECT-2:
+#   defect_class: filler_edge_cases
+#   block: expectations
+#   expectation_id: EXP-fx02
+#   field: edge_cases
+#   description: >
+#     Both edge cases for EXP-fx02 restate the happy path with minor wording
+#     variation ("user submits valid preferences" / "user submits preferences
+#     that are valid"). Neither describes a boundary, error condition, or
+#     semantically distinct scenario. Implementors will write divergently
+#     different boundary tests.
+#
+# DEFECT-3:
+#   defect_class: cross_block_contradiction
+#   blocks: [boundaries, deliverables]
+#   description: >
+#     The boundaries block prohibits all modifications to src/notifications/.
+#     The deliverables block requires creating src/notifications/preferences.ts.
+#     Each implementor resolves this contradiction differently: one skips the
+#     file, another ignores the boundary. Directly divergent implementations.
+# ─────────────────────────────────────────────────────────────────────────────
+
+spec:
+  id: "SPEC-test-flawed"
+  product: "PROD-test"
+  intentions:
+    - "INT-test01"
+  expectations:
+    - "EXP-fx01"
+    - "EXP-fx02"
+  status: "ready"
+
+  context:
+    stack: >
+      TypeScript 5.3, Node.js 20, Express 4.18, PostgreSQL 15 via pg-promise.
+      REST API layer under src/api/, business logic under src/services/,
+      database models under src/models/.
+    patterns: >
+      Vertical-slice architecture: each feature owns its own route, service,
+      and model file. Controllers call services; services call models. No
+      cross-feature imports at the service layer. Errors propagate via a
+      shared AppError class in src/lib/errors.ts.
+    conventions:
+      - "All route handlers are async and wrapped with asyncHandler from src/lib/asyncHandler.ts"
+      - "Service methods return domain objects, never raw database rows"
+      - "All database operations are wrapped in transactions for multi-step writes"
+    existing_code_refs:
+      - path: "src/api/users.ts"
+        note: "Reference for route handler structure and asyncHandler usage"
+      - path: "src/services/userService.ts"
+        note: "Reference for service method patterns and AppError usage"
+      - path: "src/models/user.ts"
+        note: "Reference for model file structure and pg-promise query patterns"
+    auth: >
+      JWT bearer tokens validated by src/middleware/auth.ts. All preference
+      endpoints require a valid JWT. The userId claim from the token is the
+      authoritative user identity for preference reads and writes.
+
+  expectations:
+    - id: "EXP-fx01"
+      description: >
+        When an authenticated user submits a PUT request to
+        /api/users/:userId/notification-preferences with a valid JSON body,
+        their notification preferences are persisted to the database and a
+        200 response is returned with the updated preferences object.
+      # DEFECT-1 injected here — unverifiable validation criterion
+      validation: >
+        PASS condition: A PUT request with a valid body returns HTTP 200 and
+        the response body matches the submitted preferences. The database row
+        for the user is updated. The preference update performs well under load.
+      edge_cases:
+        - >
+          The :userId in the URL does not match the userId claim in the JWT.
+          The endpoint must return HTTP 403 and not modify any preferences.
+        - >
+          The request body is missing a required field (e.g., emailEnabled is
+          absent). The endpoint must return HTTP 422 with a structured error
+          body listing the missing field.
+
+    - id: "EXP-fx02"
+      description: >
+        When an authenticated user submits a GET request to
+        /api/users/:userId/notification-preferences, the current preferences
+        for that user are returned with HTTP 200.
+      validation: >
+        PASS condition: A GET request by the owning user returns HTTP 200 and
+        the response body is a JSON object with the fields emailEnabled (boolean),
+        smsEnabled (boolean), and pushEnabled (boolean). If no preferences have
+        been set, default values (all true) are returned.
+      # DEFECT-2 injected here — filler edge cases that restate the happy path
+      edge_cases:
+        - >
+          User submits a valid preferences read request and receives the
+          correct preferences in the response.
+        - >
+          User submits preferences read request that is valid and receives a
+          preferences object in the response.
+
+  boundaries:
+    # DEFECT-3 injected here — contradicts Deliverable requiring src/notifications/preferences.ts
+    - "Do not modify any files under src/notifications/ — that module is owned by the push-notification service team and is out of scope for this Spec."
+    - "Do not add new npm dependencies — use only packages already in package.json."
+    - "Do not modify the users table schema — add a separate notification_preferences table."
+    - "Do not implement admin endpoints for bulk preference management — that is a separate Spec."
+
+  deliverables:
+    # DEFECT-3 is here — requires creating a file under src/notifications/, which Boundaries prohibit
+    - >
+      src/notifications/preferences.ts — New service file implementing
+      getNotificationPreferences(userId) and updateNotificationPreferences(userId, prefs).
+      Must return domain objects with emailEnabled, smsEnabled, pushEnabled fields.
+    - >
+      src/api/notificationPreferences.ts — New route file registering GET and PUT
+      handlers at /api/users/:userId/notification-preferences. Must use asyncHandler
+      and validate JWT ownership before delegating to the preferences service.
+    - >
+      src/models/notificationPreference.ts — New model file with createOrUpdate and
+      findByUserId methods. Uses pg-promise. Returns null (not throws) when no
+      preferences row exists for the userId.
+
+  validation:
+    automated:
+      - >
+        Run the existing test suite (npm test) — all pre-existing tests must
+        continue to pass after the changes.
+      - >
+        Integration test: PUT /api/users/1/notification-preferences with
+        { emailEnabled: true, smsEnabled: false, pushEnabled: true } returns
+        HTTP 200 and the response body matches the submitted object exactly.
+      - >
+        Integration test: GET /api/users/1/notification-preferences returns HTTP 200
+        with a body containing emailEnabled, smsEnabled, and pushEnabled boolean fields.
+    human_review:
+      - >
+        Verify that the JWT ownership check in the route handler correctly rejects
+        cross-user access attempts (userId in URL vs userId in token).
+      - >
+        Verify the default-values behavior (all true) when no preferences row exists
+        is implemented in the model layer, not the route layer.

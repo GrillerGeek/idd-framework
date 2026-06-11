@@ -16,6 +16,7 @@ These are the metrics every IDD team should track from day one.
 | **Expectation Coverage** | % of Expectations with passing automated validation | 100% | Ensures AI output is verified against defined criteria |
 | **Boundary Violation Rate** | Number of AI outputs that violate defined Boundaries | Zero | Measures Spec clarity and AI agent compliance |
 | **Rework Rate** | % of validated Specs requiring post-deploy fixes | Decrease | Lagging quality indicator; reveals spec or validation gaps |
+| **Gap-Check Findings per Spec** | Combined count of Blockers and Warnings reported at the first gap-check run for a Spec | Decrease | Leading indicator of Spec quality at authoring time; a Spec that clears the gate with zero findings on the first run is a stronger signal of completeness than one that required multiple revision rounds — complements First-Pass Rate by catching problems before execution begins |
 
 ### How to Calculate
 
@@ -47,6 +48,7 @@ Track these after the team has established baseline primary metrics.
 | Human Review Time | Time from Review to approval/return | Review capacity indicator |
 | Intention Fulfillment Rate | % of Intentions with all Expectations at Done | Product progress measure; replaces burn-down |
 | Spec Completeness Score | % of checklist items satisfied at Spec Review | Spec authoring quality measure |
+| Spec Gaps per Execution Report | Count of gaps (ambiguities, contradictions, or missing context) recorded in an Execution Report during implementation | Lagging counterpart to Gap-Check Findings per Spec — gaps that survive the gate and surface during execution indicate the gap-check stage needs calibration or the Spec required more adversarial scrutiny; target direction is zero, and persistent non-zero readings point to systemic Spec authoring weaknesses |
 
 ---
 

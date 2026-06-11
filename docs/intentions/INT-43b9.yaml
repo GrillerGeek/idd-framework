@@ -1,0 +1,26 @@
+intention:
+  id: "INT-43b9"
+  product: "PROD-f67b"
+  statement: >
+    Spec execution is a managed pipeline stage in which the implementing agent
+    explicitly restates Boundaries before building, self-verifies against every
+    Expectation, Boundary, and Deliverable after building, and emits a structured
+    execution report — including a "spec gaps encountered" section — so that each
+    execution feeds signal back into future Spec quality.
+  rationale: >
+    The current handoff from a Ready Spec to a coding agent is fire-and-forget.
+    Agents may overlook Boundaries, skip edge cases under time pressure, or silently
+    deviate from Deliverables. Without a structured execution record, deviations are
+    only discovered at human review, wasting review cycles, and the feedback loop
+    that could improve future Specs never closes. A managed execution stage enforces
+    doctrine (agent surfaces gaps, never improvises) and produces the retro signal
+    needed for continuous Spec quality improvement.
+  priority: "critical"
+  dependencies:
+    - "INT-08e4"  # gap-check gate should exist before execution stage to complete the loop
+  expectations:
+    - "EXP-bbe6"
+    - "EXP-02f3"
+    - "EXP-9d63"
+  owner: "Jason Robey"
+  status: "fulfilled"

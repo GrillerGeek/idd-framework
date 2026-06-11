@@ -1,0 +1,381 @@
+spec:
+  id: "SPEC-8776"
+  product: "PROD-f67b"
+  intentions:
+    - "INT-43b9"
+  expectations:
+    - "EXP-bbe6"
+    - "EXP-02f3"
+    - "EXP-9d63"
+  status: "done"
+
+  # CONTEXT
+  # Inherited from PROD-f67b; extended with plugin-specific details for this Spec.
+  context:
+    stack: >
+      Markdown (plugin commands and agent definitions), YAML (artifact schemas),
+      Bash (plugin/bin/idd-next-id helper script). No compiled language, no build
+      system, no package manager, no tests. The repository is pure documentation
+      and Claude Code plugin definitions.
+    patterns: >
+      Claude Code plugin architecture: a command file in plugin/commands/ runs
+      a shell preamble (directory setup, file listing) then dispatches a named
+      subagent defined in plugin/agents/. Each agent file has a YAML frontmatter
+      block (name, description, model, color, effort, maxTurns, memory, tools,
+      disallowedTools) followed by a Markdown system-prompt body. Commands use
+      dispatch directives ("Model directive:", "$ARGUMENTS", "!`bash`" auto-run
+      blocks) following the style established in plugin/commands/review-spec.md
+      and plugin/commands/quick-spec.md. Agent system prompts describe the
+      agent's role, workflow steps, and output format; they reference the
+      orchestration skill reference at
+      ${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/spec-reference.md
+      for schemas. Execution reports go to docs/reviews/ as Markdown files named
+      [SPEC-ID]-[timestamp]-execution.md.
+      # GC-1: Plugin commands are auto-discovered from plugin/commands/*.md by
+      # filename; there is no commands array in plugin.json and none is needed.
+      # Creating plugin/commands/implement-spec.md is sufficient registration.
+    conventions:
+      - "Command files: YAML frontmatter (description, argument-hint, allowed-tools), then !`bash` preamble for mkdir/ls, then prose dispatch instructions."
+      - "Agent frontmatter fields in order: name, description (with examples block), model, color, effort, maxTurns, memory, tools, disallowedTools."
+      - "Model assignment is explicit in agent frontmatter (never 'inherit'); sonnet-class agents handle structured synthesis and codebase scanning."
+      - "Model references in prose are version-agnostic — never hardcode a version number (write 'sonnet' not 'claude-sonnet-4-6')."
+      - "Artifact IDs are immutable short hashes from idd-next-id; never hand-edit an assigned ID."
+      - "Schema changes to artifact YAML must be additive only — existing artifacts must remain valid."
+      - "Spec status lifecycle: draft → ready → in-progress → review → validating → done. No new statuses."
+      - "All framework docs (docs/*.md) are tool-agnostic; Claude Code specifics live in plugin/ and CLAUDE.md."
+      - "Execution report filenames: [SPEC-ID]-[ISO8601-timestamp]-execution.md (e.g., SPEC-8776-20260610T143200Z-execution.md)."
+      - "Tables use |---| separator style throughout."
+    existing_code_refs:
+      - path: "plugin/commands/review-spec.md"
+        note: >
+          Primary structural pattern for the command file. Copy its frontmatter
+          style (description, argument-hint, allowed-tools), !`bash` preamble,
+          model directive paragraph, and $ARGUMENTS dispatch paragraph verbatim
+          as the template, then adapt content. Note: review-spec.md's
+          allowed-tools is "Read Write Glob Grep Bash(mkdir *) Bash(ls *)";
+          implement-spec.md must expand this — see Deliverables #1 for the
+          required allowed-tools list specific to this command.
+      - path: "plugin/commands/quick-spec.md"
+        note: >
+          Secondary command pattern; confirms the dispatch-directive style and
+          model directive wording used across commands.
+      - path: "plugin/agents/spec-reviewer.md"
+        note: >
+          Primary agent structural pattern. Copy its frontmatter field order and
+          values (especially model: sonnet, tools list, disallowedTools) as the
+          starting point for the new idd-spec-implementer agent. The system-
+          prompt workflow (numbered steps, sub-bullets, code-fenced output
+          template) is the expected prose format.
+      - path: "plugin/agents/spec-author.md"
+        note: >
+          Secondary agent pattern; confirms tools list conventions and the
+          'Before saving artifacts, ensure the target directory exists' footer.
+      - path: "plugin/bin/idd-next-id"
+        note: >
+          Read-only reference. The implementer agent does not call this script;
+          the command file does (for Spec ID generation). Understand its output
+          format (TYPE-XXXX) for constructing execution report filenames.
+      - path: "docs/artifacts.md"
+        note: >
+          Canonical Spec status lifecycle (draft → ready → in-progress → review
+          → validating → done). Verify the status field values before writing
+          any status-transition logic into the agent. Do not add new statuses.
+      - path: "plugin/.claude-plugin/plugin.json"
+        note: >
+          Read for reference only. This file contains no commands array and
+          requires no modification — commands are auto-discovered from
+          plugin/commands/ by file placement. Do not add a commands array or
+          alter any existing field.
+
+    auth: >
+      N/A — public open-source repository. No authentication or authorization
+      logic is involved in the deliverables.
+
+  # EXPECTATIONS
+  expectations:
+    - id: "EXP-bbe6"
+      description: >
+        Before writing any file, the implementing agent (idd-spec-implementer)
+        produces a verbatim restatement of every Boundary from the Spec in its
+        own words, confirming it has read and understood the prohibitions. This
+        restatement is the first artifact in the execution record and must appear
+        before any file is modified.
+      validation: >
+        Pass: when /idd-framework:implement-spec is invoked against a Spec, the
+        agent's output (and the execution report it writes) contains a "Boundaries
+        Acknowledged" section listing each Boundary from the Spec by index, with
+        a paraphrase demonstrating comprehension, and this section appears before
+        any file is created or modified.
+        Fail: any file is modified before the Boundaries Acknowledged section
+        exists in the output, or any Boundary from the Spec is absent from the
+        restatement.
+      edge_cases:
+        - >
+          Spec contains a Boundary referencing a file path that no longer exists
+          in the codebase (stale path). The idd-spec-implementer must still
+          restate the Boundary verbatim and flag the stale reference in the
+          "spec_gaps_encountered" section of the execution report — it must not
+          silently skip a Boundary because it cannot locate the referenced path.
+        - >
+          Spec has no Boundaries block (pre-v1.3 Spec that passed the old
+          completeness checklist without a Boundaries block). The idd-spec-
+          implementer must emit a gap finding and halt with a clear stop message
+          rather than proceeding without boundary acknowledgement, because the
+          absence of a Boundaries block is a Blocker-grade gap: any resolution
+          to this ambiguity would change whether EXP-bbe6's validation criteria
+          pass (no boundaries to acknowledge → the "Boundaries Acknowledged"
+          section cannot be produced), satisfying the Blocker-grade test in
+          Boundary #4.
+
+    - id: "EXP-02f3"
+      description: >
+        After completing implementation, the idd-spec-implementer self-verifies
+        its output against every Expectation, Boundary, and Deliverable in the
+        Spec, and emits a pass/fail result for each item. Any item that cannot be
+        verified (e.g., requires a running service or human judgment) is marked
+        "unverifiable at build time" with a reason, never silently skipped.
+      validation: >
+        Pass: the execution report contains a self-verification table with one
+        row per Expectation edge case (i.e., EXP-bbe6 edge case 1, EXP-bbe6
+        edge case 2, EXP-02f3 edge case 1, EXP-02f3 edge case 2, EXP-9d63
+        edge case 1, EXP-9d63 edge case 2), plus one row per Boundary (by
+        index), plus one row per Deliverable; each row carries status (pass /
+        fail / unverifiable) and a one-line evidence note.
+        Fail: any Spec item (edge case, Boundary, or Deliverable) is absent
+        from the table, any item is marked pass without an evidence note, or
+        any item is silently omitted.
+      edge_cases:
+        - >
+          Spec contains 10 Expectations but implementation only touches code
+          relevant to 7. The agent must mark the remaining 3 as "unverifiable —
+          no implementation path touches this Expectation" and include them in
+          the "spec_gaps_encountered" section, not omit them from the report.
+        - >
+          One Deliverable is the execution report itself (docs/reviews/ file).
+          The agent must verify the report file exists and is non-empty before
+          marking that Deliverable pass; self-referential verification is not an
+          exception to the verification requirement.
+
+    - id: "EXP-9d63"
+      description: >
+        The execution report is written to docs/reviews/ as a Markdown file and
+        includes a "spec_gaps_encountered" section listing every ambiguity,
+        missing detail, or stale reference the agent hit during implementation.
+        This section is the retro loop input: reviewed by the Spec Author before
+        the Spec is marked done, and feeds improvements into the parent Spec or
+        future Specs for the same product.
+      validation: >
+        Pass: docs/reviews/ contains a file named
+        [SPEC-ID]-[ISO8601-timestamp]-execution.md; the file has a
+        "spec_gaps_encountered" section (may be an empty list if none found);
+        each non-empty gap entry follows the required format — a Markdown
+        sub-list or table row with four named fields: gap_description,
+        spec_location (block and field name), severity ("blocker-grade" or
+        "minor", per the test in Boundary #4), and resolution (the documented
+        choice made, or "stopped — reported to author" for blocker-grade gaps).
+        Fail: execution completes without a report file, report exists but lacks
+        the spec_gaps_encountered section, or gap entries omit any of the four
+        required fields.
+      edge_cases:
+        - >
+          Agent encounters zero gaps (Spec was clean and complete). The
+          "spec_gaps_encountered" section must still appear as an empty list —
+          its absence would be indistinguishable from a missing report, making
+          retro review unreliable.
+        - >
+          Two agents run the same Spec concurrently (parallel Spec execution).
+          Both write to docs/reviews/ with the same Spec ID. Each must include
+          a unique ISO8601 timestamp (or agent-run identifier) in the filename
+          to prevent overwrite; the retro reviewer sees both reports.
+
+  # BOUNDARIES
+  boundaries:
+    # Stakeholder-set boundaries (verbatim from design decisions)
+    - >
+      Schema changes to existing artifact YAML files must be additive only.
+      Do not remove or rename any existing field in docs/artifacts.md, the
+      spec-reference.md template, or any YAML template under templates/. Existing
+      artifacts (PROD-f67b, INT-43b9, EXP-bbe6, EXP-02f3, EXP-9d63) must remain
+      valid under the current schema after this Spec is implemented.
+    - >
+      Do not modify any framework documentation files under docs/*.md
+      (framework.md, artifacts.md, spec-authoring.md, roles.md, metrics.md,
+      adoption.md, faq.md, autonomy.md). Those changes are scoped to a separate
+      Spec. Reading them for reference is permitted; writing is not.
+    - >
+      Do not implement anything related to the Forge web UI
+      (plugin/commands/forge.md, npx @jasonrobey/idd-forge, or any forge-related
+      functionality). This Spec is exclusively about the implement-spec pipeline
+      stage.
+    - >
+      The idd-spec-implementer agent must not improvise around Blocker-grade Spec
+      ambiguities. A gap is Blocker-grade if and only if reasonable alternative
+      resolutions would (a) change whether any Expectation's validation criteria
+      pass, (b) risk crossing any Boundary, or (c) change the externally visible
+      shape of any Deliverable. When any of those conditions holds, the agent must
+      stop and emit a gap report rather than making a judgment call. A gap is
+      minor if none of those conditions holds; minor gaps may receive a documented
+      best-effort choice in spec_gaps_encountered, but must still be flagged.
+    # Derived boundaries (inferred from scope and architecture)
+    - >
+      Do not modify any existing command files in plugin/commands/. As of this
+      Spec there are ten existing command files: deep-review.md,
+      define-expectations.md, define-intentions.md, define-outcomes.md,
+      forge.md, interview.md, quick-spec.md, review-spec.md, tech-review.md,
+      write-spec.md. The new file is plugin/commands/implement-spec.md — do
+      not alter any of the ten existing files.
+    - >
+      Do not modify any existing agent files in plugin/agents/. As of this
+      Spec there are nine existing agent files: deep-review-lead.md,
+      expectation-author.md, intention-author.md, outcome-author.md,
+      product-interviewer.md, quick-spec-author.md, spec-author.md,
+      spec-reviewer.md, tech-lead-reviewer.md. The new file is
+      plugin/agents/idd-spec-implementer.md — do not alter any of the nine
+      existing files.
+    - >
+      Do not add any new npm dependencies, shell dependencies, or external service
+      calls. The plugin uses only Claude Code built-in tools and Bash builtins
+      already available in the plugin environment.
+    - >
+      Do not invent new Spec status values. The status lifecycle (draft → ready →
+      in-progress → review → validating → done) is defined in docs/artifacts.md
+      and must not be extended by this Spec's deliverables.
+
+  # DELIVERABLES
+  deliverables:
+    - >
+      plugin/commands/implement-spec.md — new command file. Invoked as
+      /idd-framework:implement-spec. Must follow the exact frontmatter and
+      structural pattern of plugin/commands/review-spec.md: YAML frontmatter
+      (description, argument-hint, allowed-tools), !`bash` preamble for
+      mkdir -p and ls of docs/specs/, model directive paragraph instructing the
+      caller to pass model: "sonnet" when dispatching idd-spec-implementer,
+      $ARGUMENTS pass-through paragraph, and behavior-when-no-arguments paragraph.
+      The command file's allowed-tools must include the tools needed by the
+      command's own shell preamble plus git status for the boundary-verification
+      protocol: "Read Write Glob Grep Bash(mkdir *) Bash(ls *) Bash(git status *)".
+      Note: the agent's own tool permissions are declared separately in the
+      agent frontmatter's tools/disallowedTools fields and are independent of
+      this command-level allowed-tools list.
+    - >
+      plugin/agents/idd-spec-implementer.md — new agent definition file. Must
+      have YAML frontmatter: name: idd-spec-implementer, description with at
+      least two concrete usage examples, model: sonnet, color: orange (orange
+      is the one standard color not used by any of the nine existing agents),
+      effort: high, maxTurns: 40 (implementation is longer than review), memory:
+      project, tools list including Read/Write/Edit/Glob/Grep/Bash, no
+      disallowedTools restriction on Edit (the implementer must be able to edit
+      files). System prompt must implement the five-step protocol in order:
+      (1) refuse-unless-ready gate, (2) Boundaries Acknowledged restatement
+      before any file modification, (3) capture git status --porcelain snapshot
+      (see step 3a of the boundary-verification protocol below), then
+      implementation within Context/Boundaries, (4) self-verification table
+      covering every edge case (one row per edge case), every Boundary (one row
+      per Boundary by index), and every Deliverable (one row per Deliverable)
+      with pass/fail/unverifiable and evidence, (5) execution report emitted
+      to docs/reviews/. The system prompt must specify the execution report
+      filename format: [SPEC-ID]-[ISO8601-timestamp]-execution.md.
+      Boundary-verification protocol (verbatim in the agent prompt): (3a) before
+      writing any file, capture `git status --porcelain` and save the output as
+      PRE_STATUS; (3b) after all files are written, capture `git status
+      --porcelain` again and save the output as POST_STATUS; (3c) diff PRE_STATUS
+      and POST_STATUS to enumerate every path that was created or modified
+      (tracked or untracked); (3d) every path in that diff must be in the
+      Deliverables allowlist — any path outside the allowlist is a Boundary
+      violation and must be reported immediately as a Blocker-grade gap.
+      Gap classification test (verbatim in the agent prompt): a gap encountered
+      during implementation is Blocker-grade if and only if reasonable alternative
+      resolutions would (a) change whether any Expectation's validation criteria
+      pass, (b) risk crossing any Boundary, or (c) change the externally visible
+      shape of any Deliverable. If any condition holds: stop and report to the
+      Spec Author. If none holds: make a best-effort choice and document it in
+      spec_gaps_encountered.
+    - >
+      docs/reviews/SPEC-8776-[timestamp]-execution.md — execution report
+      produced by the agent when it implements this Spec (written during the
+      implementation run, not pre-authored). Included here as a Deliverable so
+      the agent self-verifies its own report exists and is non-empty per EXP-02f3
+      edge case 2.
+
+  # VALIDATION
+  validation:
+    automated:
+      - >
+        File existence: verify plugin/commands/implement-spec.md and
+        plugin/agents/idd-spec-implementer.md both exist after implementation.
+        Confirm plugin/.claude-plugin/plugin.json is unchanged (commands are
+        auto-discovered; no modification to this file is required or expected).
+      - >
+        YAML lint: plugin/.claude-plugin/plugin.json must remain valid JSON after
+        implementation — it should be identical to its pre-implementation state
+        (run: python3 -c "import json; json.load(open('plugin/.claude-plugin/plugin.json'))").
+      - >
+        No out-of-allowlist file mutations: capture `git status --porcelain`
+        before starting and after finishing implementation, then diff the two
+        listings to enumerate every path that was created or modified (tracked
+        or untracked). Every path in the diff must be one of:
+        plugin/commands/implement-spec.md, plugin/agents/idd-spec-implementer.md,
+        or docs/reviews/SPEC-8776-*.md. Any other path in the diff is a Boundary
+        violation and must be reported immediately.
+      - >
+        Boundary acknowledgement ordering: the execution report must contain
+        "Boundaries Acknowledged" before any evidence of file creation (check
+        that the Boundaries Acknowledged section timestamp predates or equals the
+        first file write timestamp in the report).
+      - >
+        Self-verification table completeness: grep the execution report for all
+        six edge case identifiers (EXP-bbe6 edge case 1, EXP-bbe6 edge case 2,
+        EXP-02f3 edge case 1, EXP-02f3 edge case 2, EXP-9d63 edge case 1,
+        EXP-9d63 edge case 2), all eight Boundary entries (by index or first
+        unique phrase), and all three Deliverable entries — each must appear in
+        the verification table.
+      - >
+        Execution report filename format: confirm the filename in docs/reviews/
+        matches the pattern SPEC-8776-[ISO8601]-execution.md (regex:
+        SPEC-8776-\d{8}T\d{6}Z-execution\.md).
+      - >
+        spec_gaps_encountered section presence: grep the execution report for
+        "spec_gaps_encountered" or "spec gaps encountered" — the section must
+        exist even if the list is empty.
+    human_review:
+      - >
+        Plugin architecture review: confirm plugin/commands/implement-spec.md
+        follows the exact structural pattern of review-spec.md — frontmatter
+        field order, !`bash` preamble style, model directive wording, and
+        $ARGUMENTS paragraph. Reviewer should open both files side-by-side.
+      - >
+        Agent system prompt quality: read plugin/agents/idd-spec-implementer.md
+        and verify the five-step protocol is clear and unambiguous enough that
+        an AI agent could follow it without asking clarifying questions. Pay
+        special attention to the Blocker-grade test: confirm it is stated
+        verbatim as the three-part operational test (conditions a, b, c from
+        Boundary #4) and that the stop-and-report path is explicit and cannot
+        be rationalized away.
+      - >
+        Doctrine integrity check: confirm the agent system prompt never
+        instructs the implementer to improvise around a Blocker-grade gap.
+        The stop-and-report path must be explicit and cannot be gated on a
+        subjective threshold the agent can rationalize away.
+      - >
+        Execution report usefulness: after the agent runs against this Spec,
+        have the Spec Author read the actual execution report and judge whether
+        the spec_gaps_encountered entries follow the required four-field format
+        (gap_description, spec_location, severity, resolution) and are specific
+        enough to drive Spec improvements.
+      - >
+        Status transition ownership: confirm that the COMMAND layer (implement-
+        spec.md) sets the Spec status to "in-progress" before dispatching the
+        idd-spec-implementer agent and to "review" after the execution report
+        is written — the implementing agent itself must not perform status
+        transitions. Verify no new status values were introduced and that the
+        agent's system prompt does not instruct it to edit the Spec YAML's
+        status field.
+
+  # GAP-CHECK ANNOTATION — written by the command layer (v1.3 pipeline, dogfooded manually)
+  gap_check:
+    status: "passed"
+    blockers: 0
+    warnings: 0
+    rounds: 2
+    report: "docs/reviews/gap-check-SPEC-8776.md"
+    date: "2026-06-10"

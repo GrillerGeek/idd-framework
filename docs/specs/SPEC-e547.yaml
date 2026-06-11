@@ -1,0 +1,465 @@
+spec:
+  id: "SPEC-e547"
+  product: "PROD-f67b"
+  intentions:
+    - "INT-0d38"
+  expectations:
+    - "EXP-7110"
+    - "EXP-d261"
+    - "EXP-3b81"
+  status: "done"
+
+  # CONTEXT
+  context:
+    stack: >
+      Markdown documentation, YAML artifact templates and schemas, Claude Code
+      plugin (Markdown command/agent definitions in plugin/commands/ and
+      plugin/agents/, JSON manifest at plugin/.claude-plugin/plugin.json, Bash
+      helper script at plugin/bin/idd-next-id). No application code, build
+      system, tests, or runtime dependencies.
+    patterns: >
+      Claude Code plugin architecture: commands in plugin/commands/ bootstrap
+      directory state (mkdir -p) and then dispatch named subagents in
+      plugin/agents/ with explicit model-tier parameters at dispatch time
+      (model: "haiku" | "sonnet" | "opus" passed directly to the Agent/Task
+      tool call). An orchestration skill in
+      plugin/skills/idd-orchestration/ provides schema reference templates
+      consumed by agents at runtime via ${CLAUDE_PLUGIN_ROOT}. Agent frontmatter
+      declares name, description, model, color, effort, maxTurns, tools, and
+      optionally disallowedTools and memory. Command frontmatter declares
+      description, argument-hint, and allowed-tools.
+    conventions:
+      - "Tier aliases (haiku/sonnet/opus) are used in both agent frontmatter model: fields and command model-directive prose — never raw model version IDs"
+      - "Cost-tier strategy: haiku for template-guided Q&A/decomposition; sonnet for structured synthesis with codebase scanning; opus for reasoning-heavy synthesis and architectural judgment"
+      - "Model directives in command files are prose instructions to the dispatcher (the main Claude Code session) and must stay version-agnostic after this Spec is executed"
+      - "Agent names follow the pattern idd-<role> (e.g., idd-spec-author, idd-deep-review-lead) — these are immutable identifiers"
+      - "Command names follow the idd-framework:<verb> slug in plugin.json — do not rename"
+      - "Dispatch-rule mechanism: explicit model param at Agent/Task call site in command files — the mechanism itself is not changed by this Spec"
+      - "Schema changes must be additive only; existing Expectation/Spec/Intention YAML files must remain valid after any frontmatter field additions"
+      - "Tables use |---| separator style; Markdown files use practitioner-oriented language without emoji"
+      - "Framework docs in docs/ are tool-agnostic; Claude Code specifics live in plugin/ and CLAUDE.md — this Spec does not touch docs/*.md"
+      # GC-8: 'surgical edits only' means only the specific hardcoded version token is replaced;
+      # bare tier-name mentions elsewhere in the same prose (e.g. 'those may use Sonnet') are left
+      # verbatim. The version-agnostic check in GC-2 catches all version-bearing strings; bare tier
+      # names without a version number are fine and untouched.
+      - "ALL '(Tier) 4.x' version-number strings (any tier name followed by a version number) must be removed; bare tier names without a version suffix are fine and untouched. The canonical check is: grep -rnE '(Haiku|Sonnet|Opus) 4\\.[0-9]' plugin/ must return zero matches after implementation."
+    existing_code_refs:
+      # Nine agent files — all are deliverable targets for this Spec
+      - path: "plugin/agents/deep-review-lead.md"
+        note: >
+          opus tier; effort: high; maxTurns: 15. Currently treats parallel
+          dispatch as experimental with sequential fallback framed as peer path.
+          No extended_thinking field (not a supported frontmatter key).
+          Command prose hardcodes a version-bearing model name.
+          The two opus-tier reasoning agents (this file and tech-lead-reviewer)
+          receive: (a) effort: high confirmed/set in frontmatter — a real,
+          already-used field that signals the runtime to allow deeper reasoning;
+          (b) prompt-level reasoning scaffolds written into the agent body
+          instructing the agent to reason through each cross-block interaction
+          (every Boundary against every Deliverable, every Expectation against
+          every Boundary) before writing findings.
+      - path: "plugin/agents/tech-lead-reviewer.md"
+        note: >
+          opus tier; effort: high; maxTurns: 10; memory: project. No
+          extended_thinking field (not a supported frontmatter key). Command
+          prose hardcodes a version-bearing model name. Receives same
+          treatment as deep-review-lead: effort: high confirmed plus
+          prompt-level reasoning scaffolds in the agent body.
+      - path: "plugin/agents/expectation-author.md"
+        note: >
+          haiku tier; effort: medium; maxTurns: 20. Waits for human to invent
+          edge cases; does not propose candidates. Needs edge-case proposal
+          behaviour added.
+      - path: "plugin/agents/spec-author.md"
+        note: >
+          sonnet tier; effort: high; maxTurns: 20. Evaluate whether a
+          prompt-level reasoning scaffold adds value for synthesis-with-
+          codebase-scanning work; record decision and one-line rationale in
+          the execution report.
+      - path: "plugin/agents/quick-spec-author.md"
+        note: >
+          sonnet tier; effort: high; maxTurns: 30. Token warning hardcodes
+          '~8,000 tokens'. Command prose hardcodes a version-bearing model name.
+          Evaluate prompt-level reasoning scaffold same as spec-author; record
+          decision in execution report.
+      - path: "plugin/agents/spec-reviewer.md"
+        note: >
+          sonnet tier; effort: medium; maxTurns: 10; memory: project.
+          Validation-pass role — lower reasoning intensity; reasoning scaffold
+          likely not warranted. Review maxTurns fit; record decision in
+          execution report.
+      - path: "plugin/agents/intention-author.md"
+        note: >
+          haiku tier; effort: medium; maxTurns: 15. Template-guided Q&A role.
+          Reasoning scaffold not warranted. Review maxTurns fit; record
+          decision in execution report.
+      - path: "plugin/agents/outcome-author.md"
+        note: >
+          sonnet tier; effort: high; maxTurns: 25. Dual-artifact synthesis.
+          Command prose hardcodes a version-bearing model name. Review maxTurns
+          fit; record decision in execution report.
+      - path: "plugin/agents/product-interviewer.md"
+        note: >
+          haiku tier; effort: medium; maxTurns: 25. Template-guided interview
+          role. Reasoning scaffold not warranted. Command prose hardcodes a
+          version-bearing model name. Review maxTurns fit; record decision in
+          execution report.
+      # Nine command files — model-directive prose must be rewritten version-agnostically
+      - path: "plugin/commands/deep-review.md"
+        note: >
+          Prose contains a version-bearing model name. Also contains
+          'This command uses Agent Teams (experimental)'. Both must change —
+          version stripped, parallel framed as default.
+      - path: "plugin/commands/tech-review.md"
+        note: "Prose contains a version-bearing model name. Strip version."
+      - path: "plugin/commands/define-expectations.md"
+        note: "Prose contains a version-bearing model name. Strip version."
+      - path: "plugin/commands/write-spec.md"
+        note: "Prose contains a version-bearing model name. Strip version."
+      - path: "plugin/commands/quick-spec.md"
+        note: "Prose contains a version-bearing model name. Strip version."
+      - path: "plugin/commands/review-spec.md"
+        note: "Prose contains a version-bearing model name. Strip version."
+      - path: "plugin/commands/define-intentions.md"
+        note: "Prose contains a version-bearing model name. Strip version."
+      - path: "plugin/commands/define-outcomes.md"
+        note: "Prose contains a version-bearing model name. Strip version."
+      - path: "plugin/commands/interview.md"
+        note: "Prose contains a version-bearing model name. Strip version."
+    auth: >
+      N/A — public open-source repository (GrillerGeek/idd-framework). No
+      authentication or authorization model. Changes flow through GitHub pull
+      requests on main.
+
+  # EXPECTATIONS
+  expectations:
+    # EXP-7110: original expectation assumed an extended_thinking frontmatter field.
+    # Corrected at Spec level (GC-1): extended_thinking is not a supported Claude Code
+    # agent frontmatter field. The deliverable is replaced with: (a) effort: high
+    # verified/set in frontmatter for the two opus-tier agents — effort is a real,
+    # already-used field; (b) prompt-level reasoning scaffolds written into the agent
+    # body. All acceptance criteria below reflect this corrected mechanism.
+    - id: "EXP-7110"
+      description: >
+        The two reasoning-heavy agents (deep-review-lead and tech-lead-reviewer)
+        have effort: high confirmed in their frontmatter AND contain prompt-level
+        reasoning scaffolds in their agent body — explicit instructions to reason
+        through each cross-block interaction (every Boundary against every
+        Deliverable, every Expectation against every Boundary) before writing
+        findings. The haiku/sonnet/opus cost-tier strategy is preserved across
+        all nine agents with no agent reassigned to a higher tier without
+        explicit justification recorded in the execution report.
+      validation: >
+        Pass: deep-review-lead.md and tech-lead-reviewer.md both have
+        effort: high in frontmatter; both contain a named reasoning-scaffold
+        section or instruction block in the agent body directing cross-block
+        reasoning before output; all nine agent frontmatter model: fields use
+        tier aliases (haiku/sonnet/opus), not raw version strings; no agent
+        previously on haiku is changed to sonnet or opus without a rationale
+        recorded in the execution report.
+        Fail: either opus-tier agent lacks effort: high; either opus-tier agent
+        body has no reasoning scaffold; any agent file uses a raw version string
+        as its model value (e.g., "claude-opus-4-7" instead of "opus"); or an
+        agent is silently upgraded to a higher tier without a rationale in the
+        execution report.
+      edge_cases:
+        - >
+          For the seven non-opus agents, the implementing agent decides whether
+          a prompt-level reasoning scaffold adds value (decision informed by
+          the agent's role and reasoning intensity). All nine decisions —
+          including the two opus agents whose scaffolds are mandatory — must
+          be listed in the execution report with a one-line rationale per agent.
+          The execution report is the single record of these decisions; they are
+          NOT scattered as comments in individual agent files. A missing entry
+          for any of the nine agents is a failure.
+        - >
+          A future reader opens an agent file expecting a raw model version ID
+          (based on old command prose or third-party documentation). The
+          frontmatter model: field MUST use only the tier alias; if a reader
+          needs to map alias to current model ID they consult the Claude Code
+          runtime, not the agent file. The agent file must not contain any
+          comment or prose that names a specific model version number — such
+          references go stale and are the exact problem this Spec solves.
+
+    - id: "EXP-d261"
+      description: >
+        The deep-review-lead agent dispatches its sub-perspectives in parallel
+        by default as the PRIMARY path, using whatever team or agent dispatch
+        mechanism the runtime provides; sequential self-review is retained as
+        the documented fallback for environments where parallel dispatch is not
+        available. The agent definition makes the dispatch mode and fallback
+        trigger explicit, and the command file reframes parallel as the default
+        (not experimental).
+      validation: >
+        Pass: deep-review-lead.md workflow section describes parallel dispatch
+        as the primary path in step 2, with sequential self-review described
+        as the fallback condition and its trigger documented (e.g., 'if dispatch
+        tools are unavailable, fall back to sequential self-review'); the report
+        generated by the lead notes which path was taken; deep-review.md command
+        file no longer contains the word 'experimental' in reference to Agent
+        Teams or parallel dispatch; the sequential path is still present in the
+        agent file and is not deleted.
+        Fail: deep-review-lead runs sub-perspectives sequentially by default
+        with parallel described as optional or experimental; or the sequential
+        fallback is removed entirely; or deep-review.md still frames parallel
+        dispatch as experimental.
+      edge_cases:
+        - >
+          Dispatch tools are unavailable (the runtime does not support the
+          parallel dispatch primitive the agent uses). The deep-review-lead
+          workflow must specify that it falls back to performing all three
+          perspective reviews itself sequentially, and the generated report's
+          "Review Approach" line must note "sequential fallback — dispatch
+          unavailable" so the caller can see which path was taken.
+        - >
+          Parallel dispatch is attempted but one perspective dispatch fails or
+          times out before returning. The deep-review-lead workflow must specify
+          that it collects successful outputs from the perspectives that
+          completed, performs the failed perspective itself sequentially, and
+          notes "partial degradation — [perspective name] self-reviewed" in the
+          report. Aborting the entire review or silently omitting the failed
+          perspective is a failure. This behaviour must be written explicitly
+          in the agent body, not left implicit.
+
+    - id: "EXP-3b81"
+      description: >
+        The expectation-author agent proposes a candidate list of edge cases
+        for each Expectation and presents them to the human for confirmation,
+        addition, or rejection — rather than waiting for the human to invent
+        edge cases unprompted. The proposal step REPLACES the existing
+        "wait for the human to supply edge cases" step in the agent's flow;
+        the new flow is: agent proposes candidates (boundary values, empty/null
+        states, error conditions, concurrency/state conflicts) → human
+        confirms, rejects, or adds → the 2-edge-case minimum is enforced AFTER
+        rejections. Proposed edge cases are clearly labeled as proposals; none
+        are saved to the artifact until the human explicitly confirms them.
+      validation: >
+        Pass: expectation-author.md workflow section contains a step that
+        instructs the agent to generate a numbered candidate list (covering
+        boundary values, empty/null states, error conditions, concurrency/state
+        conflicts) with a one-sentence distinctness explanation per proposal
+        before writing any YAML; the step is labeled or titled with the phrase
+        "propose candidate edge cases" (exact phrase) so the automated check
+        can locate it; the workflow contains a human-confirmation gate before
+        saving; the 2-edge-case minimum is enforced AFTER rejections (if
+        rejections reduce the confirmed count below 2, the agent must prompt
+        for additional human-supplied edge cases rather than saving a deficient
+        artifact).
+        Fail: agent writes edge cases to YAML without a confirmation step; or
+        agent produces no proposals and waits for the human to provide all edge
+        cases; or the 2-edge-case minimum can be bypassed by rejecting all
+        proposals.
+      edge_cases:
+        - >
+          Human rejects every proposed edge case for an Expectation (finds them
+          all generic or inapplicable). The agent must not save the Expectation
+          with zero or one edge case. It must prompt the human for replacements,
+          displaying the 2-edge-case minimum as an explicit constraint, and must
+          not proceed to the next Expectation or to artifact saving until the
+          minimum is met. A loop that allows saving at zero edge cases is a
+          failure regardless of how the zero count was reached.
+        - >
+          Agent generates proposals that are effectively restatements of the
+          Expectation's happy path (e.g., for 'user can log in', proposes
+          'user logs in successfully' as an edge case). The workflow must
+          instruct the agent to accompany each proposal with a one-sentence
+          explanation of how it differs from the base case, so the human can
+          evaluate quality rather than rubber-stamp a list. A proposal list
+          without distinctness explanations is a failure because it undermines
+          the human confirmation gate's purpose.
+
+  # BOUNDARIES
+  boundaries:
+    # Stakeholder-specified
+    - "Do not change any agent's model tier (haiku/sonnet/opus) unless its responsibilities materially change — tier preservation is explicit. Document any contemplated change in the execution report instead."
+    - "Do not rename any agent (plugin/agents/*.md name: field) or any command slug (plugin/commands/*.md or plugin.json). Agent and command names are stable identifiers consumed by users and scripts."
+    - "Do not change the dispatch-rule mechanism: explicit model param at Agent/Task call site in command files. The mechanism itself is out of scope."
+    - "Do not modify any file under docs/*.md (framework documentation). This Spec covers plugin/ only."
+    - "Do not make any changes to Forge or the forge.md command."
+    - "Schema changes must be additive only — do not remove or rename existing frontmatter fields in agent files."
+    # Derived by spec author
+    - "Do not modify plugin/.claude-plugin/plugin.json unless a frontmatter field addition requires a manifest update — and only the minimal required change."
+    - "Do not modify plugin/bin/idd-next-id."
+    - "Do not modify plugin/skills/ reference templates. These are consumed at runtime by agents; they are out of scope for this Spec."
+    - "Do not implement any capability beyond what the three Expectations define. Specifically: do not add new agent files, new command files, or new review perspectives to deep-review-lead beyond the existing three."
+    - "Do not alter existing Expectation, Intention, Spec, or Product YAML artifacts under docs/ — this Spec produces changes to plugin/ source files only."
+    - "When rewriting version-hardcoded model directive prose in command files, preserve all other prose and the dispatch instruction verbatim. Surgical edits only: only the specific hardcoded version token (e.g., 'Haiku 4.5', 'Sonnet 4.6', 'Opus 4.7') is replaced with a version-agnostic phrase. Bare tier-name mentions elsewhere in the same prose (e.g., 'those may use Sonnet') are left verbatim and untouched."
+
+  # DELIVERABLES
+  deliverables:
+    - >
+      plugin/agents/deep-review-lead.md — effort: high confirmed in frontmatter;
+      prompt-level reasoning scaffold added to the agent body: explicit
+      instructions to reason through each cross-block interaction (every Boundary
+      against every Deliverable, every Expectation against every Boundary) before
+      writing findings; workflow section rewritten so parallel dispatch is the
+      primary path using whatever dispatch mechanism the runtime provides, with
+      sequential self-review as the explicit documented fallback with its trigger
+      condition stated; partial-result handling for a failed perspective dispatch
+      is written into the workflow (collect successes, self-review the failed
+      perspective, note partial degradation in the report); no version-specific
+      model references remain anywhere in the file.
+    - >
+      plugin/agents/tech-lead-reviewer.md — effort: high confirmed in frontmatter;
+      prompt-level reasoning scaffold added to the agent body: explicit
+      instructions to reason through each cross-block interaction before writing
+      findings; no version-specific model references remain anywhere in the file.
+    - >
+      plugin/agents/expectation-author.md — workflow section updated so the
+      proposal step REPLACES the existing "wait for human to supply edge cases"
+      step: agent generates a numbered candidate list (boundary values, empty/null
+      states, error conditions, concurrency/state conflicts) with a one-sentence
+      distinctness explanation per proposal; the step is titled or labeled
+      "propose candidate edge cases" (exact phrase); a human-confirmation gate
+      is added before any YAML is written; the 2-edge-case minimum enforcement
+      logic is explicit and applied AFTER rejections (agent prompts for
+      replacements if confirmed count falls below 2).
+    - >
+      plugin/agents/spec-author.md — implementing agent evaluates whether a
+      prompt-level reasoning scaffold adds value for synthesis-with-codebase-
+      scanning work; decision and one-line rationale recorded in the execution
+      report (NOT as a comment in the file); maxTurns reviewed; any change plus
+      rationale goes in the execution report, not file comments; no version-
+      specific model references remain.
+    - >
+      plugin/agents/quick-spec-author.md — same reasoning-scaffold evaluation
+      treatment as spec-author; decision in execution report; token warning
+      updated to remove the hardcoded '~8,000 tokens' figure or reframe it
+      version-agnostically; maxTurns reviewed; decision in execution report;
+      no version-specific model references remain.
+    - >
+      plugin/agents/spec-reviewer.md — maxTurns reviewed; decision and rationale
+      in execution report; no version-specific model references remain;
+      reasoning-scaffold evaluation in execution report (expected: not warranted
+      for validation-pass role).
+    - >
+      plugin/agents/intention-author.md — maxTurns reviewed; decision and
+      rationale in execution report; no version-specific model references remain;
+      reasoning-scaffold evaluation in execution report (expected: not warranted
+      for template-guided Q&A).
+    - >
+      plugin/agents/outcome-author.md — maxTurns reviewed; decision and rationale
+      in execution report; no version-specific model references remain;
+      reasoning-scaffold evaluation in execution report.
+    - >
+      plugin/agents/product-interviewer.md — maxTurns reviewed; decision and
+      rationale in execution report; no version-specific model references remain;
+      reasoning-scaffold evaluation in execution report (expected: not warranted
+      for interview Q&A).
+    - >
+      plugin/commands/deep-review.md — model directive prose updated: version-
+      bearing model name replaced with version-agnostic equivalent (e.g., 'the
+      current Opus generation'); 'experimental' framing of Agent Teams removed;
+      parallel dispatch stated as default with sequential as fallback.
+    - >
+      plugin/commands/tech-review.md — model directive prose updated: version-
+      bearing model name replaced with version-agnostic equivalent.
+    - >
+      plugin/commands/define-expectations.md — model directive prose updated:
+      version-bearing model name replaced with version-agnostic equivalent.
+    - >
+      plugin/commands/write-spec.md — model directive prose updated: version-
+      bearing model name replaced with version-agnostic equivalent.
+    - >
+      plugin/commands/quick-spec.md — model directive prose updated: version-
+      bearing model name replaced with version-agnostic equivalent.
+    - >
+      plugin/commands/review-spec.md — model directive prose updated: version-
+      bearing model name replaced with version-agnostic equivalent.
+    - >
+      plugin/commands/define-intentions.md — model directive prose updated:
+      version-bearing model name replaced with version-agnostic equivalent.
+    - >
+      plugin/commands/define-outcomes.md — model directive prose updated:
+      version-bearing model name replaced with version-agnostic equivalent.
+    - >
+      plugin/commands/interview.md — model directive prose updated: version-
+      bearing model name replaced with version-agnostic equivalent.
+    - >
+      Execution report — produced by the implementing agent at completion;
+      lists all nine agents with: (a) reasoning-scaffold decision (add or skip)
+      and one-line rationale; (b) maxTurns review outcome (keep or change) and
+      one-line rationale if kept, full rationale if changed. No YAML frontmatter
+      comments in agent files for these decisions; the execution report is the
+      single record.
+
+  # VALIDATION
+  validation:
+    automated:
+      - >
+        Canonical version-string check (single authoritative command, covers
+        agents and commands): grep -rnE "(Haiku|Sonnet|Opus) 4\.[0-9]" plugin/
+        must return zero matches. This is the only version-string gate; it
+        supersedes any other pattern variant. Run this command exactly as stated.
+      - >
+        Grep plugin/agents/deep-review-lead.md and plugin/commands/deep-review.md
+        for the word 'experimental' in reference to Agent Teams or parallel
+        dispatch: zero matches required.
+        Command: grep -i 'experimental' plugin/agents/deep-review-lead.md
+        plugin/commands/deep-review.md — must return no output.
+      - >
+        Grep plugin/agents/deep-review-lead.md and plugin/agents/tech-lead-reviewer.md
+        for 'effort: high': both files must contain at least one match each,
+        confirming the effort field is set for both opus-tier agents.
+        Command: grep 'effort: high' plugin/agents/deep-review-lead.md
+        plugin/agents/tech-lead-reviewer.md — must return two lines, one per file.
+      - >
+        Grep plugin/agents/expectation-author.md for the exact phrase 'propose
+        candidate edge cases' (case-insensitive): must return at least one match,
+        confirming the proposal step was added with the required label.
+        Command: grep -i 'propose candidate edge cases'
+        plugin/agents/expectation-author.md — must return at least one line.
+      - >
+        Grep plugin/agents/expectation-author.md for enforcement language that
+        is NEW and unique to the re-prompt-on-rejection loop — specifically
+        the phrase 'below 2' or 'fewer than 2' or 'replacements' (case-insensitive):
+        must return at least one match, confirming the post-rejection enforcement
+        loop was written (the existing unmodified file's '2 edge' phrases do not
+        satisfy this check).
+        Command: grep -iE 'below 2|fewer than 2|replacements' plugin/agents/expectation-author.md
+        — must return at least one line.
+      - >
+        Confirm all nine agent files still have a non-empty model: field using
+        only tier aliases. Command: grep '^model:' plugin/agents/*.md — each
+        line must match model: (haiku|sonnet|opus) with no version suffix.
+    human_review:
+      - >
+        Read deep-review-lead.md workflow and verify: (a) parallel dispatch is
+        clearly the primary path; (b) the sequential self-review fallback is
+        still present with its trigger condition documented; (c) partial-result
+        handling for a failed perspective (self-review + note in report) is
+        written explicitly; (d) a reasoning-scaffold instruction block is present
+        in the agent body.
+      - >
+        Read expectation-author.md and walk through the proposal workflow mentally
+        with two scenarios: (a) human accepts all proposals — confirm edge cases
+        are saved; (b) human rejects all proposals — confirm the agent re-prompts
+        and cannot save below the 2-edge-case minimum. Confirm the new proposal
+        step replaced (not augmented alongside) the old "wait for human" step.
+      - >
+        Read the execution report and confirm it lists all nine agents with a
+        reasoning-scaffold decision and one-line rationale for each. Absence
+        of an entry for any agent is a failure.
+      - >
+        Read the execution report and confirm it lists all relevant agents with
+        a maxTurns review outcome. Any agent whose maxTurns was changed must
+        have a full rationale; agents whose values were kept need only a
+        one-line confirmation.
+      - >
+        Read all nine command files and confirm the model directive prose reads
+        naturally and version-agnostically — 'the current Opus generation',
+        'the current Sonnet generation', or equivalent. Confirm no command file
+        contains a specific model version number (e.g., '4.6', '4.7', '4.5').
+      - >
+        Confirm the dispatch-rule mechanism (explicit model param at call site)
+        is intact in all nine command files — no command file was changed to
+        use model inheritance or omit the model parameter.
+
+  # GAP-CHECK ANNOTATION — written by the command layer (v1.3 pipeline, dogfooded manually)
+  gap_check:
+    status: "passed"
+    blockers: 0
+    warnings: 0
+    rounds: 2
+    report: "docs/reviews/gap-check-SPEC-e547.md"
+    date: "2026-06-10"

@@ -1,0 +1,32 @@
+expectation:
+  id: "EXP-7110"
+  intention: "INT-0d38"
+  description: >
+    Extended thinking is enabled for the two reasoning-heavy agents
+    (deep-review-lead and tech-lead-reviewer) and their agent definitions reflect
+    updated model pins; the haiku/sonnet/opus cost-tier strategy is preserved
+    across all nine agents with no agent reassigned to a higher tier without explicit
+    justification in its frontmatter.
+  validation_criteria: >
+    Pass: deep-review-lead and tech-lead-reviewer agent files contain extended
+    thinking configuration; all nine agent frontmatter model fields are non-empty
+    and map to a currently-available model ID; no agent previously assigned haiku
+    is reassigned to sonnet or opus without a documented rationale comment.
+    Fail: any agent file references a deprecated model ID, or an agent is silently
+    upgraded without a rationale comment.
+  edge_cases:
+    - >
+      A model ID in an agent's frontmatter is valid at time of authoring but the
+      model is deprecated before v1.3 ships. The agent file must fail CI validation
+      (or be flagged in a tech review) rather than silently falling back to an
+      unintended model — the model pin is a deliberate cost-tier decision, not a
+      preference.
+    - >
+      Extended thinking is enabled for an agent that is also invoked in a tight
+      loop (e.g., expectation-author proposes edge cases for N Expectations in one
+      session). The agent definition must document the expected token budget per
+      invocation so the caller can make an informed cost decision, rather than
+      exposing unbounded thinking depth.
+  complexity: "medium"
+  owner: "Jason Robey"
+  status: "validated"

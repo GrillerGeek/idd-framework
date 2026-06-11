@@ -110,10 +110,11 @@ IDD replaces the sprint cycle with a continuous flow model anchored by spec read
 |---|---|---|---|
 | **1. Define** | Create/refine Product, draft Intentions | Product approved; Intentions reviewed | Product Owner |
 | **2. Specify** | Author Expectations; produce AI-ready Specs | Spec passes completeness checklist | Spec Author + Tech Lead |
-| **3. Execute** | AI agent builds against Spec | Deliverables match Spec; automated validation passes | AI Agent + Developer |
-| **4. Review** | Human review against Expectations and Boundaries | Code review approved; no boundary violations | Tech Lead + Reviewer |
-| **5. Validate** | Automated + human validation against Expectations | All Expectations verified; edge cases covered | QA + Product Owner |
-| **6. Deploy** | Release to environment; confirm in production | Deployment successful; monitoring stable | DevOps + Tech Lead |
+| **3. Gap-Check Gate** | Adversarial review of Spec for ambiguity, contradictions, and missing context; findings classified as Blockers or Warnings; Blockers must be resolved before execution | Zero Blockers; Warnings reviewed and accepted or resolved; gap-check report filed | Spec Author + Tech Lead |
+| **4. Execute** | AI agent builds against Spec; restates Boundaries before starting; self-verifies against all Expectations, Boundaries, and Deliverables upon completion; produces an Execution Report recording any gaps encountered | Deliverables match Spec; automated validation passes; Execution Report filed | AI Agent + Developer |
+| **5. Review** | Human review against Expectations and Boundaries; gap-check findings and Execution Report reviewed as inputs | Code review approved; no boundary violations | Tech Lead + Reviewer |
+| **6. Validate** | Automated + human validation against Expectations | All Expectations verified; edge cases covered | QA + Product Owner |
+| **7. Deploy** | Release to environment; confirm in production | Deployment successful; monitoring stable | DevOps + Tech Lead |
 
 ### Spec Completeness Checklist
 
@@ -146,13 +147,15 @@ IDD uses continuous flow with WIP limits rather than time-boxed sprints.
 
 ### Flow Board Phases
 
-Specs move through six phases on a Kanban-style board:
+Specs move through seven phases on a Kanban-style board:
 
 ```
-Draft → Ready → In Progress → Review → Validating → Done
+Draft → Ready → Gap-Check → In Progress → Review → Validating → Done
 ```
 
 - **Draft → Ready** is gated by the completeness checklist
+- **Ready → Gap-Check** is automatic; every Spec passes through the gap-check gate before execution begins
+- **Gap-Check → In Progress** is gated by zero Blockers; Warnings must be reviewed and accepted or resolved
 - **Review → Validating** is gated by human review approval
 - Each phase has configurable WIP limits
 - Backward movement is allowed and logged (for metrics)
@@ -240,4 +243,6 @@ See [adoption.md](adoption.md) for the full guide. Summary:
 | **Spec Cycle Time** | Elapsed time from Ready to Done |
 | **First-Pass Rate** | Percentage of Specs approved at Review without rework |
 | **Validation Gate** | Checkpoint where criteria must be met before advancing |
+| **Gap-Check Gate** | Adversarial review stage run after a Spec reaches Ready and before execution begins; surfaces Blockers (must be resolved) and Warnings (must be reviewed); ensures no ambiguity, contradiction, or missing context reaches the executing agent |
+| **Execution Report** | Artifact produced by the executing agent upon completing a Spec; records every Boundary acknowledged, a self-verification table against all Expectations and Deliverables, and any Spec gaps encountered during execution; stored alongside the Spec |
 | **Flow Sync** | Brief alignment meeting replacing daily standup |

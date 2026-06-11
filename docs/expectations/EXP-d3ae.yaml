@@ -1,0 +1,28 @@
+expectation:
+  id: "EXP-d3ae"
+  intention: "INT-08e4"
+  description: >
+    The gap-check gate is a reporting tool only: it emits a structured finding
+    report (Blockers and Warnings) for humans to resolve in the Spec, and it never
+    rewrites, supplements, or annotates the Spec content itself. Agent behavior
+    after a Blocker is a hard stop with the report surfaced to the human — never
+    an improvised workaround.
+  validation_criteria: >
+    Pass: gate run on a Blocker-level Spec produces a finding report and halts
+    without modifying any artifact file. The Spec YAML on disk is byte-for-byte
+    identical before and after gate execution.
+    Fail: any gate run that modifies the Spec, writes inferred context, or allows
+    execution to continue past a Blocker.
+  edge_cases:
+    - >
+      Gap-check agent has high confidence it knows what the ambiguous Expectation
+      "means" (e.g., common industry pattern). It must still emit a Blocker and
+      halt — not inline its inference — because the Spec-is-the-contract doctrine
+      forbids agent improvisation regardless of confidence.
+    - >
+      Gap-check finds only Warning-level issues (style, missing rationale prose) and
+      zero Blockers. Execution may proceed, but the Warning report must still be
+      emitted to docs/reviews/ so humans can choose to address it before merge.
+  complexity: "high"
+  owner: "Jason Robey"
+  status: "validated"

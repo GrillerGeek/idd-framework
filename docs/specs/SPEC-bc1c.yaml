@@ -1,0 +1,436 @@
+spec:
+  id: "SPEC-bc1c"
+  product: "PROD-f67b"
+  intentions: ["INT-294f"]
+  expectations: ["EXP-503a", "EXP-4739", "EXP-2241"]
+  status: "done"
+
+  # CONTEXT — what the AI agent needs to know about this repository
+  context:
+    stack: >
+      Markdown documentation, YAML artifact templates and schemas. A Claude Code
+      plugin (Markdown command/agent definitions, JSON manifest, Bash helper script
+      at plugin/bin/idd-next-id). No application code, build system, tests, or
+      external dependencies. All changes are plain-text edits to .md and .yaml files.
+    patterns: >
+      Framework docs (docs/) are tool-agnostic prose and tables. The plugin
+      (plugin/) contains Claude Code-specific implementation. Worked examples
+      (examples/) demonstrate the full hierarchy using inline YAML + surrounding
+      prose. YAML artifact templates (templates/) carry inline comments per field.
+      Docs are written at practitioner level for product owners and developers;
+      opinionated positions are stated plainly and not hedged.
+    conventions:
+      - "All content ADDED by this Spec to docs/ must be tool-agnostic — no Claude Code, plugin command, or model name references in new passages; pre-existing tool mentions (roles.md, adoption.md) are grandfathered and out of scope"
+      - "Tables use |---| separator style throughout all Markdown files"
+      - "Schema changes to artifacts.md are additive only — no renames or removals; existing artifacts remain valid"
+      - "Practitioner-oriented language; IDD's opinionated positions (flow over sprints, specs over stories) are not diluted"
+      - "Artifact IDs are short random hashes from idd-next-id; immutable once assigned"
+      - "plugin/skills/ references are consumed by AI agents, not end users — they may reference plugin internals"
+      - "Worked examples in examples/ demonstrate the full hierarchy end-to-end and must stay internally consistent"
+    existing_code_refs:
+      - path: "docs/spec-authoring.md"
+        note: >
+          Line 180 contains the token warning to replace: '**Token warning:** If the
+          Markdown export exceeds approximately 8,000 tokens, consider splitting the
+          Spec into smaller units.' Replace with attention-quality framing and a
+          principle-based splitting heuristic. Also check the Anti-Patterns table at
+          line 191 — the 'One giant Spec' row may need a corresponding update.
+      - path: "plugin/skills/idd-orchestration/references/spec-reference.md"
+        note: >
+          Lines 113-115 contain a duplicate token warning: '## Token Warning\n\nIf
+          a Spec''s Markdown export exceeds approximately 8,000 tokens, consider
+          splitting it into smaller units.' This section must be updated with the
+          same attention-quality framing as spec-authoring.md — both files must be
+          consistent.
+      - path: "docs/autonomy.md"
+        note: >
+          Line 21 contains the passage to update: 'An AI agent that encounters
+          ambiguity doesn''t wait — it guesses. And it guesses at machine speed,
+          producing wrong output faster than anyone can catch it.' This must be
+          revised to introduce the gap-check doctrine: modern agents can detect
+          ambiguity, and IDD now machine-enforces completeness with an adversarial
+          gate before execution — gaps are found before code is written and fixed
+          in the Spec, never improvised around.
+      - path: "docs/framework.md"
+        note: >
+          Section 5 'Process Lifecycle' (lines 104-159) contains the phase table
+          and flow board. Add the gap-check gate between Specify and Execute phases,
+          and a managed execution stage (implement + self-verify + execution report)
+          as part of the Execute phase or as a distinct stage. The 'Flow Board
+          Phases' diagram (line 152) currently shows: Draft → Ready → In Progress →
+          Review → Validating → Done. Update for v1.3 pipeline stages.
+      - path: "docs/artifacts.md"
+        note: >
+          Section for Spec (line 101 onward) documents required fields and status
+          lifecycle. Add the gap_check annotation as an optional Spec field. Include
+          a migration note that new fields are optional and pre-v1.3 artifacts remain
+          valid.
+      - path: "docs/roles.md"
+        note: >
+          AI Agent role section (lines 74-82) currently lists Inputs, Outputs,
+          Constraints. Add explicit self-verification duties: restate Boundaries
+          at execution start, self-verify against all five blocks upon completion,
+          produce an execution report. Update Spec Author role to note the
+          gap-check feedback loop. Update Reviewer role to reference gap-check
+          findings.
+      - path: "docs/metrics.md"
+        note: >
+          Primary metrics table (lines 13-18) and secondary metrics table (lines
+          43-49). Add two new metrics: (1) Gap-Check Findings per Spec
+          (Blockers + Warnings at first gap-check run) as a leading indicator of
+          Spec quality, complementing First-Pass Rate; (2) Spec Gaps Encountered
+          per execution report as the lagging counterpart.
+      - path: "examples/onboarding-portal.md"
+        note: >
+          Existing worked example ends after the Spec (line 208). Extend it or
+          create a new file in examples/ to demonstrate the complete v1.3 pipeline:
+          gap-check run against the existing Spec (showing a clean gate with zero
+          Blockers), managed execution, and execution report. The gap-check gate
+          must be shown even when clean — readers need to see it is always run.
+    auth: >
+      N/A — public open-source repository (GrillerGeek/idd-framework). Changes
+      are made directly to files and committed via GitHub pull requests on main.
+      No authentication model applies to the content itself.
+
+  # EXPECTATIONS — what must be true when this Spec is complete
+  expectations:
+
+    - id: "EXP-503a"
+      description: >
+        The ~8K token Spec size guidance in docs/spec-authoring.md and
+        plugin/skills/idd-orchestration/references/spec-reference.md is reframed:
+        the stated concern shifts from 'fits in the context window' to 'maintains
+        agent attention quality across the full Spec'. All references to a specific
+        token number are replaced with principle-based guidance that includes a
+        practical self-check for when to split.
+      validation: >
+        Pass: grep for '8K', '8,000', '8000', 'context window' in docs/ returns
+        zero hits in Spec-size guidance; both updated locations use 'attention
+        quality' or equivalent framing; the updated guidance includes a principle-
+        based splitting heuristic (e.g., a self-check question the author can apply)
+        not a token count.
+        Fail: any token-count threshold remains in docs/ Spec-size guidance in
+        either file, or the updated guidance omits a practical splitting heuristic.
+      edge_cases:
+        - >
+          The token-count language appears in both docs/spec-authoring.md and in
+          plugin/skills/idd-orchestration/references/spec-reference.md. Both
+          locations must be updated consistently; updating only the primary doc
+          while leaving the plugin reference creates a contradiction that erodes
+          practitioner trust and breaks agent behavior.
+        - >
+          A future contributor reads the updated guidance and concludes there is
+          now no size limit, authoring a 40-Expectation Spec. The replacement
+          guidance must include a concrete self-check signal for 'too large' (e.g.,
+          'if a reviewer cannot hold all Expectations in mind simultaneously, split
+          the Spec') to prevent this misreading — principle-based guidance without
+          any practical anchor is not an improvement over the token number.
+
+    - id: "EXP-4739"
+      description: >
+        docs/autonomy.md is updated to introduce the gap-check doctrine as a
+        first-class principle. The 'AI guesses at machine speed' passage is revised
+        to frame the gap-check gate and agent self-verification as the mechanisms
+        by which modern agents surface gaps rather than improvise — strengthening
+        the Spec-is-the-contract doctrine, not relaxing it. The update is
+        tool-agnostic.
+      validation: >
+        Pass: autonomy.md contains a passage that (a) preserves the core insight
+        that speed of AI action amplifies the cost of bad context, (b) describes
+        the gap-check gate by name or unambiguous description, (c) states that
+        agents surface gaps and halt rather than improvise, (d) makes no reference
+        to Claude Code, any plugin command, or any specific model name.
+        Fail: autonomy.md still describes the pre-v1.3 fire-and-forget agent model
+        without addressing gaps, or the update contains plugin-specific language.
+      edge_cases:
+        - >
+          The original 'AI guesses at machine speed' passage may be cited verbatim
+          in external writing. Deleting it entirely would eliminate the citation's
+          accuracy with no offsetting benefit. The updated passage must preserve
+          the core insight (speed amplifies cost of ambiguity) while adding the
+          gap-check framing — revision, not deletion.
+        - >
+          A contributor updating autonomy.md to describe the gap-check gate
+          accidentally introduces plugin-specific language (e.g., references
+          '/idd-framework:gap-check' or 'Claude Code'). The docs/ tool-agnostic
+          convention must be enforced: the gate is described at the process level
+          in all docs/ files.
+
+    - id: "EXP-2241"
+      description: >
+        docs/framework.md, docs/artifacts.md, docs/roles.md, and docs/metrics.md
+        are updated consistently for v1.3: framework.md gains the gap-check gate
+        and managed execution stages in the phase table and flow board diagram;
+        artifacts.md gains the optional gap_check annotation on Specs plus a
+        migration note; roles.md grants the AI Agent role explicit self-verification
+        duties and notes the gap-check feedback loop for Spec Author and Reviewer;
+        metrics.md adds gap-check findings per Spec as a leading quality indicator
+        and spec gaps encountered per execution as the lagging counterpart. At least
+        one worked example in examples/ demonstrates the complete v1.3 pipeline
+        end-to-end (gap-check through execution report).
+      validation: >
+        Pass: each of the five named docs contains v1.3-specific content verifiable
+        by searching for 'gap-check' or 'self-verification' or 'execution report'
+        in that file; examples/ contains at least one end-to-end example that
+        references both a gap-check gate run (including a clean-gate scenario with
+        zero Blockers) and an execution report; no doc references a pipeline stage
+        that contradicts another doc.
+        Fail: any of the five files still describes the pre-v1.3 pipeline without
+        acknowledging the new stages, or the worked example covers only the
+        pre-v1.3 flow.
+      edge_cases:
+        - >
+          Schema additions to artifacts.md are additive per the hard boundary, but
+          a reader comparing artifacts.md against an existing pre-v1.3 artifact YAML
+          will see documented fields that don't exist in their file. The doc must
+          include a migration note stating that new fields (e.g., gap_check) are
+          optional and existing artifacts remain valid without them — absence of this
+          note will cause practitioners to believe their artifacts are broken.
+        - >
+          The worked example in examples/ demonstrates the full v1.3 pipeline but
+          the sample Spec happens to be clean (no Blockers at gap-check). The example
+          must explicitly show the gate running and returning zero findings — not
+          skip the gate step — so readers understand the gate always runs, not only
+          when problems are expected. A skipped gate in the example will be read as
+          'optional.'
+
+  # BOUNDARIES — what the AI must NOT do
+  boundaries:
+    # Explicitly stated by the stakeholder
+    - >
+      Do not add any Claude Code, plugin command, or model name references to any
+      file in docs/. The docs/ directory is 100% tool-agnostic. Descriptions of
+      process stages (gap-check, execution report, self-verification) must be at
+      the process level, not tied to any specific tool or command.
+    - >
+      Do not dilute IDD's opinionated positions. The framework takes explicit
+      stances (flow over sprints, specs over stories, Spec-is-the-contract). These
+      are not softened, hedged, or balanced with 'on the other hand' language in
+      any update.
+    - >
+      Do not change table separator style. All Markdown tables use |---| separators.
+      Do not introduce |:---|, |---:|, or any other alignment annotation unless it
+      was already present in the line being edited.
+    - >
+      Schema changes in artifacts.md must be additive only. Do not rename, remove,
+      or restructure any existing Spec fields. Do not change the status lifecycle
+      values. Only add the gap_check optional field and the migration note.
+    - >
+      Do not modify anything in the plugin/commands/ or plugin/agents/ directories.
+      Those files are governed by separate Specs covering the plugin implementation.
+      The only plugin file in scope for this Spec is
+      plugin/skills/idd-orchestration/references/spec-reference.md (the token
+      warning update).
+    - >
+      Do not modify templates/ YAML files. Template updates are a separate scope.
+    - >
+      Do not modify docs/adoption.md, docs/faq.md, or any file not explicitly
+      listed in existing_code_refs.
+    # Derived by Spec Author
+    - >
+      Do not introduce new heading levels in any doc that would disrupt the existing
+      document outline structure. New content must fit within the established section
+      hierarchy.
+    - >
+      Do not create a new dedicated section titled 'Gap-Check' or 'v1.3 Changes'
+      as a standalone section in any existing doc. New content integrates into the
+      relevant existing sections (e.g., gap-check gate appears in the Lifecycle
+      Phases table in framework.md, not as an appended section).
+    - >
+      Do not reference Forge (the web UI) anywhere in the updated docs or examples.
+
+  # EXECUTION REPORT — first-class, tool-agnostic artifact definition
+  # This definition is shared by all four deliverables that reference "execution report."
+  # Cross-Spec consistency note: this definition must match SPEC-8776's execution
+  # report definition. If SPEC-8776 changes the schema, this Spec must be updated
+  # to stay in sync.
+  execution_report_definition:
+    description: >
+      An Execution Report is produced by the executing agent (human or AI tooling)
+      upon completion of a Spec. It is stored in docs/reviews/ alongside gap-check
+      reports, named by Spec ID (e.g., execution-report-SPEC-bc1c.md). It is
+      tool-agnostic: nothing in the report names a specific tool, model, or command.
+    sections:
+      - name: "Header"
+        content: "Spec ID, execution date, executor (role name only — not a tool or model name)."
+      - name: "Boundary Acknowledgment"
+        content: >
+          Every Boundary from the Spec restated verbatim, with a one-line
+          confirmation that it was observed. If a Boundary could not be observed,
+          state it here as a spec gap (see Spec Gaps Encountered below).
+      - name: "Self-Verification Table"
+        content: >
+          One row per edge case, per Boundary, and per Deliverable.
+          Each row contains: item (quoted from Spec), type (edge_case | boundary |
+          deliverable), status (satisfied | violated | missing), evidence (a
+          one-sentence pointer to what was checked or produced).
+      - name: "Deliverables Produced"
+        content: >
+          A list of every concrete output produced, with file path and a brief
+          description of what changed.
+      - name: "Spec Gaps Encountered"
+        content: >
+          Mandatory section, present even when empty (write "none"). Each entry
+          contains: description (what was unclear or contradictory), spec_location
+          (block name + field or line reference), severity (blocker-grade — would
+          halt a correct implementation — or minor — worked around without risk),
+          resolution_taken (what the executor did, or "stopped" if execution halted).
+      - name: "Follow-Ups"
+        content: >
+          Optional. Items that need action after this execution: open questions,
+          suggested Spec amendments, dependent Specs to update.
+
+  # DELIVERABLES — concrete outputs expected when this Spec is done
+  deliverables:
+    - >
+      docs/spec-authoring.md: the token warning at line 180 replaced with
+      attention-quality framing and a principle-based splitting heuristic; the
+      Anti-Patterns table row for 'One giant Spec' updated if its rationale
+      referenced the token count.
+    - >
+      plugin/skills/idd-orchestration/references/spec-reference.md: the '## Token
+      Warning' section (lines 113-115) replaced with the same attention-quality
+      framing used in spec-authoring.md — both files consistent.
+    - >
+      docs/autonomy.md: the 'AI guesses at machine speed' passage (line 21) revised
+      to introduce the gap-check doctrine while preserving the core speed-amplifies-
+      cost insight; no plugin-specific language.
+    - >
+      docs/framework.md: Section 5 'Process Lifecycle' phase table updated to
+      include the gap-check gate as its own explicit row between the Specify row and
+      the Execute row (making it a first-class process stage, not a sub-bullet);
+      the managed execution stage (implement + self-verify + execution report) appears
+      as part of the Execute row or as a distinct subsequent row — content woven into
+      the existing section, not added as a standalone 'Gap-Check' top-level section;
+      the Flow Board Phases diagram gains corresponding nodes (one for the gap-check
+      gate, positioned between 'Ready' and 'In Progress'); Glossary gains entries for
+      'Gap-Check Gate' and 'Execution Report' (required — not conditional).
+    - >
+      docs/artifacts.md: an "Optional Fields" subsection added under the Spec
+      artifact section (below the existing Required Fields table) documenting the
+      gap_check optional field with its sub-fields: status (enum: pass | blocked |
+      warned), blockers (list of GC finding IDs), warnings (list of GC finding IDs),
+      report (path to the gap-check report file), date (ISO date of the gap-check
+      run); a one-line migration note added in the Spec section prose stating that
+      pre-v1.3 artifacts without the gap_check field remain valid.
+    - >
+      docs/roles.md: AI Agent role section updated with exactly three explicit
+      self-verification duty bullets: (1) restate every Boundary from the Spec
+      before beginning any implementation work; (2) self-verify against every
+      Expectation, every Boundary, and every Deliverable upon completion, producing
+      a self-verification table; (3) produce an Execution Report (as defined in this
+      Spec's execution_report_definition) recording any spec gaps encountered; Spec
+      Author key activities note the gap-check feedback loop; Reviewer role notes
+      gap-check findings as an input.
+    - >
+      docs/metrics.md: Primary metrics table gains a 'Gap-Check Findings per Spec'
+      row using the existing four-column shape (Metric | Definition | Target Direction
+      | Why It Matters), covering Blockers + Warnings at first gap-check run as a
+      leading Spec quality indicator; Secondary metrics table gains a 'Spec Gaps per
+      Execution Report' row using the existing three-column shape (Metric | Definition
+      | Purpose) — target-direction and why-it-matters content for this row goes into
+      the Definition and Purpose cells as prose, consistent with the three-column
+      secondary table style; no new columns added to either table.
+    - >
+      examples/ contains end-to-end v1.3 pipeline coverage: either an extension to
+      examples/onboarding-portal.md or a new examples/ file. The example is fully
+      tool-agnostic: it narrates events at the process level (e.g., 'the team's AI
+      agent ran the gap-check stage') and shows report and artifact EXCERPTS inline
+      — never command invocations, tool names, model names, or plugin references.
+      The example must show the gap-check gate running even when clean (zero Blockers),
+      and must include an inline excerpt of the Execution Report (using the sections
+      defined in this Spec's execution_report_definition) so readers see a concrete
+      example of the artifact.
+
+  # VALIDATION — how to verify this Spec is complete and correct
+  validation:
+    automated:
+      - >
+        grep -lE '8K|8,000|8000|context window' docs/*.md returns zero matches
+        (scoped to top-level docs/ Markdown files only; excludes docs/products/,
+        docs/intentions/, docs/expectations/, docs/specs/, and docs/reviews/,
+        which contain artifact YAML where those strings legitimately appear).
+      - >
+        grep -lE 'gap.check|self.verification|execution report' docs/framework.md
+        docs/artifacts.md docs/roles.md docs/metrics.md docs/autonomy.md — each
+        file returns at least one match (run as five separate invocations or check
+        that each named file is in the output of a single grep over those five paths).
+      - >
+        grep -lE 'gap.check|execution report' examples/*.md returns at least one
+        match.
+      - >
+        Tool-agnosticism regression check: run
+        `grep -roiE 'claude code|/idd-framework|claude-code|sonnet|haiku|opus' docs/*.md | wc -l`
+        BEFORE and AFTER implementation — the AFTER count must be less than or
+        equal to the BEFORE count. Pre-existing tool mentions (e.g.,
+        docs/roles.md "Claude Code, Copilot, Kiro" and docs/adoption.md tool
+        examples) are grandfathered and out of this Spec's scope (see Boundary 7);
+        the assertion is that NO NEW tool/model/plugin references are introduced
+        by this Spec's edits. The companion human review item verifies the new
+        v1.3 passages specifically are tool-neutral.
+      - >
+        docs/artifacts.md: grep -E 'gap_check' docs/artifacts.md returns at least
+        one match AND grep -E 'Optional Fields|optional' docs/artifacts.md returns
+        at least one match AND grep -E 'pre-v1\.3|remain valid' docs/artifacts.md
+        returns at least one match (verifies field, subsection, and migration note
+        are all present, not just the token).
+      - >
+        docs/metrics.md: grep -c 'Gap-Check Findings' docs/metrics.md returns at
+        least 1 AND grep -c 'Spec Gaps per Execution' docs/metrics.md returns at
+        least 1 (verifies both named metric rows are present).
+      - >
+        All Markdown files modified pass standard Markdown linting (no broken table
+        rows, no malformed heading levels).
+    human_review:
+      - >
+        Read the updated autonomy.md gap-check passage cold: does it preserve the
+        urgency of the original 'guesses at machine speed' insight while clearly
+        stating that the gap-check gate prevents improvisation? A reviewer who has
+        never read the original should still feel the weight of the doctrine.
+      - >
+        Read the updated spec-authoring.md size guidance: does a practitioner
+        reading it for the first time understand both (a) why large Specs degrade
+        quality and (b) a concrete signal for when to split — without any reference
+        to a token count?
+      - >
+        Read docs/framework.md Section 5 after the update: does the phase table
+        read as a coherent, natural progression? Does the gap-check gate feel like
+        a first-class process stage, not an afterthought appended at the end?
+      - >
+        Read the v1.3 worked example end-to-end: does the gap-check gate run feel
+        necessary even when it returns zero findings, or does it feel like
+        unnecessary ceremony? If it feels like ceremony, the framing needs adjustment.
+      - >
+        Cross-check: confirm no doc contradicts another on the pipeline stage
+        sequence. framework.md, autonomy.md, and roles.md should tell a consistent
+        story about what happens between 'Ready' and 'In Progress'.
+      - >
+        Verify table style consistency: all new or modified table rows use |---|
+        separators; no alignment annotations introduced.
+      - >
+        Review docs/artifacts.md substance: the Optional Fields subsection for
+        gap_check must list all five sub-fields (status, blockers, warnings, report,
+        date) with their types or valid values; the migration note must be a
+        standalone sentence — not buried in a bullet — that a practitioner reading
+        artifacts.md for the first time will see without searching. A grep-passing
+        but thin edit (e.g., a single mention of 'gap_check' in a footnote) does
+        not satisfy this deliverable.
+      - >
+        Review docs/metrics.md substance: the Primary table must contain a
+        'Gap-Check Findings per Spec' row with all four columns populated (including
+        a target direction and a why-it-matters explanation); the Secondary table must
+        contain a 'Spec Gaps per Execution Report' row with all three columns
+        populated (with target-direction and why-it-matters content woven into the
+        Definition and Purpose cells). A row with empty cells does not satisfy this
+        deliverable.
+
+  # GAP-CHECK ANNOTATION — written by the command layer (v1.3 pipeline, dogfooded manually)
+  # Round 2 left one Blocker (GC-1, tool-agnosticism grep); resolved by Spec Author
+  # post-round-2 via regression-count check + grandfathering. See report.
+  gap_check:
+    status: "passed"
+    blockers: 0
+    warnings: 0
+    rounds: 2
+    report: "docs/reviews/gap-check-SPEC-bc1c.md"
+    date: "2026-06-10"

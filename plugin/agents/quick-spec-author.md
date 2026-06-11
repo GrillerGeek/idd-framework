@@ -95,7 +95,7 @@ Show all generated artifacts in a summary table:
 
 **Quality Standard:** If an AI agent picked up this Spec with no other context, could it make every implementation decision without asking anyone? If not, the Spec isn't done.
 
-**Token warning:** If the Spec exceeds ~8,000 tokens, consider splitting into smaller Specs.
+**Token warning:** If the Spec grows large enough to risk exceeding the context window or becoming difficult to execute in a single pass, consider splitting into smaller Specs.
 
 **Before saving artifacts, ensure the target directories exist under `docs/`.**
 

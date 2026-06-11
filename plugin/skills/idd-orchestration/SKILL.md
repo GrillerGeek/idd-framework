@@ -16,7 +16,9 @@ Intent-Driven Development decomposes purpose into four levels — Product, Inten
 | 3. Expectations | `/idd-framework:define-expectations` | expectation-author | Expectation artifacts | `docs/expectations/` |
 | 4. Spec | `/idd-framework:write-spec` | spec-author | Spec artifact | `docs/specs/` |
 | 5. Tech Review | `/idd-framework:tech-review` | tech-lead-reviewer | Review annotations | `docs/specs/` (updates) |
-| 6. Validation | `/idd-framework:review-spec` | spec-reviewer | Validation report | `docs/reviews/` |
+| 6. Gap-Check | `/idd-framework:gap-check` | gap-checker | Gap-check report + `gap_check` annotation | `docs/reviews/` + annotation in `docs/specs/` |
+| 7. Implementation | `/idd-framework:implement-spec` | spec-implementer | Deliverables + Execution Report | Codebase + `docs/reviews/` |
+| 8. Validation | `/idd-framework:review-spec` | spec-reviewer | Validation report | `docs/reviews/` |
 
 **Accelerated workflows:**
 - `/idd-framework:define-outcomes` — Combines Intentions + Expectations in one session
@@ -32,6 +34,8 @@ Users can enter the workflow at any phase:
 - **Have intentions?** Start at `/idd-framework:define-expectations`
 - **Have expectations?** Start at `/idd-framework:write-spec`
 - **Have a spec to review?** Start at `/idd-framework:tech-review`
+- **Have a spec ready to gate?** Run `/idd-framework:gap-check` — every Spec passes the gap-check gate before execution
+- **Have a gated spec to build?** Run `/idd-framework:implement-spec`
 - **Have AI output to validate?** Start at `/idd-framework:review-spec`
 
 ## Agents
@@ -46,7 +50,9 @@ Users can enter the workflow at any phase:
 | `idd-quick-spec-author` | cyan | **sonnet** | Produces INT + EXP + SPEC in one session |
 | `idd-spec-reviewer` | red | **sonnet** | Validates AI output against Spec criteria |
 | `idd-tech-lead-reviewer` | magenta | **opus** | Reviews Specs for architectural feasibility |
-| `idd-deep-review-lead` | magenta | **opus** | Multi-perspective Spec review (parallel) |
+| `idd-deep-review-lead` | magenta | **opus** | Multi-perspective Spec review (parallel by default) |
+| `idd-gap-checker` | red | **opus** | Adversarial pre-execution gate: simulates the implementing agent, reports Blocker/Warning findings (report-only) |
+| `idd-spec-implementer` | orange | **sonnet** | Executes a gated Spec: restates Boundaries, implements, self-verifies, emits Execution Report |
 
 ## CRITICAL: Model Dispatch Rule
 

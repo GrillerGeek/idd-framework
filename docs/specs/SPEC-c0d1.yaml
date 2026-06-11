@@ -1,0 +1,432 @@
+# Spec: Gap-Check Pipeline Stage
+#
+# Intention: INT-08e4 — Spec content quality enforced by adversarial gate
+# Expectations: EXP-b1ed, EXP-d3ae, EXP-89a0
+# See docs/spec-authoring.md and AGENTS.md for schema guidance.
+
+spec:
+  id: "SPEC-c0d1"
+  product: "PROD-f67b"
+  intentions:
+    - "INT-08e4"
+  expectations:
+    - "EXP-b1ed"
+    - "EXP-d3ae"
+    - "EXP-89a0"
+  status: "done"
+
+  # CONTEXT
+  # Inherited from PROD-f67b; no overrides needed — this Spec lives entirely
+  # within the plugin layer and the docs/reviews/ output path.
+  context:
+    stack: >
+      Markdown documents and YAML artifacts only. No application code, build
+      system, test runner, or dependencies. The plugin layer consists of
+      Markdown command files (plugin/commands/*.md), Markdown agent files
+      (plugin/agents/*.md), a Bash helper script (plugin/bin/idd-next-id),
+      a JSON plugin manifest (plugin/.claude-plugin/plugin.json), and a
+      Markdown orchestration skill with reference docs
+      (plugin/skills/idd-orchestration/). All artifacts consumed and produced
+      by the plugin are YAML under docs/ (products/, intentions/,
+      expectations/, specs/, reviews/).
+    patterns: >
+      Claude Code plugin architecture: a command file in plugin/commands/ sets
+      the tool allowlist and dispatches a named subagent from plugin/agents/ via
+      an Agent/Task tool call with an explicit model tier in the model: parameter.
+      Agents read a reference doc from plugin/skills/idd-orchestration/references/
+      for schema rules, then read and write artifact files under docs/. The
+      gap-checker follows the same dispatch pattern as tech-review (single-agent
+      dispatch) rather than deep-review (multi-agent parallel dispatch). The
+      adversarial posture — simulating the implementing agent — is novel to this
+      Spec and has no prior pattern to imitate directly; the closest behavioral
+      model is the completeness-checklist section of the tech-lead-reviewer, but
+      extended to content-level semantic analysis.
+    conventions:
+      - "Command files live in plugin/commands/<command-name>.md and are invoked as /idd-framework:<command-name>"
+      - "Agent files live in plugin/agents/<agent-slug>.md with YAML frontmatter (name, description, model, color, effort, maxTurns, memory, tools, disallowedTools)"
+      - "Model tier aliases: haiku (template-guided Q&A), sonnet (structured synthesis), opus (reasoning-heavy or adversarial analysis)"
+      - "Model tier must be set in frontmatter as model: opus/sonnet/haiku — never inherit for this agent class"
+      - "Refer to model tiers version-agnostically in prose (e.g., 'current Opus generation') — never hardcode version numbers"
+      - "Schema changes must be additive only — existing YAML artifacts must remain valid without migration"
+      - "Artifact IDs are short random hashes from plugin/bin/idd-next-id; immutable once assigned"
+      - "Finding severity vocabulary: Blocker (would cause wrong implementation) | Warning (would cause inconsistent implementation)"
+      - "Gap-check reports saved to docs/reviews/ as Markdown, named <spec-id>-gap-check.md"
+      - "The gap_check field appended to a Spec YAML is additive — it must not alter or remove any existing field"
+      - "Completeness checklist items 1–10 are the machine-verifiable precondition to gap-check; item 11 (peer review) is a human social fact and is explicitly excluded from the agent's automated gate"
+      - "A Spec with unresolved Blockers cannot be marked ready"
+
+    existing_code_refs:
+      - path: "plugin/commands/tech-review.md"
+        note: >
+          Imitate the STRUCTURE of gap-check.md from this file: frontmatter
+          (description, argument-hint, allowed-tools), lazy mkdir guard, ls of
+          available Specs, dispatch directive with explicit model parameter,
+          argument-forwarding to the agent. The gap-check command must write
+          its OWN dispatch directive with version-agnostic prose ("the current
+          Opus generation" — never a hardcoded version string). Do NOT copy
+          any prose verbatim from tech-review.md, and do NOT modify
+          tech-review.md — it is owned by a separate modernization Spec.
+      - path: "plugin/commands/deep-review.md"
+        note: >
+          Reference for dispatch-directive prose style and the Agent Teams
+          conditional pattern. The gap-check command does NOT use Agent Teams
+          (single-agent dispatch), but the tone and structure of the dispatch
+          paragraph should match this file.
+      - path: "plugin/agents/tech-lead-reviewer.md"
+        note: >
+          Closest agent to imitate for frontmatter structure (name, description,
+          model: opus, color, effort, maxTurns, memory, tools, disallowedTools)
+          and workflow section layout. The gap-checker is adversarial where the
+          tech-lead-reviewer is constructive — this is the key behavioral
+          divergence to implement.
+      - path: "plugin/agents/deep-review-lead.md"
+        note: >
+          Reference for severity taxonomy (Blocker / Warning / Suggestion) and
+          the report format saved to docs/reviews/. The gap-checker uses only
+          two tiers (Blocker / Warning) — no Suggestion tier.
+      - path: "plugin/agents/spec-reviewer.md"
+        note: >
+          Reference for evidence-based review discipline and the pattern of
+          reading docs/specs/ then saving to docs/reviews/. The gap-checker
+          writes its own distinct report schema (see Deliverables).
+      - path: "plugin/skills/idd-orchestration/references/spec-reference.md"
+        note: >
+          Completeness checklist the gap-checker must verify as a precondition
+          before running content analysis. The gap-checker reads this file
+          directly to obtain the current checklist (do not hardcode items in the
+          agent body — read from the reference). Only items 1–10 are in scope
+          for the automated gate; item 11 (peer review) is excluded.
+      - path: "plugin/bin/idd-next-id"
+        note: >
+          Bash helper for generating artifact IDs. The gap-check report does not
+          need an IDD artifact ID, but if a future iteration adds one this is
+          the script to call.
+      - path: "plugin/.claude-plugin/plugin.json"
+        note: >
+          Plugin manifest. Claude Code auto-discovers commands from
+          plugin/commands/ and agents from plugin/agents/ — there are no
+          commands or agents arrays in this file and none should be added.
+          The only manifest change in v1.3 is the version bump, which is
+          owned by a separate Spec. This file does NOT need to be modified
+          by the implementing agent for this Spec.
+
+    auth: >
+      N/A. Public open-source repository (GrillerGeek/idd-framework). No
+      authentication or authorization layer. Changes flow through GitHub pull
+      requests on main.
+
+  # EXPECTATIONS
+  expectations:
+    - id: "EXP-b1ed"
+      description: >
+        The gap-check gate produces at least one Blocker finding when run
+        against a deliberately flawed Spec — one that has all five blocks
+        present but contains injected content defects (vague validation
+        criteria, an edge case that restates the happy path, a Boundary that
+        contradicts a Deliverable). It produces zero Blockers when run against
+        a clean reference Spec; any Warning on the clean fixture must be
+        triaged — if genuine, the fixture must be corrected and the run
+        repeated.
+      validation: >
+        PASS condition A: run gap-check against the flawed test fixture Spec
+        (docs/specs/SPEC-test-flawed.yaml — a deliverable of this Spec); the
+        output report in docs/reviews/ contains at least one finding with
+        severity: blocker. Every reported Blocker must correspond to a planted
+        defect listed in the fixture's planted-defect manifest, or must itself
+        be triaged as a genuine new find with reasoning recorded.
+        PASS condition B: run gap-check against the clean reference Spec
+        (docs/specs/SPEC-test-clean.yaml — a deliverable of this Spec); the
+        output report contains zero Blockers. Warnings are not a hard failure —
+        triage each Warning: if genuine, fix the fixture and re-run; if not
+        genuine (model noise), document the judgment.
+        FAIL: flawed fixture produces no Blockers, OR clean fixture produces
+        a Blocker.
+      edge_cases:
+        - >
+          All five blocks are present and the completeness checklist passes,
+          but every edge case in the Spec merely restates the happy-path
+          input with minor wording variation (e.g., "valid input" / "also
+          valid input" / "input that is valid"). Filler edge cases are a
+          high-risk content defect: two implementors reading only the Spec
+          would produce divergently wrong implementations (one implements no
+          real boundary tests, another implements meaningfully distinct ones).
+          The gate must therefore classify these as Blocker severity —
+          the impact-based taxonomy supports this because the defect would
+          cause divergent, not merely inconsistent, implementations.
+        - >
+          The Spec contains a Boundary entry ("Do not modify auth/") and a
+          Deliverable entry ("Update auth/session.ts"). Each individual block
+          is internally well-formed. The gate must perform cross-block
+          contradiction analysis and emit a Blocker, even though no single
+          block fails in isolation. Cross-block contradictions cause directly
+          divergent implementations and meet the Blocker impact threshold.
+        - >
+          A validation criterion reads "behaves correctly under load" with no
+          measurable threshold, unit, or pass/fail condition. Unverifiable
+          criteria cause divergent implementations (each implementor picks
+          their own bar). The gate must classify this as a Blocker. Final
+          severity is the agent's judgment based on whether implementations
+          would diverge in ways that matter; this defect class is
+          presumptively Blocker and the reasoning must be stated in the report.
+
+    - id: "EXP-d3ae"
+      description: >
+        The gap-check gate uses a two-layer design for all Spec mutations.
+        Layer (a) — the idd-gap-checker AGENT — is strictly report-only:
+        it writes ONLY the finding report file in docs/reviews/, and the
+        target Spec file must be byte-for-byte unchanged by the agent run
+        (the agent must not touch the Spec YAML at all). Layer (b) — the
+        COMMAND layer (the orchestrating session), after the agent returns —
+        writes the additive top-level gap_check annotation (status, blockers,
+        warnings, report path, date) into the Spec YAML. The gap_check
+        annotation is the only field the command layer may write to the Spec;
+        the five content blocks (context, expectations, boundaries,
+        deliverables, validation) must never be modified by either layer.
+        When the report contains at least one Blocker, the agent halts — it
+        does not continue to any execution phase, does not infer fixes, and
+        does not write inferred content into any artifact.
+      validation: >
+        PASS condition A: run gap-check on a Spec with a Blocker-level defect;
+        verify the Spec YAML on disk is byte-for-byte identical before and
+        after the AGENT step (diff of the Spec file immediately after the
+        agent returns, before the command layer writes the annotation, must
+        produce no output). The command layer then appends the gap_check
+        annotation — this annotation write is expected and is not a violation.
+        PASS condition B: verify the agent's output contains no language
+        proposing, inferring, or writing a fix to the Spec — only finding
+        descriptions and a halt notice.
+        FAIL: any agent step that modifies the Spec content blocks or any
+        Spec field, writes inferred context into any artifact, or permits
+        execution to continue past a Blocker.
+      edge_cases:
+        - >
+          The gap-check agent has high confidence it knows what an ambiguous
+          Expectation "means" — for example, it matches a common industry
+          pattern the agent recognizes. The agent must still emit a Blocker
+          and halt. It must not inline its inference or write a "suggested
+          fix" into the Spec YAML or report, because the Spec-is-the-contract
+          doctrine forbids agent improvisation regardless of confidence level.
+        - >
+          Gap-check finds only Warning-level issues (e.g., missing rationale
+          prose, style inconsistencies) and zero Blockers. Execution may
+          proceed, but the Warning report must still be emitted and saved to
+          docs/reviews/ so humans can choose to address it before merge. The
+          agent must not silently discard a Warning-only result. The command
+          layer writes the gap_check annotation with status: warnings.
+
+    - id: "EXP-89a0"
+      description: >
+        The gap-check gate is positioned as a precondition stage: completeness
+        checklist items 1–10 (the machine-verifiable items) must all pass
+        before the gate runs content analysis. Item 11 (peer review) is
+        explicitly outside the gate's precondition — gap-check precedes and
+        complements peer review rather than depending on it. The completeness
+        checklist is not replaced, merged into, or modified by the gap-checker
+        — it remains a separate, earlier guard. A Spec with unresolved
+        Blockers after gap-check cannot be moved to "in-progress" status.
+      validation: >
+        PASS condition A: invoke gap-check on a Spec that fails one or more
+        of completeness checklist items 1–10 (e.g., a Spec missing the
+        boundaries block); the agent must report the status of items 1–10
+        only, exit with an early-failure message ("completeness check required
+        first") and produce no gap-check finding report.
+        PASS condition B: a Spec that passes completeness but exits gap-check
+        with unresolved Blockers cannot have its status field updated to
+        "in-progress" by the gap-check agent (the agent must not write that
+        transition).
+        FAIL: gap-check runs to completion on a Spec failing items 1–10, or a
+        Blocker-flagged Spec is moved to in-progress by the agent.
+      edge_cases:
+        - >
+          The Spec meets the minimum structural requirements in every block
+          (exactly one convention entry, exactly one automated validation item,
+          exactly two edge cases per Expectation that are syntactically distinct
+          but semantically thin). Completeness checklist items 1–10 pass. The
+          gap-check gate must still evaluate content quality independently
+          and may emit Blockers even though all structural thresholds are
+          satisfied.
+        - >
+          A team member invokes gap-check manually mid-draft before completeness
+          checklist items 1–10 have been satisfied (partial Spec with two of
+          five blocks populated). The agent reports the status of items 1–10
+          (present/missing for each) and exits with a clear, actionable
+          early-failure message. Item 11 (peer review) must not appear in the
+          early-failure report — it is not part of the agent's precondition
+          gate. The agent must not produce a partial or misleading finding
+          report that implies the Spec has been fully analyzed.
+
+  # BOUNDARIES
+  # Derived from stakeholder decisions plus constraints implied by the IDD
+  # schema-additivity principle and the plugin's existing architecture.
+  boundaries:
+    - "Do not modify any existing artifact schema fields — all schema changes must be additive. Existing YAML artifacts under docs/ must remain valid without migration."
+    - "Do not modify any framework documentation files under docs/*.md (adoption.md, artifacts.md, autonomy.md, faq.md, framework.md, metrics.md, roles.md, spec-authoring.md) — framework doc updates are a separate Spec."
+    - "Do not modify the forge command (plugin/commands/forge.md) or any Forge-related files."
+    - "The gap-checker agent (idd-gap-checker.md) must never rewrite, supplement, or auto-fix Spec content blocks — it is a reporting tool only; the byte-for-byte immutability of the Spec file is the agent's responsibility."
+    - "Do not modify the completeness checklist in plugin/skills/idd-orchestration/references/spec-reference.md — the gap-checker reads it as a precondition, it does not own or alter it."
+    - "Do not hardcode model version numbers in command or agent prose (e.g., 'Opus 4.7') — refer to model tiers version-agnostically ('current Opus generation')."
+    - "Do not add non-additive fields to the Spec YAML schema. The gap_check annotation field (status, blockers, warnings, report) must be a new top-level field under spec:, appended only by the command layer — never inserted between or replacing existing fields, and never written by the agent."
+    - "Do not modify existing commands (tech-review.md, deep-review.md, write-spec.md, review-spec.md, etc.) — gap-check.md is a new file."
+    - "Do not modify existing agents (tech-lead-reviewer.md, spec-reviewer.md, deep-review-lead.md, etc.) — idd-gap-checker.md is a new file."
+    - "Do not implement any UI, server, or non-plugin component — all deliverables are Markdown and YAML files within the existing plugin and docs/ structure."
+
+  # DELIVERABLES
+  deliverables:
+    - >
+      plugin/commands/gap-check.md — New command file. Frontmatter must include
+      description, argument-hint: [spec-id], and allowed-tools matching the
+      pattern in tech-review.md. Body must include: (1) lazy mkdir guard
+      identical to tech-review.md, (2) ls of available Specs in docs/specs/,
+      (3) a dispatch directive that explicitly passes model: "opus" to the
+      Agent/Task tool call with the injunction not to downgrade or inherit and
+      not to skip the parameter, (4) argument-forwarding so a spec ID passed
+      as $ARGUMENTS reaches the agent, (5) after the agent returns, the command
+      layer appends the gap_check annotation (status, blockers, warnings,
+      report path, date) to the Spec YAML — this is the only write the command
+      layer makes to the Spec, and it must never touch the five content blocks.
+      All prose must refer to the model tier version-agnostically ("current
+      Opus generation" — never a hardcoded version string). The dispatch
+      directive must be written fresh for gap-check; do not copy any prose
+      verbatim from tech-review.md.
+    - >
+      plugin/agents/idd-gap-checker.md — New agent file. Frontmatter:
+      name: idd-gap-checker, model: opus, effort: high, maxTurns: 15 (adversarial
+      multi-block analysis warrants higher turn budget than tech-lead-reviewer's
+      10), memory: project, tools: ["Read", "Write", "Glob", "Grep", "Bash"],
+      disallowedTools: ["Edit"]. Body must describe the adversarial workflow:
+      (1) verify completeness checklist items 1–10 pass (read spec-reference.md;
+      evaluate only items 1–10 — item 11 peer review is explicitly excluded from
+      this precondition gate; early-exit reporting the status of items 1–10 with
+      "completeness check required first" if any fail), (2) simulate being the
+      implementing agent — for each block, identify every point where
+      implementation would require a guess, (3) perform cross-block contradiction
+      analysis (Boundaries vs Deliverables, Context vs Expectations, etc.),
+      (4) classify each finding as Blocker or Warning per the defined taxonomy —
+      severity is judged by impact (would implementations diverge in ways that
+      matter?), with reasoning stated per finding; the three named defect classes
+      (filler edge cases, cross-block contradictions, unverifiable validation
+      criteria) are presumptively Blocker but final severity follows the
+      impact-based judgment, (5) emit the finding report to
+      docs/reviews/<spec-id>-gap-check.md using the report schema defined below,
+      (6) if any Blockers exist: halt and surface the report path to the human;
+      do not continue to execution and do not write to the Spec YAML.
+      The agent must never touch the Spec YAML file — that file is the command
+      layer's responsibility after the agent returns.
+    - >
+      docs/reviews/<spec-id>-gap-check.md — Gap-check report Markdown schema.
+      Line 1 (summary): "PASS" or "BLOCKED", followed by "N blockers, M warnings"
+      (e.g., "BLOCKED — 2 blockers, 1 warning" or "PASS — 0 blockers, 1 warning").
+      Then one entry per finding with ALL of the following fields:
+      ID (GC-n, sequential), severity (Blocker or Warning), Spec block(s)
+      involved, exact quoted text from the Spec that contains the defect,
+      why an implementer must guess (the concrete divergence scenario),
+      and a resolving question directed at the Spec author (a question, not
+      a prescribed fix). This schema is the definition of record; automated
+      validation greps depend on it.
+    - >
+      docs/specs/SPEC-test-flawed.yaml — Deliberately flawed test fixture Spec.
+      Must have all five blocks present and pass completeness checklist items
+      1–10 structurally, but contain at least three injected content defects:
+      (a) a validation criterion that is not measurably verifiable,
+      (b) at least one edge case that restates the happy path,
+      (c) a Boundary entry that directly contradicts a Deliverable entry.
+      The fixture must also include a planted-defect manifest — a top-level
+      YAML comment block (or a dedicated planted_defects field) that enumerates
+      each injected defect, names the defect class it represents, and identifies
+      the specific Spec block and field where it appears. Acceptance: the gap-
+      checker reports at least one Blocker, and every reported Blocker either
+      corresponds to a planted defect in the manifest, or is triaged as a
+      genuine new find with reasoning recorded. The fixture's subject matter
+      can be any plausible (but fictional) feature — it does not need to be
+      an IDD feature.
+    - >
+      docs/specs/SPEC-test-clean.yaml — Clean reference Spec. Must pass
+      completeness checklist items 1–10 and contain no detectable content
+      defects: all validation criteria are measurably verifiable, all edge
+      cases are semantically distinct from the happy path and from each other,
+      no cross-block contradictions exist. Acceptance: the gap-checker reports
+      zero Blockers. Warnings are not a hard failure — each Warning is triaged;
+      if genuine, the fixture is corrected and the run repeated.
+
+  # VALIDATION
+  validation:
+    automated:
+      # Each automated check is directly verifiable without human judgment.
+      - >
+        Run gap-check against docs/specs/SPEC-test-flawed.yaml; verify that
+        docs/reviews/SPEC-test-flawed-gap-check.md is created, that line 1
+        begins with "BLOCKED", and that the report contains at least one
+        finding with severity: blocker (case-insensitive) or a "## Blockers"
+        equivalent section with at least one entry.
+      - >
+        Run gap-check against docs/specs/SPEC-test-clean.yaml; verify that
+        docs/reviews/SPEC-test-clean-gap-check.md is created and contains no
+        Blocker entries. Any Warning entries are triaged per EXP-b1ed PASS
+        condition B — zero Warnings is ideal but a Warning is not an
+        automated failure.
+      - >
+        After the AGENT step of a gap-check run on a Blocker-level Spec
+        (before the command layer writes the annotation), diff the Spec YAML;
+        diff must produce no output (byte-for-byte identical to the pre-run
+        state). The subsequent command-layer annotation write is expected
+        and is not tested here.
+        # Judgment call: "byte-for-byte" is the right bar for the agent step
+        # because even whitespace normalization would indicate the agent
+        # touched the file.
+      - >
+        Attempt to invoke gap-check on a Spec that fails one or more of
+        completeness checklist items 1–10 (e.g., a Spec missing the
+        boundaries block); verify the agent exits with an early-failure
+        message containing the phrase "completeness check required" (or
+        equivalent) and does not create a gap-check report file. Item 11
+        (peer review) must not be listed as a failure reason.
+      - >
+        Verify that idd-gap-checker.md frontmatter contains model: opus (not
+        "sonnet", "haiku", or "inherit") and disallowedTools includes "Edit".
+
+    human_review:
+      - >
+        Adversarial posture quality: read the idd-gap-checker.md agent body and
+        confirm it genuinely simulates being the implementing agent — it should
+        surface ambiguity a real implementor would encounter, not just perform
+        structural field-presence checks (those are the completeness checklist's
+        job). Look for cross-block contradiction analysis and semantic-thinness
+        detection as distinct behaviors.
+      - >
+        Report readability: read a sample gap-check report in docs/reviews/ and
+        confirm all required per-finding fields are present per the report schema
+        (ID, severity, Spec block(s), exact quoted text, why-an-implementer-must-
+        guess, resolving question), and that a human Spec author could act on each
+        finding without further clarification.
+      - >
+        Boundary compliance: confirm the gap-checker agent does not write to
+        any docs/*.md framework file, does not touch any existing command or
+        agent file, and does not modify the completeness checklist reference.
+        Confirm the agent does not touch the Spec YAML at any point.
+      - >
+        Schema additivity: open the Spec YAML after a full gap-check run (both
+        agent and command layers) and confirm the gap_check field appears at the
+        end of the document, that all pre-existing fields are intact, and that
+        no field was renamed or moved. Confirm the five content blocks are
+        identical to their pre-run state.
+      - >
+        Model directive prose in gap-check.md: confirm the command file refers
+        to the model tier without hardcoding a version number (e.g., "current
+        Opus generation" not "Opus 4.7"), consistent with the version-agnostic
+        convention. Confirm no prose was copied verbatim from tech-review.md.
+      - >
+        Test fixture quality: read SPEC-test-flawed.yaml and verify the
+        planted-defect manifest is present and maps each defect to a defect
+        class and Spec location. Confirm the injected defects are semantically
+        ambiguous — not so obviously broken that a structural linter would
+        catch them — because the point of the fixture is to validate semantic
+        analysis, not syntactic validation.
+
+  # GAP-CHECK ANNOTATION — written by the command layer (v1.3 pipeline, dogfooded manually)
+  gap_check:
+    status: "passed"
+    blockers: 0
+    warnings: 0
+    rounds: 2
+    report: "docs/reviews/gap-check-SPEC-c0d1.md"
+    date: "2026-06-10"

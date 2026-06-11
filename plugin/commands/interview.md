@@ -11,6 +11,6 @@ Existing Products:
 
 Launch the `idd-product-interviewer` subagent to conduct the stakeholder interview. Pass any arguments provided by the user as context for the product name or domain.
 
-**Model directive:** When dispatching this subagent, you MUST explicitly pass `model: "haiku"` to the Agent/Task tool call. This subagent is tuned for Haiku 4.5 (template-guided Q&A) and must not inherit the main session's model. Do NOT skip this parameter.
+**Model directive:** When dispatching this subagent, you MUST explicitly pass `model: "haiku"` to the Agent/Task tool call. This subagent is tuned for the current Haiku generation (template-guided Q&A) and must not inherit the main session's model. Do NOT skip this parameter.
 
 If `$ARGUMENTS` contains a product name, pass it to the agent as initial context.

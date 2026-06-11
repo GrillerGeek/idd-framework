@@ -1,0 +1,23 @@
+intention:
+  id: "INT-08e4"
+  product: "PROD-f67b"
+  statement: >
+    Spec content quality is enforced by an adversarial gap-check gate that reports
+    Blockers and Warnings before any Spec reaches execution — so implementors never
+    encounter a Spec whose blocks are present but whose content is ambiguous,
+    contradictory, or semantically thin.
+  rationale: >
+    The existing completeness checklist verifies that the five required blocks exist,
+    but it cannot detect content-level failures: vague Expectations, boundary statements
+    that contradict the Deliverables, or edge cases that restate the happy path.
+    These defects survive to execution, where they force either agent improvisation
+    (doctrine violation) or human interruption. An adversarial gate closes this gap
+    at the cheapest possible moment — before any code is written.
+  priority: "critical"
+  dependencies: []
+  expectations:
+    - "EXP-b1ed"
+    - "EXP-d3ae"
+    - "EXP-89a0"
+  owner: "Jason Robey"
+  status: "fulfilled"

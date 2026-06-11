@@ -220,11 +220,114 @@ spec:
 | **Explicit Boundaries** | Spec clearly states what is NOT in scope (notifications, uploads, calendar) |
 | **Deliverables as concrete outputs** | Every API route, UI page, and test type is listed |
 | **Validation split** | Automated tests for logic; human review for UX and clarity |
+| **Gap-check gate** | See v1.3 Pipeline section — gate runs even when clean, result recorded in Spec |
+| **Managed execution** | Boundary restatement, self-verification table, and Execution Report shown inline |
+
+---
+
+## v1.3 Pipeline: Gap-Check Gate and Execution Report
+
+IDD v1.3 adds two mandatory stages between **Ready** and **In Progress**: the gap-check gate and managed execution. The example below shows both stages for SPEC-d12e.
+
+### Stage: Gap-Check Gate
+
+After SPEC-d12e reached Ready status, the team's AI agent ran the gap-check stage against the Spec before any implementation began. The gate reviews the Spec adversarially — it reads every Boundary, Expectation, Deliverable, and Validation item looking for ambiguity, internal contradictions, and missing context that would require improvisation during execution.
+
+**Gap-check report excerpt (SPEC-d12e — clean gate):**
+
+```
+Gap-Check Report: SPEC-d12e
+Date: [run date]
+Result: PASSED — 0 Blockers, 0 Warnings
+
+Findings:
+  none
+
+Gate decision: CLEARED FOR EXECUTION
+```
+
+The gate returned zero findings. This is the expected outcome for a well-authored Spec — but the gate ran regardless. The gap-check gate always runs. Skipping it because a Spec looks complete defeats its purpose: completeness is not visible to the naked eye, and the adversarial review catches contradictions that pass a human read-through.
+
+The Spec's `gap_check` annotation was updated to record the outcome:
+
+```yaml
+gap_check:
+  status: "pass"
+  blockers: 0
+  warnings: 0
+  report: "docs/reviews/gap-check-SPEC-d12e.md"
+  date: "[run date]"
+```
+
+### Stage: Execute (Managed Execution)
+
+With the gate cleared, execution began. The executing agent followed the managed execution protocol:
+
+1. **Boundary restatement** — Before writing any code, the agent restated all four Boundaries from the Spec verbatim, confirming each was understood.
+2. **Implementation** — The agent built the Deliverables against the Spec.
+3. **Self-verification** — Upon completion, the agent produced a self-verification table covering every Expectation, every Boundary, and every Deliverable.
+4. **Execution Report** — The agent filed an Execution Report in docs/reviews/.
+
+**Execution Report excerpt (SPEC-d12e):**
+
+```
+Execution Report: SPEC-d12e
+Date: [execution date]
+Executor: AI implementing agent
+
+## Boundary Acknowledgment
+
+1. "Do not implement email notifications — that is SPEC-7e15" — Observed. No
+   notification logic was introduced.
+2. "Do not implement document upload functionality — that is SPEC-4b62" — Observed.
+   No upload endpoints or UI components were created.
+3. "Do not modify the existing user/auth tables" — Observed. Only new tables were
+   added via Prisma migration; user and auth tables untouched.
+4. "Do not implement a calendar or scheduling view" — Observed. No calendar
+   components or scheduling routes were produced.
+
+## Self-Verification Table (excerpt)
+
+| Item | Type | Status | Evidence |
+|---|---|---|---|
+| EXP-9b04: Template creation with tasks, roles, offsets | expectation | satisfied | POST /api/templates creates template; GET returns with role badges and offsets |
+| EXP-9b04 edge: Zero tasks → validation error | edge_case | satisfied | Zod schema requires tasks.minLength(1); API returns 422 |
+| EXP-9b04 edge: Offset 0 → displayed as 'Day 1' | edge_case | satisfied | formatOffset() function maps 0 to 'Day 1'; unit test covers boundary |
+| EXP-3f2a: Checklist instantiation on new hire creation | expectation | satisfied | POST /api/onboardings triggers generateChecklist(); integration test confirms |
+| EXP-5d8b: Task completion with timestamp and user | expectation | satisfied | PATCH /api/onboardings/:id/tasks/:taskId records completed_at and completed_by |
+| Boundary: No email notifications | boundary | satisfied | Grep confirms no nodemailer or SMTP references in produced files |
+| Deliverable: Prisma migration for all four tables | deliverable | satisfied | Migration file creates ChecklistTemplates, TemplateTasks, Onboardings, OnboardingTasks |
+
+## Spec Gaps Encountered
+
+none
+
+## Follow-Ups
+
+- EXP-3f2a edge case "start date in past → overdue tasks flagged": the visual
+  treatment (color, icon) was not specified in the Spec. A UI decision was made
+  to use a red badge labeled "Overdue." Suggest the Spec Author confirm this
+  matches intent or author an Expectation covering the visual treatment.
+```
+
+### What This Stage Demonstrates
+
+| v1.3 Concept | Where It Appears |
+|---|---|
+| **Gap-check gate always runs** | Gate ran against SPEC-d12e even though it returned zero findings; the report confirms zero Blockers, not a skipped stage |
+| **Clean gate does not mean skipped gate** | The `gap_check` annotation in the Spec records the pass result and the report path |
+| **Boundary restatement before execution** | Execution Report opens with all four Boundaries acknowledged verbatim |
+| **Self-verification table** | Each Expectation, Boundary, and Deliverable checked with evidence |
+| **Execution Report as a mandatory artifact** | Report filed in docs/reviews/ regardless of whether gaps were found |
+| **Gaps Encountered section present even when empty** | "none" — not omitted |
+| **Minor gaps escalated, not silently resolved** | The UI treatment for overdue tasks surfaced as a Follow-Up, not improvised silently |
+
+---
 
 ## Try It Yourself
 
 1. Copy the Spec above into a file
 2. Export it as Markdown (or just copy the YAML block)
-3. Paste it into your AI coding agent (Claude Code, Copilot, etc.)
+3. Run the gap-check stage against the Spec before execution — even for a clean Spec, the gate confirms completeness and files a record
 4. Compare the output quality to what you'd get from a typical user story like:
    > "As an HR coordinator, I want to manage onboarding checklists so that new hires have a structured first week."

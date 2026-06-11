@@ -14,7 +14,7 @@ Existing Specs:
 
 Launch the `idd-quick-spec-author` subagent to produce Intentions, Expectations, and a Spec in one session.
 
-**Model directive:** When dispatching this subagent, you MUST explicitly pass `model: "sonnet"` to the Agent/Task tool call. This subagent is tuned for Sonnet 4.6 (compressed full-pipeline synthesis with codebase scanning) and must not inherit the main session's model. Do NOT skip this parameter.
+**Model directive:** When dispatching this subagent, you MUST explicitly pass `model: "sonnet"` to the Agent/Task tool call. This subagent is tuned for the current Sonnet generation (compressed full-pipeline synthesis with codebase scanning) and must not inherit the main session's model. Do NOT skip this parameter.
 
 If `$ARGUMENTS` contains a product ID and feature description (e.g., `PROD-a3f8 "Users can view their onboarding checklist"`), pass both to the agent.
 

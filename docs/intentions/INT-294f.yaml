@@ -1,0 +1,27 @@
+intention:
+  id: "INT-294f"
+  product: "PROD-f67b"
+  statement: >
+    Published framework guidance reflects current model reality: the Spec size
+    guidance is reframed around attention quality rather than context-window fit,
+    autonomy.md introduces the gap-check doctrine, and all five updated docs
+    (framework.md, artifacts.md, roles.md, metrics.md, autonomy.md) plus a worked
+    example of the new pipeline in examples/ are consistent and accurate for v1.3.
+  rationale: >
+    Practitioners and AI agents read the docs directory as the authoritative
+    reference. Stale calibrations (the ~8K token warning) erode trust and cause
+    teams to under-use modern models. Undocumented pipeline stages (gap-check gate,
+    execution report) mean adopters implement the old flow even after updating the
+    plugin. Keeping docs current is how the framework's doctrine propagates —
+    especially the gap-check doctrine, which must appear in autonomy.md so it is
+    understood as a first-class principle, not a plugin detail.
+  priority: "high"
+  dependencies:
+    - "INT-08e4"  # gap-check doctrine must be finalized before autonomy.md describes it
+    - "INT-43b9"  # execution pipeline must be finalized before docs describe it
+  expectations:
+    - "EXP-503a"
+    - "EXP-4739"
+    - "EXP-2241"
+  owner: "Jason Robey"
+  status: "fulfilled"

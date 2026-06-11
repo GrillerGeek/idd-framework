@@ -1,0 +1,54 @@
+product:
+  id: "PROD-f67b"
+  name: "Intent-Driven Development (IDD) Framework"
+  status: "active"
+  owner: "Jason Robey"
+  problem_statement: >
+    Teams building software with AI coding agents lack a process that gives those
+    agents enough context to execute autonomously. Traditional agile decomposes work
+    (Epic > Feature > Story) rather than purpose, so intent is lost before it reaches
+    the agent. IDD solves this — but the framework's own calibrations (8K token spec
+    guidance, fire-and-forget agent assumptions, human-only quality gates, single-agent
+    sequential plugin orchestration) were tuned for 2024-era models and now leave
+    quality and throughput on the table. Two leaks dominate: the completeness checklist
+    verifies that Spec blocks are present, not that their content is good, and the
+    handoff from a Ready Spec to the coding agent is entirely unmanaged.
+  target_audience: >
+    Product owners, spec authors, tech leads, and developers on AI-augmented software
+    teams; secondarily, AI coding agents themselves, which consume Specs as their unit
+    of work via the Claude Code plugin or any SDD-compatible tool.
+  value_proposition: >
+    Higher first-pass implementation quality at lower human cost: Spec quality becomes
+    machine-enforced (an adversarial gate attacks content before any code is written),
+    execution becomes a managed pipeline stage with agent self-verification, and every
+    execution feeds signal back into future Spec quality. The framework's doctrine —
+    the Spec is the complete contract; agents surface gaps, never improvise — is
+    strengthened, not relaxed.
+  strategic_alignment: >
+    Keeps IDD credible and current as AI capabilities advance: the philosophy
+    (context enables autonomy) ages well, but published calibrations must track the
+    frontier. Serves adoption of AI-assisted development practices and positions IDD
+    as the upstream layer for the SDD tool ecosystem (Spec Kit, Kiro, Tessl).
+  context:
+    stack: >
+      Markdown documentation, YAML artifact templates and schemas, a Claude Code
+      plugin (Markdown command/agent definitions, JSON manifest, Bash helper script
+      plugin/bin/idd-next-id). No application code, build system, tests, or
+      dependencies.
+    patterns: >
+      Claude Code plugin architecture: commands in plugin/commands/ dispatch named
+      subagents in plugin/agents/ with explicit model-tier assignments (haiku/sonnet/
+      opus) enforced at dispatch time; an orchestration skill in plugin/skills/
+      provides schema references; artifacts are YAML files under the consuming
+      project's docs/ tree (products/, intentions/, expectations/, specs/, reviews/).
+    conventions:
+      - "Framework docs in docs/ are tool-agnostic; Claude Code specifics live in plugin/ and CLAUDE.md"
+      - "Tables use |---| separator style throughout; YAML templates carry inline comments per field"
+      - "Practitioner-oriented language; opinionated positions (flow over sprints, specs over stories) are not diluted"
+      - "Artifact IDs are short random hashes from idd-next-id (e.g., SPEC-a3f8); immutable once assigned"
+      - "Versioning: spec version = major.minor git tag; plugin = major.minor.patch sharing the spec's major.minor"
+      - "Licensing: docs CC BY-SA 4.0, plugin Apache 2.0"
+      - "Schema changes must be additive only — existing artifacts remain valid"
+    auth: >
+      N/A — public open-source repository (GrillerGeek/idd-framework); changes flow
+      through GitHub pull requests on main.

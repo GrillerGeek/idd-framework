@@ -177,7 +177,7 @@ A single Markdown document optimized for pasting directly into an AI coding agen
 - Deliverables as an output list
 - Validation as a "definition of done" section
 
-**Token warning:** If the Markdown export exceeds approximately 8,000 tokens, consider splitting the Spec into smaller units.
+**Attention quality:** A Spec that covers too much ground degrades the quality of the executing agent's attention across the full document — early context gets less weight as later sections push it out. No token count determines when this happens; the right signal is whether a reviewer can hold all Expectations in mind simultaneously. If you cannot, split the Spec. A practical self-check: can every Boundary, every Deliverable, and every edge case be kept active in one focused review pass? If not, the Spec is doing the work of two.
 
 ---
 
@@ -188,6 +188,6 @@ A single Markdown document optimized for pasting directly into an AI coding agen
 | "Make it responsive" with no detail | AI guesses at breakpoints and behavior | Specify breakpoints, layouts per size, and test criteria |
 | Copy-pasting the same Context into every Spec | Drift between copies; maintenance burden | Use Product-level Context inheritance |
 | Zero Boundaries | AI modifies anything it wants | Always include at least scope exclusions |
-| One giant Spec covering an entire feature | Too much for AI to execute coherently | Split into Specs that each produce 1–3 deliverables |
+| One giant Spec covering an entire feature | Agent attention quality degrades across the full document; early context is crowded out by later sections | Split when a reviewer can no longer hold all Expectations in mind simultaneously; each Spec should produce 1–3 deliverables |
 | Expectations without edge cases | Happy path only | Minimum 2 edge cases per Expectation |
 | Validation with only automated checks | UX and architecture issues slip through | Always include human review items |
