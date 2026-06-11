@@ -1,0 +1,60 @@
+#!/bin/bash
+# idd-archive-scan: Read-only inventory for the /idd-framework:archive command.
+# Usage: idd-archive-scan
+#
+# Emits three sections on stdout. Makes NO writes of any kind.
+#
+#   == INVENTORY ==   one line per artifact file:  <type> <path>
+#   == STATUS ==      one line per artifact file:  <path> <raw-status>
+#   == MENTIONS ==    one line per file (artifacts + reviews) listing every
+#                     IDD ID string found inside it:  <path>: <ID> <ID> ...
+#
+# The MENTIONS section is the cross-reference index: invert it to answer
+# "which files reference ID X" — this drives the orphaned-draft and
+# dangling-reference logic in the idd-archivist agent deterministically.
+# A file's own ID appears in its MENTIONS line (the id: field matches);
+# consumers must ignore the self-reference.
+
+set -euo pipefail
+
+ARTIFACT_DIRS="docs/products docs/intentions docs/expectations docs/specs"
+REVIEW_DIR="docs/reviews"
+ID_PATTERN='(PROD|INT|EXP|SPEC)-[0-9A-Za-z]+'
+
+type_of() {
+  case "$1" in
+    docs/products/*)     echo "product" ;;
+    docs/intentions/*)   echo "intention" ;;
+    docs/expectations/*) echo "expectation" ;;
+    docs/specs/*)        echo "spec" ;;
+    *)                   echo "unknown" ;;
+  esac
+}
+
+echo "== INVENTORY =="
+for dir in $ARTIFACT_DIRS; do
+  for f in "$dir"/*.yaml; do
+    [ -e "$f" ] || continue
+    printf "%s %s\n" "$(type_of "$f")" "$f"
+  done
+done
+
+echo "== STATUS =="
+for dir in $ARTIFACT_DIRS; do
+  for f in "$dir"/*.yaml; do
+    [ -e "$f" ] || continue
+    # First status: line in the file is the artifact's own lifecycle status
+    # (appended annotations like gap_check.status come later in the file).
+    raw="$(grep -m1 -E '^[[:space:]]*status:' "$f" | sed -E 's/^[[:space:]]*status:[[:space:]]*//; s/[[:space:]]*$//; s/^"(.*)"$/\1/' || true)"
+    printf "%s %s\n" "$f" "${raw:-<none>}"
+  done
+done
+
+echo "== MENTIONS =="
+for dir in $ARTIFACT_DIRS $REVIEW_DIR; do
+  for f in "$dir"/*.yaml "$dir"/*.md; do
+    [ -e "$f" ] || continue
+    ids="$(grep -hoE "$ID_PATTERN" "$f" | sort -u | tr '\n' ' ' | sed 's/ $//' || true)"
+    printf "%s: %s\n" "$f" "$ids"
+  done
+done

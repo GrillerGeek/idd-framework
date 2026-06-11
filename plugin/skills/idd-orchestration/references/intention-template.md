@@ -42,3 +42,5 @@ intention:
 ## Status Lifecycle
 
 `draft → defined → in-progress → fulfilled | deferred`
+
+Terminal Intentions (`fulfilled`, or `deferred` with no live obligation) are eligible for `/idd-framework:archive` — they are distilled into `docs/idd-ledger.yaml` and removed from disk (full text recoverable via the archive git tag). There is no `archived` status.
