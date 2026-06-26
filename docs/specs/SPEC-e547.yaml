@@ -131,8 +131,8 @@ spec:
       authentication or authorization model. Changes flow through GitHub pull
       requests on main.
 
-  # EXPECTATIONS
-  expectations:
+  # EXPECTATIONS DETAIL — embedded detail objects for the linked Expectation IDs
+  expectations_detail:
     # EXP-7110: original expectation assumed an extended_thinking frontmatter field.
     # Corrected at Spec level (GC-1): extended_thinking is not a supported Claude Code
     # agent frontmatter field. The deliverable is replaced with: (a) effort: high

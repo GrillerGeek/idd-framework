@@ -50,7 +50,7 @@ spec:
       and applies to all requests regardless of authentication state. The
       rate-limit key is the client IP address (req.ip).
 
-  expectations:
+  expectations_detail:
     - id: "EXP-cl01"
       description: >
         Every HTTP response from the API includes three rate-limit headers:
