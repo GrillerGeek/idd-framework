@@ -228,6 +228,58 @@ See [adoption.md](adoption.md) for the full guide. Summary:
 
 ---
 
+## 10. The Seven-Stage Workflow
+
+As AI coding agents matured, practitioners converged on a recurring shape for the work. Matt Pocock's widely-shared model names seven stages — Grill, Research, Prototype, PRD/Plan, Issues/Tasks, Implement, Review. Read in order, the striking thing is that **only one of the seven is the build.** The other six are upstream: briefing, grounding, planning, decomposing, and deciding in advance how you'll know it worked.
+
+That is IDD's founding premise (§1): when the build phase compresses 5–10×, the bottleneck moves from *building* to *defining, reviewing, and validating*. IDD exists to name that front-loaded work, give it artifacts, and gate it. The table below maps each stage to the IDD lifecycle phase that carries it.
+
+### Stages to lifecycle phases
+
+| # | Stage | The question it answers | IDD lifecycle phase(s) |
+|---|---|---|---|
+| 1 | **Grill** | How do I brief an AI well? | **Define** — interview the stakeholder into a Product, rather than writing a perfect prompt |
+| 2 | **Research** *(optional)* | How do I keep it grounded in current facts? | **Specify** — the Spec's Context block captures stack, patterns, conventions, and code references; external sources are curated into Context rather than left to model memory |
+| 3 | **Prototype** *(optional)* | How do I test an idea before committing? | *Outside core IDD* — a disposable spike to react to, not an artifact that flows through the hierarchy |
+| 4 | **PRD/Plan** | How do we end up at the right place? | **Define + Specify** — an Intention states *what* the outcome is; Expectations state *how we'll know it's right*, which is the written-down definition of "done" |
+| 5 | **Issues/Tasks** | How do I break a big job into pieces? | **Specify** — decompose into Specs; each Spec is one well-scoped, independently flowable unit of work |
+| 6 | **Implement** | When do I let the AI actually run? | **Execute** — the agent builds against a complete Spec, restating Boundaries first and self-verifying when done |
+| 7 | **Review** | How do I know it got it right? | **Gap-Check + Review + Validate** — Expectations *are* the QA plan, decided in advance; the gap-check gate even runs the review *before* any code, simulating the implementer to catch ambiguity early |
+
+The mapping is close because both describe the same arc: get clear, get grounded, decide the destination, break it down, then act, then check. IDD's contribution is to make the upstream stages durable artifacts with gates between them, so the front-loading is enforced rather than hoped for.
+
+Two stages are a deliberately loose fit. **Research** in IDD is context-gathering folded into the Spec rather than a standalone stage, and **Prototype** has no IDD artifact at all — IDD is a planning framework, and a throwaway spike is by definition not something you plan and validate. That gap is exactly where an execution harness completes the picture.
+
+### In practice with Claude Code
+
+The IDD plugin's `/idd-framework:*` commands carry the upstream stages; the **Guildhall** plugin's `/quest` harness carries prototyping and execution. The two meet at the Spec.
+
+| # | Stage | IDD plugin | Guildhall |
+|---|---|---|---|
+| 1 | Grill | `/interview` | — |
+| 2 | Research | Context block authored in `/write-spec` (codebase scan); pair with Context7 or web for external grounding | Aldric (`architecture-reviewer`) surveys 2–3 alternatives with trade-offs |
+| 3 | Prototype | — | `/quest` prototype mode → Pip (`prototype-builder`): a fast spike, no tests, disposable |
+| 4 | PRD/Plan | `/define-intentions`, `/define-expectations` (or `/define-outcomes`) | — |
+| 5 | Issues/Tasks | `/write-spec` (or `/quick-spec`); one Spec per chunk | Mordain's committed `plan.md` orders the quest into TDD-sequenced tasks |
+| 6 | Implement | `/implement-spec` — managed, single-agent build with self-verification | `/quest` — TDD loop: Seraphine (red tests) → Bruga (green code) → Tink (refactor) |
+| 7 | Review | `/gap-check` (before execution), `/review-spec` (after) | Parallel reviewer fan-out — Oriana (security) and Cassian (docs) always-on, plus gated specialists; Rook drafts the PR |
+
+**The Spec is the seam.** IDD produces a complete, gap-checked Spec; Guildhall is built to consume it ("Integrates with IDD-framework specs"). That gives you two execution paths off the *same* artifact: run `/implement-spec` for a managed single-agent build, or hand the Spec to `/quest` when you want the full TDD-ordered guild with parallel specialist review. Stage 6 — the "loop and subagents" doing the work — is the only stage where you let the agent move fast, because stages 1–5 already did the deciding.
+
+### Where to start
+
+You don't have to adopt all seven at once. The three highest-leverage stages map to three commands you can run on your next real task:
+
+- **Grill** → `/idd-framework:interview` — let the agent interview you instead of guessing.
+- **Plan** → write Expectations first — a few verifiable criteria are your definition of "done" before anything is built.
+- **Review** → `/idd-framework:gap-check` — decide how you'll check, and catch the gaps, *before* the agent runs.
+
+Add the rest as the habit takes. The leverage is in the order, not the tooling.
+
+> *Stage names follow Matt Pocock's seven-stage AI coding workflow ([github.com/mattpocock/skills](https://github.com/mattpocock/skills)).*
+
+---
+
 ## Glossary
 
 | Term | Definition |

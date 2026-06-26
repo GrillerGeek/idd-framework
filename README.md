@@ -53,7 +53,7 @@ Product          →  Why does this exist?
 ## Quick Start
 
 1. **Understand the philosophy** → [`docs/autonomy.md`](docs/autonomy.md) — why context enables autonomy
-2. **Read the framework** → [`docs/framework.md`](docs/framework.md) — the complete process definition
+2. **Read the framework** → [`docs/framework.md`](docs/framework.md) — the complete process definition; see [§10 The Seven-Stage Workflow](docs/framework.md#10-the-seven-stage-workflow) for how IDD (paired with Guildhall) maps to the emerging AI-coding workflow
 3. **See it in action** → [`examples/`](examples/) — a worked example using the full hierarchy, plus a [real case study](examples/self-hosted-v13.md) of IDD building its own v1.3 release (the gap-check gate caught 16 defects in Specs that had passed the completeness checklist)
 4. **Use the templates** → [`templates/`](templates/) — copy-paste starter templates for each artifact
 5. **Understand the roles** → [`docs/roles.md`](docs/roles.md)
