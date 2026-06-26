@@ -84,8 +84,8 @@ spec:
       N/A — public open-source repository (GrillerGeek/idd-framework); changes
       flow through commits to main.
 
-  # EXPECTATIONS — what must be true when done
-  expectations:
+  # EXPECTATIONS DETAIL — embedded detail objects for the linked Expectation IDs
+  expectations_detail:
     - id: "EXP-f6f2"
       description: >
         Single-Spec coverage analysis: the gap-checker derives the Spec's

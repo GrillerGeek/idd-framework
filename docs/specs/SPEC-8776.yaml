@@ -91,8 +91,8 @@ spec:
       N/A — public open-source repository. No authentication or authorization
       logic is involved in the deliverables.
 
-  # EXPECTATIONS
-  expectations:
+  # EXPECTATIONS DETAIL — embedded detail objects for the linked Expectation IDs
+  expectations_detail:
     - id: "EXP-bbe6"
       description: >
         Before writing any file, the implementing agent (idd-spec-implementer)

@@ -92,8 +92,8 @@ spec:
       are made directly to files and committed via GitHub pull requests on main.
       No authentication model applies to the content itself.
 
-  # EXPECTATIONS — what must be true when this Spec is complete
-  expectations:
+  # EXPECTATIONS DETAIL — embedded detail objects for the linked Expectation IDs
+  expectations_detail:
 
     - id: "EXP-503a"
       description: >

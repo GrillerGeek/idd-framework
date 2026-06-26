@@ -115,8 +115,8 @@ spec:
       authentication or authorization layer. Changes flow through GitHub pull
       requests on main.
 
-  # EXPECTATIONS
-  expectations:
+  # EXPECTATIONS DETAIL — embedded detail objects for the linked Expectation IDs
+  expectations_detail:
     - id: "EXP-b1ed"
       description: >
         The gap-check gate produces at least one Blocker finding when run
