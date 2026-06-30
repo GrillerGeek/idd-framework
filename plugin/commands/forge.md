@@ -1,6 +1,6 @@
 ---
 description: Launch the Forge web UI to browse and edit IDD artifacts in this repo
-argument-hint: [--port <number>] [--no-open] [--docs <path>]
+argument-hint: "[--port <number>] [--no-open] [--docs <path>]"
 allowed-tools: "Bash(npx *) BashOutput"
 ---
 

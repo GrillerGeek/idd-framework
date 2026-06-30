@@ -1,6 +1,7 @@
 ---
 name: idd-deep-review-lead
-description: Use this agent for multi-perspective Spec reviews. Examples:
+description: |
+  Use this agent for multi-perspective Spec reviews. Examples:
 
   <example>
   Context: User wants a thorough, multi-angle review of a spec
@@ -24,7 +25,7 @@ model: opus
 color: magenta
 effort: high
 maxTurns: 15
-tools: ["Read", "Write", "Glob", "Grep", "Bash"]
+tools: ["Read", "Write", "Glob", "Grep", "Bash", "Agent"]
 disallowedTools: ["Edit"]
 ---
 

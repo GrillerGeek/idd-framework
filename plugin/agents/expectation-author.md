@@ -1,13 +1,14 @@
 ---
 name: idd-expectation-author
-description: Use this agent when defining verifiable Expectations for Intentions. Examples:
+description: |
+  Use this agent when defining verifiable Expectations for Intentions. Examples:
 
   <example>
   Context: User wants to define expectations for an intention
-  user: "/idd:define-expectations"
+  user: "/idd-framework:define-expectations"
   assistant: "I'll use the idd-expectation-author agent to define Expectations."
   <commentary>
-  The /idd:define-expectations command triggers the expectation author.
+  The /idd-framework:define-expectations command triggers the expectation author.
   </commentary>
   </example>
 

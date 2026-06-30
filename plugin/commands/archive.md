@@ -1,6 +1,6 @@
 ---
 description: Consolidate terminal IDD artifacts into the roll-up ledger — classify mode produces a reviewable archive manifest; apply mode tags, distills to docs/idd-ledger.yaml, and deletes the archived files
-argument-hint: [--apply manifest-path]
+argument-hint: "[--apply manifest-path]"
 allowed-tools: "Read Write Glob Grep Bash(ls *) Bash(mkdir *) Bash(git status *) Bash(git rm *) Bash(git tag *) Bash(git add *) Bash(git commit *) Bash(git mv *) Bash(${CLAUDE_PLUGIN_ROOT}/bin/idd-archive-scan *)"
 ---
 

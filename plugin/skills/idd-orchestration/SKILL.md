@@ -1,6 +1,6 @@
 ---
 name: IDD Orchestration
-description: This skill should be used when the user asks to "start IDD", "use intent-driven development", "set up IDD workflow", "define a product", "write intentions", "create expectations", "author a spec", "review a spec", "run the IDD process", or invokes any /idd:* command. Orchestrates the Intent-Driven Development workflow for AI-augmented teams.
+description: This skill should be used when the user asks to "start IDD", "use intent-driven development", "set up IDD workflow", "define a product", "write intentions", "create expectations", "author a spec", "review a spec", "run the IDD process", or invokes any /idd-framework:* command. Orchestrates the Intent-Driven Development workflow for AI-augmented teams.
 ---
 
 # IDD Orchestration

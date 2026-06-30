@@ -1,6 +1,6 @@
 ---
 description: Multi-perspective Spec review using Agent Teams — reviews architecture, boundaries, and deliverables in parallel
-argument-hint: [spec-id]
+argument-hint: "[spec-id]"
 allowed-tools: "Read Write Glob Grep Bash(mkdir *) Bash(ls *)"
 ---
 

@@ -1,6 +1,6 @@
 ---
 description: Create an AI-ready Spec from Expectations with all 5 mandatory blocks
-argument-hint: [expectation-ids...]
+argument-hint: "[expectation-ids...]"
 allowed-tools: "Read Write Glob Grep Bash(mkdir *) Bash(ls *) AskUserQuestion"
 ---
 

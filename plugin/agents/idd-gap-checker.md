@@ -1,6 +1,7 @@
 ---
 name: idd-gap-checker
-description: Use this agent when running an adversarial gap-check on a Spec before execution. Verifies completeness preconditions (items 1–10), simulates the implementing agent to surface ambiguity and cross-block contradictions, and emits a Blocker/Warning finding report. Examples:
+description: |
+  Use this agent when running an adversarial gap-check on a Spec before execution. Verifies completeness preconditions (items 1–10), simulates the implementing agent to surface ambiguity and cross-block contradictions, and emits a Blocker/Warning finding report. Examples:
 
   <example>
   Context: User wants to gate a Spec before handing it to an AI coding agent

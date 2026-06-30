@@ -1,13 +1,14 @@
 ---
 name: idd-spec-author
-description: Use this agent when creating AI-ready Specs from Expectations. Examples:
+description: |
+  Use this agent when creating AI-ready Specs from Expectations. Examples:
 
   <example>
   Context: User wants to write a spec for their expectations
-  user: "/idd:write-spec"
+  user: "/idd-framework:write-spec"
   assistant: "I'll use the idd-spec-author agent to create an AI-ready Spec."
   <commentary>
-  The /idd:write-spec command triggers the spec author.
+  The /idd-framework:write-spec command triggers the spec author.
   </commentary>
   </example>
 

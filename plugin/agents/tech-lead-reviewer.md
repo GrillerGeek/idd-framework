@@ -1,13 +1,14 @@
 ---
 name: idd-tech-lead-reviewer
-description: Use this agent when reviewing Specs for architectural feasibility and pattern compliance. Examples:
+description: |
+  Use this agent when reviewing Specs for architectural feasibility and pattern compliance. Examples:
 
   <example>
   Context: User wants a technical review of a spec
-  user: "/idd:tech-review"
+  user: "/idd-framework:tech-review"
   assistant: "I'll use the idd-tech-lead-reviewer agent to review the Spec."
   <commentary>
-  The /idd:tech-review command triggers the tech lead reviewer.
+  The /idd-framework:tech-review command triggers the tech lead reviewer.
   </commentary>
   </example>
 

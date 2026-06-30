@@ -1,13 +1,14 @@
 ---
 name: idd-product-interviewer
-description: Use this agent when conducting a stakeholder interview to capture a Product definition. Examples:
+description: |
+  Use this agent when conducting a stakeholder interview to capture a Product definition. Examples:
 
   <example>
   Context: User wants to define a new product
-  user: "/idd:interview"
+  user: "/idd-framework:interview"
   assistant: "I'll use the idd-product-interviewer agent to conduct the stakeholder interview."
   <commentary>
-  The /idd:interview command triggers the product interviewer.
+  The /idd-framework:interview command triggers the product interviewer.
   </commentary>
   </example>
 

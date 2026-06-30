@@ -1,13 +1,14 @@
 ---
 name: idd-spec-reviewer
-description: Use this agent when validating AI output against a Spec's Expectations and Boundaries. Examples:
+description: |
+  Use this agent when validating AI output against a Spec's Expectations and Boundaries. Examples:
 
   <example>
   Context: User wants to validate implementation against spec
-  user: "/idd:review-spec"
+  user: "/idd-framework:review-spec"
   assistant: "I'll use the idd-spec-reviewer agent to validate against the Spec."
   <commentary>
-  The /idd:review-spec command triggers the spec reviewer.
+  The /idd-framework:review-spec command triggers the spec reviewer.
   </commentary>
   </example>
 

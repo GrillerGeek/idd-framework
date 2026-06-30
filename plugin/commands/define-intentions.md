@@ -1,6 +1,6 @@
 ---
 description: Decompose a Product into testable Intentions
-argument-hint: [product-id]
+argument-hint: "[product-id]"
 allowed-tools: "Read Write Glob Bash(mkdir *) Bash(ls *) AskUserQuestion"
 ---
 

@@ -1,6 +1,6 @@
 ---
 description: Define verifiable Expectations with edge cases for Intentions
-argument-hint: [intention-id]
+argument-hint: "[intention-id]"
 allowed-tools: "Read Write Glob Bash(mkdir *) Bash(ls *) AskUserQuestion"
 ---
 
