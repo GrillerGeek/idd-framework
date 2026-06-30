@@ -1,6 +1,6 @@
 ---
 description: Validate AI-generated output against a Spec's Expectations and Boundaries
-argument-hint: [spec-id]
+argument-hint: "[spec-id]"
 allowed-tools: "Read Write Glob Grep Bash(mkdir *) Bash(ls *)"
 ---
 

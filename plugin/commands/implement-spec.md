@@ -1,6 +1,6 @@
 ---
 description: Implement a Spec end-to-end — reads SPEC-ID.yaml, acknowledges Boundaries, writes deliverables, self-verifies, and emits an execution report to docs/reviews/
-argument-hint: [spec-id]
+argument-hint: "[spec-id]"
 allowed-tools: "Read Write Glob Grep Bash(mkdir *) Bash(ls *) Bash(git status *)"
 ---
 

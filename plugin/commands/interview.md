@@ -1,6 +1,6 @@
 ---
 description: Conduct a stakeholder interview to define an IDD Product artifact
-argument-hint: [product-name]
+argument-hint: "[product-name]"
 allowed-tools: "Read Write Glob Bash(mkdir *) Bash(ls *) AskUserQuestion"
 ---
 

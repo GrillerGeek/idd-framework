@@ -1,6 +1,7 @@
 ---
 name: idd-archivist
-description: Use this agent when archiving terminal IDD artifacts to the roll-up ledger. In classify mode it scans the artifact directories and produces a reviewable archive manifest; in apply mode it distills manifest-approved artifacts into ledger records. Examples:
+description: |
+  Use this agent when archiving terminal IDD artifacts to the roll-up ledger. In classify mode it scans the artifact directories and produces a reviewable archive manifest; in apply mode it distills manifest-approved artifacts into ledger records. Examples:
 
   <example>
   Context: User wants to consolidate completed IDD artifacts

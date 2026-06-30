@@ -1,6 +1,7 @@
 ---
 name: idd-outcome-author
-description: Use this agent when defining both Intentions and Expectations together for a Product. Examples:
+description: |
+  Use this agent when defining both Intentions and Expectations together for a Product. Examples:
 
   <example>
   Context: User wants to define outcomes for a product in one session

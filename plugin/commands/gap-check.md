@@ -1,6 +1,6 @@
 ---
 description: Run an adversarial gap-check on one or more Specs before execution — verifies completeness preconditions, simulates the implementing agent, reports Blocker/Warning findings, and performs a coverage/omission sweep
-argument-hint: [spec-id | spec-id spec-id ... | all]
+argument-hint: "[spec-id | spec-id spec-id ... | all]"
 allowed-tools: "Read Write Glob Grep Bash(mkdir *) Bash(ls *)"
 ---
 

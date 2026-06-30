@@ -1,6 +1,7 @@
 ---
 name: idd-quick-spec-author
-description: Use this agent to produce Intentions + Expectations + Spec in a single guided session. Examples:
+description: |
+  Use this agent to produce Intentions + Expectations + Spec in a single guided session. Examples:
 
   <example>
   Context: User wants to go from product to spec quickly

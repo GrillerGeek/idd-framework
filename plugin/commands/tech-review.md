@@ -1,6 +1,6 @@
 ---
 description: Review a Spec for architectural feasibility and pattern compliance
-argument-hint: [spec-id]
+argument-hint: "[spec-id]"
 allowed-tools: "Read Write Glob Grep Bash(mkdir *) Bash(ls *)"
 ---
 

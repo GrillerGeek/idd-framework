@@ -1,6 +1,7 @@
 ---
 name: idd-spec-implementer
-description: Use this agent when implementing a Spec end-to-end — reading the YAML contract, acknowledging Boundaries, writing deliverables within those Boundaries, self-verifying against every Expectation and edge case, and emitting an execution report. Examples:
+description: |
+  Use this agent when implementing a Spec end-to-end — reading the YAML contract, acknowledging Boundaries, writing deliverables within those Boundaries, self-verifying against every Expectation and edge case, and emitting an execution report. Examples:
 
   <example>
   Context: User wants to implement a ready Spec

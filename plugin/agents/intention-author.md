@@ -1,13 +1,14 @@
 ---
 name: idd-intention-author
-description: Use this agent when decomposing a Product into Intentions. Examples:
+description: |
+  Use this agent when decomposing a Product into Intentions. Examples:
 
   <example>
   Context: User wants to define intentions for a product
-  user: "/idd:define-intentions"
+  user: "/idd-framework:define-intentions"
   assistant: "I'll use the idd-intention-author agent to help define Intentions."
   <commentary>
-  The /idd:define-intentions command triggers the intention author.
+  The /idd-framework:define-intentions command triggers the intention author.
   </commentary>
   </example>
 
