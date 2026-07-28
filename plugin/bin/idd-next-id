@@ -19,8 +19,9 @@ case "$TYPE" in
   intention|intentions)     PREFIX="INT";  DIR="docs/intentions" ;;
   expectation|expectations) PREFIX="EXP";  DIR="docs/expectations" ;;
   spec|specs)               PREFIX="SPEC"; DIR="docs/specs" ;;
+  exploration|explorations) PREFIX="EXPL"; DIR="docs/explorations" ;;
   *)
-    echo "Usage: idd-next-id <product|intention|expectation|spec>" >&2
+    echo "Usage: idd-next-id <product|intention|expectation|spec|exploration>" >&2
     exit 1
     ;;
 esac
@@ -34,7 +35,13 @@ gen_hash() {
 for bytes in 2 3 4; do
   for attempt in 1 2 3 4 5; do
     ID="$(gen_hash "$bytes")"
-    if [ ! -e "$DIR/${PREFIX}-${ID}.yaml" ]; then
+    if [ "$PREFIX" = "EXPL" ]; then
+      # Explorations are directories named EXPL-<id>-<slug>/
+      if ! compgen -G "$DIR/${PREFIX}-${ID}-*" > /dev/null; then
+        printf "%s-%s\n" "$PREFIX" "$ID"
+        exit 0
+      fi
+    elif [ ! -e "$DIR/${PREFIX}-${ID}.yaml" ]; then
       printf "%s-%s\n" "$PREFIX" "$ID"
       exit 0
     fi
