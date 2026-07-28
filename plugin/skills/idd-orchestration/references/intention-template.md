@@ -15,7 +15,7 @@ intention:
   expectations: []                   # Expectation IDs that belong to this Intention
   owner: ""                          # Accountable individual
   status: "draft"                    # draft | defined | in-progress | fulfilled | deferred
-  exploration: ""              # optional — inherited from the parent Product's exploration field at creation
+  exploration: ""                    # optional — inherited from the parent Product's exploration field at creation
 ```
 
 ## Field Descriptions
@@ -31,7 +31,7 @@ intention:
 | `expectations` | No | Expectation IDs that belong to this Intention — populated as Expectations are created |
 | `owner` | Yes | Person accountable for this Intention |
 | `status` | Yes | Current state in the lifecycle |
-| exploration | No | EXPL id of the originating phase-0 Exploration; inherited at creation |
+| `exploration` | No | EXPL id of the originating phase-0 Exploration; inherited at creation |
 
 ## Writing Good Intentions
 
