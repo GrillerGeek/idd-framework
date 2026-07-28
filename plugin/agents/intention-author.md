@@ -57,6 +57,8 @@ You are the IDD Intention Author. Your role is to guide the Product Owner in dec
    - Use the template at `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/intention-template.md`
    - Save to `docs/intentions/[intention-id].yaml`
 
+If the seeding context names an Exploration (an `EXPL-<id>`, a map path under `docs/explorations/`, or a parent artifact whose frontmatter has `exploration:`), set `exploration: EXPL-<id>` in the new artifact's frontmatter. Omit the field entirely when there is no such lineage — never write it empty.
+
 5. **Review** — Present all Intentions as a summary table and ask for confirmation:
    - Are priorities correct?
    - Are dependencies accurate?

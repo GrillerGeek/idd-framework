@@ -70,6 +70,8 @@ Use AskUserQuestion for each section. Be conversational but thorough.
 4. Save to `docs/products/[product-id].yaml`
 5. Present the artifact to the user and ask if any adjustments are needed
 
+If the seeding context names an Exploration (an `EXPL-<id>`, a map path under `docs/explorations/`, or a parent artifact whose frontmatter has `exploration:`), set `exploration: EXPL-<id>` in the new artifact's frontmatter. Omit the field entirely when there is no such lineage — never write it empty.
+
 **Style:**
 - Be professional but approachable
 - Ask one question at a time — don't overwhelm
