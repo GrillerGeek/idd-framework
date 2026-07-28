@@ -83,6 +83,10 @@ Unknown values: flag in the manifest as `status-unknown`, propose `keep`, and le
 | draft / ready, parent Intention archived | EXP / SPEC | archive: abandoned (auto-flagged orphan — human confirms at the manifest checkpoint) |
 | draft / defined / ready / in-progress / review / specced | any | keep |
 | duplicate / variant pair member | any | archive both halves, cross-linked via `links` |
+| clear | EXPL | archive: completed — distill the map's Destination, each resolved ticket's gist, and the Out of scope list into the record's evidence |
+| abandoned | EXPL | archive: abandoned |
+
+> **Explorations are directories.** The unit of archival is the whole `docs/explorations/EXPL-<id>-<slug>/` directory: one ledger record per Exploration (never per ticket), and deletion removes the directory recursively. `charting` and `resolving` Explorations are live work — always `keep`. An Exploration whose id is still referenced by a live artifact's `exploration:` field gets a dangling-reference warning in the manifest, same as the Intention cluster rule.
 
 Cluster rule: if an Intention is terminal and ALL of its children are proposed for archive, archive the whole family together so no dangling-reference warning fires for it.
 

@@ -51,13 +51,14 @@ Steps:
 5. Detect orphans: draft/ready EXP/SPEC whose parent Intention is proposed for archive → propose `archive: abandoned`, grouped in a dedicated manifest section.
 6. Apply the review-file disposition rules to every file in `docs/reviews/` (and `docs/reviewdecks/` if present).
 7. For deferred artifacts, read the `deferred_reason`; flag `KEEP-RECOMMENDED?` when it states a hard future obligation.
+8. Explorations: INVENTORY includes `docs/explorations/EXPL-*/map.md` entries with type `EXPL`; read status directly from the map's frontmatter (already canonical — `charting` | `resolving` | `clear` | `abandoned`, no normalization needed). Apply the terminal-status rules from ledger-reference.md: `clear` → archive: completed, `abandoned` → archive: abandoned, `charting`/`resolving` → keep (live work, same as any in-progress artifact).
 
 **Manifest schema (follow exactly — the apply mode and the human checkpoint depend on it):**
 
 ```yaml
 manifest:
   date: "<YYYY-MM-DD>"
-  scan_totals: { products: N, intentions: N, expectations: N, specs: N, reviews: N }
+  scan_totals: { products: N, intentions: N, expectations: N, specs: N, explorations: N, reviews: N }
   proposed: { archive: N, keep: N }
   rows:
     - id: INT-001
@@ -92,12 +93,12 @@ End by reporting: totals per disposition, the orphan count, every flag raised, a
 Steps:
 
 1. Read the manifest. Treat it as the decision of record: rows flipped to `keep` by the human are kept, no second-guessing.
-2. For every `disposition: archive` row, READ the artifact file and distill one ledger record per the schema in ledger-reference.md: one-line `title`, `disposition`, `final_status` (canonical), `verified`, one-sentence `evidence` (for code-verified specs, restate what the spot-verify confirmed; for deferred, restate the deferred_reason), and the `links` block (parent intention, child expectations, superseded_by, co-deleted review paths from the manifest's `reviews:` section).
+2. For every `disposition: archive` row, READ the artifact file and distill one ledger record per the schema in ledger-reference.md: one-line `title`, `disposition`, `final_status` (canonical), `verified`, one-sentence `evidence` (for code-verified specs, restate what the spot-verify confirmed; for deferred, restate the deferred_reason), and the `links` block (parent intention, child expectations, superseded_by, co-deleted review paths from the manifest's `reviews:` section). For an EXPL row, read the whole directory (`map.md` plus every file under `tickets/`) and distill the map's Destination, each resolved ticket's gist, and the Out of scope list into `evidence` — one ledger record per Exploration, never per ticket.
 3. Append a new `archives:` entry (tag, date, count, note) — the command layer tells you the tag name in the prompt.
 4. If `docs/idd-ledger.yaml` exists, append records and the new archives entry without disturbing existing ones; otherwise create it with the documented header comment.
 5. Validate your own output: record count == manifest archive-row count; YAML parses (`python -c "import yaml,sys; yaml.safe_load(open('docs/idd-ledger.yaml'))"` or equivalent via Bash if available; otherwise re-read and inspect).
 
-Report: records written, the count reconciliation (manifest rows vs ledger records), and any row you could not distill (missing file, unreadable YAML) — those must be surfaced, never silently skipped. The command layer performs the tag, deletions, and commit after you return.
+Report: records written, the count reconciliation (manifest rows vs ledger records), and any row you could not distill (missing file, unreadable YAML) — those must be surfaced, never silently skipped. The command layer performs the tag, deletions, and commit after you return; for an approved EXPL row that means deleting the whole directory (`git rm -r docs/explorations/EXPL-<id>-<slug>/`), never a single file.
 
 ---
 
