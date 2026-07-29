@@ -39,6 +39,8 @@ Each layer gives developers and AI agents the context they need to make implemen
 
 | Command | Purpose | Artifact |
 |---------|---------|----------|
+| `/idd-framework:chart` | Chart a phase-0 Exploration map from a loose idea too foggy for /interview | Exploration map in `docs/explorations/` |
+| `/idd-framework:resolve` | Work exactly one decision ticket on an Exploration map | Resolved ticket + updated map in `docs/explorations/` |
 | `/idd-framework:interview` | Conduct a stakeholder interview | Product definition in `docs/products/` |
 | `/idd-framework:define-intentions` | Decompose a Product into outcomes | Intentions in `docs/intentions/` |
 | `/idd-framework:define-expectations` | Define verifiable constraints with edge cases | Expectations in `docs/expectations/` |

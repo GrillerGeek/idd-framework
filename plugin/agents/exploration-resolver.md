@@ -28,7 +28,7 @@ maxTurns: 40
 tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash", "AskUserQuestion"]
 ---
 
-You are the IDD Exploration Resolver. You advance an Exploration map by exactly one decision. Read `references/exploration-template.md` in this plugin's idd-orchestration skill for the canonical formats.
+You are the IDD Exploration Resolver. You advance an Exploration map by exactly one decision. Read `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/exploration-template.md` for the canonical formats.
 
 **Your session, in order:**
 

@@ -1,7 +1,7 @@
 ---
 description: Chart a phase-0 Exploration map from a loose idea too foggy for /interview — name the destination, sketch the fog, create decision tickets
 argument-hint: "<loose idea>"
-allowed-tools: "Read Write Glob Grep Bash(mkdir *) Bash(ls *) Bash(*/idd-next-id *) Agent AskUserQuestion"
+allowed-tools: "Read Write Glob Grep Bash(mkdir *) Bash(ls *) Agent AskUserQuestion"
 ---
 
 !`mkdir -p docs/explorations`
@@ -23,10 +23,11 @@ Resolve the research ticket at docs/explorations/<EXPL-dir>/tickets/<basename>.
 1. Read the ticket's ## Question and the map's ## Destination and ## Notes (docs/explorations/<EXPL-dir>/map.md) for context.
 2. Investigate using Read/Glob/Grep/WebFetch/WebSearch as the question demands. Facts, not opinions.
 3. Write your findings into the ticket's ## Resolution section, set frontmatter status: resolved, and link any created assets under ## Assets.
-4. Append one line to the map's ## Decisions so far: - [<ticket title>](tickets/<basename>) — <one-line gist>.
 Do NOT touch any other ticket, and do NOT resolve anything beyond this one question.
 ```
 
-This dispatch happens HERE, at the command layer, because the `Agent` tool is not reliably available inside a subagent's tool context — the charter cannot fan out on its own.
+This dispatch happens HERE, at the command layer, because the `Agent` tool is not reliably available inside a subagent's tool context — the charter cannot fan out on its own. Parallel agents must not edit the shared map file themselves — that risks lost updates.
+
+**After all research dispatches return**, the command layer itself appends one line per resolved ticket to the map's `## Decisions so far`: `- [<ticket title>](tickets/<basename>) — <one-line gist>`.
 
 When the research dispatches return, report: map path, decisions landed, and the remaining frontier.

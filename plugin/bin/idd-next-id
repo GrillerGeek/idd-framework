@@ -1,8 +1,8 @@
 #!/bin/bash
 # idd-next-id: Generate a unique ID for an IDD artifact type
 # Usage: idd-next-id <type>
-# Types: product, intention, expectation, spec
-# Example: idd-next-id spec → outputs SPEC-a3f8
+# Types: product, intention, expectation, spec, exploration
+# Example: idd-next-id spec → outputs SPEC-a3f8; idd-next-id exploration → outputs EXPL-a3f8
 #
 # IDs are random short hashes (4 hex chars by default) rather than sequential.
 # This eliminates merge collisions when multiple contributors create artifacts
