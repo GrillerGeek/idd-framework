@@ -87,6 +87,8 @@ Read `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/spec-reference.m
 
 Run the completeness checklist. Generate the Spec ID by running `idd-next-id spec`. Save SPEC-*.yaml to `docs/specs/`.
 
+If the seeding context names an Exploration (an `EXPL-<id>`, a map path under `docs/explorations/`, or a parent artifact whose frontmatter has `exploration:`), set `exploration: EXPL-<id>` in the new artifact's frontmatter. Omit the field entirely when there is no such lineage — never write it empty.
+
 ### Phase 5: Present Summary
 
 Show all generated artifacts in a summary table:

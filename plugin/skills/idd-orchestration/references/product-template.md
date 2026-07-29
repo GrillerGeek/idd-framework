@@ -10,6 +10,7 @@ product:
   name: ""                           # Working product name
   status: "discovery"                # discovery | active | maintenance | sunset
   owner: ""                          # Accountable individual
+  exploration: ""                    # optional — EXPL-<id> of the phase-0 Exploration this Product was seeded from (see references/exploration-template.md)
 
   # PROBLEM STATEMENT — what business problem does this solve?
   problem_statement: ""
@@ -45,6 +46,7 @@ product:
 | `value_proposition` | Yes | Why this product matters to the organization |
 | `strategic_alignment` | Yes | Which organizational priorities this serves |
 | `context` | Recommended | Tech stack, patterns, conventions, and auth — inherited by all child Specs |
+| `exploration` | No | EXPL id of the originating phase-0 Exploration; inherited at creation |
 
 ## Guidance
 

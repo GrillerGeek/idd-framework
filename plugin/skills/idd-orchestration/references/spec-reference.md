@@ -17,6 +17,7 @@ spec:
   intentions: []                     # List of Intention IDs this Spec addresses
   expectations: []                   # Linked Expectation IDs this Spec implements
   status: "draft"                    # draft | ready | in-progress | review | validating | done
+  exploration: ""                    # optional — inherited from the parent Intention/Product; Guildhall's fog-cartographer keys on this
 
   # CONTEXT — everything the AI agent needs to know about your project
   context:

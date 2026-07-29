@@ -1,6 +1,6 @@
 ---
 name: IDD Orchestration
-description: This skill should be used when the user asks to "start IDD", "use intent-driven development", "set up IDD workflow", "define a product", "write intentions", "create expectations", "author a spec", "review a spec", "run the IDD process", or invokes any /idd-framework:* command. Orchestrates the Intent-Driven Development workflow for AI-augmented teams.
+description: This skill should be used when the user asks to "start IDD", "chart an exploration", "too foggy to interview", "use intent-driven development", "set up IDD workflow", "define a product", "write intentions", "create expectations", "author a spec", "review a spec", "run the IDD process", or invokes any /idd-framework:* command. Orchestrates the Intent-Driven Development workflow for AI-augmented teams.
 ---
 
 # IDD Orchestration
@@ -11,6 +11,7 @@ Intent-Driven Development decomposes purpose into four levels — Product, Inten
 
 | Phase | Command | Agent | Artifact | Output Path |
 |-------|---------|-------|----------|-------------|
+| 0. Chart (optional) | `/idd-framework:chart` | exploration-charter | Exploration map + decision tickets | `docs/explorations/` |
 | 1. Interview | `/idd-framework:interview` | product-interviewer | Product definition | `docs/products/` |
 | 2. Intentions | `/idd-framework:define-intentions` | intention-author | Intention artifacts | `docs/intentions/` |
 | 3. Expectations | `/idd-framework:define-expectations` | expectation-author | Expectation artifacts | `docs/expectations/` |
@@ -26,10 +27,15 @@ Intent-Driven Development decomposes purpose into four levels — Product, Inten
 - `/idd-framework:quick-spec` — Produces Intentions + Expectations + Spec in one session
 - `/idd-framework:deep-review` — Multi-perspective review using Agent Teams
 
+## Phase 0 — Explorations
+
+Efforts too foggy for `/interview` start as an **Exploration** (`docs/explorations/EXPL-<id>-<slug>/`): a map of decision tickets worked one per session via `/resolve` until `status: clear`, then seeded into `/interview` or `/quick-spec`. Downstream artifacts carry the `exploration:` lineage field. Format and rules: `references/exploration-template.md`.
+
 ## Entry Points
 
 Users can enter the workflow at any phase:
 
+- **Too foggy to interview?** Start with `/idd-framework:chart` — chart the fog, then `/idd-framework:resolve` one decision per session until the way is clear
 - **Full pipeline:** Start with `/idd-framework:interview`
 - **Already have a product?** Start at `/idd-framework:define-intentions`
 - **Have intentions?** Start at `/idd-framework:define-expectations`
@@ -48,6 +54,8 @@ Terminal artifacts (Intentions `fulfilled`, Expectations `done`/`validated`, Spe
 
 | Agent | Color | Model | Role |
 |-------|-------|-------|------|
+| `idd-exploration-charter` | green | **sonnet** | Charts phase-0 Exploration maps from loose ideas |
+| `idd-exploration-resolver` | orange | **sonnet** | Resolves one Exploration decision ticket per session |
 | `idd-product-interviewer` | blue | **haiku** | Interviews stakeholder to capture Product artifact |
 | `idd-intention-author` | green | **haiku** | Guides Product Owner to decompose Product into Intentions |
 | `idd-expectation-author` | yellow | **haiku** | Defines verifiable Expectations with edge cases |

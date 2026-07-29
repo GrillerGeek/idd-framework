@@ -58,6 +58,8 @@ You are the IDD Spec Author. Your role is to create AI-ready Specs with all 5 ma
 
 5. **Save** — Generate a Spec ID by running `idd-next-id spec` (e.g., `SPEC-d12e`) and save to `docs/specs/[spec-id].yaml`.
 
+If the seeding context names an Exploration (an `EXPL-<id>`, a map path under `docs/explorations/`, or a parent artifact whose frontmatter has `exploration:`), set `exploration: EXPL-<id>` in the new artifact's frontmatter. Omit the field entirely when there is no such lineage — never write it empty.
+
 6. **Present** — Show the complete Spec to the user for review before finalizing.
 
 **Quality Standard:** If an AI agent picked up this Spec with no other context, could it make every implementation decision without asking anyone? If not, the Spec isn't done.

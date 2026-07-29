@@ -18,8 +18,9 @@
 set -euo pipefail
 
 ARTIFACT_DIRS="docs/products docs/intentions docs/expectations docs/specs"
+EXPLORATION_DIR="docs/explorations"
 REVIEW_DIR="docs/reviews"
-ID_PATTERN='(PROD|INT|EXP|SPEC)-[0-9A-Za-z]+'
+ID_PATTERN='(PROD|INT|EXP|SPEC|EXPL)-[0-9A-Za-z]+'
 
 type_of() {
   case "$1" in
@@ -27,6 +28,7 @@ type_of() {
     docs/intentions/*)   echo "intention" ;;
     docs/expectations/*) echo "expectation" ;;
     docs/specs/*)        echo "spec" ;;
+    docs/explorations/*) echo "EXPL" ;;
     *)                   echo "unknown" ;;
   esac
 }
@@ -38,6 +40,12 @@ for dir in $ARTIFACT_DIRS; do
     printf "%s %s\n" "$(type_of "$f")" "$f"
   done
 done
+# Explorations are directories, not flat *.yaml files: one level deeper,
+# and the artifact file is map.md rather than a top-level yaml.
+for f in "$EXPLORATION_DIR"/EXPL-*/map.md; do
+  [ -e "$f" ] || continue
+  printf "%s %s\n" "$(type_of "$f")" "$f"
+done
 
 echo "== STATUS =="
 for dir in $ARTIFACT_DIRS; do
@@ -48,6 +56,11 @@ for dir in $ARTIFACT_DIRS; do
     raw="$(grep -m1 -E '^[[:space:]]*status:' "$f" | sed -E 's/^[[:space:]]*status:[[:space:]]*//; s/[[:space:]]*$//; s/^"(.*)"$/\1/' || true)"
     printf "%s %s\n" "$f" "${raw:-<none>}"
   done
+done
+for f in "$EXPLORATION_DIR"/EXPL-*/map.md; do
+  [ -e "$f" ] || continue
+  raw="$(grep -m1 -E '^[[:space:]]*status:' "$f" | sed -E 's/^[[:space:]]*status:[[:space:]]*//; s/[[:space:]]*$//; s/^"(.*)"$/\1/' || true)"
+  printf "%s %s\n" "$f" "${raw:-<none>}"
 done
 
 echo "== MENTIONS =="
