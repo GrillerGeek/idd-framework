@@ -27,7 +27,7 @@ ledger:
       note: "Initial consolidation: 248 -> 95 active artifacts"
   records:
     - id: SPEC-030
-      type: spec                 # product | intention | expectation | spec | review
+      type: spec                 # product | intention | expectation | spec | review | exploration
       title: "Workflow state tracking: provenance metadata + cascade invalidation"
       disposition: completed     # completed | superseded | deferred | abandoned
       final_status: done         # canonical lifecycle status at archive time
