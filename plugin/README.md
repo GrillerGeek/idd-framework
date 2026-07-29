@@ -33,6 +33,8 @@ Each layer gives developers and AI agents the context they need to make implemen
 
 ## Commands
 
+**Phase 0 — /chart + /resolve:** efforts too foggy to interview get an Exploration map of decision tickets, resolved one per session until the way is clear.
+
 ### Core Pipeline
 
 | Command | Purpose | Artifact |

@@ -40,6 +40,7 @@ Product          →  Why does this exist?
 
 ### Key Differences from Traditional Agile
 
+- **Phase 0 — /chart + /resolve:** efforts too foggy to interview get an Exploration map of decision tickets, resolved one per session until the way is clear
 - **Autonomy through context** — developers and AI agents get enough information to make decisions without waiting for clarification
 - **Continuous flow** with WIP limits replaces time-boxed sprints
 - **Spec quality** is the primary throughput metric, not velocity
