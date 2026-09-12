@@ -4,13 +4,17 @@ PASS — 0 blockers, 0 warnings
 
 Date: 2026-09-12
 Spec: `docs/specs/SPEC-b2e3.yaml`
-Reviewed Spec SHA256: `c2d1e5b06fb7fd5cac7cea1f5af48b6d6f055689a88154be1bf29f951bf0a1d4`
+Reviewed Spec SHA256: `a926d0c9a6ea64c4169a08437620098874dc3397830d20dbede63152876f99cb`
 
 Completeness precondition: items 1–10 pass. The blocked operational sentinel was present. Human peer review remains pending; explicit unattended migration authorization is session-specific and does not change shipped workflow gates or become fictional approval evidence.
 
 ## Content findings
 
 No unresolved content findings.
+
+Fresh recovery review: the author has explicitly increased the host-process ceiling from 240 to 600 seconds per scenario, with separately bounded output/test verification of at most 10 seconds each. The 4 MB host-log cap, process-group cleanup, configured-model requirement, mutation assertions, failure classification and evidence-retention rules remain intact. No remaining 240-second requirement contradicts the new ceiling. The revision changes how long a configured host may work; it does not weaken the scenario acceptance criteria or turn previous timeouts into passes.
+
+The Spec is in-progress and has an explicit author/orchestrator recovery decision preserving partial work. This review assesses the revised contract and does not imply a standard ready-only execution invocation, reset lifecycle, completed human review or successful runtime recovery. Orchestration owns any resumed work under the documented session authorization. All 26 existing coverage dispositions were reconfirmed: the limit change is implementable within the owned evaluator/helper/test files and creates no dependency on an unowned file.
 
 Initial GC-1 is resolved by `implementation_contract.scenario_oracles`: the flawed scenario is parseable and mechanically complete but contains a precise blank-input contradiction that must receive an adversarial Blocker. Clean, incomplete, implementation and refusal scenarios specify distinct expected outcomes. Product input, exact greet behavior, dirty-file preservation and independent output checks are concrete. Per-scenario allowlists and text comparisons permit only annotation/status changes, preserving other Spec bytes, file modes and installed skills. Arbitrary host scratch is not exempted; the earlier conflicting generic exclusion has been removed. Human-only transcript/report quality checks remain explicitly separate from machine evidence, and host prerequisite failures cannot become passes.
 

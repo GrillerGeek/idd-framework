@@ -8,7 +8,7 @@ spec:
     - EXP-feff
     - EXP-3570
     - EXP-016a
-  status: ready
+  status: in-progress
   context:
     stack: Inherit PROD-f67b Markdown/YAML/JSON/Bash. Use the established private Node >=22.20.0 tooling with
       locked yaml 2.8.3 and skills 1.5.25 for development only.
@@ -165,8 +165,9 @@ spec:
       invalid-input behavior and tests. The implement-clean fixture marks human readiness approved as
       fictional scenario data, not an approval of this migration. Report-only reviewer forward-tests are also
       independent temporary sessions. Runner accepts --host codex|claude and --scenario, optional temporary
-      evidence directory, uses existing configured model without override, time budget <=240 seconds/scenario
-      and bounded <=4MB logs, kills owned process group on timeout and preserves only requested evidence. CLI
+      evidence directory, uses existing configured model without override, host time budget <=600
+      seconds/scenario, plus <=10 seconds each for isolated output and test verification and bounded <=4MB
+      logs, kills owned process group on timeout and preserves only requested evidence. CLI
       prerequisites/auth/model/network failure blocks the scenario, other deterministic checks continue. Never
       auto-install a host or alter its configuration to obtain a pass.
     scenario_oracles:
@@ -239,6 +240,10 @@ spec:
     scope: This migration pilot only; user asked to keep working and make best guesses based on past decisions.
     decision: Proceed through authoring, independent gap-check, implementation and verification, record human
       review pending, do not change the shipped human-review gate.
+    recovery_decision: Observed configured-model gap reviews exceeded the original four-minute harness ceiling.
+      Author increases the bounded host ceiling to ten minutes, preserving configured models, all scenario
+      assertions and actual blocked outcomes. Request a fresh independent gate before resuming this
+      implementation; existing partial work is preserved.
   gap_check:
     status: passed
     blockers: 0

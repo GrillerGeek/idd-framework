@@ -27,6 +27,8 @@ Branch: `codex/portable-skills`. Clean baseline: `f81c88d`.
 | Keep Node/npm dependencies in maintainer tooling | Installed workflow skills use bundled Markdown and existing Bash helpers; they do not require adding a package.json or runtime dependency to a consuming project. |
 | Preserve Claude command and agent metadata, adapt bodies only | Existing aliases and reviewer/implementer model choices remain in Claude adapters. Interview runs in the stakeholder conversation so supplied answers are retained. |
 | Separate deterministic tests from fresh host behavior evidence | File installation proves resource closure; only actual sessions can demonstrate workflow execution. Missing authentication or service access is a blocker to certification, not a pass. |
+| Increase the host-test ceiling after observed timeouts | Both configured-model gap reviews exceeded four minutes. Preserve model settings and all output/mutation assertions; author a bounded ten-minute ceiling and obtain a fresh independent gap-check before resuming. Keep earlier blocked results visible. |
+| Explicitly scope installed references in the clean fixture | The portfolio forward-test correctly identified installed reference text as an impact-surface match. Accept that immutable tool resource as out of scope for the greeting fixture; do not weaken real coverage rules. |
 | Retain local commits and prepare reviewable evidence | No push, tag, release, marketplace update or personal installation mutation is implied by continued implementation. |
 
 ## Current work packet
