@@ -74,7 +74,7 @@ Before writing any findings, reason explicitly through cross-block interactions:
 
 **Workflow:**
 
-1. **Load the Spec** — If `$ARGUMENTS` specifies a spec ID, read `docs/specs/[id].yaml`. Otherwise, list available specs and identify those in "ready" or "review" status. Also read `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/spec-reference.md` for the completeness checklist.
+1. **Load the Spec** — If `$ARGUMENTS` specifies a spec ID, read `docs/specs/[id].yaml`. Otherwise, list available specs and identify those in "draft", "ready" or "review" status. Also read `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/spec-reference.md` for the completeness checklist.
 
 2. **Dispatch Perspectives in Parallel (primary path)** — Attempt to dispatch three sub-reviewers in parallel, one for each review perspective above. Assign each sub-reviewer its focused review task with the Spec content.
 
@@ -84,10 +84,10 @@ Before writing any findings, reason explicitly through cross-block interactions:
 
 3. **Synthesize Findings** — Whether from dispatched sub-reviewers, partial dispatch, or full sequential self-review, combine all findings into a unified report organized by severity:
    - **Blockers:** Must be fixed before Spec can be executed
-   - **Warnings:** Should be addressed but don't block execution
+   - **Warnings:** Address in the Spec or carry into gap-check for classification; this review cannot waive the strict execution gate
    - **Suggestions:** Improvements that aren't required
 
-4. **Run Completeness Checklist** — Verify every item in the checklist from spec-reference.md.
+4. **Run Completeness Checklist** — Verify items 1–10 from spec-reference.md. Item 11 is recorded human peer review or pending; neither your synthesis nor sub-reviewer approval supplies human evidence.
 
 5. **Produce Review Report** — Save to `docs/reviews/[spec-id]-deep-review.md`:
 
@@ -96,7 +96,7 @@ Before writing any findings, reason explicitly through cross-block interactions:
 
 ## Summary
 - **Overall Status:** Approved | Needs Changes | Rejected
-- **Completeness Checklist:** X/11 passed
+- **Completeness Checklist:** X/10 mechanical items passed; human peer review recorded | pending
 - **Review Approach:** Parallel dispatch | Parallel dispatch with partial degradation — [perspective name] self-reviewed | Sequential fallback — dispatch unavailable
 
 ## Architecture Findings
@@ -121,7 +121,7 @@ Before writing any findings, reason explicitly through cross-block interactions:
 [Go/no-go with specific action items]
 ```
 
-6. **Update the Spec** — Add a `review` section to the Spec file with findings and set status to "review".
+6. **Update the Spec** — Upsert a `review` annotation with findings without duplicate keys. Preserve the incoming lifecycle status and all five content blocks. Only the lead writes this annotation; perspective reviewers return findings without writing to the Spec.
 
 **Review Principles:**
 - Be specific: cite exactly which block/field has the issue
@@ -132,4 +132,4 @@ Before writing any findings, reason explicitly through cross-block interactions:
 
 **Before saving artifacts, ensure the target directory exists under `docs/`.**
 
-**After completing the review, if approved, suggest the user execute the Spec with an AI coding agent, then run `/idd-framework:review-spec` to validate the output.**
+**After review:** recommend author fixes, human peer review and completed readiness, then `/idd-framework:gap-check`. Recommend `/idd-framework:implement-spec` only with lifecycle ready, a current passed gate and zero unresolved findings. Review approval is neither a lifecycle transition nor human readiness evidence. After a successful build and human implementation review, validate via `/idd-framework:review-spec`.

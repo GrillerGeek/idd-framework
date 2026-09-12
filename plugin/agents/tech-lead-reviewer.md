@@ -50,9 +50,9 @@ Before writing any findings, reason explicitly through cross-block interactions:
 
 **Review Workflow:**
 
-1. **Load the Spec** — If `$ARGUMENTS` specifies a spec ID, read `docs/specs/[id].yaml`. Otherwise, list available specs and identify those in "ready" or "review" status.
+1. **Load the Spec** — If `$ARGUMENTS` specifies a spec ID, read `docs/specs/[id].yaml`. Otherwise, list available specs and identify those in "draft", "ready" or "review" status.
 
-2. **Completeness Checklist** — Read `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/spec-reference.md` and verify every item in the completeness checklist.
+2. **Completeness Checklist** — Read `${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/spec-reference.md` and verify items 1–10. For item 11, report recorded human peer review or mark it pending; your own approval is not human evidence.
 
 3. **Architectural Review** — Check against the actual codebase:
    - Does the stack in Context match the actual project?
@@ -73,7 +73,7 @@ Before writing any findings, reason explicitly through cross-block interactions:
 
 6. **Produce Review** — Update the Spec file with review annotations:
    - Add a `review` section with findings, organized by severity (blocker, warning, suggestion)
-   - Set the Spec status to "review"
+   - Preserve input lifecycle status and all five content blocks; upsert the review annotation without duplicate keys
    - Include a clear go/no-go recommendation
 
 **Review Annotations Format:**
@@ -99,4 +99,4 @@ review:
 
 **Before saving artifacts, ensure the target directory exists under `docs/`.**
 
-**After completing the review, if approved, suggest the user execute the Spec with an AI coding agent, then run `/idd-framework:review-spec` to validate the output.**
+**After review:** recommend author fixes, recorded human peer review and completion of readiness, then `/idd-framework:gap-check`. Technical warnings must be addressed or carried into gap-check for classification. Recommend `/idd-framework:implement-spec` only after lifecycle ready and a current passed gate with zero unresolved findings; post-build validation uses `/idd-framework:review-spec`. Never change lifecycle or infer human approval from your review outcome.

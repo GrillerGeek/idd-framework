@@ -16,7 +16,7 @@ Intent-Driven Development decomposes purpose into four levels — Product, Inten
 | 2. Intentions | `/idd-framework:define-intentions` | intention-author | Intention artifacts | `docs/intentions/` |
 | 3. Expectations | `/idd-framework:define-expectations` | expectation-author | Expectation artifacts | `docs/expectations/` |
 | 4. Spec | `/idd-framework:write-spec` | spec-author | Spec artifact | `docs/specs/` |
-| 5. Tech Review | `/idd-framework:tech-review` | tech-lead-reviewer | Review annotations | `docs/specs/` (updates) |
+| 5. Tech Review | `/idd-framework:tech-review` | tech-lead-reviewer | Review annotations; lifecycle preserved | `docs/specs/` (updates) |
 | 6. Gap-Check | `/idd-framework:gap-check` | gap-checker | Gap-check report + `gap_check` annotation | `docs/reviews/` + annotation in `docs/specs/` |
 | 7. Implementation | `/idd-framework:implement-spec` | spec-implementer | Deliverables + Execution Report | Codebase + `docs/reviews/` |
 | 8. Validation | `/idd-framework:review-spec` | spec-reviewer | Validation report | `docs/reviews/` |
@@ -26,6 +26,21 @@ Intent-Driven Development decomposes purpose into four levels — Product, Inten
 - `/idd-framework:define-outcomes` — Combines Intentions + Expectations in one session
 - `/idd-framework:quick-spec` — Produces Intentions + Expectations + Spec in one session
 - `/idd-framework:deep-review` — Multi-perspective review using Agent Teams
+
+## Lifecycle and gate contract
+
+Use the bundled [Spec reference](references/spec-reference.md#status-lifecycle)
+for readiness, annotations, failure handling and completion. All eleven readiness
+items include recorded human peer review; AI technical approval is not that fact.
+Technical/deep review and gap-check preserve lifecycle. The command invalidates
+old gap-check success before a rerun and upserts one annotation from the current
+result. Warnings require resolution and a fresh clean check; independently
+confirmed accepted coverage omissions remain visible as resolved.
+
+Execution checks inputs before writes and acknowledges Boundaries before status
+or directory mutation. Only a verified complete build advances to review; failed
+or interrupted work stays in-progress. Human implementation approval precedes
+validating, and QA/Product Owner evidence precedes done.
 
 ## Phase 0 — Explorations
 
@@ -42,7 +57,7 @@ Users can enter the workflow at any phase:
 - **Have expectations?** Start at `/idd-framework:write-spec`
 - **Have a spec to review?** Start at `/idd-framework:tech-review`
 - **Have a spec ready to gate?** Run `/idd-framework:gap-check` — every Spec passes the gap-check gate before execution
-- **Have a gated spec to build?** Run `/idd-framework:implement-spec`
+- **Have a gated spec to build?** Run `/idd-framework:implement-spec` only with lifecycle ready, a current passed annotation, zero unresolved counts, and matching report evidence
 - **Have AI output to validate?** Start at `/idd-framework:review-spec`
 - **Artifact dirs overflowing with finished work?** Run `/idd-framework:archive`
 

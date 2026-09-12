@@ -2,7 +2,7 @@
 
 This file provides AI coding agents with the knowledge needed to create, use, and validate IDD artifacts. It is the universal reference — agent-specific config files (CLAUDE.md, `.cursor/rules/`, `.github/copilot-instructions.md`) extend it with tool-specific details.
 
-For full documentation, see `docs/framework.md`. For the philosophy behind IDD, see `docs/autonomy.md`.
+For repository maintenance, read [Contributing with AI agents](docs/contributing-agents.md). It covers shared source ownership, conventions, licensing, versioning and runnable checks; assessments and planning do not automatically invoke managed execution. For full process documentation, see [framework.md](docs/framework.md), especially the [Spec lifecycle contract](docs/framework.md#spec-lifecycle-contract). For the philosophy behind IDD, see [autonomy.md](docs/autonomy.md).
 
 ---
 
@@ -31,10 +31,12 @@ docs/
   intentions/     # Intention artifacts
   expectations/   # Expectations with edge cases
   specs/          # AI-ready Specs with 5 mandatory blocks
-  reviews/        # Validation reports (Markdown)
+  reviews/        # Gap-check, execution, validation, and archive reports (Markdown)
+  explorations/   # Optional phase 0: EXPL-<id>-<slug>/map.md and decision tickets
+  idd-ledger.yaml # Archive records, when archival has been used
 ```
 
-Create these directories if they don't exist before saving artifacts.
+Create needed directories before saving artifacts; managed execution checks its gate and acknowledges Boundaries before directory creation. Discover archived artifacts through the ledger and recover full text from its archive Git tag. Exploration maps live one directory below `docs/explorations/`, not in the flat YAML globs.
 
 ## Artifact Schemas
 
@@ -152,7 +154,7 @@ A Spec cannot enter **Ready** status until every item passes:
 - [ ] Boundaries block has at least one entry
 - [ ] Deliverables block has at least one entry
 - [ ] Validation block has at least one automated and one human review item
-- [ ] Spec has been peer-reviewed
+- [ ] Spec has been peer-reviewed by another person; record actual human approval, never infer it from an AI review
 
 ## Rules When Generating Artifacts
 
@@ -168,7 +170,7 @@ A Spec cannot enter **Ready** status until every item passes:
 
 6. **IDs are random short hashes.** Use `idd-next-id <type>` (in `plugin/bin/`) to generate a new ID — it produces a 4-hex-char suffix like `SPEC-a3f8` and ensures uniqueness against existing files in the working tree. IDs are immutable once assigned. Pre-existing sequential IDs in the form `SPEC-001`, `INT-002`, etc. remain valid; mixed format is supported indefinitely.
 
-7. **Status lifecycle.** Artifacts progress through their status values in order. Don't skip states.
+7. **Status lifecycle.** Artifacts progress through their status values in order. Don't skip states. Technical/deep review annotate outcomes while preserving lifecycle status. Author/orchestrator owns ready after all eleven checklist items; orchestration owns implementation transitions, human implementation approval gates review → validating, and QA/Product Owner validation gates validating → done. Follow the linked lifecycle contract.
 
 ## Workflow Phases
 
@@ -189,24 +191,28 @@ The IDD workflow has 8 phases. You can enter at any phase:
 
 Before execution, every Spec passes an adversarial gap-check: a reviewing agent simulates being the implementing agent and reports every point where it would have to guess — ambiguous Expectations, contradictions between blocks, filler edge cases, vague Context, unverifiable validation criteria. Findings are classified **Blocker** (implementations would diverge wrongly) or **Warning** (implementations would be inconsistent). The completeness checklist (items 1–10; item 11, peer review, is a human fact outside the gate) is a machine-verifiable *precondition* — the gap-check attacks content, not presence.
 
-Rules: the gap-checker is report-only and never edits the Spec's content blocks; gaps are fixed in the Spec by its author, never improvised around; a Spec with unresolved Blockers cannot proceed to execution. Results are recorded in an additive, optional `gap_check` annotation on the Spec:
+Rules: the gap-checker is report-only and never edits the Spec's content blocks; gaps are fixed in the Spec by its author, never improvised around; execution requires ready and a current passed gap-check with zero unresolved Blockers and Warnings. Results are recorded in an additive, optional `gap_check` annotation on the Spec:
 
 ```yaml
   gap_check:                      # optional; written by orchestration after a gap-check run
     status: "passed"              # passed | blocked | warnings
-    blockers: 0
-    warnings: 0
+    blockers: 0                   # unresolved findings; operational failure uses 1
+    warnings: 0                   # unresolved findings
     report: "docs/reviews/<spec-id>-gap-check.md"
     date: "YYYY-MM-DD"
 ```
 
-Pre-existing Specs without this field remain valid.
+Pre-existing Specs without this field remain valid artifacts, but need a fresh gate before execution. Historical `pass`/`warned` values do not authorize new execution. Before each check, orchestration upserts one blocked annotation with `blockers: 1`, `warnings: 0`, `report: null` and the current date. Completeness failure replaces blockers with the failed-item count and writes no finding report. Reviewer errors, interruption, missing/malformed reports retain the operational blocker. Only a successful current-invocation result with matching report counts, required finding fields and Coverage replaces it; an old report alone cannot authorize execution. Do not rewrite an unparseable Spec. Content blocks and lifecycle remain unchanged.
 
-**Coverage analysis.** In addition to the adversarial content check, the gap-check stage performs an omission sweep. The reviewing agent derives each Spec's *impact surface* — the set of repository files that reference the concepts, terms, or file names that the Deliverables change — and reports every impact-surface file owned by no Deliverable as a candidate omission. The impact surface excludes the artifact YAML trees (which legitimately reference the changed concepts) but includes `templates/` and `examples/`. Omissions are reported as **Warning** by default; the only **Blocker** path is when an Expectation's validation criteria depend on a file no Deliverable owns. Deliberate scoping is legitimate — the disposition field (`add-to-deliverables`, `assign-to-<spec-id>`, or `accept-omission`) lets the Spec Author record the decision. The `## Coverage` section is mandatory in every gap-check report even when no omissions are found — its absence is a schema violation. When multiple Specs are gap-checked together (portfolio mode), the omission sweep runs against the union of all Deliverables and the results are saved to a combined portfolio coverage report; files owned by any Spec in the set are not omissions, and files owned by two or more Specs are flagged as CONFLICT findings (Warning) in the portfolio report only.
+**Coverage analysis.** In addition to the adversarial content check, the gap-check stage performs an omission sweep. The reviewing agent derives each Spec's *impact surface* — the set of repository files that reference the concepts, terms, or file names that the Deliverables change — and reports every impact-surface file owned by no Deliverable as a candidate omission. The impact surface excludes the artifact YAML trees (which legitimately reference the changed concepts) but includes `templates/` and `examples/`. Omissions are reported as **Warning** by default; the only **Blocker** path is when an Expectation's validation criteria depend on a file no Deliverable owns. Deliberate scoping is legitimate — the disposition field (`add-to-deliverables`, `assign-to-<spec-id>`, or `accept-omission`) lets the Spec Author record the decision. Author `coverage_dispositions` entries can list `files`, `disposition`, and `reason`. An explicit `accept-omission` with a reason, independently confirmed by the reviewer to have no unmet validation dependency, stays visible in Coverage as resolved and is excluded from gate counts. Other omissions remain Warnings and unmet validation dependencies remain Blockers; acknowledgment cannot waive substantive content warnings. The `## Coverage` section is mandatory in every gap-check report even when no omissions are found — its absence is a schema violation. When multiple Specs are gap-checked together (portfolio mode), the omission sweep runs against the union of all Deliverables and the results are saved to a combined portfolio coverage report; files owned by any Spec in the set are not omissions, and files owned by two or more Specs are flagged as CONFLICT findings (Warning) in the portfolio report only.
 
 ### Managed Execution (Phase 7)
 
-The implementing agent executes a gated Spec under a fixed protocol: (1) confirm the Spec is ready with `gap_check.status: passed`; (2) restate every Boundary verbatim before the first file modification; (3) implement within Context and Boundaries — if a gap is found mid-build, apply the blocker-grade test (would alternative resolutions change validation outcomes, cross a Boundary, or change a Deliverable's shape?): blocker-grade → stop and report; minor → best-effort choice, documented; (4) self-verify with a table covering every edge case, Boundary, and Deliverable; (5) emit an **Execution Report** to `docs/reviews/` with a mandatory `spec_gaps_encountered` section — the signal that feeds future Spec quality. Status transitions (`ready → in-progress → review`) belong to the orchestration layer, not the implementing agent.
+Resolve/select a single Spec before writes. Require `ready`, `gap_check.status: passed`, zero counts, and a readable `docs/reviews/<SPEC-ID>-gap-check.md` starting `PASS — 0 blockers, 0 warnings` with `## Coverage`. Missing IDs, malformed Specs or invalid evidence produce a conversational refusal without mutation. Content changed since review requires a fresh gate; this prose protocol does not automatically detect unseen manual edits.
+
+Orchestration restates every Boundary verbatim before mkdir or changing ready → in-progress, then dispatches the implementer with verified evidence. The implementer repeats each Boundary verbatim with a comprehension paraphrase before its own modifications. Preserve pre-existing edits by comparing content as well as Git status. Apply the blocker-grade test to gaps: alternative choices changing validation outcomes, crossing a Boundary, or altering a Deliverable's shape require stopping and reporting to the author; minor choices are documented.
+
+Self-verify every edge case, Boundary and Deliverable in an Execution Report with mandatory `spec_gaps_encountered`. Orchestration alone advances in-progress → review after every Deliverable, Boundary and automated check passes and no blocker-grade gap remains. Only explicitly human-review checks may stay unverifiable at build time with a reason and follow-up. Failed/interrupted runs stay in-progress, with a partial report if possible; no automatic rollback or ready reset. Standard execution accepts only ready, so resumption needs a recovery decision. The [canonical contract](docs/framework.md#spec-lifecycle-contract) defines the full protocol.
 
 ### Accelerated Workflows
 

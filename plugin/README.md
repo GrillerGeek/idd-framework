@@ -46,6 +46,8 @@ Each layer gives developers and AI agents the context they need to make implemen
 | `/idd-framework:define-expectations` | Define verifiable constraints with edge cases | Expectations in `docs/expectations/` |
 | `/idd-framework:write-spec` | Create an AI-ready Spec with all 5 mandatory blocks | Spec in `docs/specs/` |
 | `/idd-framework:tech-review` | Review a Spec for architectural feasibility | Review annotations on Spec |
+| `/idd-framework:gap-check` | Adversarial content and coverage review before execution | Report in `docs/reviews/` and one gate annotation |
+| `/idd-framework:implement-spec` | Build a ready, cleanly gated Spec; self-verify | Deliverables and Execution Report in `docs/reviews/` |
 | `/idd-framework:review-spec` | Validate AI output against Spec criteria | Validation report in `docs/reviews/` |
 | `/idd-framework:archive` | Consolidate terminal artifacts into the roll-up ledger (classify → human review → apply) | Archive manifest in `docs/reviews/`, then `docs/idd-ledger.yaml` |
 
@@ -63,9 +65,11 @@ Each layer gives developers and AI agents the context they need to make implemen
 |---------|---------|----------|
 | `/idd-framework:forge` | Launch the [Forge](https://github.com/JasonRobey-Burke/Forge) web UI for browsing and editing IDD artifacts | Local server at `http://localhost:4000` |
 
-Each command can be used independently. You don't have to run the full pipeline.
+Each command is an entry point with prerequisites; you do not have to start at interview. The inventory above contains all 15 commands.
 
 ## Agents
+
+The plugin supplies these 14 role agents.
 
 | Agent | Role | Color |
 |-------|------|-------|
@@ -78,6 +82,10 @@ Each command can be used independently. You don't have to run the full pipeline.
 | **idd-outcome-author** | Defines Intentions + Expectations together in one session | Green |
 | **idd-quick-spec-author** | Full pipeline: Intentions + Expectations + Spec in one session | Cyan |
 | **idd-deep-review-lead** | Multi-perspective review with Agent Teams support | Magenta |
+| **idd-exploration-charter** | Charts phase-0 maps and decision tickets | Green |
+| **idd-exploration-resolver** | Resolves one decision ticket per session | Orange |
+| **idd-gap-checker** | Reports adversarial content and coverage findings without editing the Spec | Red |
+| **idd-spec-implementer** | Builds within Boundaries and records self-verification evidence | Orange |
 | **idd-archivist** | Consolidates terminal artifacts into `docs/idd-ledger.yaml` (classify + distill) | Purple |
 
 ## Quick Start
@@ -109,7 +117,25 @@ Each command can be used independently. You don't have to run the full pipeline.
    /idd-framework:tech-review SPEC-d12e
    ```
 
-6. **After AI builds the code, validate:**
+   Resolve technical findings and record actual human peer review plus all
+   readiness items before marking ready. AI approval alone does not do this.
+
+6. **Run the pre-build gap-check:**
+   ```
+   /idd-framework:gap-check SPEC-d12e
+   ```
+   Resolve outstanding findings and rerun until passed with zero unresolved
+   blockers and warnings. The annotation and report must agree.
+
+7. **Implement the gated Spec:**
+   ```
+   /idd-framework:implement-spec SPEC-d12e
+   ```
+   The command verifies evidence before writes, acknowledges Boundaries, and
+   enters in-progress. A verified complete build enters review. Human
+   implementation approval then permits validating.
+
+8. **Validate the implementation against the Spec:**
    ```
    /idd-framework:review-spec SPEC-d12e
    ```
@@ -121,7 +147,27 @@ Each command can be used independently. You don't have to run the full pipeline.
 /idd-framework:tech-review SPEC-d12e
 ```
 
-This produces Intentions, Expectations, and a Spec in a single guided session.
+This produces Intentions, Expectations, and a Spec in a single guided session. Continue through human readiness review, gap-check, implementation and validation as above; the accelerated authoring path does not bypass execution prerequisites.
+
+## Execution contract
+
+The [bundled lifecycle reference](skills/idd-orchestration/references/spec-reference.md#status-lifecycle)
+is the installed workflow contract. Technical/deep review preserve lifecycle;
+human peer review is needed for ready. Execution requires ready, a current
+`gap_check.status: passed`, zero unresolved counts, and the matching per-Spec
+report beginning `PASS — 0 blockers, 0 warnings` with `## Coverage`. A report
+headed PASS with warnings is not executable.
+
+Accepted coverage omissions remain visible; the reviewer must confirm the author's
+reason leaves no unmet validation dependency before marking them resolved.
+Substantive warnings require resolution. Repeated checks update one annotation;
+failed completeness or unsuccessful review uses blocked and `report: null`, so an
+old report cannot authorize a build. Failed or interrupted implementations remain
+in-progress even if a partial report exists. These are agent protocol instructions,
+not an executable state validator. Resume requires a recovery decision.
+
+Native Codex packaging and complete standalone skills distribution are planned;
+this release's documented installation routes above are for Claude Code.
 
 ## Output
 
@@ -133,7 +179,8 @@ docs/
   intentions/     # Intention artifacts (YAML)
   expectations/   # Expectation artifacts with edge cases (YAML)
   specs/          # AI-ready Specs with 5 mandatory blocks (YAML)
-  reviews/        # Validation reports (Markdown)
+  reviews/        # Gap-check, execution, validation and archive reports
+  explorations/   # EXPL-<id>-<slug>/map.md and decision tickets
   idd-ledger.yaml # Archive ledger: distilled records of completed/retired artifacts
 ```
 
@@ -152,9 +199,9 @@ The framework defines six roles. Each maps to a plugin agent:
 
 ## Plugin Features
 
-- **Lazy docs initialization** — The `docs/` directory structure is created only when you run an `/idd-framework:*` command
+- **Lazy docs initialization** — Commands create directories when needed; implementation checks the gate and acknowledges Boundaries before creating any
 - **User config** — Set `default_product_id` and `team_name` at plugin install for faster workflows
-- **Helper scripts** — `idd-next-id` (in `bin/`) generates a unique short-hash artifact ID (e.g., `SPEC-a3f8`); collision-free across branches
+- **Helper scripts** — `idd-next-id` (in `bin/`) generates a unique short-hash artifact ID (e.g., `SPEC-a3f8`); checked against existing live paths (reconcile unseen branch collisions during integration)
 - **Reviewer memory** — Tech lead and spec reviewer agents accumulate project-specific learnings across sessions
 - **Agent Teams support** — `/idd-framework:deep-review` uses parallel Agent Teams when the experimental flag is enabled, with graceful fallback to sequential review
 

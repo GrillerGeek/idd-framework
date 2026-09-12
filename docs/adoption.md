@@ -14,7 +14,7 @@ How to introduce IDD to your team.
 - Select a pilot Product (see criteria below)
 - Define the Product, 3–5 Intentions, and initial Expectations
 - Use manual tracking: Markdown Specs in a Git repo + a simple Kanban board (Trello, GitHub Projects, or a whiteboard)
-- Write 2–3 Specs and gap-check each one before execution — have a second AI agent or reviewer simulate the implementer and report every point of guesswork (see the Gap-Check Gate in [framework.md](framework.md))
+- Write 2–3 Specs; record all eleven completeness items, including human peer review, before ready. Then have a second AI agent or reviewer gap-check each Spec. AI review does not establish human approval. Execute only with ready plus a current passed annotation, zero unresolved findings, and matching report evidence (see the [Spec lifecycle contract](framework.md#spec-lifecycle-contract)).
 - Execute the Specs with AI agents; have each agent self-verify and produce an Execution Report, including any spec gaps it encountered
 - Measure baseline Spec Cycle Time, First-Pass Rate, Gap-Check Findings per Spec, and Review Queue Depth
 - Conduct a Process Retro at weeks 2 and 4
@@ -101,9 +101,12 @@ If you want to try IDD with the smallest possible investment:
 3. Write 2–3 **Intentions** (what should it accomplish?)
 4. For each Intention, write **Expectations** with edge cases
 5. Write one **Spec** using the [template](../templates/spec-template.yaml)
-6. **Gap-check it:** ask an AI agent to simulate implementing the Spec and report every point where it would have to guess — ambiguities, contradictions between blocks, edge cases that don't constrain anything. Fix what it finds *in the Spec*, then re-check.
-7. Export the Spec as Markdown and paste it into your AI coding agent
-8. Ask the agent to finish by verifying its output against every Expectation, Boundary, and Deliverable, and to list anything the Spec left ambiguous
-9. Compare the output quality to your usual approach
+6. Complete all eleven readiness items, including recorded human peer review, then mark the Spec ready. An AI review does not supply human approval.
+7. **Gap-check it:** have a reviewer simulate implementation and report ambiguity, contradictions and unconstrained edge cases. Fix findings in the Spec and re-check until a current passed annotation has zero unresolved findings and a matching report with Coverage.
+8. Give your coding agent the Spec YAML and its gate report. Follow the [execution preflight](framework.md#spec-lifecycle-contract) before writes, then acknowledge Boundaries and enter in-progress through orchestration. A Markdown export may help reading but cannot replace the gate evidence.
+9. Require self-verification of every edge case, Boundary, Deliverable and automated check, plus an Execution Report with `spec_gaps_encountered`. Advance to review only on the documented success conditions; failures stay in-progress.
+10. Review the implementation, validate Expectations, and compare the result to your usual approach.
 
-That's it. No tooling, no ceremonies, no role changes. Just better input to AI — and a gate that proves the input was ready.
+You can follow this protocol using files and your existing coding agent. Readiness
+includes human judgment; the gap-check adds independent content review. Neither
+is a guarantee that every possible implementation defect has been eliminated.

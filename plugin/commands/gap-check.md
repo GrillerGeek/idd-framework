@@ -4,48 +4,78 @@ argument-hint: "[spec-id | spec-id spec-id ... | all]"
 allowed-tools: "Read Write Glob Grep Bash(mkdir *) Bash(ls *)"
 ---
 
-!`mkdir -p docs/products docs/intentions docs/expectations docs/specs docs/reviews`
+Run the `idd-gap-checker` reviewer using the lifecycle contract in
+`${CLAUDE_PLUGIN_ROOT}/skills/idd-orchestration/references/spec-reference.md`.
+The command owns selection and annotations; the reviewer owns report contents.
 
-Available Specs:
-!`ls docs/specs/*.yaml 2>/dev/null | head -20 || echo "No specs found. Run /idd-framework:write-spec first."`
+**Model directive:** Dispatch `idd-gap-checker` with explicit `model: "opus"`.
+Do not inherit or downgrade its adversarial review tier.
 
-Launch the `idd-gap-checker` subagent to run an adversarial content analysis of a Spec (or a set of Specs).
+## Resolve the selection
 
-**Model directive:** When dispatching this subagent, you MUST explicitly pass `model: "opus"` to the Agent/Task tool call. The gap-checker requires the current Opus generation for adversarial reasoning — simulating an implementing agent and detecting cross-block contradictions and semantic ambiguity requires deep inference that lighter model tiers cannot reliably perform. Do not downgrade or inherit. Do NOT skip this parameter.
+| Input | Selection |
+|---|---|
+| One ID | That Spec |
+| Space-separated IDs | Each named Spec |
+| `all` | Every Spec whose lifecycle is ready or review |
+| Empty | List available ready/review Specs and obtain a selection before writes |
 
-**Invocation forms:**
+Resolve files under `docs/specs/` and verify the internal Spec IDs. Report missing,
+ambiguous or unreadable targets without inventing files. If none remain, stop.
+Resolve selection here before dispatch; pass the explicit eligible IDs, not an
+unresolved request for the reviewer to select different targets.
 
-| Form | Example | Behavior |
-|---|---|---|
-| Single spec ID | `SPEC-d12e` | Gap-checks that Spec; produces one per-Spec report |
-| Multiple space-separated IDs | `SPEC-d12e SPEC-a1b2` | Gap-checks each Spec; produces one per-Spec report plus a combined portfolio coverage report |
-| `all` | `all` | Gap-checks every Spec in "ready" or "review" status; produces one per-Spec report plus a portfolio coverage report |
-| No argument | _(blank)_ | Agent lists qualifying Specs and prompts for selection |
+## Invalidate before review
 
-Pass `$ARGUMENTS` to the agent unchanged so it can resolve the invocation form.
-
-**Per-Spec reports** are saved to `docs/reviews/<spec-id>-gap-check.md` — the filename convention is fixed and the command-layer annotation logic depends on it.
-
-**Portfolio coverage report** (multi-Spec invocations only): after all per-Spec reports are written, the agent saves a combined coverage report to `docs/reviews/portfolio-coverage-<YYYY-MM-DD>.md`. If the file already exists for that date, a `-2`, `-3` … suffix is appended. Each per-Spec report's `## Coverage` section includes a one-line pointer to this portfolio report. No portfolio report is created for single-Spec invocations.
-
-**After the agent returns:**
-
-For each Spec in the working set, read its gap-check report at `docs/reviews/<spec-id>-gap-check.md`. Then append the following `gap_check` annotation to the end of that Spec YAML — this is the ONLY write the command layer makes to the Spec YAML, and it must never touch the five content blocks (context, expectations, boundaries, deliverables, validation):
+Before assessing completeness or dispatching a reviewer, upsert this single
+mapping under `spec` on every safely readable selected Spec. Preserve its lifecycle,
+five content blocks, links, and other annotations. Never append duplicate keys.
 
 ```yaml
   gap_check:
-    status: "passed" | "blocked" | "warnings"   # "passed" = 0 blockers; "blocked" = ≥1 blocker; "warnings" = 0 blockers but ≥1 warning
-    blockers: <count>
-    warnings: <count>
-    report: "docs/reviews/<spec-id>-gap-check.md"
+    status: "blocked"
+    blockers: 1                    # operational: this invocation has no valid result
+    warnings: 0
+    report: null
     date: "<YYYY-MM-DD>"
 ```
 
-Set `status` based on the report's summary line:
-- `"blocked"` — report line 1 begins with "BLOCKED"
-- `"warnings"` — report line 1 begins with "PASS" and warning count > 0
-- `"passed"` — report line 1 begins with "PASS" and warning count = 0
+If parsing is unsafe, leave that Spec untouched and report failure; execution must
+reject it. If invalidation cannot be written safely, do not dispatch that Spec.
+Leave older report files in place; they are not authoritative for this invocation.
+Create `docs/reviews/` only when a reviewer needs to save a report.
 
-Do not set the Spec's top-level `status` field to "in-progress" if the gap_check status is "blocked" — a Spec with unresolved Blockers cannot proceed to execution.
+## Dispatch and consume current results
 
-This annotation behavior is identical for single-Spec and multi-Spec invocations — each Spec receives its own annotation independently.
+Pass the resolved selection and confirmation of invalidation to the reviewer.
+It checks completeness items 1–10 per Spec; item 11 is a separate human fact.
+Track a result for each selected Spec in this invocation:
+
+- **Completeness failed:** require failed-item numbers; upsert blocked with
+  blockers equal to the failed-item count, zero warnings, null report and today's
+  date. The reviewer writes no finding report for it. Never read an old report as
+  a substitute. Continue complete Specs; exclude incomplete ones from portfolio
+  coverage and state the exclusions.
+- **Review completed:** require successful return naming the Spec, its canonical
+  `docs/reviews/<SPEC-ID>-gap-check.md`, and counts. Read that report, verify line 1
+  and counts match the return, required GC fields are present for content findings,
+  and `## Coverage` exists. Count unresolved content and coverage findings only;
+  keep reviewer-confirmed resolved omissions visible. On valid evidence replace
+  the sentinel with actual counts, path and date: blockers > 0 → blocked;
+  zero blockers with warnings > 0 → warnings; both zero → passed.
+- **Error, interruption, missing/malformed report or mismatched result:** leave the
+  blocked operational sentinel with null report, surface failure and request a
+  rerun. Existing files or modification times cannot prove a current result.
+
+In multi-Spec selections, eligible Specs also receive a combined coverage report
+at `docs/reviews/portfolio-coverage-<YYYY-MM-DD>.md` (use `-2`, `-3`, etc. when the
+path exists). Per-Spec Coverage points to it. With fewer than two complete Specs,
+use single-Spec coverage and explicitly name excluded targets; do not imply a
+portfolio was reviewed. Per-Spec counts and annotations remain independent;
+portfolio conflicts are reported separately and must be resolved before coordinated
+execution of overlapping work.
+
+The command never changes lifecycle status or Spec content. A warning-only report
+may begin PASS but leaves `gap_check.status: warnings`, which cannot execute.
+Recommend author revisions and a new check for outstanding findings; for a clean
+result, execution still requires lifecycle ready and human readiness review.

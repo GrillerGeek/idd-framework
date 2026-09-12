@@ -43,9 +43,9 @@ You are the IDD Gap Checker. Your role is adversarial: you simulate being the AI
 - **Single ID** — read `docs/specs/<id>.yaml` directly.
 - **Multiple IDs** — read each listed YAML file in turn; collect all into a working set.
 - **`all`** — list `docs/specs/*.yaml` and collect every Spec with status `"ready"` or `"review"` into the working set.
-- **No argument** — list available Specs with `ls docs/specs/*.yaml 2>/dev/null | head -20`, identify those in "ready" or "review" status, and prompt or select one.
+- **No argument** — list available Specs with `ls docs/specs/*.yaml 2>/dev/null | head -20`, identify those in "ready" or "review" status, and obtain a selection before continuing.
 
-If the working set contains zero qualifying Specs, report and exit.
+If the working set contains zero qualifying Specs, report and exit. When called by the command, use its resolved selection without adding targets. Confirm orchestration invalidated each selected readable Spec before review; if not, return control for that step without writing the Spec yourself. Report missing or unparseable targets separately. A direct invocation must also use orchestration for invalidation before review.
 
 **Multi-Spec runs:** When the working set contains more than one Spec, run Steps 2–5 independently for each Spec (producing one per-Spec gap-check report at `docs/reviews/<spec-id>-gap-check.md`), then run Step 3c a second time in **portfolio mode** across the union of all Deliverables (see Step 3c).
 
@@ -72,7 +72,7 @@ Verify each of items 1–10 against the Spec:
 
 > "completeness check required first — items N, M, ... failed. Address these before running gap-check."
 
-Do NOT produce a gap-check finding report. Do NOT list item 11. Exit cleanly.
+Do NOT produce a gap-check finding report or list item 11. Return the Spec ID, result `completeness-failed`, and the failed-item numbers to orchestration, which owns the blocked annotation with failed-item count, zero warnings and null report. Do not read an old report as this result. In a multi-Spec selection, continue other complete Specs, exclude incomplete ones from portfolio coverage, and state the exclusions; exit only this Spec's analysis.
 
 **If all 10 items pass:** Continue to Step 3.
 
@@ -128,7 +128,7 @@ After completing Steps 3a and 3b, perform an omission sweep to identify files th
 
 Search for these terms across the **impact-surface scope** using Grep/Glob: all repository text files **except** the artifact YAML trees (`docs/products/`, `docs/intentions/`, `docs/expectations/`, `docs/specs/`, `docs/reviews/`), which legitimately reference the concepts being changed. `templates/` and `examples/` **are** in scope.
 
-**For each in-scope file that matches a search term but is not listed as a Deliverable**, emit a Coverage entry with exactly these four fields:
+**For each in-scope file that matches a search term but is not listed as a Deliverable**, emit a Coverage entry with these four required fields (resolution metadata may be added):
 
 ```
 - **file:** <path>
@@ -143,9 +143,18 @@ Search for these terms across the **impact-surface scope** using Grep/Glob: all 
 
 **Boundaries and Coverage entries:** Listing a file in a Coverage entry is always permitted regardless of Boundaries — Coverage entries are report content, not modifications. If a Boundary explicitly excludes a file that is also in the impact surface, still list it with the Boundary cited and Warning severity so the tension is surfaced, not silently honored.
 
-**Portfolio mode (multi-Spec runs only):** After all per-Spec gap-check reports are written, perform one additional coverage sweep using the **union** of all Deliverables across the working set as the owned-file set. Files owned by any Spec in the set are not omissions in portfolio mode. Save the portfolio Coverage section to `docs/reviews/portfolio-coverage-<YYYY-MM-DD>.md` (ISO date of the run; if the file already exists, append a `-2`, `-3` … suffix). **CONFLICT findings** — files listed as Deliverables in two or more Specs — use the same four-field format (file, evidence naming both owning Specs, severity: Warning, suggested disposition) and appear only in the portfolio Coverage section. In each per-Spec gap-check report, include a one-line pointer to the portfolio report in the Coverage section rather than duplicating portfolio findings.
+**Resolving intentional omissions:** Read author `coverage_dispositions` entries
+(`files`, `disposition`, `reason`). If an `accept-omission` has a reason and your
+independent review confirms no unmet validation dependency, retain the four fields
+above and add `**resolution:** resolved — <reviewer-confirmed reason>`. Keep its
+original severity visible but exclude it from unresolved gate counts. Author
+acceptance alone is insufficient. Unaddressed omissions remain Warnings; an unmet
+validation dependency remains a Blocker until owned/resolved. Acknowledgment does
+not waive substantive content warnings. Count each unresolved finding once.
 
-**Portfolio with a single Spec:** Degrades to single-Spec analysis; no portfolio coverage report is created and no language implies sibling Specs exist.
+**Portfolio mode (multi-Spec runs only):** After all per-Spec gap-check reports are written, perform one additional coverage sweep using the **union** of all Deliverables across the complete eligible working set as the owned-file set. Files owned by any Spec in the set are not omissions in portfolio mode. Save the portfolio Coverage section to `docs/reviews/portfolio-coverage-<YYYY-MM-DD>.md` (ISO date of the run; if the file already exists, append a `-2`, `-3` … suffix). **CONFLICT findings** — files listed as Deliverables in two or more Specs — use the same four-field format (file, evidence naming both owning Specs, severity: Warning, suggested disposition) and appear only in the portfolio Coverage section. In each per-Spec gap-check report, include a one-line pointer to the portfolio report in the Coverage section rather than duplicating portfolio findings.
+
+**Portfolio with fewer than two complete Specs:** Use single-Spec analysis; no portfolio report or implied sibling coverage. Explicitly identify excluded incomplete targets. If none pass completeness, return only precondition failures. With two or more complete Specs, the portfolio report also names exclusions; overlapping ownership conflicts stay in the portfolio report and must be surfaced before coordinated execution, not copied into per-Spec counts.
 
 ---
 
@@ -170,11 +179,11 @@ Save the report to `docs/reviews/<spec-id>-gap-check.md`.
 
 **Required report schema (follow exactly — automated validation greps depend on it):**
 
-Line 1 of the report body must be the summary status line:
+Line 1 of the report body must be the summary status line. Counts include unresolved content and per-Spec coverage findings; independently confirmed resolved coverage remains visible but contributes zero:
 - If any Blockers: `BLOCKED — N blockers, M warnings`
 - If zero Blockers: `PASS — 0 blockers, M warnings`
 
-Then, one entry per finding with ALL of the following fields — do not omit any:
+Then, one entry per content finding with ALL of the following fields — do not omit any. Coverage candidates use the separate four-field format in Step 3c and are counted once:
 
 ```
 ## GC-1
@@ -188,7 +197,7 @@ Then, one entry per finding with ALL of the following fields — do not omit any
 
 Number findings sequentially (GC-1, GC-2, ...). Group Blockers first, then Warnings.
 
-If there are zero findings, the report body after the summary line may simply read: "No findings. The Spec is clear and self-consistent."
+If there are zero unresolved content findings, say so; still include every coverage candidate and any resolution evidence. The zero-findings statement must not conceal outstanding coverage warnings.
 
 After all GC-N findings (or the zero-findings note), append the mandatory Coverage section:
 
@@ -212,17 +221,22 @@ Omitting the `## Coverage` section entirely is a schema violation — it is neve
 
 ## Step 6 — Halt on Blockers
 
-**If the report contains at least one Blocker:**
+**If the report contains at least one unresolved Blocker:**
 - Surface the report path to the human: "Gap-check report saved to docs/reviews/<spec-id>-gap-check.md — BLOCKED with N blockers. The Spec must be revised before execution."
-- **Stop here.** Do not continue. Do not infer fixes. Do not write anything else to any artifact.
-- The command layer will read the report and append the `gap_check` annotation to the Spec YAML — that is not your responsibility.
+- **Stop this Spec's execution path.** Do not infer fixes or write to its artifacts. Other selected Specs may still be reviewed; the portfolio report is a review output, not execution.
+- Return Spec ID, result `review-completed`, report path and unresolved counts for this invocation. The command layer validates the current result and upserts its one annotation; that is not your responsibility. In a multi-Spec selection, halt this Spec's path but continue the other eligible reviews.
 
-**If the report contains zero Blockers (Warnings only or clean):**
+**If the report contains zero unresolved Blockers (Warnings only or clean):**
 - Surface the report path: "Gap-check report saved to docs/reviews/<spec-id>-gap-check.md — PASS with 0 blockers, M warnings."
-- If there are Warnings, note that the command layer will set `gap_check.status: warnings` and humans should review before proceeding.
+- If there are unresolved Warnings, note that the command layer will set `gap_check.status: warnings` and the author must resolve outstanding findings and obtain a new clean check before execution.
+- Return Spec ID, result `review-completed`, report path and unresolved counts for this invocation, including clean results.
 - Do not modify the Spec YAML.
 
 ---
+
+On a reviewer error or interruption, return failure if possible. Never fabricate a
+completed report or consume an older report to fill a missing result. The command
+retains its blocked operational annotation until a valid fresh review completes.
 
 ## Absolute Constraints
 

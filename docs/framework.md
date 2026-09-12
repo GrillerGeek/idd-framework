@@ -110,7 +110,7 @@ IDD replaces the sprint cycle with a continuous flow model anchored by spec read
 |---|---|---|---|
 | **1. Define** | Create/refine Product, draft Intentions | Product approved; Intentions reviewed | Product Owner |
 | **2. Specify** | Author Expectations; produce AI-ready Specs | Spec passes completeness checklist | Spec Author + Tech Lead |
-| **3. Gap-Check Gate** | Adversarial review of Spec for ambiguity, contradictions, and missing context; findings classified as Blockers or Warnings; Blockers must be resolved before execution; omission sweep of the Spec's impact surface — files referencing the changed concepts but owned by no Deliverable — reported as candidate omissions | Zero Blockers; Warnings reviewed and accepted or resolved; gap-check report filed; coverage omissions reviewed | Spec Author + Tech Lead |
+| **3. Gap-Check Gate** | Adversarial review of content and omission sweep of files referencing changed concepts but owned by no Deliverable | Zero unresolved Blockers and Warnings; current gap-check report filed with Coverage; lifecycle ready | Spec Author + Tech Lead |
 | **4. Execute** | AI agent builds against Spec; restates Boundaries before starting; self-verifies against all Expectations, Boundaries, and Deliverables upon completion; produces an Execution Report recording any gaps encountered | Deliverables match Spec; automated validation passes; Execution Report filed | AI Agent + Developer |
 | **5. Review** | Human review against Expectations and Boundaries; gap-check findings and Execution Report reviewed as inputs | Code review approved; no boundary violations | Tech Lead + Reviewer |
 | **6. Validate** | Automated + human validation against Expectations | All Expectations verified; edge cases covered | QA + Product Owner |
@@ -131,6 +131,95 @@ A Spec is not ready for AI execution until it passes this checklist. This replac
 - [ ] Deliverables block has at least one entry
 - [ ] Validation block has at least one automated and one human review item
 - [ ] Spec has been peer-reviewed by at least one other person
+
+### Spec lifecycle contract
+
+The YAML lifecycle is `draft → ready → in-progress → review → validating → done`.
+Technical review and gap-check are review activities with separate annotations;
+neither is a YAML lifecycle transition. The following rules are a protocol for
+people and orchestrating agents, not an executable state machine in this repository.
+
+| Transition or activity | Owner and required evidence |
+|---|---|
+| `draft → ready` | Author/orchestrator records all eleven completeness items, including actual human peer review |
+| Technical or deep review | Reviewer records review findings and outcome, preserving input lifecycle status and content blocks; AI approval cannot establish human peer review |
+| Gap-check | Reviewer writes reports only; orchestrator updates one `gap_check` annotation, preserving lifecycle and content |
+| `ready → in-progress` | Orchestrator verifies the strict gate, restates Boundaries verbatim, then changes status before dispatching implementation |
+| `in-progress → review` | Orchestrator checks execution evidence and the completion conditions below |
+| `review → validating` | Orchestrator records human implementation-review approval from the Reviewer/Tech Lead |
+| `validating → done` | Orchestrator records QA/Product Owner evidence that Expectations and required validation passed |
+
+**Finding policy.** New annotations use `passed` for zero unresolved blockers and
+warnings, `warnings` for zero blockers with outstanding warnings, and `blocked`
+for any blocker. A warning-only report starts `PASS` but does not authorize
+execution. Resolve findings in the Spec and rerun. Technical-review warnings must
+be addressed or carried into gap-check for classification; a technical approval
+is not a gap-check result. Historical `pass`/`warned` values remain history and
+require a new check before execution.
+
+Coverage includes every candidate omission, including protected files. The author
+may record `coverage_dispositions` entries containing `files`, `disposition`, and
+`reason`. An `accept-omission` with a reason resolves a coverage finding only when
+the reviewer independently confirms no unmet validation dependency. Retain its
+file, evidence, severity, suggested disposition, and resolution in Coverage;
+exclude resolved findings from gate counts. Undispositioned omissions remain
+Warnings; a validation dependency without an owner remains a Blocker. Human
+acknowledgment alone cannot waive a substantive content warning.
+
+**Gap-check reruns and failure.** Resolve targets first; report missing IDs without
+creating substitute Specs. Before completeness assessment or reviewer dispatch,
+upsert `gap_check` on each readable selected Spec to `blocked`, `blockers: 1`,
+`warnings: 0`, `report: null`, and the current date. This is an operational blocker
+meaning no valid current result exists, not an invented content finding. Leave
+an unparseable Spec untouched and report it; it cannot authorize execution.
+
+The reviewer checks completeness items 1–10; item 11 remains a human fact. Failure
+returns the failed item numbers without writing a finding report. Orchestration
+keeps the annotation blocked, sets blockers to the failed-item count, warnings to
+zero and report to null. Old reports are not consumed. Otherwise the reviewer
+writes `docs/reviews/<SPEC-ID>-gap-check.md` with a summary on line 1, required
+GC finding fields, and `## Coverage`, even when there are no omissions.
+
+Only a successful result for that Spec from the current invocation, with matching
+returned/report counts and valid report structure, replaces the operational
+blocker. Errors, interruption, and missing or malformed reports leave it blocked
+with no authoritative report; rerun the check. File existence or modification
+time alone is not freshness evidence. Previous report files remain untouched
+until a successful review replaces the canonical report. In a mixed portfolio,
+continue complete Specs, exclude incomplete Specs from portfolio coverage, and
+state the exclusions. Each Spec receives its own result.
+
+**Execution preflight.** Resolve or select one Spec before any write, including
+directory initialization. Read its YAML, annotation and referenced report.
+Require `ready`, `gap_check.status: passed`, zero counts, and a readable report
+at `docs/reviews/<SPEC-ID>-gap-check.md` whose first line is
+`PASS — 0 blockers, 0 warnings` and which contains `## Coverage`. Any failed
+prerequisite produces a conversational refusal with no writes. Spec content
+changed after review requires a fresh gap-check; automatic detection of unnoticed
+manual edits requires provenance tooling that is not provided here.
+
+Restate every Boundary verbatim before mkdir or status mutation. Orchestration
+then changes ready to in-progress and passes verified gate evidence to the
+implementer. Before its own changes, the implementer repeats the verbatim
+acknowledgment with a comprehension paraphrase. It never changes Spec status.
+Capture file contents/diffs as well as Git status before implementation: editing
+an already-dirty file can leave its porcelain status unchanged. Preserve user
+edits and compare the actual content delta to the Deliverables allowlist.
+
+**Completion and recovery.** Advance to review only when the execution report
+exists, every Deliverable and Boundary passes, every automated validation passes,
+and no blocker-grade gap remains. Every edge case needs a row; only checks
+explicitly assigned to human review may remain unverifiable at build time, with
+a reason and follow-up. Pending human-only checks are not failed automation.
+Failed, blocked, or interrupted builds stay in-progress. Surface failure evidence
+and save a partial report if possible; do not roll back user changes or reset to
+ready automatically. The standard implementation command accepts only ready;
+resumption requires an explicit recovery decision outside this protocol.
+
+A mid-build gap is blocker-grade if alternative resolutions change validation
+outcomes, risk crossing a Boundary, or change a Deliverable's visible shape.
+Stop and report those gaps to the author. Other gaps permit a best-effort choice
+recorded with reasoning in the mandatory `spec_gaps_encountered` report section.
 
 ### Flow Model
 
@@ -154,11 +243,11 @@ Draft → Ready → Gap-Check → In Progress → Review → Validating → Done
 ```
 
 - **Draft → Ready** is gated by the completeness checklist
-- **Ready → Gap-Check** is automatic; every Spec passes through the gap-check gate before execution begins
-- **Gap-Check → In Progress** is gated by zero Blockers; Warnings must be reviewed and accepted or resolved
+- **Ready → Gap-Check** is a required review activity before execution, not an automatic tool action or an additional YAML status
+- **Gap-Check → In Progress** requires lifecycle ready and a current passed annotation with zero unresolved Blockers and Warnings
 - **Review → Validating** is gated by human review approval
 - Each phase has configurable WIP limits
-- Backward movement is allowed and logged (for metrics)
+- Deliberate rework decisions are logged (for metrics); a failed build is not automatically reset to ready
 
 ---
 
@@ -180,7 +269,7 @@ See [roles.md](roles.md) for detailed role definitions. Summary:
 
 | IDD Ceremony | Replaces | Frequency | Duration | Purpose |
 |---|---|---|---|---|
-| **Spec Review** | Sprint Planning + Refinement | As Specs reach Ready | 30 min | Validate completeness; approve for execution |
+| **Spec Review** | Sprint Planning + Refinement | As Specs reach Ready | 30 min | Validate completeness and human readiness review; execution additionally requires a clean gap-check |
 | **Flow Sync** | Daily Standup | 2–3x per week | 15 min | Review WIP board; surface blockers |
 | **Validation Review** | Sprint Review / Demo | Per Spec completion | 30 min | PO validates Expectations; accept or return |
 | **Process Retro** | Sprint Retrospective | Biweekly or monthly | 45 min | Review metrics; improve process |
@@ -246,7 +335,7 @@ That is IDD's founding premise (§1): when the build phase compresses 5–10×, 
 | 6 | **Implement** | When do I let the AI actually run? | **Execute** — the agent builds against a complete Spec, restating Boundaries first and self-verifying when done |
 | 7 | **Review** | How do I know it got it right? | **Gap-Check + Review + Validate** — Expectations *are* the QA plan, decided in advance; the gap-check gate even runs the review *before* any code, simulating the implementer to catch ambiguity early |
 
-The mapping is close because both describe the same arc: get clear, get grounded, decide the destination, break it down, then act, then check. IDD's contribution is to make the upstream stages durable artifacts with gates between them, so the front-loading is enforced rather than hoped for.
+The mapping is close because both describe the same arc: get clear, get grounded, decide the destination, break it down, then act, then check. IDD's contribution is to make the upstream stages durable artifacts with gates between them, so front-loaded review is an explicit protocol obligation; this repository does not supply an executable state-machine enforcement layer.
 
 Two stages are a deliberately loose fit. **Research** in IDD is context-gathering folded into the Spec rather than a standalone stage, and **Prototype** has no IDD artifact at all — IDD is a planning framework, and a throwaway spike is by definition not something you plan and validate. That gap is exactly where an execution harness completes the picture.
 
@@ -295,6 +384,6 @@ Add the rest as the habit takes. The leverage is in the order, not the tooling.
 | **Spec Cycle Time** | Elapsed time from Ready to Done |
 | **First-Pass Rate** | Percentage of Specs approved at Review without rework |
 | **Validation Gate** | Checkpoint where criteria must be met before advancing |
-| **Gap-Check Gate** | Adversarial review stage run after a Spec reaches Ready and before execution begins; surfaces Blockers (must be resolved) and Warnings (must be reviewed); ensures no ambiguity, contradiction, or missing context reaches the executing agent |
+| **Gap-Check Gate** | Adversarial review stage run after a Spec reaches Ready and before execution begins; requires zero unresolved Blockers and Warnings before execution; aims to catch ambiguity, contradictions, and missing context before the build |
 | **Execution Report** | Artifact produced by the executing agent upon completing a Spec; records every Boundary acknowledged, a self-verification table against all Expectations and Deliverables, and any Spec gaps encountered during execution; stored alongside the Spec |
 | **Flow Sync** | Brief alignment meeting replacing daily standup |

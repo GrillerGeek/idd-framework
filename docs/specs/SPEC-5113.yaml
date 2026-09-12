@@ -3,7 +3,7 @@ spec:
   product: "PROD-f67b"
   intentions: ["INT-f2e6"]
   expectations: ["EXP-7290", "EXP-97c0", "EXP-37d5", "EXP-4720"]
-  status: "ready"
+  status: "review"
 
   context:
     stack: >

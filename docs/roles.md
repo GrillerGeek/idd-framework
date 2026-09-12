@@ -30,7 +30,7 @@ IDD redefines team roles to reflect the shift from coding-centric to specificati
 - Author Specs with complete Context, Boundaries, Deliverables, and Validation blocks
 - Ensure Specs pass the completeness checklist before entering Ready
 - Collaborate with Tech Lead on Context block accuracy
-- Resolve gap-check Blockers and review Warnings before execution begins — gap-check findings are direct feedback on Spec quality and must be addressed in the Spec, not worked around at execution time
+- Resolve all outstanding gap-check Blockers and Warnings and rerun the gate before execution begins — gap-check findings are direct feedback on Spec quality and must be addressed in the Spec, not worked around at execution time
 - Iterate on Specs when AI output or Execution Reports reveal gaps
 
 **Skills Required:**
@@ -52,7 +52,7 @@ IDD redefines team roles to reflect the shift from coding-centric to specificati
 - Review Specs for architectural feasibility before they enter Ready
 - Review AI-generated code against Boundaries and established patterns
 - Conduct Architecture Check meetings (weekly)
-- Make go/no-go decisions on gate overrides
+- Review recovery and rework decisions; preserve the strict execution gate rather than override outstanding findings
 
 ---
 
@@ -77,13 +77,13 @@ IDD redefines team roles to reflect the shift from coding-centric to specificati
 
 **Change from Traditional:** AI agents are treated as a defined team member with specific inputs (Specs) and outputs (Deliverables). They are not magic — they are as good as the Specs they receive.
 
-**Inputs:** AI-ready Spec (YAML or Markdown export) that has passed the gap-check gate
+**Inputs:** Spec YAML with lifecycle ready and a current passed gap-check (zero unresolved findings), plus the matching report; exports are reading aids, not substitutes for gate evidence
 **Outputs:** Code, tests, documentation as defined in Deliverables block; Execution Report
 **Constraints:** Bounded by the Spec's Boundaries block
 
 **Self-Verification Duties:**
 1. **Restate every Boundary from the Spec before beginning any implementation work.** This is not optional ceremony — it anchors execution to the contract and prevents scope drift from the first action.
-2. **Self-verify against every Expectation, every Boundary, and every Deliverable upon completion, producing a self-verification table.** Each item is marked satisfied, violated, or missing with a one-sentence evidence pointer.
+2. **Self-verify against every Expectation, every Boundary, and every Deliverable upon completion, producing a self-verification table.** Use pass, fail, or unverifiable at build time with evidence; each edge case has a row. Only checks explicitly assigned to human review may remain unverifiable with a reason and follow-up when advancing to review.
 3. **Produce an Execution Report recording any Spec gaps encountered during execution.** The report captures every Boundary acknowledged, the full self-verification table, and a mandatory Spec Gaps section (present even when empty). It is filed in docs/reviews/ alongside the gap-check report.
 
 ---
@@ -117,3 +117,20 @@ A typical IDD team might look like:
 | AI Agent | N/A | Tool, not headcount — but treated as a team member with defined I/O |
 
 The **Spec Author to Developer ratio** will likely invert over time. As AI agents handle more execution, teams need more people defining *what* to build and fewer people *building* it.
+
+## Lifecycle ownership
+
+The [Spec lifecycle contract](framework.md#spec-lifecycle-contract) separates
+review findings from lifecycle state. Authors resolve content and record coverage
+scoping reasons; gap-check reviewers write reports only and independently confirm
+accepted omissions before excluding resolved findings from counts. Technical and
+deep reviewers annotate outcomes without changing the input lifecycle status.
+AI approval cannot establish human peer review.
+
+The author/orchestrator records ready after all eleven checklist items. The
+orchestrator invalidates old gap-check authorization before reruns and owns
+ready → in-progress only after the strict gate and verbatim Boundary acknowledgment.
+It advances to review only after a complete, passing execution report; failed or
+interrupted builds stay in-progress. Implementers preserve user changes and never
+change lifecycle status. Human Reviewer/Tech Lead approval permits orchestration
+to enter validating; QA/Product Owner evidence permits done.

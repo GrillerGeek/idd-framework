@@ -2,7 +2,7 @@
 
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC_BY--SA_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 [![Claude Code Plugin](https://img.shields.io/badge/Claude_Code-plugin-blueviolet.svg)](https://claude.com/claude-code)
-[![Framework](https://img.shields.io/badge/framework-v1.3-green.svg)](docs/framework.md)
+[![Framework](https://img.shields.io/badge/framework-v1.6-green.svg)](docs/framework.md)
 
 **A process framework that gives developers and AI agents enough context to make decisions autonomously — without waiting for someone to tell them what to do.**
 
@@ -15,6 +15,8 @@ In most agile teams, knowledge lives in the Product Owner's head. Developers wai
 Traditional agile methodologies were also designed for a world where human coding capacity was the primary constraint. AI coding agents have changed that equation. When the build phase compresses 5–10x, the bottleneck shifts from *building* to *defining, reviewing, and validating* — and every gap in context produces wrong output at machine speed.
 
 The frameworks haven't caught up. Teams are using 2-week sprints to manage work that takes 2 hours to build. They're estimating story points for tasks where effort is no longer the dominant variable. They're holding planning meetings to decompose work that AI agents can execute from a well-written specification.
+
+Contributing with Codex or another coding agent? Start with the [shared contributor guide](docs/contributing-agents.md).
 
 ## The Framework
 

@@ -227,7 +227,7 @@ spec:
 
 ## v1.3 Pipeline: Gap-Check Gate and Execution Report
 
-IDD v1.3 adds two mandatory stages between **Ready** and **In Progress**: the gap-check gate and managed execution. The example below shows both stages for SPEC-d12e.
+IDD v1.3 introduced the gap-check gate before **In Progress** and managed execution during **In Progress**. This current example uses the canonical annotation format. The example below shows both stages for SPEC-d12e.
 
 ### Stage: Gap-Check Gate
 
@@ -236,14 +236,19 @@ After SPEC-d12e reached Ready status, the team's AI agent ran the gap-check stag
 **Gap-check report excerpt (SPEC-d12e — clean gate):**
 
 ```
+PASS — 0 blockers, 0 warnings
+
 Gap-Check Report: SPEC-d12e
 Date: [run date]
-Result: PASSED — 0 Blockers, 0 Warnings
 
 Findings:
   none
 
-Gate decision: CLEARED FOR EXECUTION
+## Coverage
+
+No candidate omissions.
+
+Gate decision: CLEARED FOR EXECUTION (lifecycle ready; human peer review recorded)
 ```
 
 The gate returned zero findings. This is the expected outcome for a well-authored Spec — but the gate ran regardless. The gap-check gate always runs. Skipping it because a Spec looks complete defeats its purpose: completeness is not visible to the naked eye, and the adversarial review catches contradictions that pass a human read-through.
@@ -252,10 +257,10 @@ The Spec's `gap_check` annotation was updated to record the outcome:
 
 ```yaml
 gap_check:
-  status: "pass"
+  status: "passed"
   blockers: 0
   warnings: 0
-  report: "docs/reviews/gap-check-SPEC-d12e.md"
+  report: "docs/reviews/SPEC-d12e-gap-check.md"
   date: "[run date]"
 ```
 

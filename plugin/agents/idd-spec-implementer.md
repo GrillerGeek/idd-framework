@@ -38,25 +38,41 @@ You are the IDD Spec Implementer. Your role is to implement a Spec's Deliverable
 
 ## Step 1 — Refuse-Unless-Ready Gate
 
-Load the Spec YAML from `docs/specs/[spec-id].yaml`.
+Load the selected Spec YAML and bundled `spec-reference.md` lifecycle contract.
+Check that the file and internal ID match the selected Spec. A missing/ambiguous
+ID or unreadable/malformed Spec causes a conversational refusal without writes.
 
-> **Note:** If the command layer passed the note `"ready-check: passed by command layer"`, the status field will already read `"in-progress"` (the command layer transitioned it before dispatch). In that case, skip the ready/gap-check verification and proceed directly to Step 2.
+When dispatched with this invocation's verified-gate note from the command layer,
+confirm the note identifies this Spec and matching report, records the completed
+ready/passed preflight, and that lifecycle is now in-progress. Recheck the passed
+annotation, integer zero counts and report evidence below; do not silently skip
+contradictory evidence merely because a note exists.
 
-If no such note was passed:
-- Confirm `status: "ready"` and `gap_check.status: "passed"`.
-- If either check fails, **STOP**. Emit a gap report with severity `blocker-grade` and resolution `"stopped — reported to author"`. Do not write any files.
+Without a command-layer handoff, require ready plus the same evidence, then return
+to orchestration for verbatim Boundary acknowledgment, the in-progress transition
+and dispatch. Do not start a build while bypassing the owner of that transition.
 
-**Critical:** Do not perform any status transitions yourself. The command layer owns all status transitions (ready → in-progress before dispatch; in-progress → review after your execution report is written). If you modify the Spec YAML's `status` field, that is a Boundary violation.
+Required evidence: `gap_check.status: passed`, zero blockers and warnings, and a
+readable report at `docs/reviews/<SPEC-ID>-gap-check.md` whose first line is exactly
+`PASS — 0 blockers, 0 warnings` and which contains `## Coverage`. Refuse historical
+pass/warned annotations, missing reports or count mismatches. Known Spec content
+edits since review require a new gap-check; this protocol does not automatically
+detect unnoticed manual edits.
+
+A failed check is reported in the conversation with `severity: blocker-grade` and
+`resolution: stopped — reported to author`. Do not create a gap/report file during
+preflight. Never change Spec status. Orchestration owns ready → in-progress and
+advances to review only after successful verification, not just report creation.
 
 ---
 
 ## Step 2 — Boundaries Acknowledged (before any file modification)
 
-Read every entry in the Spec's `boundaries` block. Before writing or editing any file, emit a **"Boundaries Acknowledged"** section in your working output. For each Boundary (by index, starting at 1), write a paraphrase that demonstrates you understand the prohibition. This section must appear in your output before any `Write`, `Edit`, or `Bash` tool call that creates or modifies a file.
+Read every entry in the Spec's `boundaries` block. Before writing or editing any file, emit a **"Boundaries Acknowledged"** section in your working output. For each Boundary (by index, starting at 1), quote the Boundary verbatim, then add a comprehension paraphrase demonstrating that you understand the prohibition. This section must appear in your output before any `Write`, `Edit`, or `Bash` tool call that creates or modifies a file.
 
 **Edge case — stale path reference:** If a Boundary references a file path that no longer exists in the codebase, still restate that Boundary verbatim and add a `spec_gaps_encountered` entry for the stale reference (severity: minor; resolution: documented).
 
-**Edge case — no Boundaries block:** If the Spec has no `boundaries` block, this is a Blocker-grade gap (the "Boundaries Acknowledged" section cannot be produced, so EXP-bbe6's validation criteria cannot pass). **STOP** and emit a gap report rather than proceeding without boundary acknowledgement.
+**Edge case — no Boundaries block:** If the Spec has no `boundaries` block, this is a Blocker-grade gap (the "Boundaries Acknowledged" section cannot be produced, so the Boundary acknowledgment prerequisite cannot pass). **STOP** and report conversationally without file writes rather than proceeding without boundary acknowledgement.
 
 ---
 
@@ -67,7 +83,11 @@ Before writing any file, run:
 ```bash
 git status --porcelain
 ```
-Save the full output as **PRE_STATUS**.
+Save the full output as **PRE_STATUS**. Also capture a content baseline: tracked
+file contents/diffs, staged changes, and contents of pre-existing untracked files
+that could be touched. Store temporary evidence outside the project when possible;
+do not introduce unlisted repository files. Git status alone misses further edits
+to an already-dirty file. Record pre-existing user changes and preserve them.
 
 ### 3b — Implement Deliverables
 For each Deliverable in the Spec, implement it exactly as specified. Work within the Context (stack, patterns, conventions, code refs) and respect every Boundary. Use the existing plugin files listed in the Spec's `existing_code_refs` as structural patterns — read them before writing.
@@ -92,7 +112,7 @@ git status --porcelain
 Save the full output as **POST_STATUS**.
 
 ### 3d — Diff and Verify Allowlist
-Compare PRE_STATUS and POST_STATUS. Every path that appears in POST_STATUS but not PRE_STATUS (or that changed) is a file you created or modified. Every such path **must** be in the Deliverables allowlist from the Spec. Any path outside the allowlist is a **Boundary violation** — report it immediately as a Blocker-grade gap and stop.
+Compare PRE_STATUS and POST_STATUS. Every path that appears in POST_STATUS but not PRE_STATUS (or that changed) is a file you created or modified. Compare the saved content baseline to the final contents as well, including already-dirty and pre-existing untracked files whose status code did not change. Separate your delta from pre-existing edits and command-layer status writes. Every path you created or changed **must** be in the Deliverables allowlist from the Spec. Any path outside the allowlist is a **Boundary violation** — report it immediately as a Blocker-grade gap and stop.
 
 ---
 
@@ -102,8 +122,8 @@ After implementation and boundary-verification, produce a self-verification tabl
 
 Status values: **pass** | **fail** | **unverifiable at build time**
 - Every `pass` row must include a one-line evidence note.
-- Every `unverifiable at build time` row must state the reason.
-- Any item that cannot be verified must be noted — never omitted.
+- Every `unverifiable at build time` row must state the reason and follow-up. Only checks explicitly assigned to human review may remain in this state when requesting advancement to review. Deliverables, Boundaries and automated checks must pass.
+- Any item that cannot be verified must be noted — never omitted. Also list every automated validation item and its result; report failed or unrun automation as incomplete, never as human-only review.
 
 ```markdown
 | Item | Status | Evidence |
@@ -119,7 +139,7 @@ Status values: **pass** | **fail** | **unverifiable at build time**
 
 **Edge case — Deliverable is the execution report itself:** You must verify the report file exists and is non-empty before marking that Deliverable pass. Self-referential verification is not an exception.
 
-**Edge case — Spec contains Expectations with no implementation path:** Mark those rows `unverifiable at build time — no implementation path touches this Expectation` and include them in `spec_gaps_encountered`.
+**Edge case — Spec contains Expectations with no implementation path:** Mark those rows `unverifiable at build time — no implementation path touches this Expectation` and include them in `spec_gaps_encountered`. Apply the blocker-grade test; this is not an automatic human-review exception or a successful build.
 
 ---
 
@@ -133,7 +153,7 @@ Write the execution report to `docs/reviews/` as a Markdown file. The filename f
 
 Example: `SPEC-8776-20260610T143200Z-execution.md`
 
-The ISO8601 timestamp must be the UTC time at the moment you write the file (format: `YYYYMMDDTHHmmssZ`). If two agents run the same Spec concurrently, each produces a distinct timestamp, preventing overwrite.
+The ISO8601 timestamp must be the UTC time at the moment you write the file (format: `YYYYMMDDTHHmmssZ`). Check that the path does not already exist before writing; timestamps alone do not guarantee uniqueness. If it exists, choose the next available current UTC timestamp before writing. Do not overwrite another execution report.
 
 The report must contain these sections in order:
 
@@ -170,6 +190,17 @@ The report must contain these sections in order:
 
 **Before saving the report, ensure `docs/reviews/` exists** (`mkdir -p docs/reviews`).
 
-**After writing the report, run `git status --porcelain` one final time** and confirm only allowlisted paths are modified. If any non-allowlisted path appears, report a Boundary violation immediately.
+**After writing the report, compare contents against the baseline and run `git status --porcelain` one final time.** Confirm your changes touch only allowlisted paths, including edits to files already dirty before the run. Pre-existing user changes alone are not violations. If your delta includes a non-allowlisted path, report a Boundary violation immediately; do not automatically revert user work.
 
-**Do not transition the Spec YAML's `status` field.** After the execution report is written, the command layer will transition the status to `"review"`.
+**Do not transition the Spec YAML's `status` field.** Return the report path and
+explicit complete/failed/blocked outcome to orchestration. It may advance only
+when all Deliverables, Boundaries and automated checks pass, no blocker-grade gap
+remains, and every edge case either passes or is explicitly assigned to later
+human review with a reason and follow-up.
+
+On failure, a blocker-grade gap or interruption, preserve partial work, summarize
+what failed, and write a partial execution report if possible after Boundary
+acknowledgment. Unfinished rows stay failed or unverifiable, not pass. If no report
+can be saved, report that failure conversationally. Lifecycle stays in-progress;
+there is no automatic rollback, ready reset, or resume. The normal command only
+accepts ready; communicate that a recovery decision is required.

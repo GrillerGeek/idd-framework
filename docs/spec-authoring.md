@@ -160,6 +160,12 @@ A Spec cannot enter **Ready** status until every item passes:
 - [ ] **Validation** block has at least one automated and one human review item
 - [ ] Spec has been **peer-reviewed** by at least one other person
 
+Items 1–10 are mechanically checkable; item 11 requires recorded human approval.
+An AI technical review does not supply that fact or change lifecycle status.
+Passing completeness establishes readiness, not permission to build: follow the
+[Spec lifecycle contract](framework.md#spec-lifecycle-contract) for the clean
+gap-check, mutation ownership, and failed-run handling.
+
 ---
 
 ## Export Formats
