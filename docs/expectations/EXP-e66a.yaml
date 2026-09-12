@@ -1,0 +1,16 @@
+expectation:
+  id: EXP-e66a
+  intention: INT-53c1
+  description: Authoring preserves existing user work and produces safe, consistent YAML.
+  validation_criteria: Validate the complete proposed batch with duplicate-key rejection, parent/link
+    consistency, reserved IDs and baseline checks before writes. Only the explicitly owned parent
+    expectations lists may change; preserve other bytes, comments and modes. Save new artifacts as draft
+    and never fabricate passed gates or lifecycle approval.
+  edge_cases:
+    - Concurrent parent changes or duplicate YAML keys stop before project writes rather than overwriting
+      or whole-file reformatting.
+    - An interrupted multi-file save reports exact partial writes and IDs; recovery reconciles those
+      files and does not automatically undo user edits or generate duplicate children.
+  complexity: high
+  owner: Jason Robey
+  status: draft

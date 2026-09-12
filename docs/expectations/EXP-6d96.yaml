@@ -1,0 +1,16 @@
+expectation:
+  id: EXP-6d96
+  intention: INT-53c1
+  description: Stakeholders can author linked draft artifacts from independently installed workflow skills.
+  validation_criteria: Each of five standalone authoring stages resolves internal IDs in descriptive
+    filenames, loads Product context and produces only its requested draft artifact types with correct
+    parent links and one resolved exploration lineage. No other stage skill, plugin-root variable,
+    globally installed helper or consumer package dependency is required.
+  edge_cases:
+    - Empty or ambiguous selection and archived-only parent IDs request selection/recovery without
+      creating files.
+    - Mixed Product parents or conflicting explicit/inherited exploration lineage remain unresolved
+      questions; no silently selected context or empty lineage fields.
+  complexity: high
+  owner: Jason Robey
+  status: draft
