@@ -1,0 +1,18 @@
+expectation:
+  id: EXP-a49f
+  description: Maintainers can reproducibly assemble complete skill directories from an explicit source
+    catalog without changing existing Claude behavior.
+  validation_criteria: The baseline router and its six references assemble byte-for-byte with preserved
+    file modes from canonical plugin sources. A second build makes no changes; read-only check detects
+    missing, edited or extra output files and returns nonzero without writing. A synthetic portable
+    skill builds and remains self-contained when copied outside the source checkout. All 15 legacy
+    stages are accounted for as pending catalog entries, without emitting nonfunctional stage skills.
+  edge_cases:
+  - A missing resource, traversal path, symlink escape or duplicate output destination fails preflight
+    before any output changes.
+  - An unrecognized file in a managed skill directory is reported and preserved; the builder never
+    deletes arbitrary files.
+  complexity: high
+  intention: INT-a0e4
+  owner: Jason Robey
+  status: draft

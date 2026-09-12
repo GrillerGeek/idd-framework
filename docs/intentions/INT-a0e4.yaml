@@ -1,0 +1,16 @@
+intention:
+  id: INT-a0e4
+  product: PROD-f67b
+  statement: Contributors can verify and assemble IDD workflow packages reproducibly before distributing
+    them across coding hosts.
+  rationale: Portable workflows need repeatable packaging, fixture-aware validation and reliable helpers;
+    otherwise installation can silently omit resources or preserve invalid data.
+  priority: high
+  dependencies: []
+  expectations:
+  - EXP-a49f
+  - EXP-0aff
+  - EXP-2b9e
+  - EXP-8fe7
+  owner: Jason Robey
+  status: draft

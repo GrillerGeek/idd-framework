@@ -1,0 +1,18 @@
+expectation:
+  id: EXP-2b9e
+  description: Artifact helpers avoid collisions with descriptive filenames and expose exploration
+    references reliably in disposable projects.
+  validation_criteria: Regression tests reproduce then fix suffixed-filename ID collisions and missing
+    exploration map/ticket mentions. Existing helper command names, supported type aliases, output
+    section format and read-only inventory behavior remain compatible. Tests cover an empty project,
+    invalid type input, deterministic collisions and exhaustion, paths with spaces, exploration discovery,
+    missing status and reference deduplication.
+  edge_cases:
+  - A seeded existing PROD-a1b2-description.yaml prevents emission of PROD-a1b2; repeated collisions
+    exercise 4/6/8-hex attempts and exhaustion without artifact writes.
+  - An exploration map and a decision ticket that reference other IDs both appear in MENTIONS; filenames
+    with spaces stay intact and the scan writes no project files.
+  complexity: medium
+  intention: INT-a0e4
+  owner: Jason Robey
+  status: draft

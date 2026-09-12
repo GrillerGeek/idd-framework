@@ -4,7 +4,7 @@ Date: 2026-09-12
 
 Baseline: `bf0ec98` on `main`; Claude plugin version `1.6.0`
 
-Status: milestone 1 implemented and verified; SPEC-5113 is in review; packaging milestones pending
+Status: milestone 1 implemented and verified; SPEC-5113 is in review; milestone 2 Spec drafted for peer review
 
 Product: `PROD-f67b` — Intent-Driven Development Framework
 
@@ -24,7 +24,9 @@ The user accepted the shared-skills approach, requested this plan, and authorize
 - Milestone 1 implemented in `2f9c1d8`; `SPEC-5113` progressed ready → in-progress → review through orchestration.
 - Verification passed: 63 checks covering inventories, introduced links/anchors, version alignment, protected files, frontmatter, allowlist and Bash syntax. Independent implementation review found one adoption-path inconsistency, now fixed and re-reviewed with no remaining findings.
 - Execution evidence: [SPEC-5113 execution report](../reviews/SPEC-5113-20260912T130127Z-execution.md). Human implementation review and later validation remain pending; the earlier approval records Spec peer review.
-- Packaging, portable stage workflows, native Codex installation and complete npx skills distribution remain future work. No remote changes were pushed.
+- Milestone 2 authored as [SPEC-bffd](../specs/SPEC-bffd.yaml), linked to INT-a0e4 and four Expectations; [peer-review handoff](../reviews/SPEC-bffd-peer-review.md) includes the concrete assembly, profile and helper decisions.
+- Isolated assessment reproduced descriptive-filename ID collisions and missing exploration entries in the archive mentions index. The new Spec owns regression tests and targeted fixes.
+- Milestone 2 gap-check passed with zero unresolved findings; all 33 accepted coverage entries remain visible. SPEC-bffd remains draft pending its own human peer review. Portable stage workflows, native Codex installation and complete npx skills distribution remain future work. No remote changes were pushed.
 
 ## Baseline evidence
 
@@ -108,7 +110,7 @@ Exit criterion: one reviewed lifecycle contract that can be followed without cho
 Primary files: new assembly/check scripts, minimal development package metadata and lockfile, `tests/`, canonical references, and CI configuration.
 
 - [ ] Use Node.js for assembly and tests, with the built-in test runner and a pinned YAML parser for structured checks. This is development tooling, not publication of IDD as an npm package. Declare the minimum runtime after checking installer and tooling requirements.
-- [ ] Introduce a catalog mapping each skill to its canonical procedure, required resources, and legacy command alias. Generate the resource copies and thin wrappers from that inventory.
+- [ ] Introduce a catalog mapping each skill to its canonical procedure, required resources, and legacy command alias. Milestone 2 establishes deterministic resource assembly with the current router as an explicit legacy bundle and stages marked planned. Thin wrappers are generated when each real stage is ported in milestones 3–4, avoiding nonfunctional placeholder skills.
 - [ ] Provide `npm run build:skills`, `npm run check`, and `npm test`; check mode must detect stale generated output without modifying it.
 - [ ] Check skill metadata, manifest paths, resource containment, executable permissions, standalone resource completeness, and accidental Claude-only instructions in shared procedures.
 - [ ] Validate YAML duplicate keys, linked/detail Expectation agreement, required blocks, status values, and minimum edge cases using separate profiles for templates, live artifacts, and intentionally flawed fixtures.

@@ -1,0 +1,18 @@
+expectation:
+  id: EXP-0aff
+  description: Contributors can detect artifact, metadata and package drift without rewriting historical
+    artifacts or mistaking fixtures for live work.
+  validation_criteria: Read-only validation uses explicit live, template and fixture profiles, rejects
+    duplicate keys, validates artifact structure/linkage and standalone resource closure, and reports
+    actionable file/field diagnostics. The existing deliberately flawed Spec is asserted to fail duplicate-key
+    validation, while the clean fixture is structurally valid without resolving fictional project
+    references. No mechanical check supplies human peer review or execution authorization.
+  edge_cases:
+  - The existing flawed fixture remains byte-for-byte unchanged and must produce DUPLICATE_KEY; an
+    unexpected failure in a live artifact still fails the check.
+  - Templates allow blank placeholders but enforce schema shape; ready-or-later live Specs require
+    all mechanically checkable completeness items and matching linked/detail Expectation IDs.
+  complexity: high
+  intention: INT-a0e4
+  owner: Jason Robey
+  status: draft
