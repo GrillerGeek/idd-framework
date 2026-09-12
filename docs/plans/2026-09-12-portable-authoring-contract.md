@@ -1,6 +1,6 @@
 # Next migration packet: portable artifact authoring
 
-Status: assessed; not an execution gate. Bulk conversion waits for acceptance of
+Status: assessed and drafted as [SPEC-8406](../specs/SPEC-8406.yaml), including exact scenario oracles; not an execution gate. Bulk conversion waits for acceptance of
 SPEC-b2e3's three-workflow pilot. This document records decisions made under the
 2026-09-12 unattended-work authorization.
 

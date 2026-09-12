@@ -177,16 +177,15 @@ spec:
     resources: Each bundle has its own SKILL.md, shared authoring procedure, required templates, Spec
       reference for Spec-producing modes, and scripts/idd-next-id with executable mode. Reuse existing
       safe YAML tooling or stop without writes; do not install a consumer parser.
-    verification_design: Before this Spec may become ready, author exact scenario prompts, fixture expected
-      artifacts, per-field mutation allowlists, partial-save/recovery behavior and mechanical oracle
-      assertions. At minimum cover supplied-context successful authoring, missing confirmation, rejection
-      below two edges, existing Expectations to Spec, cross-Product/lineage refusal and malformed-parent
-      refusal. Do not improvise these acceptance contracts during implementation.
+    verification_design: The scenario_oracles below define the exact fixture facts, expected outputs and
+      mutation boundaries. Before readiness, independently gap-check these contracts and confirm any
+      uncovered implementation choices through author revisions. Record actual host cases separately from
+      offline oracle tests.
   execution_prerequisites:
     pilot: SPEC-b2e3 actual host pilot exit criterion, including the unresolved Claude cases, must pass
       before bulk conversion.
-    readiness: "This draft is intentionally not ready: exact evaluation scenario oracles and independent
-      gap-check are still required."
+    readiness: This remains draft pending the pilot acceptance prerequisite and a fresh independent gap-check
+      of this complete authoring/evaluation contract.
   peer_review:
     outcome: pending
     note: No actual review of this newly drafted contract is claimed.
@@ -201,3 +200,85 @@ spec:
     warnings: 0
     report: null
     date: 2026-09-12
+  scenario_oracles:
+    shared_fixture: Use fictional IDs PROD-a1b2, INT-a1b2 and EXP-a1b2 only in disposable projects. The
+      Product has descriptive filename PROD-a1b2-greeting-library.yaml, owner Casey Example, Node22/ESM
+      context, a pure named-export function convention, no authentication and EXPL-cafe lineage.
+      package.json is private ESM with no dependencies. Preserve a pre-existing dirty USER-NOTES.md and
+      an unrelated descriptive artifact. Fixture scenario setup supplies only the parent artifacts needed
+      by that case; no installation-time output artifact directories. Capture every project file
+      byte/mode and directory before host invocation, excluding Git internals only. Install only the
+      selected authoring skill using the pinned local installer in copy mode. Optional process-local
+      output-style diagnostics are separately labeled; never override the configured model.
+    common_assertions: New IDs match the correct random-hash prefix and are unique across live fixtures, the
+      seeded archive ledger and the proposed batch. Each new YAML has one artifact mapping, no duplicate
+      keys, draft status and owner Casey Example. New lineage is EXPL-cafe when inherited, absent when
+      there is none. Every Intention expectations list exactly matches its generated child IDs; every
+      Expectation points at its correct Intention; every Spec links exactly the generated/selected
+      Expectation and Intention IDs and correct Product. No passed gap-check or human-approved
+      peer-review annotation is generated. Save no implementation source/test files. Compare all
+      unchanged project/skill bytes and modes and reject every unowned mutation.
+    define-intentions: "Prompt selects PROD-a1b2 and explicitly confirms one new outcome: Callers receive a
+      consistent greeting; rationale avoid duplicated formatting; priority medium; dependencies none;
+      owner Casey Example. It authorizes saving this Intention. Expect exactly one new Intention YAML,
+      with those supplied facts and an empty expectations list. No existing file changes, new
+      Expectation/Spec, or unrelated output directories."
+    define-expectations: "Seed INT-a1b2 with descriptive filename, status defined and expectations: [] plus
+      comments immediately before and after that field. Prompt confirms one Expectation: valid names
+      receive Hello, <trimmed name>!, invalid nonstring/blank input throws TypeError; validation examples
+      Ada, padded Ada, empty and null; confirmed edge cases padding is trimmed and invalid/blank inputs
+      throw; complexity low; owner Casey Example; authorize save. Expect one new draft Expectation and
+      addition of its ID to only the parent expectations list. Preserve parent comments, status and every
+      byte outside that list; no Product, Intention or Spec creation."
+    define-outcomes: Prompt selects PROD-a1b2, supplies the same single confirmed Intention and single
+      confirmed Expectation described above, confirms both edge cases and authorizes saving the batch.
+      Expect one new draft Intention and one new draft Expectation with complete reciprocal links, and no
+      Spec or existing-file edits.
+    quick-spec: Prompt supplies the same fully confirmed single Intention/Expectation, plus confirmed
+      Boundaries (preserve package.json, USER-NOTES.md and installed skills; no dependencies),
+      Deliverables src/greet.mjs and tests/greet.test.mjs, automated node --test tests/greet.test.mjs and
+      human review of greeting wording. Product context is already confirmed and consistent with
+      package.json. Expect exactly one new draft Intention, Expectation and Spec with five complete
+      blocks, matching embedded validation/edge-case text and inherited Product context; code refs name
+      only existing fixture paths. Confirmed content is not peer review, so no ready/passed/approved
+      claims. Do not create the proposed implementation files.
+    write-spec: Seed the confirmed INT-a1b2 and EXP-a1b2 in descriptive filenames, with matching parents and
+      two confirmed edges. Prompt selects EXP-a1b2 and supplies the same confirmed
+      boundaries/deliverables/validation as quick-spec. Expect one new draft Spec with complete blocks
+      and matching selected IDs and embedded details; every parent byte and mode remains unchanged. No
+      new Intention/Expectation and no parent status change.
+    missing-confirmation: Invoke define-expectations with INT-a1b2 and ask for candidate edge cases without
+      confirming them. Supply other authoring facts so the missing decision is specific. Expect a visible
+      request to confirm at least two concrete candidate edge cases, including how they differ from the
+      base case, and a byte/mode-identical project with no new directories. Do not treat an unavailable
+      interactive tool as permission to save; a conversational question is valid.
+    rejected-edge: Invoke define-expectations with one explicitly confirmed padding edge and explicitly
+      reject the second candidate. Ask for a replacement proposal; do not confirm a replacement. Expect a
+      visible replacement/confirmation question that states the two-edge minimum, no progression to a
+      different Expectation and no writes/directories. Fresh-session evidence checks the actual response;
+      offline tests validate its mutation and minimum-count oracle without claiming to execute model
+      reasoning.
+    parent-conflict: Invoke write-spec with two Expectations whose parent Intentions belong to different
+      Products. The prompt deliberately does not choose which Product to use. Expect a question/refusal
+      explaining the parent conflict and complete project preservation. A second fixture variant uses one
+      Product but conflicting EXPL lineage and requires the analogous unresolved question. Offline checks
+      reject either wrong-parent or silently selected-lineage output; record which variants actually ran
+      in each host.
+    malformed-parent: Invoke define-intentions with an existing Product containing a duplicate YAML key.
+      Expect a safe parsing refusal or request for author repair, with all original bytes/modes and
+      directories preserved. Do not overwrite the Product, invent a replacement or choose the last
+      duplicate value.
+    partial-recovery: Seed the confirmed draft EXP-b2c3 from an interrupted save; its existing INT-a1b2
+      parent lacks that backlink. User explicitly identifies the written file/ID, confirms its content
+      and asks to complete only that interrupted parent-link update. Expect only addition of EXP-b2c3 to
+      the parent expectations list, preserving every other byte/mode, and no new child ID/file. The
+      corresponding already-linked variant is a no-op. A concurrent-parent-change simulation must refuse
+      a stale write; it may not overwrite a changed parent to manufacture a pass.
+    outcomes: Success must satisfy exact file/field allowlists and semantic artifact assertions.
+      Confirmation/refusal cases require a meaningful visible response and a completely unchanged
+      project; returning an unrelated error is not a pass. Optional CLI/auth/service/capability failures
+      remain blocked, assertion failures failed, and only observed successful checks passed. Evidence
+      retains invocation, versions, output-style mode where applicable, source/fixture hashes, baseline
+      and final project in a new requested local evidence directory. Full confirmation quality,
+      interaction progression and interruption behavior need independent trace review; no automatic claim
+      of human approval.
