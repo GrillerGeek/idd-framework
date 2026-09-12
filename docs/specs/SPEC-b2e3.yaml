@@ -1,0 +1,377 @@
+spec:
+  id: SPEC-b2e3
+  product: PROD-f67b
+  intentions:
+    - INT-8164
+  expectations:
+    - EXP-35cb
+    - EXP-feff
+    - EXP-3570
+    - EXP-016a
+  status: ready
+  context:
+    stack: Inherit PROD-f67b Markdown/YAML/JSON/Bash. Use the established private Node >=22.20.0 tooling with
+      locked yaml 2.8.3 and skills 1.5.25 for development only.
+    patterns: Canonical portable procedures, complete generated bundles, thin host adapters and one orchestration
+      owner. This focused pilot precedes remaining-stage conversion.
+    conventions:
+      - Keep code/plugin sources Apache-2.0; preserve framework history and documentation licensing.
+      - Retain strict ready/passed workflow gates and actual human facts. Current migration work uses the
+        user-authorized unattended-session exception documented below; never generalize it into shipped
+        procedures.
+      - Use skill-relative installed resources with absolute resolved paths and the consuming project as cwd;
+        no consumer dependencies or global helpers.
+    existing_code_refs:
+      - path: plugin/commands/interview.md
+        note: Preserve relevant behavior while extracting the pilot.
+      - path: plugin/commands/gap-check.md
+        note: Preserve relevant behavior while extracting the pilot.
+      - path: plugin/commands/implement-spec.md
+        note: Preserve relevant behavior while extracting the pilot.
+      - path: plugin/agents/product-interviewer.md
+        note: Preserve relevant behavior while extracting the pilot.
+      - path: plugin/agents/idd-gap-checker.md
+        note: Preserve relevant behavior while extracting the pilot.
+      - path: plugin/agents/idd-spec-implementer.md
+        note: Preserve relevant behavior while extracting the pilot.
+      - path: plugin/references/spec-reference.md
+        note: Preserve relevant behavior while extracting the pilot.
+      - path: scripts/lib/assembly.mjs
+        note: Preserve relevant behavior while extracting the pilot.
+      - path: scripts/test-install.mjs
+        note: Preserve relevant behavior while extracting the pilot.
+    auth: Existing local Codex/Claude authentication for bounded disposable evaluation only. No new credentials,
+      external publication or personal installation changes.
+  expectations_detail:
+    - id: EXP-35cb
+      description: Stakeholders can define a Product using a standalone interview skill in either host.
+      validation: The installed idd-interview skill reuses supplied context, asks only for missing decisions,
+        preserves explicit exploration lineage, and creates one valid Product with a bundled collision-aware
+        helper. It has no dependency on a plugin root, global PATH helper or another skill.
+      edge_cases:
+        - Missing owner or unconfirmed product facts remain questions or explicitly labelled assumptions; no
+          fabricated approval or identity.
+        - An existing descriptive Product filename prevents collision; project and installed-bundle paths may
+          contain spaces.
+    - id: EXP-feff
+      description: Reviewers can gap-check single Specs and portfolios without changing the contracts under review.
+      validation: The standalone idd-gap-check skill includes selection, operational invalidation, completeness
+        1–10, report-only adversarial review, coverage/dispositions, portfolio conflict reporting and
+        current-result validation. Only orchestration writes one gap_check mapping; lifecycle and content
+        remain unchanged.
+      edge_cases:
+        - Malformed YAML or an incomplete Spec cannot reuse a previous passed result; incomplete entries are
+          excluded from portfolio coverage.
+        - Missing delegation falls back to explicitly separated reviewer/orchestrator roles; reviewer
+          interruption or malformed output leaves the operational blocker.
+    - id: EXP-3570
+      description: Implementers can execute a gated Spec from an independently installed skill while preserving user
+        edits.
+      validation: The standalone idd-implement-spec skill rejects invalid prerequisites without writes, quotes
+        boundaries before mutation, separates lifecycle ownership, verifies every edge
+        case/Boundary/Deliverable and automated check, and emits a unique execution report with
+        spec_gaps_encountered.
+      edge_cases:
+        - Missing, warning, blocked, historical, stale-known or mismatched gate evidence refuses without
+          creating directories; in-progress requires an explicit recovery decision.
+        - A blocker-grade gap or failed test preserves partial work and in-progress; a pre-existing dirty file
+          is compared by content, not only Git status.
+    - id: EXP-016a
+      description: Maintainers can distinguish package and host behavior evidence for the three pilot workflows.
+      validation: All three pilot bundles install individually via pinned skills into temporary Codex/Claude
+        projects in copy and symlink modes. Portable metadata/resources validate; default tests remain
+        offline. A reproducible optional host evaluation prepares disposable clean/flawed/incomplete fixtures
+        and records actual results, versions and limitations. Existing Claude aliases keep frontmatter/model
+        identity while their bodies delegate to the same bundled procedures.
+      edge_cases:
+        - Removing the temporary copy source leaves each installed bundle complete; installation never changes
+          personal skill directories.
+        - An unavailable CLI, authentication, permission or model-service failure is reported as blocked host
+          evidence, never a workflow pass; native plugin certification and bulk conversion wait for the pilot.
+  boundaries:
+    - Do not change existing artifact content, historical reviews, framework lifecycle/schema rules, templates
+      or examples; the migration-session approval exception is recorded only in new authoring evidence.
+    - Do not port the other twelve stages, replace the legacy router, add native Codex manifests, change
+      plugin identity/version/hooks or modify existing helper implementations in this pilot.
+    - Do not rename Claude commands or agents or change their existing frontmatter/model tiers; migrate only
+      the three pilot commands and their three role-agent bodies.
+    - Do not push, publish, tag, update external marketplaces, install globally or modify personal
+      skill/configuration files. Host evaluations use disposable project roots and existing authentication
+      only.
+    - Do not report installation or static text checks as proof of host workflow behavior, human review or
+      full migration completion.
+    - Do not change Spec content during report-only review or invent human approval. Implementation remains
+      within the listed Deliverables; lifecycle and plan tracking are separate orchestration writes.
+  deliverables:
+    - plugin/workflows/interview.md, gap-check.md and implement-spec.md — canonical portable entry points and
+      complete main-conversation orchestration.
+    - plugin/references/pilot/ — shared portable lifecycle/schema reference and report-only
+      reviewer/implementer procedures, derived from existing Apache plugin sources.
+    - plugin/skill-catalog.json and plugin/skills/idd-interview/, idd-gap-check/, idd-implement-spec/ — three
+      complete generated portable bundles; retain existing legacy output bytes.
+    - scripts/lib/assembly.mjs and tests/assembly.test.mjs — accept planned/pilot stage states and require a
+      matching portable bundle for pilot stages; reject missing/mismatched or premature bundles.
+    - plugin/commands/interview.md, gap-check.md, implement-spec.md and plugin/agents/product-interviewer.md,
+      idd-gap-checker.md, idd-spec-implementer.md — thin Claude adapters with unchanged frontmatter and
+      preserved review/implementation model dispatch; interview stays in the stakeholder conversation.
+    - scripts/test-install.mjs and tests/pilot.test.mjs — all pilot individual-install/resource/isolation
+      coverage in addition to existing synthetic probes.
+    - tests/helpers/pilot.mjs and tests/fixtures/pilot/ — disposable
+      Product/Intention/Expectation/clean/flawed/incomplete Spec fixtures, report and dirty-file cases with
+      small executable deliverable; fixtures are isolated from live artifacts.
+    - scripts/evaluate-pilot.mjs — explicit optional host evaluation CLI, no model override, bounded
+      output/time, fresh isolated project and scenario setup, machine outcome checks and JSON evidence; never
+      run by default npm test or CI.
+    - README.md, plugin/README.md and docs/contributing-agents.md — pilot inventory, local selected-stage
+      install instructions, source ownership and accurate evidence limitations.
+    - docs/reviews/SPEC-b2e3-<UTC-timestamp>-execution.md and docs/reviews/SPEC-b2e3-host-evaluation.md —
+      itemized execution evidence, observed host results or precise blockers and follow-ups.
+  validation:
+    automated:
+      - npm run build:skills twice, npm run check and npm test pass; second build is unchanged and legacy
+        router/command frontmatter remain byte-identical.
+      - npm run test:install verifies each pilot alone in both hosts and both installer modes with all
+        resource bytes and modes intact after source removal for copies.
+      - Fixture tests cover ready, flawed, incomplete and failed-gate scenarios; source and generated-bundle
+        snapshots remain unchanged.
+      - Host evaluation runner detects missing executables, bounds output/runtime, records actual CLI versions
+        and classifies blocked prerequisites without claiming success.
+      - Allowlist/protected-file comparison and git diff --check pass; report exists and lists every edge
+        case, Boundary, Deliverable and automated validation.
+    human_review:
+      - Review the completed pilot and session-specific decisions on return; actual peer review is pending and
+        has not been fabricated.
+      - "Fresh host evaluation outcomes are reviewed against behavior: supplied Product context,
+        clean/flawed/incomplete gap checks, report-only content preservation, successful implementation and
+        refused invalid gates. Unavailable host prerequisites remain explicitly blocked and prevent claiming
+        the pilot exit criterion."
+      - Review installed skill discovery and legacy Claude aliases in interactive host sessions before
+        release; unattended evaluation is not a guarantee of all client behavior.
+  implementation_contract:
+    packaging: Keep schemaVersion 1. Stage state planned means no matching production stage bundle; pilot means
+      exactly one matching portable bundle. The legacy router remains unchanged. Each pilot owns SKILL.md,
+      needed references and scripts/idd-next-id if needed; copy shared spec-reference into a single new
+      canonical pilot reference with host syntax removed. Add no runtime parser to consuming projects; use
+      available safe YAML tooling or stop without writes when parsing cannot be assured.
+    adapters: Preserve complete frontmatter hashes. Commands load the corresponding bundled SKILL.md, pass
+      invocation arguments and available host-specific reviewer/implementer dispatch policy. Gap-check retains
+      opus reviewer and implementation sonnet implementer in the adapter only. Interview runs in the main
+      conversation to retain stakeholder context. Role agents point at bundled role procedures and do not
+      contain a second substantive workflow.
+    evaluation: Define independent scenarios interview, gap-clean, gap-flawed, gap-incomplete, implement-clean,
+      implement-refuse. Prepare a fresh temporary Git project for each, install only its selected skill using
+      pinned local skills copy mode, and capture before/after fixture bytes with scenario-specific permitted
+      mutations and only Git internals excluded. A tiny greet(name) ESM fixture specifies exact outputs,
+      invalid-input behavior and tests. The implement-clean fixture marks human readiness approved as
+      fictional scenario data, not an approval of this migration. Report-only reviewer forward-tests are also
+      independent temporary sessions. Runner accepts --host codex|claude and --scenario, optional temporary
+      evidence directory, uses existing configured model without override, time budget <=240 seconds/scenario
+      and bounded <=4MB logs, kills owned process group on timeout and preserves only requested evidence. CLI
+      prerequisites/auth/model/network failure blocks the scenario, other deterministic checks continue. Never
+      auto-install a host or alter its configuration to obtain a pass.
+    scenario_oracles:
+      fixture: "Use fixed fictional IDs PROD-a1b2, INT-a1b2, EXP-a1b2, SPEC-a1b2 in isolated fixtures only. Base
+        Spec is ready and mechanically complete with a human peer-review annotation explicitly described as
+        fictional test data. It requires src/greet.mjs exporting greet(name): nonempty trimmed string ->
+        Hello, <trimmed name>!; nonstring or whitespace-only -> TypeError. Exact cases: Ada -> Hello, Ada!;
+        padded Ada -> Hello, Ada!; empty/whitespace/null/number -> TypeError. Deliverables are src/greet.mjs,
+        tests/greet.test.mjs and a unique execution report. Boundaries prohibit edits to package.json,
+        USER-NOTES.md, baseline hierarchy content and installed skills. Seed USER-NOTES.md before Git
+        baseline, then append a pre-existing user edit after commit. Parent links and linked/detail data
+        agree."
+      interview: Prompt supplies confirmed product name Example Desk, owner Casey Example, business problem of
+        duplicate support triage, audience support coordinators, measurable reduction from two queues to one,
+        strategic aim faster response, Node22/ESM/no-auth context, explicit EXPL-cafe lineage and
+        authorization to save. Seed an unrelated existing Product with descriptive filename. Expect exactly
+        one additional valid Product with unique ID, supplied name/owner/context and exploration EXPL-cafe, no
+        empty optional lineage, and no extra artifact directories or modifications to the existing Product.
+        Agent transcript remains available for human confirmation of interaction quality.
+      gap-clean: Start with base Spec and an old report/annotation. Invoke actual gap-check without prescribing its
+        answer. Expect lifecycle ready and five blocks/links semantically unchanged, one fresh passed
+        annotation with zero counts, canonical report first line PASS — 0 blockers, 0 warnings, mandatory
+        Coverage and current session completion evidence. Content bytes outside the replaced gap_check mapping
+        must remain unchanged. Only the selected Spec annotation and canonical finding report may change.
+      gap-flawed: "Start with a parseable, mechanically complete variant: expectation/detail validation still
+        requires TypeError for blank input, but an additional Boundary says whitespace-only input must return
+        an empty string and must not throw. No duplicate YAML key, missing block or missing edge case. Expect
+        at least one adversarial Blocker explicitly identifying this incompatible blank-input behavior,
+        blocked annotation and canonical BLOCKED report with matching counts and all required GC fields.
+        Lifecycle and all content outside gap_check must be unchanged. Only the annotation and canonical
+        report may change."
+      gap-incomplete: Start with blank context.auth, otherwise base fixture; retain an old passed annotation and
+        report. Expect no newly written finding report, blocked annotation with blocker count 1, warnings 0
+        and report null, lifecycle/content unchanged, old report unchanged. Only the annotation may change;
+        current return must identify failed completeness item 4.
+      implement-clean: Start with base Spec and matching canonical PASS report with Coverage. Prompt explicitly
+        states fixture readiness approval is already recorded. Expect exact greet behavior independently
+        executed by the evaluator, tests/greet.test.mjs exists and node --test succeeds, lifecycle review, all
+        Spec content except status unchanged, pre-existing dirty USER-NOTES.md bytes unchanged and every
+        installed skill file unchanged. Only the two deliverables, unique report and Spec status may change;
+        transcript must show verbatim Boundaries before the first execution mutation. Report must include all
+        edge-case, Boundary and Deliverable rows plus spec_gaps_encountered. Full report quality and
+        transcript ordering require human review, automated output checks do not certify them.
+      implement-refuse: Use mechanically complete ready Spec but gap_check.status warnings and report first line
+        PASS — 0 blockers, 1 warnings. Run implementation without explaining the expected refusal. Expect a
+        refusal response and complete byte/mode identity of the project, including no new report/directories.
+        Default fixture tests also verify missing, blocked, historical, mismatched and in-progress variants
+        are distinguishable inputs; fresh-session coverage is honestly limited to actual scenarios run.
+      mutation_accounting: Capture bytes and modes of every fixture/project file and installed skill, excluding Git
+        internals only, before host launch. Reject created/deleted/changed paths outside each scenario
+        allowlist; do not exempt arbitrary host scratch files or YAML content reformatting. For gap scenarios
+        compare original Spec text after removing only the top-level two-space-indented gap_check subtree,
+        plus parse semantics; for implementation compare replacing only status review with ready. Ignore
+        mtime-only changes, never ignore contents or executable modes. Host-generated permission failures or
+        unapproved scratch changes are recorded failed/blocked, not ignored to make a pass.
+      runner: Exports testable outcome/setup helpers; script CLI selects one scenario per invocation. Evidence uses
+        a newly created output subdirectory under an explicitly passed --output directory or the owned
+        temporary root by default. Never overwrite existing evidence. Retained evidence is confined to those
+        explicit directories; no persistent user settings are written. Full host logs may contain incidental
+        personal environment metadata and are kept in local temporary evidence only; committed reports include
+        sanitized observations. Time/output caps, early spawn failure and descendant cleanup are tested with
+        disposable mock child processes; return nonzero for blocked or failed outcomes.
+  peer_review:
+    outcome: pending
+    note: User explicitly requested continued unattended work and delegated decisions on 2026-09-12. This is
+      authorization to implement this migration without another pause, not a claim of completed human peer
+      review.
+  session_authorization:
+    date: 2026-09-12
+    scope: This migration pilot only; user asked to keep working and make best guesses based on past decisions.
+    decision: Proceed through authoring, independent gap-check, implementation and verification, record human
+      review pending, do not change the shipped human-review gate.
+  gap_check:
+    status: passed
+    blockers: 0
+    warnings: 0
+    report: docs/reviews/SPEC-b2e3-gap-check.md
+    date: 2026-09-12
+  coverage_dispositions:
+    - files:
+        - .cursor/rules/idd.mdc
+      disposition: accept-omission
+      reason: The entry point delegates current source ownership and setup to the owned contributor guide or plugin
+        README; existing resource paths and frontmatter tiers remain valid.
+    - files:
+        - .github/copilot-instructions.md
+      disposition: accept-omission
+      reason: The entry point delegates current source ownership and setup to the owned contributor guide or plugin
+        README; existing resource paths and frontmatter tiers remain valid.
+    - files:
+        - .github/pull_request_template.md
+      disposition: accept-omission
+      reason: The entry point delegates current source ownership and setup to the owned contributor guide or plugin
+        README; existing resource paths and frontmatter tiers remain valid.
+    - files:
+        - AGENTS.md
+      disposition: accept-omission
+      reason: The entry point delegates current source ownership and setup to the owned contributor guide or plugin
+        README; existing resource paths and frontmatter tiers remain valid.
+    - files:
+        - CLAUDE.md
+      disposition: accept-omission
+      reason: The entry point delegates current source ownership and setup to the owned contributor guide or plugin
+        README; existing resource paths and frontmatter tiers remain valid.
+    - files:
+        - CONTRIBUTING.md
+      disposition: accept-omission
+      reason: The entry point delegates current source ownership and setup to the owned contributor guide or plugin
+        README; existing resource paths and frontmatter tiers remain valid.
+    - files:
+        - docs/adoption.md
+      disposition: accept-omission
+      reason: Framework semantics and adoption guidance remain unchanged; the pilot does not replace the framework
+        lifecycle or change these existing concepts.
+    - files:
+        - docs/artifacts.md
+      disposition: accept-omission
+      reason: Framework semantics and adoption guidance remain unchanged; the pilot does not replace the framework
+        lifecycle or change these existing concepts.
+    - files:
+        - docs/faq.md
+      disposition: accept-omission
+      reason: Framework semantics and adoption guidance remain unchanged; the pilot does not replace the framework
+        lifecycle or change these existing concepts.
+    - files:
+        - docs/framework.md
+      disposition: accept-omission
+      reason: Framework semantics and adoption guidance remain unchanged; the pilot does not replace the framework
+        lifecycle or change these existing concepts.
+    - files:
+        - docs/plans/2026-09-12-codex-skills-migration.md
+      disposition: accept-omission
+      reason: Migration plan state belongs to author/orchestrator tracking outside the implementation allowlist.
+    - files:
+        - docs/superpowers/plans/2026-07-28-exploration-phase-0.md
+      disposition: accept-omission
+      reason: Historical/example content is expressly protected by the first Boundary and does not define the new
+        pilot evaluator contract.
+    - files:
+        - examples/onboarding-portal.md
+      disposition: accept-omission
+      reason: Historical/example content is expressly protected by the first Boundary and does not define the new
+        pilot evaluator contract.
+    - files:
+        - examples/self-hosted-v13.md
+      disposition: accept-omission
+      reason: Historical/example content is expressly protected by the first Boundary and does not define the new
+        pilot evaluator contract.
+    - files:
+        - package.json
+      disposition: accept-omission
+      reason: The existing test:install entry already invokes the owned installer script and the optional evaluator
+        can be invoked directly; no new npm script is required.
+    - files:
+        - plugin/bin/idd-archive-scan
+      disposition: accept-omission
+      reason: Existing helper and fixture contracts remain valid; new pilot tests own additional behavior and
+        unchanged frontmatter is checked against the existing inventory.
+    - files:
+        - plugin/references/spec-reference.md
+      disposition: accept-omission
+      reason: The pilot gets an independent canonical reference and complete stage bundles; the legacy
+        router/reference bytes and shipped lifecycle semantics are intentionally preserved by the Boundaries.
+    - files:
+        - plugin/skills/idd-orchestration/SKILL.md
+      disposition: accept-omission
+      reason: The pilot gets an independent canonical reference and complete stage bundles; the legacy
+        router/reference bytes and shipped lifecycle semantics are intentionally preserved by the Boundaries.
+    - files:
+        - plugin/skills/idd-orchestration/references/spec-reference.md
+      disposition: accept-omission
+      reason: The pilot gets an independent canonical reference and complete stage bundles; the legacy
+        router/reference bytes and shipped lifecycle semantics are intentionally preserved by the Boundaries.
+    - files:
+        - plugin/workflows/idd-orchestration.md
+      disposition: accept-omission
+      reason: The pilot gets an independent canonical reference and complete stage bundles; the legacy
+        router/reference bytes and shipped lifecycle semantics are intentionally preserved by the Boundaries.
+    - files:
+        - scripts/build-skills.mjs
+      disposition: accept-omission
+      reason: Existing assembly exports, structural checks and catalog consumers retain their interfaces; the owned
+        assembler implements the stage-state extension while current validators consume its result.
+    - files:
+        - scripts/lib/artifacts.mjs
+      disposition: accept-omission
+      reason: Existing assembly exports, structural checks and catalog consumers retain their interfaces; the owned
+        assembler implements the stage-state extension while current validators consume its result.
+    - files:
+        - scripts/lib/packages.mjs
+      disposition: accept-omission
+      reason: Existing assembly exports, structural checks and catalog consumers retain their interfaces; the owned
+        assembler implements the stage-state extension while current validators consume its result.
+    - files:
+        - tests/artifacts.test.mjs
+      disposition: accept-omission
+      reason: Existing helper and fixture contracts remain valid; new pilot tests own additional behavior and
+        unchanged frontmatter is checked against the existing inventory.
+    - files:
+        - tests/fixtures/plugin-inventory.json
+      disposition: accept-omission
+      reason: Existing helper and fixture contracts remain valid; new pilot tests own additional behavior and
+        unchanged frontmatter is checked against the existing inventory.
+    - files:
+        - tests/helpers.test.mjs
+      disposition: accept-omission
+      reason: Existing helper and fixture contracts remain valid; new pilot tests own additional behavior and
+        unchanged frontmatter is checked against the existing inventory.

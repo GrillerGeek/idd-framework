@@ -1,0 +1,15 @@
+intention:
+  id: INT-8164
+  product: PROD-f67b
+  statement: IDD pilot workflows work from complete standalone skills while
+    retaining existing Claude entry points.
+  rationale: Validate real behavior before porting the rest of the catalog.
+  priority: high
+  dependencies: []
+  expectations:
+    - EXP-35cb
+    - EXP-feff
+    - EXP-3570
+    - EXP-016a
+  owner: Jason Robey
+  status: draft

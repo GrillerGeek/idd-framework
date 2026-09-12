@@ -1,0 +1,19 @@
+expectation:
+  id: EXP-3570
+  intention: INT-8164
+  description: Implementers can execute a gated Spec from an independently
+    installed skill while preserving user edits.
+  validation_criteria: The standalone idd-implement-spec skill rejects invalid
+    prerequisites without writes, quotes boundaries before mutation, separates
+    lifecycle ownership, verifies every edge case/Boundary/Deliverable and
+    automated check, and emits a unique execution report with
+    spec_gaps_encountered.
+  edge_cases:
+    - Missing, warning, blocked, historical, stale-known or mismatched gate
+      evidence refuses without creating directories; in-progress requires an
+      explicit recovery decision.
+    - A blocker-grade gap or failed test preserves partial work and in-progress;
+      a pre-existing dirty file is compared by content, not only Git status.
+  complexity: high
+  owner: Jason Robey
+  status: draft
