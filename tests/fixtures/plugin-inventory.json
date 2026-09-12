@@ -1,0 +1,67 @@
+{
+  "commands": {
+    "archive.md": "591463a3441cf5c10e6daa57b7dae5a67fd9b1c0632a7af16ebe13787b54d02c",
+    "chart.md": "1201e6e7fe8d7aeaf8561a6071591f45aa3351f3cb8c50b240734a896b2be58e",
+    "deep-review.md": "18dc5540522fb261d48e8aaceb5914d3af0788bdf9663dd5fe7250af94eaee09",
+    "define-expectations.md": "2a87e385c3806521dcd2358266940a2ba7304680ce44cc8fbdc26273e403a28d",
+    "define-intentions.md": "7d453990dc94c38588c16a7e2374cdaf40d686fdf14e129dc376ab1464773950",
+    "define-outcomes.md": "131a9b4fd4d3ea54b0dcb83dbf1df36c98a2164fa2c4d179fb47354b56e42e40",
+    "forge.md": "4bf8f1b00afd11da3c6b523207c68a13c1df103c3f10910bf8623c73a7b59a10",
+    "gap-check.md": "5b01b0ea104edc360a4cc915f72ed11119a8dcc1ddf3a7a1c7a1b24383443beb",
+    "implement-spec.md": "29fcefc6e4919f0e103b73ffc7f69570b80f3b749b04a7ac28f788a464eb8005",
+    "interview.md": "77a42e6fa9107d822bfc8c35a29dc5ff4cc2e7cfcb632dc9c725ce722accb4fd",
+    "quick-spec.md": "b8e21ac5bef6e972e5a247f3008161a94f38c247f2cdc6886dfd4024e46d1dd4",
+    "resolve.md": "74ad40a6b472928c302a9cc36944080ef7543cbcc1ed23bf3cb0d551b5ff0574",
+    "review-spec.md": "dc7fb980adb4870e2c626df6e6180f3e8aac024d88eeb7dad7cf84db78ba3fee",
+    "tech-review.md": "ca35e823c9b8b3e1508bde9a129f10ecf9f22b24a09f152400840b430823d5a3",
+    "write-spec.md": "25387f56f030c9aeb15760369ef92cb46b4984a91188c88a46170e1441dbaaf8"
+  },
+  "agents": {
+    "deep-review-lead.md": "3b2cb29e9799dccd6ee74ed34a234c920c71b4451fdadafb18ea84a32b87c0d0",
+    "expectation-author.md": "61b9d017b0905aa89fa469174ad61bc0947004a251d12b44a94dbe5ddb9f112e",
+    "exploration-charter.md": "de2331478422fe42b543742f69ab0669ecf5bed73242be8c1913d2d46a6df7c3",
+    "exploration-resolver.md": "80a5341af6c64a96410947d2353722961c3d227c78a4d028326a69fe58ae2a7b",
+    "idd-archivist.md": "a67d77c73cff8f1d49321aaef7655f570f3311d8ce9e663ef6b63dc807383a20",
+    "idd-gap-checker.md": "1fccf7e000c3f9f9a208af239059abf7b83234ed60744c6b69829003dc691307",
+    "idd-spec-implementer.md": "654988a36f36f0041034e400196d5d77bc6bc5a0389ace75743331a0285b5075",
+    "intention-author.md": "baa41ab5e4f387af7c7ce1b1d4c65e0ac854df47de5b67558cca2ed42a25ab2d",
+    "outcome-author.md": "8d69ce063eb8b25c508f8639e36daf096f693daabae1022e89de6810ff86788f",
+    "product-interviewer.md": "b3878f897d96476ea7a815da2f2abddf9a0d090af2181fed8cc1ecff87bb1626",
+    "quick-spec-author.md": "48901e9dc0516d97c4901d55fb41105854ed2859c7a7921bb176c5fc3d1d0b75",
+    "spec-author.md": "cf458c40c687962471c77fdecc37b4cb898a4a75146fec598fabb503c3f1c2e8",
+    "spec-reviewer.md": "613b20c3a994d5800a54e779d379a6adfb9dd4543814463e1eb58dab29335851",
+    "tech-lead-reviewer.md": "1b9958e224583bedb5c494ba13d14384ed2a5f7a329499f89087168dd1aaa001"
+  },
+  "manifest": {
+    "name": "idd-framework",
+    "version": "1.6.0",
+    "description": "Intent-Driven Development framework plugin \u2014 automates the IDD workflow with role-specific tools for stakeholder interviews, artifact generation, and structured documentation",
+    "author": {
+      "name": "GrillerGeek"
+    },
+    "homepage": "https://github.com/grillergeek/idd-framework",
+    "repository": "https://github.com/grillergeek/idd-framework",
+    "license": "Apache-2.0",
+    "keywords": [
+      "idd",
+      "spec-driven",
+      "intent-driven",
+      "process",
+      "ai-ready-specs"
+    ],
+    "userConfig": {
+      "default_product_id": {
+        "title": "Default Product ID",
+        "description": "Default Product ID to use when none specified (e.g., PROD-a3f8)",
+        "type": "string",
+        "sensitive": false
+      },
+      "team_name": {
+        "title": "Team Name",
+        "description": "Your team or project name (used in artifact ownership fields)",
+        "type": "string",
+        "sensitive": false
+      }
+    }
+  }
+}

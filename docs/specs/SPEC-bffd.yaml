@@ -8,7 +8,7 @@ spec:
   - EXP-0aff
   - EXP-2b9e
   - EXP-8fe7
-  status: ready
+  status: review
   context:
     stack: Inherit PROD-f67b context for Markdown, YAML, JSON and Bash. Override its no-build/no-tests
       baseline with private Node.js ESM development tooling (Node >=22.20.0), the built-in node:test runner,

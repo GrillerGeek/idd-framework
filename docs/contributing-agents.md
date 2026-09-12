@@ -8,8 +8,9 @@ Codex, Claude Code, Copilot, Cursor, and human contributors.
 ## Maintaining IDD versus executing a Spec
 
 This repository contains framework documentation, YAML artifacts and templates,
-JSON plugin metadata, and Bash helpers. It has no application build, dependency
-manifest, automated test suite, or CI workflow at this baseline.
+JSON plugin metadata, and Bash helpers. Private Node.js development tooling now
+assembles plugin resources and validates artifacts/packages; it is not an IDD npm
+package or a dependency added to consuming projects.
 
 Repository assessment, planning, and routine maintenance do not automatically
 start the managed execution workflow. Use the user's requested scope and existing
@@ -23,7 +24,8 @@ Codex can maintain this checkout through AGENTS.md and this guide. The currently
 packaged workflow integration is the [Claude Code plugin](../plugin/README.md).
 Native Codex packaging and complete standalone `npx skills` installation are
 planned in the [migration plan](plans/2026-09-12-codex-skills-migration.md).
-There are no working repository `npm run check` or skill assembly commands yet.
+The commands below validate packaging and structure. Real portable IDD workflows
+and native Codex installation remain pending.
 
 ## Source ownership and discovery
 
@@ -37,7 +39,10 @@ There are no working repository `npm run check` or skill assembly commands yet.
 | `templates/` | Commented YAML starters for people |
 | `examples/` | Worked hierarchies; historical cases remain historical evidence |
 | `plugin/commands/`, `plugin/agents/` | Claude orchestration and role procedures; frontmatter owns names and models |
-| `plugin/skills/idd-orchestration/` | Router and bundled Markdown references available to installed agents |
+| `plugin/workflows/`, `plugin/references/` | Canonical plugin router and reference sources; edit these |
+| `plugin/skill-catalog.json` | Explicit source/destination mappings and pending stage inventory |
+| `plugin/skills/idd-orchestration/` | Committed generated output available to installed agents; rebuild rather than edit |
+| `scripts/`, `tests/`, `.github/workflows/validate.yml` | Assembly, validation, regression tests and CI |
 | `plugin/bin/`, `plugin/scripts/` | ID generation, archive inventory, and directory initialization helpers |
 | `plugin/.claude-plugin/plugin.json`, `plugin/hooks/hooks.json` | Plugin identity/configuration and currently empty hooks |
 | `docs/plans/`, `docs/reviews/` | Plans, gap-checks, execution evidence, and validation reports |
@@ -51,7 +56,9 @@ do not treat a missing live file as permission to reuse its ID or recreate it.
 Create artifact directories only when a workflow needs to write them.
 
 The plugin's [Spec reference](../plugin/skills/idd-orchestration/references/spec-reference.md)
-must stand alone after installation. When changing the lifecycle, reconcile it
+must stand alone after installation. Its maintained source is
+`plugin/references/spec-reference.md`; `npm run build:skills` updates the bundled
+copy. When changing the lifecycle, reconcile it
 with the canonical contract and affected commands/agents in the same change.
 Keep the two license domains independently authored. Schema changes also require
 checking AGENTS.md, templates, current examples, and other bundled references.
@@ -74,33 +81,71 @@ Do not silently rewrite completed artifacts or historical reports.
 - Preserve command/agent names, model assignments, helper interfaces, and existing
   artifact IDs unless the approved change specifically owns their migration.
 
-## Validation available now
+## Setup, assembly and validation
 
-Run these from the repository root; Git, Bash and Python 3 suffice:
+Use Node.js **22.20.0 or newer**, npm, Git and Bash. Install the locked development
+dependencies with `npm ci`. Versions are pinned in package.json/package-lock.json;
+there are no install hooks or runtime dependencies for consuming projects.
 
 ```bash
-git diff --check
-bash -n plugin/bin/idd-next-id plugin/bin/idd-archive-scan plugin/scripts/init-idd.sh
-python3 -m json.tool plugin/.claude-plugin/plugin.json > /dev/null
-python3 -m json.tool plugin/hooks/hooks.json > /dev/null
-bash plugin/bin/idd-archive-scan
+npm ci
+npm run build:skills
+npm run check
+npm test
+npm run test:install
 ```
 
-The archive scan is read-only. It is an inventory, not artifact validation.
-`bash -n` checks syntax without running initialization or creating artifacts.
-For content changes, inspect the diff, follow changed local links, compare command
-and agent inventories against [plugin/README.md](../plugin/README.md), and walk
-the affected workflow's success and failure cases. Check YAML with a parser that
-rejects duplicate keys when one is available; Python's standard library has no
-YAML parser. Separate live artifacts, templates, and intentionally flawed fixtures
-so a negative example is not mistaken for a broken production artifact.
-These checks do not exercise host behavior or establish human peer review.
+- `build:skills` copies declared canonical sources into committed skill directories,
+  preserving bytes and declared executable modes. A second build makes no changes.
+  It preflights inputs and rejects unrecognized output files instead of deleting
+  them. Edit `plugin/workflows/` or `plugin/references/`, then rebuild and commit
+  both the source and generated changes.
+- `check` is read-only: it detects generated drift, invalid metadata/resources,
+  invalid live artifacts, fixture-profile drift, inventory/model changes, missing
+  executable bits, malformed JSON/CI, Bash syntax errors and whitespace errors.
+  `node scripts/build-skills.mjs --check` checks only assembly drift. Both scripts
+  locate the checkout relative to themselves, independent of the caller's cwd.
+- `test` runs offline behavior tests after installation, using temporary projects
+  with spaces in their paths. It covers rejected package inputs, preserved unknown
+  files, artifact errors, helper collisions/exhaustion and exploration references.
+- `test:install` uses pinned `skills@1.5.25` to install only a synthetic complete
+  skill into disposable Codex/Claude projects in symlink and copy modes. It verifies
+  resources and executable helper behavior, including after removing the temporary
+  copy source. It uses no global flags, disables telemetry/audit calls, and cleans
+  only its own temporary directories. Failures/timeouts fail the command.
+
+CI runs `npm ci`, `check` and `test` on Linux/macOS at the minimum Node version,
+plus a separate synthetic installation job. A local pass does not establish hosted
+CI success; inspect the actual run after pushing. Dependency acquisition requires
+network access; normal checks and tests are offline after `npm ci`.
+
+The historical `SPEC-test-clean.yaml` and `SPEC-test-flawed.yaml` have explicit
+path/hash profiles in `tests/fixtures/artifact-profiles.json`. The flawed fixture
+must fail duplicate-key validation; the clean fixture has fictional parent links.
+No other test-named file is exempt. Templates permit blanks but require schema
+shape; ready-or-later live Specs require mechanical completeness and matching
+linked/detail IDs. Archived identities resolve through the ledger when present.
+Checks never rewrite artifacts, infer human peer review, detect every semantic
+gap, or grant execution permission.
+
+The current orchestration skill is an explicit `legacy-claude` bundle. Portable
+validation is exercised on a synthetic fixture; the catalog's 15 stage entries
+remain planned and emit no placeholder skills. Installation evidence does not
+prove real IDD workflow behavior in either host.
+
+For a quick dependency-free check, `git diff --check` and
+`bash -n plugin/bin/idd-next-id plugin/bin/idd-archive-scan plugin/scripts/init-idd.sh`
+remain available. `bash plugin/bin/idd-archive-scan` produces read-only inventory,
+including references from exploration maps and nested decision Markdown; it does
+not validate YAML or execute archival.
 
 ## Licensing and versioning
 
 Framework documentation, templates, and examples use
 [CC BY-SA 4.0](../LICENSE). Plugin contents use [Apache 2.0](../plugin/LICENSE).
-Preserve attribution; do not copy framework prose into the plugin and silently
+New code in `scripts/` and `tests/` also uses Apache-2.0 SPDX headers and the
+[Apache license text](../plugin/LICENSE); existing framework fixtures retain their
+original license. Preserve attribution; do not copy framework prose into the plugin and silently
 relicense it. Author equivalent plugin instructions independently.
 
 Framework versions use major.minor Git tags. The plugin's major.minor matches

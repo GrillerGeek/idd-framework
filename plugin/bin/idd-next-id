@@ -5,8 +5,8 @@
 # Example: idd-next-id spec → outputs SPEC-a3f8; idd-next-id exploration → outputs EXPL-a3f8
 #
 # IDs are random short hashes (4 hex chars by default) rather than sequential.
-# This eliminates merge collisions when multiple contributors create artifacts
-# concurrently on different branches — there is no shared counter to coordinate.
+# There is no shared counter to coordinate; collision checks cover the current
+# working tree, not unseen branches or archived artifacts.
 # On rare collision against an existing on-disk file, the script extends to 6
 # then 8 hex chars before giving up.
 
@@ -41,7 +41,8 @@ for bytes in 2 3 4; do
         printf "%s-%s\n" "$PREFIX" "$ID"
         exit 0
       fi
-    elif [ ! -e "$DIR/${PREFIX}-${ID}.yaml" ]; then
+    elif [ ! -e "$DIR/${PREFIX}-${ID}.yaml" ] &&
+         ! compgen -G "$DIR/${PREFIX}-${ID}-*.yaml" > /dev/null; then
       printf "%s-%s\n" "$PREFIX" "$ID"
       exit 0
     fi

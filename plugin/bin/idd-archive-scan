@@ -40,6 +40,7 @@ for dir in $ARTIFACT_DIRS; do
     printf "%s %s\n" "$(type_of "$f")" "$f"
   done
 done
+
 # Explorations are directories, not flat *.yaml files: one level deeper,
 # and the artifact file is map.md rather than a top-level yaml.
 for f in "$EXPLORATION_DIR"/EXPL-*/map.md; do
@@ -70,4 +71,14 @@ for dir in $ARTIFACT_DIRS $REVIEW_DIR; do
     ids="$(grep -hoE "$ID_PATTERN" "$f" | sort -u | tr '\n' ' ' | sed 's/ $//' || true)"
     printf "%s: %s\n" "$f" "$ids"
   done
+done
+
+# Include map and decision references, including nested tickets. Keep the
+# inventory/status sections map-only and preserve whitespace inside paths.
+for exploration_dir in "$EXPLORATION_DIR"/EXPL-*; do
+  [ -d "$exploration_dir" ] || continue
+  while IFS= read -r f; do
+    ids="$(grep -hoE "$ID_PATTERN" "$f" | sort -u | tr '\n' ' ' | sed 's/ $//' || true)"
+    printf "%s: %s\n" "$f" "$ids"
+  done < <(find "$exploration_dir" -type f -name '*.md' -print | LC_ALL=C sort)
 done

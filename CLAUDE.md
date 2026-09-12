@@ -22,7 +22,9 @@ Assignments are explicit (not `inherit`) so a user running Opus in their main se
 
 ## Resources and configuration
 
-- `plugin/skills/idd-orchestration/` contains the router and six bundled references.
+- Edit the router in `plugin/workflows/idd-orchestration.md` and the six references
+  in `plugin/references/`; `npm run build:skills` assembles their exact copies into
+  `plugin/skills/idd-orchestration/`. The catalog records these mappings.
   Installed agents use these resources through `CLAUDE_PLUGIN_ROOT`; they cannot
   assume this repository's `docs/` is present in the consuming project.
 - `plugin/bin/idd-next-id` generates artifact IDs; `plugin/bin/idd-archive-scan`
@@ -30,6 +32,10 @@ Assignments are explicit (not `inherit`) so a user running Opus in their main se
 - `plugin/hooks/hooks.json` currently defines no hooks.
 - `plugin/.claude-plugin/plugin.json` owns plugin identity, version, and
   `userConfig` entries `default_product_id` and `team_name`.
+
+Run `npm run check` and `npm test` for contributor validation. The shared guide
+describes setup and the isolated `npm run test:install` probe; it does not establish
+that real IDD workflows are portable yet.
 
 ## Review and execution
 

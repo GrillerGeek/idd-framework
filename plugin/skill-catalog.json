@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "bundles": [
+    {
+      "directory": "idd-orchestration",
+      "profile": "legacy-claude",
+      "files": [
+        {
+          "source": "plugin/workflows/idd-orchestration.md",
+          "destination": "SKILL.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/expectation-template.md",
+          "destination": "references/expectation-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/exploration-template.md",
+          "destination": "references/exploration-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/intention-template.md",
+          "destination": "references/intention-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/ledger-reference.md",
+          "destination": "references/ledger-reference.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/product-template.md",
+          "destination": "references/product-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/spec-reference.md",
+          "destination": "references/spec-reference.md",
+          "executable": false
+        }
+      ]
+    }
+  ],
+  "stages": [
+    {
+      "legacyCommand": "archive",
+      "skill": "idd-archive",
+      "state": "planned"
+    },
+    {
+      "legacyCommand": "chart",
+      "skill": "idd-chart",
+      "state": "planned"
+    },
+    {
+      "legacyCommand": "deep-review",
+      "skill": "idd-deep-review",
+      "state": "planned"
+    },
+    {
+      "legacyCommand": "define-expectations",
+      "skill": "idd-define-expectations",
+      "state": "planned"
+    },
+    {
+      "legacyCommand": "define-intentions",
+      "skill": "idd-define-intentions",
+      "state": "planned"
+    },
+    {
+      "legacyCommand": "define-outcomes",
+      "skill": "idd-define-outcomes",
+      "state": "planned"
+    },
+    {
+      "legacyCommand": "forge",
+      "skill": "idd-forge",
+      "state": "planned"
+    },
+    {
+      "legacyCommand": "gap-check",
+      "skill": "idd-gap-check",
+      "state": "planned"
+    },
+    {
+      "legacyCommand": "implement-spec",
+      "skill": "idd-implement-spec",
+      "state": "planned"
+    },
+    {
+      "legacyCommand": "interview",
+      "skill": "idd-interview",
+      "state": "planned"
+    },
+    {
+      "legacyCommand": "quick-spec",
+      "skill": "idd-quick-spec",
+      "state": "planned"
+    },
+    {
+      "legacyCommand": "resolve",
+      "skill": "idd-resolve",
+      "state": "planned"
+    },
+    {
+      "legacyCommand": "review-spec",
+      "skill": "idd-review-spec",
+      "state": "planned"
+    },
+    {
+      "legacyCommand": "tech-review",
+      "skill": "idd-tech-review",
+      "state": "planned"
+    },
+    {
+      "legacyCommand": "write-spec",
+      "skill": "idd-write-spec",
+      "state": "planned"
+    }
+  ]
+}

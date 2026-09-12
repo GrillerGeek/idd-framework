@@ -205,6 +205,21 @@ The framework defines six roles. Each maps to a plugin agent:
 - **Reviewer memory** — Tech lead and spec reviewer agents accumulate project-specific learnings across sessions
 - **Agent Teams support** — `/idd-framework:deep-review` uses parallel Agent Teams when the experimental flag is enabled, with graceful fallback to sequential review
 
+## Developing the plugin
+
+The maintained router is `workflows/idd-orchestration.md`; its six maintained
+references are in `references/`. From the repository root, run `npm ci` with
+Node.js 22.20.0+, edit those sources, and run `npm run build:skills` to refresh the
+committed copies in `skills/idd-orchestration/`. `skill-catalog.json` defines each
+mapping and lists the 15 pending portable stages.
+
+Run `npm run check` and `npm test` before submitting changes. The optional
+`npm run test:install` verifies a synthetic complete skill in disposable Codex and
+Claude installations; it does not certify real IDD host workflows. The production
+router remains explicitly Claude-only until the portable pilot is complete.
+See the [contributor guide](../docs/contributing-agents.md#setup-assembly-and-validation)
+for check behavior, fixture profiles and CI.
+
 ## License
 
 Apache 2.0 -- see [LICENSE](LICENSE).
