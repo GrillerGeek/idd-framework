@@ -4,7 +4,7 @@ Date: 2026-09-12
 
 Baseline: `bf0ec98` on `main`; Claude plugin version `1.6.0`
 
-Status: milestone 1 peer-approved and gap-check passed; ready for implementation
+Status: milestone 1 implemented and verified; SPEC-5113 is in review; packaging milestones pending
 
 Product: `PROD-f67b` — Intent-Driven Development Framework
 
@@ -21,7 +21,10 @@ The user accepted the shared-skills approach, requested this plan, and authorize
 - Authoring checks pass: valid YAML without duplicate keys, consistent links, minimum edge cases, valid code references, and completeness items 1–10.
 - Human peer review approved by Jason Robey on 2026-09-12, including the resolved-coverage policy; recorded in the Spec and peer-review handoff.
 - Fresh independent gap-check: `docs/reviews/SPEC-5113-gap-check.md` — zero unresolved blockers and warnings. All 21 accepted omissions remain visible with reviewer-confirmed resolutions.
-- `SPEC-5113` is ready. Implementation starts after the command-layer gate and Boundary acknowledgment.
+- Milestone 1 implemented in `2f9c1d8`; `SPEC-5113` progressed ready → in-progress → review through orchestration.
+- Verification passed: 63 checks covering inventories, introduced links/anchors, version alignment, protected files, frontmatter, allowlist and Bash syntax. Independent implementation review found one adoption-path inconsistency, now fixed and re-reviewed with no remaining findings.
+- Execution evidence: [SPEC-5113 execution report](../reviews/SPEC-5113-20260912T130127Z-execution.md). Human implementation review and later validation remain pending; the earlier approval records Spec peer review.
+- Packaging, portable stage workflows, native Codex installation and complete npx skills distribution remain future work. No remote changes were pushed.
 
 ## Baseline evidence
 
@@ -89,14 +92,14 @@ Use stable `idd-<stage>` skill names. Preserve all 15 old `/idd-framework:<stage
 
 Primary files: `AGENTS.md`, `CLAUDE.md`, `CONTRIBUTING.md`, `.github/copilot-instructions.md`, `.cursor/rules/idd.mdc`, relevant `docs/` references, templates, and affected review/implementation procedures.
 
-- [ ] Move shared repository structure, editing conventions, licensing, versioning, and verification guidance out of Claude-only instructions.
-- [ ] Clearly distinguish maintaining IDD from running IDD in a consuming project. Assessments and planning do not automatically invoke a gated implementation workflow.
-- [ ] Define the canonical lifecycle and mutation owner for every transition. Technical review records its outcome without prematurely entering post-implementation `review`; readiness still requires the completeness checklist and human peer review.
-- [ ] Use `passed`, `blocked`, and `warnings` consistently for new gap-check annotations. Document historical variants without silently rewriting completed artifacts.
-- [ ] Recommended first-release policy: preserve the strict `ready` plus `gap_check.status: passed` implementation gate. Resolve warnings and rerun gap-check before execution. The approved policy counts only unresolved findings: author-accepted coverage omissions with reviewer-confirmed reasons remain visible as resolved; substantive warnings cannot be waived by acknowledgment.
-- [ ] Specify behavior for missing IDs, missing reports, repeat gap-checks, precondition failure, interruption, and a blocked implementation. Update one annotation rather than appending duplicate YAML keys. Do not advance an incomplete build to `review` merely because it emitted a report.
-- [ ] Resolve boundary acknowledgment ordering: restate Boundaries before initialization or status mutations associated with execution, and preserve the implementer's own acknowledgment.
-- [ ] Identify authoritative schema/reference sources and make their copies verifiable. Add exploration and archival to shared discovery guidance; correct published version and command inventories.
+- [x] Move shared repository structure, editing conventions, licensing, versioning, and verification guidance out of Claude-only instructions.
+- [x] Clearly distinguish maintaining IDD from running IDD in a consuming project. Assessments and planning do not automatically invoke a gated implementation workflow.
+- [x] Define the canonical lifecycle and mutation owner for every transition. Technical review records its outcome without prematurely entering post-implementation `review`; readiness still requires the completeness checklist and human peer review.
+- [x] Use `passed`, `blocked`, and `warnings` consistently for new gap-check annotations. Document historical variants without silently rewriting completed artifacts.
+- [x] Recommended first-release policy: preserve the strict `ready` plus `gap_check.status: passed` implementation gate. Resolve warnings and rerun gap-check before execution. The approved policy counts only unresolved findings: author-accepted coverage omissions with reviewer-confirmed reasons remain visible as resolved; substantive warnings cannot be waived by acknowledgment.
+- [x] Specify behavior for missing IDs, missing reports, repeat gap-checks, precondition failure, interruption, and a blocked implementation. Update one annotation rather than appending duplicate YAML keys. Do not advance an incomplete build to `review` merely because it emitted a report.
+- [x] Resolve boundary acknowledgment ordering: restate Boundaries before initialization or status mutations associated with execution, and preserve the implementer's own acknowledgment.
+- [x] Identify authoritative schema/reference sources and make their copies verifiable. Add exploration and archival to shared discovery guidance; correct published version and command inventories.
 
 Exit criterion: one reviewed lifecycle contract that can be followed without choosing between contradictory instructions. Human peer review is recorded as a human fact, never inferred from an automated check.
 
