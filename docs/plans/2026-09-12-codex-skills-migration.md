@@ -4,7 +4,7 @@ Date: 2026-09-12
 
 Baseline: `bf0ec98` on `main`; Claude plugin version `1.6.0`
 
-Status: milestones 1–2 implemented and verified; SPEC-5113 and SPEC-bffd are in review; milestone 3 pilot is next
+Status: milestones 1–2 implemented and verified; milestone 3 sources and evaluator implemented with cross-host acceptance still open; next authoring packet drafted
 
 Product: `PROD-f67b` — Intent-Driven Development Framework
 
@@ -30,7 +30,11 @@ The user accepted the shared-skills approach, requested this plan, and authorize
 - Milestone 2 implemented in `ea0c878`; orchestration progressed SPEC-bffd ready → in-progress → review. The assembler preserves all seven existing Claude bundle files exactly and reserves 15 planned stages without emitting placeholder skills.
 - Verification passed on Node 22.20.0 and 25.8.1: 67 tests, deterministic assembly, structural checks and all four synthetic installer combinations (Codex/Claude, symlink/copy). A minimum-version checkout with spaces in its path passed; protected history and personal skill directories remained unchanged. Independent review findings were corrected and re-reviewed with no remaining actionable findings.
 - Execution evidence: [SPEC-bffd execution report](../reviews/SPEC-bffd-20260912T152817Z-execution.md). Human implementation review and hosted Linux/macOS CI remain pending. No remote changes were pushed.
-- Next: author the milestone 3 pilot contract for interview, gap-check and implementation. Real portable stage workflows, native Codex installation and complete npx skills distribution remain future work.
+- Milestone 3 is authored as SPEC-b2e3 under the explicitly documented unattended-session authorization. Its independent gap-check passed; the three portable pilot sources, complete bundles, six Claude adapters and isolated host evaluator are implemented in 86e096a. Actual human peer review remains pending; the session exception does not alter shipped rules.
+- Pilot verification: 88 offline tests, sixteen installation combinations, unchanged legacy router and all 29 complete command/agent frontmatter blocks. Codex has successful observations for all six scenarios. Claude has five successful scenario observations, with clean review passing under a process-local Default output style. Implementation still fails the visible acknowledgment requirement despite repeated focused evaluations. Do not claim pilot exit from installation or output-only passes.
+- Evidence: [pilot execution report](../reviews/SPEC-b2e3-20260912T182400Z-execution.md), [host evaluation](../reviews/SPEC-b2e3-host-evaluation.md) and [unattended catch-up report](../reviews/2026-09-12-unattended-migration-report.md). The host report is authoritative for final run outcomes and remaining blockers.
+- The five-stage authoring follow-up is drafted as [SPEC-8406](../specs/SPEC-8406.yaml), with INT-53c1 and four Expectations, committed separately in 282d67a. The [authoring assessment](2026-09-12-portable-authoring-contract.md) records confirmation, context, lineage, linking and partial-save decisions. Exact scenario oracles are now drafted; independent gap-check remains before readiness and bulk implementation still depends on pilot acceptance.
+- Native Codex installation, the remaining workflow catalog and full standalone router/distribution remain future work.
 
 ## Baseline evidence
 
@@ -127,13 +131,15 @@ Exit criterion: assembly is deterministic, a second build produces no diff, and 
 
 Workflows: `interview`, `gap-check`, and `implement-spec`.
 
-- [ ] Extract reusable instructions from both command and role-agent files. Preserve orchestration steps currently implemented in command prose; moving only agent bodies would lose gates and status changes.
-- [ ] Make interview create a Product from stakeholder input with a bundled ID helper and template.
-- [ ] Make gap-check handle completeness failure, single-Spec and portfolio review, mandatory Coverage, and report-only reviewer behavior. The orchestrator alone writes annotations.
-- [ ] Make implementation verify prerequisites, acknowledge boundaries, implement, self-verify, and emit `spec_gaps_encountered`; preserve blocker/minor distinctions and mutation ownership.
-- [ ] Introduce a fixture project with a small executable deliverable and both clean and flawed Specs. Never exercise implementation or archival against this repository's historical artifacts.
-- [ ] Install each pilot skill separately through `npx skills` into fresh temporary projects for both hosts. Verify the installed files without access to the original source paths.
-- [ ] Run representative fresh-session scenarios in Codex and Claude Code and record tool versions, invocation, outputs, and observed failures.
+- [x] Extract reusable instructions from both command and role-agent files. Preserve orchestration steps currently implemented in command prose; moving only agent bodies would lose gates and status changes.
+- [x] Make interview create a Product from stakeholder input with a bundled ID helper and template.
+- [x] Make gap-check handle completeness failure, single-Spec and portfolio review, mandatory Coverage, and report-only reviewer behavior. The orchestrator alone writes annotations.
+- [x] Make implementation verify prerequisites, acknowledge boundaries, implement, self-verify, and emit `spec_gaps_encountered`; preserve blocker/minor distinctions and mutation ownership.
+- [x] Introduce a fixture project with a small executable deliverable and both clean and flawed Specs. Never exercise implementation or archival against this repository's historical artifacts.
+- [x] Install each pilot skill separately through `npx skills` into fresh temporary projects for both hosts. Verify the installed files without access to the original source paths.
+- [x] Run representative fresh-session scenarios in Codex and Claude Code and record tool versions, invocation, outputs, and observed failures.
+
+Pilot sources and representative evaluations are completed; the exit criterion remains open while the host report records failed/blocked cases. A checked activity above does not certify successful behavior.
 
 Exit criterion: all three workflows operate from installed copies in both hosts, with evidence that invalid Specs are refused and the reviewer does not modify Spec content. File installation alone is insufficient.
 
