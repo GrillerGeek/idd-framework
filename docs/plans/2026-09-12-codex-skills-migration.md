@@ -4,7 +4,7 @@ Date: 2026-09-12
 
 Baseline: `bf0ec98` on `main`; Claude plugin version `1.6.0`
 
-Status: milestone 1 implemented and verified; SPEC-5113 is in review; milestone 2 Spec drafted for peer review
+Status: milestones 1–2 implemented and verified; SPEC-5113 and SPEC-bffd are in review; milestone 3 pilot is next
 
 Product: `PROD-f67b` — Intent-Driven Development Framework
 
@@ -26,7 +26,11 @@ The user accepted the shared-skills approach, requested this plan, and authorize
 - Execution evidence: [SPEC-5113 execution report](../reviews/SPEC-5113-20260912T130127Z-execution.md). Human implementation review and later validation remain pending; the earlier approval records Spec peer review.
 - Milestone 2 authored as [SPEC-bffd](../specs/SPEC-bffd.yaml), linked to INT-a0e4 and four Expectations; [peer-review handoff](../reviews/SPEC-bffd-peer-review.md) includes the concrete assembly, profile and helper decisions.
 - Isolated assessment reproduced descriptive-filename ID collisions and missing exploration entries in the archive mentions index. The new Spec owns regression tests and targeted fixes.
-- Milestone 2 gap-check passed with zero unresolved findings; all 33 accepted coverage entries remain visible. SPEC-bffd remains draft pending its own human peer review. Portable stage workflows, native Codex installation and complete npx skills distribution remain future work. No remote changes were pushed.
+- Milestone 2 gap-check passed with zero unresolved findings; all 33 accepted coverage entries remain visible. Jason Robey approved the concrete Spec on 2026-09-12, recorded in `0ceab58`.
+- Milestone 2 implemented in `ea0c878`; orchestration progressed SPEC-bffd ready → in-progress → review. The assembler preserves all seven existing Claude bundle files exactly and reserves 15 planned stages without emitting placeholder skills.
+- Verification passed on Node 22.20.0 and 25.8.1: 67 tests, deterministic assembly, structural checks and all four synthetic installer combinations (Codex/Claude, symlink/copy). A minimum-version checkout with spaces in its path passed; protected history and personal skill directories remained unchanged. Independent review findings were corrected and re-reviewed with no remaining actionable findings.
+- Execution evidence: [SPEC-bffd execution report](../reviews/SPEC-bffd-20260912T152817Z-execution.md). Human implementation review and hosted Linux/macOS CI remain pending. No remote changes were pushed.
+- Next: author the milestone 3 pilot contract for interview, gap-check and implementation. Real portable stage workflows, native Codex installation and complete npx skills distribution remain future work.
 
 ## Baseline evidence
 
@@ -109,13 +113,13 @@ Exit criterion: one reviewed lifecycle contract that can be followed without cho
 
 Primary files: new assembly/check scripts, minimal development package metadata and lockfile, `tests/`, canonical references, and CI configuration.
 
-- [ ] Use Node.js for assembly and tests, with the built-in test runner and a pinned YAML parser for structured checks. This is development tooling, not publication of IDD as an npm package. Declare the minimum runtime after checking installer and tooling requirements.
-- [ ] Introduce a catalog mapping each skill to its canonical procedure, required resources, and legacy command alias. Milestone 2 establishes deterministic resource assembly with the current router as an explicit legacy bundle and stages marked planned. Thin wrappers are generated when each real stage is ported in milestones 3–4, avoiding nonfunctional placeholder skills.
-- [ ] Provide `npm run build:skills`, `npm run check`, and `npm test`; check mode must detect stale generated output without modifying it.
-- [ ] Check skill metadata, manifest paths, resource containment, executable permissions, standalone resource completeness, and accidental Claude-only instructions in shared procedures.
-- [ ] Validate YAML duplicate keys, linked/detail Expectation agreement, required blocks, status values, and minimum edge cases using separate profiles for templates, live artifacts, and intentionally flawed fixtures.
-- [ ] Add meaningful helper tests: empty project, malformed inputs, paths with spaces, ID collisions including filename suffixes, exploration directories, and archive inventory references. Scope helper fixes to failures demonstrated by these tests.
-- [ ] Add CI using a pinned installer version for reproducible packaging tests. Reuse the same contributor check commands in CI.
+- [x] Use Node.js for assembly and tests, with the built-in test runner and a pinned YAML parser for structured checks. This is development tooling, not publication of IDD as an npm package. Declare the minimum runtime after checking installer and tooling requirements.
+- [x] Introduce a catalog mapping each skill to its canonical procedure, required resources, and legacy command alias. Milestone 2 establishes deterministic resource assembly with the current router as an explicit legacy bundle and stages marked planned. Thin wrappers are generated when each real stage is ported in milestones 3–4, avoiding nonfunctional placeholder skills.
+- [x] Provide `npm run build:skills`, `npm run check`, and `npm test`; check mode must detect stale generated output without modifying it.
+- [x] Check skill metadata, manifest paths, resource containment, executable permissions, standalone resource completeness, and accidental Claude-only instructions in shared procedures.
+- [x] Validate YAML duplicate keys, linked/detail Expectation agreement, required blocks, status values, and minimum edge cases using separate profiles for templates, live artifacts, and intentionally flawed fixtures.
+- [x] Add meaningful helper tests: empty project, malformed inputs, paths with spaces, ID collisions including filename suffixes, exploration directories, and archive inventory references. Scope helper fixes to failures demonstrated by these tests.
+- [x] Add CI using a pinned installer version for reproducible packaging tests. Reuse the same contributor check commands in CI.
 
 Exit criterion: assembly is deterministic, a second build produces no diff, and the checks distinguish valid artifacts from intentionally invalid fixtures without altering history.
 
