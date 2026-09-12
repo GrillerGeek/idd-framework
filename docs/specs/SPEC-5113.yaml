@@ -3,7 +3,7 @@ spec:
   product: "PROD-f67b"
   intentions: ["INT-f2e6"]
   expectations: ["EXP-7290", "EXP-97c0", "EXP-37d5", "EXP-4720"]
-  status: "draft"
+  status: "ready"
 
   context:
     stack: >
@@ -99,9 +99,14 @@ spec:
       of Expectations supplies evidence before orchestration moves validating to done.
     warnings: >
       Preserve the existing strict executable gate: ready plus passed with zero
-      blockers and zero warnings. A warning-only report remains warnings, even if
-      acknowledged by a human; this release has no accepted-warning execution path.
-      Resolve warnings in the Spec and rerun gap-check. Historical pass/warned values
+      unresolved blockers and zero unresolved warnings. An author-recorded
+      accept-omission with a reason, independently confirmed by the reviewer to
+      have no unmet validation dependency, resolves that coverage finding. Keep
+      it visible in Coverage with its disposition and resolution; exclude resolved
+      findings from gate counts. Undispositioned omissions remain warnings and
+      unmet validation dependencies remain blockers. Merely acknowledging a
+      substantive content warning does not resolve it or authorize execution.
+      Resolve outstanding warnings in the Spec and rerun gap-check. Historical pass/warned values
       remain readable in historical documents but never grant execution permission.
       Technical-review warnings must be addressed or carried into gap-check for
       classification; they are not themselves a lifecycle or gap-check result.
@@ -241,9 +246,15 @@ spec:
       - "Confirm contributor instructions preserve autonomy for routine choices, preserve the execution gate, and describe only current capabilities."
       - "Confirm independently authored plugin prose and shared documentation preserve their separate licenses and historical examples remain recognizable."
 
+  peer_review:
+    reviewer: "Jason Robey"
+    date: "2026-09-12"
+    outcome: "approved"
+    evidence: "User replied 'I approve' to the concrete SPEC-5113 peer-review handoff and proposed resolved-coverage policy."
+
   gap_check:
-    status: "warnings"
+    status: "passed"
     blockers: 0
-    warnings: 21
+    warnings: 0
     report: "docs/reviews/SPEC-5113-gap-check.md"
     date: "2026-09-12"

@@ -4,7 +4,7 @@ Date: 2026-09-12
 
 Baseline: `bf0ec98` on `main`; Claude plugin version `1.6.0`
 
-Status: accepted direction; milestone 1 authoring underway, execution pending Spec review
+Status: milestone 1 peer-approved and gap-check passed; ready for implementation
 
 Product: `PROD-f67b` — Intent-Driven Development Framework
 
@@ -19,9 +19,9 @@ The user accepted the shared-skills approach, requested this plan, and authorize
 - Branch created: `codex/portable-skills`.
 - Milestone 1 drafted as `SPEC-5113`, linked to `INT-f2e6` and four Expectations (`EXP-7290`, `EXP-97c0`, `EXP-37d5`, `EXP-4720`).
 - Authoring checks pass: valid YAML without duplicate keys, consistent links, minimum edge cases, valid code references, and completeness items 1–10.
-- Gap-check report: `docs/reviews/SPEC-5113-gap-check.md` — zero blockers, 21 coverage warnings after revision. The substantive failure-handling gap is fixed and two actionable omissions are now owned.
-- Remaining coverage entries have explicit author decisions to preserve history or leave unchanged adjacent workflows. Current rules still count those dispositioned entries as warnings; the strict passed-only gate therefore remains unsatisfied. Resolve whether documented, intentional omissions count as resolved coverage findings before executing this migration; do not silently suppress them.
-- Human peer review is pending; implementation has not begun.
+- Human peer review approved by Jason Robey on 2026-09-12, including the resolved-coverage policy; recorded in the Spec and peer-review handoff.
+- Fresh independent gap-check: `docs/reviews/SPEC-5113-gap-check.md` — zero unresolved blockers and warnings. All 21 accepted omissions remain visible with reviewer-confirmed resolutions.
+- `SPEC-5113` is ready. Implementation starts after the command-layer gate and Boundary acknowledgment.
 
 ## Baseline evidence
 
@@ -93,7 +93,7 @@ Primary files: `AGENTS.md`, `CLAUDE.md`, `CONTRIBUTING.md`, `.github/copilot-ins
 - [ ] Clearly distinguish maintaining IDD from running IDD in a consuming project. Assessments and planning do not automatically invoke a gated implementation workflow.
 - [ ] Define the canonical lifecycle and mutation owner for every transition. Technical review records its outcome without prematurely entering post-implementation `review`; readiness still requires the completeness checklist and human peer review.
 - [ ] Use `passed`, `blocked`, and `warnings` consistently for new gap-check annotations. Document historical variants without silently rewriting completed artifacts.
-- [ ] Recommended first-release policy: preserve the strict `ready` plus `gap_check.status: passed` implementation gate. Resolve warnings and rerun gap-check before execution. Treat an accepted-warning execution path as a separate policy enhancement unless explicitly included during Spec review.
+- [ ] Recommended first-release policy: preserve the strict `ready` plus `gap_check.status: passed` implementation gate. Resolve warnings and rerun gap-check before execution. The approved policy counts only unresolved findings: author-accepted coverage omissions with reviewer-confirmed reasons remain visible as resolved; substantive warnings cannot be waived by acknowledgment.
 - [ ] Specify behavior for missing IDs, missing reports, repeat gap-checks, precondition failure, interruption, and a blocked implementation. Update one annotation rather than appending duplicate YAML keys. Do not advance an incomplete build to `review` merely because it emitted a report.
 - [ ] Resolve boundary acknowledgment ordering: restate Boundaries before initialization or status mutations associated with execution, and preserve the implementer's own acknowledgment.
 - [ ] Identify authoritative schema/reference sources and make their copies verifiable. Add exploration and archival to shared discovery guidance; correct published version and command inventories.

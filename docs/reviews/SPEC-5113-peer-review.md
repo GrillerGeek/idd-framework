@@ -1,6 +1,8 @@
 # SPEC-5113: peer-review handoff
 
-Human peer review: **pending**. No implementation files have been changed.
+Human peer review: **approved by Jason Robey on 2026-09-12**. The user replied
+“I approve” to this handoff and the proposed resolved-coverage policy. No
+implementation files had been changed when approval was recorded.
 
 Branch: `codex/portable-skills`
 
@@ -23,7 +25,8 @@ Portable skills and new installation formats follow in later milestones.
    `review` lifecycle state. Human peer review remains required before `ready`.
 3. **Strict gate:** preserve `ready` plus `gap_check.status: passed`, with zero
    blockers and warnings. Merely accepting a warning does not authorize execution
-   under this milestone's proposed contract.
+   under this milestone's approved contract. Counts represent unresolved findings;
+   independently confirmed accepted coverage omissions remain visible as resolved.
 4. **Failed reruns:** invalidate the old gate before review starts. An interrupted
    or malformed result leaves a blocked annotation with no authoritative report;
    an older passing report cannot authorize the next build. This adds an explicit
@@ -47,9 +50,8 @@ The revised Spec explicitly blocks old authorization before dispatch. The review
 also identified the PR template and adoption guide as missing deliverables; both
 are now included. Other coverage candidates have explicit author scoping decisions
 in the Spec. The [current gap-check](SPEC-5113-gap-check.md) records the latest
-independent verdict and any remaining warnings: **zero blockers, 21 coverage
-warnings**. The reviewer found the author scoping decisions sound, but current
-report rules still count the omitted files as warnings.
+independent verdict and any remaining warnings: **zero unresolved blockers and warnings** after approval and a fresh review. All
+21 accepted omissions remain visible as independently confirmed resolved findings.
 
 ## Coverage policy decision
 
@@ -63,9 +65,8 @@ Spec Author should remain visible in Coverage as a resolved finding. Gate counts
 should reflect unresolved findings; undispositioned omissions remain Warnings,
 and a dependency needed for validation remains a Blocker until resolved. This
 does not authorize ignoring substantive warnings or overwriting the initial
-review history. The proposed change has **not** been applied to the contract;
-it needs a recorded decision and a fresh gap-check before implementation.
+review history. The user approved this change on 2026-09-12. It is now applied to
+the Spec contract; a fresh independent gap-check is required before implementation.
 
-Human review should confirm that these contract choices and the Spec's file
-allowlist match the intended first milestone. Keep the Spec in `draft` until this
-review is recorded; implementation additionally requires a passed gap-check.
+The approval confirms the contract choices and file allowlist for milestone 1.
+This records Spec peer review, not approval of the as-yet-unbuilt implementation.

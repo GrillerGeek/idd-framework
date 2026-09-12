@@ -11,7 +11,11 @@ expectation:
     Technical and deep review preserve the input lifecycle status, annotate their
     result, and recommend gap-check before execution. Gap-check preserves lifecycle
     status. New gap-check annotations use passed for zero blockers and zero warnings,
-    warnings for zero blockers with warnings, and blocked for any blockers. Only
+    warnings for zero blockers with warnings, and blocked for any blockers. Counts
+    cover unresolved findings. An author-recorded accept-omission with a reason,
+    independently confirmed to have no unmet validation dependency, remains visible
+    as resolved coverage and is excluded from counts; substantive warnings cannot
+    be waived by acknowledgment. Only
     ready plus passed is executable. Historical pass/warned annotations remain
     readable history but require a new gap-check for execution.
   edge_cases:
