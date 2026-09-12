@@ -46,7 +46,11 @@ export function planAssembly(root, catalog = readJSON(root, 'plugin/skill-catalo
   const aliases = new Set(), names = new Set();
   for (const stage of catalog.stages) {
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(stage.legacyCommand ?? '') || stage.skill !== `idd-${stage.legacyCommand}`
-        || stage.state !== 'planned' || aliases.has(stage.legacyCommand) || names.has(stage.skill)) fail('plugin/skill-catalog.json', 'STAGE', 'invalid, duplicate or non-planned stage');
+        || !['planned', 'pilot'].includes(stage.state) || aliases.has(stage.legacyCommand) || names.has(stage.skill)) fail('plugin/skill-catalog.json', 'STAGE', 'invalid or duplicate stage');
+    const bundle = catalog.bundles.find(b => b.directory === stage.skill);
+    if ((stage.state === 'planned' && bundle) || (stage.state === 'pilot' && bundle?.profile !== 'portable')) {
+      fail('plugin/skill-catalog.json', 'STAGE_BUNDLE', 'planned stages have no bundle; pilot stages require a matching portable bundle');
+    }
     aliases.add(stage.legacyCommand); names.add(stage.skill);
   }
   return plan.sort((a,b) => a.relative < b.relative ? -1 : a.relative > b.relative ? 1 : 0);

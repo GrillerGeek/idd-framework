@@ -24,8 +24,10 @@ Codex can maintain this checkout through AGENTS.md and this guide. The currently
 packaged workflow integration is the [Claude Code plugin](../plugin/README.md).
 Native Codex packaging and complete standalone `npx skills` installation are
 planned in the [migration plan](plans/2026-09-12-codex-skills-migration.md).
-The commands below validate packaging and structure. Real portable IDD workflows
-and native Codex installation remain pending.
+The three standalone pilot skills are `idd-interview`, `idd-gap-check` and
+`idd-implement-spec`. The other twelve stages and native Codex distribution remain
+pending. See the [pilot instructions](../plugin/README.md#portable-workflow-pilot)
+for local installation and recorded host-evaluation limits.
 
 ## Source ownership and discovery
 
@@ -38,10 +40,10 @@ and native Codex installation remain pending.
 | `CLAUDE.md`, `.github/copilot-instructions.md`, `.cursor/rules/idd.mdc` | Host entry points; Claude-specific dispatch details remain in CLAUDE.md |
 | `templates/` | Commented YAML starters for people |
 | `examples/` | Worked hierarchies; historical cases remain historical evidence |
-| `plugin/commands/`, `plugin/agents/` | Claude orchestration and role procedures; frontmatter owns names and models |
-| `plugin/workflows/`, `plugin/references/` | Canonical plugin router and reference sources; edit these |
+| `plugin/commands/`, `plugin/agents/` | Claude entry points; pilot bodies are thin adapters, remaining stages retain their procedures; frontmatter owns names and models |
+| `plugin/workflows/`, `plugin/references/` | Canonical router, portable pilot procedures and reference sources; edit these |
 | `plugin/skill-catalog.json` | Explicit source/destination mappings and pending stage inventory |
-| `plugin/skills/idd-orchestration/` | Committed generated output available to installed agents; rebuild rather than edit |
+| `plugin/skills/` | Committed generated legacy router and standalone pilot bundles; rebuild rather than edit |
 | `scripts/`, `tests/`, `.github/workflows/validate.yml` | Assembly, validation, regression tests and CI |
 | `plugin/bin/`, `plugin/scripts/` | ID generation, archive inventory, and directory initialization helpers |
 | `plugin/.claude-plugin/plugin.json`, `plugin/hooks/hooks.json` | Plugin identity/configuration and currently empty hooks |
@@ -108,14 +110,15 @@ npm run test:install
 - `test` runs offline behavior tests after installation, using temporary projects
   with spaces in their paths. It covers rejected package inputs, preserved unknown
   files, artifact errors, helper collisions/exhaustion and exploration references.
-- `test:install` uses pinned `skills@1.5.25` to install only a synthetic complete
-  skill into disposable Codex/Claude projects in symlink and copy modes. It verifies
-  resources and executable helper behavior, including after removing the temporary
-  copy source. It uses no global flags, disables telemetry/audit calls, and cleans
-  only its own temporary directories. Failures/timeouts fail the command.
+- `test:install` uses pinned `skills@1.5.25` to install the synthetic fixture and
+  each portable pilot skill individually into disposable Codex/Claude projects in
+  symlink and copy modes. It verifies every resource byte and executable mode,
+  helper behavior and copy-source removal. It uses no global flags, disables
+  telemetry/audit calls and cleans only its temporary directories. Failures fail
+  the command; it does not invoke models.
 
 CI runs `npm ci`, `check` and `test` on Linux/macOS at the minimum Node version,
-plus a separate synthetic installation job. A local pass does not establish hosted
+plus a separate isolated package-installation job. A local pass does not establish hosted
 CI success; inspect the actual run after pushing. Dependency acquisition requires
 network access; normal checks and tests are offline after `npm ci`.
 
@@ -128,10 +131,45 @@ linked/detail IDs. Archived identities resolve through the ledger when present.
 Checks never rewrite artifacts, infer human peer review, detect every semantic
 gap, or grant execution permission.
 
-The current orchestration skill is an explicit `legacy-claude` bundle. Portable
-validation is exercised on a synthetic fixture; the catalog's 15 stage entries
-remain planned and emit no placeholder skills. Installation evidence does not
-prove real IDD workflow behavior in either host.
+The orchestration skill remains an explicit `legacy-claude` bundle with unchanged
+resources. Three catalog stages are `pilot` and require matching portable bundles;
+the other twelve remain `planned` and must not emit placeholder skills. Pilot
+references are maintained in `plugin/references/pilot/`; retain parity with the
+legacy contract when future changes affect both. Installation evidence alone
+does not prove real workflow behavior.
+
+Optional fresh-session evaluation uses existing Codex/Claude authentication and
+model settings, and may consume account usage. It is never run by `npm test` or CI:
+
+```bash
+node scripts/evaluate-pilot.mjs --host codex --scenario gap-flawed --output /tmp/idd-pilot-evidence
+node scripts/evaluate-pilot.mjs --host claude --scenario implement-refuse --output /tmp/idd-pilot-evidence
+```
+
+Scenarios: `interview`, `gap-clean`, `gap-flawed`, `gap-incomplete`,
+`implement-clean`, `implement-refuse`. Each creates a fresh temporary Git project,
+installs one skill in copy mode and checks output plus permitted mutations. Host
+runs are bounded to ten minutes; generated code/test verification uses separate
+ten-second subprocess limits. Permission, authentication or service failures
+remain blocked evidence; scenario assertion failures remain failed. No global
+installation or model override is performed. Claude hooks and MCP connections
+are disabled for evaluation. Host settings and installed personal skills are
+not edited. Claude subagent text is forwarded into the local transcript.
+
+To diagnose a custom output style that suppresses required workflow messages, add
+`--claude-output-style default` to a Claude evaluation invocation. This overrides
+only that process's output style, preserves the configured model and does not
+change a settings file. The default remains `configured`; evidence explicitly
+records which mode was used. A pass in the isolated mode does not certify the
+custom style.
+
+With `--output`, each invocation creates a unique evidence subdirectory containing
+logs, its result, the pre-run baseline and the final fixture project. Treat those logs as local debugging
+material; they can include incidental personal environment metadata. Without it,
+all temporary evidence is removed and the JSON result is printed. The evaluator
+checks outputs, content preservation and several report fields; transcript ordering,
+semantic review quality and human approval still need review. See
+[the pilot evaluation report](reviews/SPEC-b2e3-host-evaluation.md) for actual runs.
 
 For a quick dependency-free check, `git diff --check` and
 `bash -n plugin/bin/idd-next-id plugin/bin/idd-archive-scan plugin/scripts/init-idd.sh`

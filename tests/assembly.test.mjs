@@ -96,3 +96,12 @@ for (const [name,text,valid] of [
  const dir=workspace(t),catalog=portableFixture(dir);fs.appendFileSync(path.join(dir,'source/SKILL.md'),text);assemble(dir,{catalog});
  if(valid)assert.doesNotThrow(()=>validateBundles(dir,catalog));else assert.throws(()=>validateBundles(dir,catalog),/RESOURCE/);
 });
+
+test('pilot stage state requires its portable bundle; planned stages cannot emit one',t=>{
+ const dir=workspace(t),catalog=portableFixture(dir);
+ catalog.stages=[{legacyCommand:'package-probe',skill:'idd-package-probe',state:'pilot'}];
+ assert.doesNotThrow(()=>assemble(dir,{catalog}));
+ catalog.stages[0].state='planned';assert.throws(()=>assemble(dir,{catalog}),/STAGE_BUNDLE/);
+ catalog.stages[0]={legacyCommand:'missing',skill:'idd-missing',state:'pilot'};assert.throws(()=>assemble(dir,{catalog}),/STAGE_BUNDLE/);
+ catalog.stages[0].state='released';assert.throws(()=>assemble(dir,{catalog}),/STAGE/);
+});

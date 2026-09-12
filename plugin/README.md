@@ -211,15 +211,67 @@ The maintained router is `workflows/idd-orchestration.md`; its six maintained
 references are in `references/`. From the repository root, run `npm ci` with
 Node.js 22.20.0+, edit those sources, and run `npm run build:skills` to refresh the
 committed copies in `skills/idd-orchestration/`. `skill-catalog.json` defines each
-mapping and lists the 15 pending portable stages.
+mapping and lists three pilot stages plus twelve planned stages.
 
 Run `npm run check` and `npm test` before submitting changes. The optional
-`npm run test:install` verifies a synthetic complete skill in disposable Codex and
-Claude installations; it does not certify real IDD host workflows. The production
-router remains explicitly Claude-only until the portable pilot is complete.
+`npm run test:install` verifies the synthetic fixture and each pilot skill alone
+in disposable Codex and Claude projects, in copy and symlink modes. Host workflow
+evaluation is separate. The router remains Claude-only until its full catalog
+has been ported.
 See the [contributor guide](../docs/contributing-agents.md#setup-assembly-and-validation)
 for check behavior, fixture profiles and CI.
 
 ## License
 
 Apache 2.0 -- see [LICENSE](LICENSE).
+
+## Portable workflow pilot
+
+This branch includes three complete standalone skill bundles:
+
+| Skill | Purpose | Legacy Claude alias |
+|---|---|---|
+| `idd-interview` | Define a Product in the stakeholder conversation | `/idd-framework:interview` |
+| `idd-gap-check` | Adversarial Spec review, coverage and gate annotation | `/idd-framework:gap-check` |
+| `idd-implement-spec` | Gated implementation and execution evidence | `/idd-framework:implement-spec` |
+
+The Claude aliases load these shared procedures. Their names and frontmatter stay
+unchanged; reviewer/implementer model choices remain in the Claude adapter. Each
+standalone bundle contains its own references and any required helper, with no
+runtime npm dependency added to the consuming project. The interview helper needs
+Bash, and artifact workflows need safe YAML parsing available in the host environment;
+missing capabilities are reported before writes. The router and other twelve
+stages still use the legacy integration; a full-catalog standalone install is not
+yet the supported migration path.
+
+For a local pilot, build this checkout, then run the following from a **disposable
+consuming project**, replacing the absolute source path with this checkout:
+
+```bash
+npx --yes skills@1.5.25 add /absolute/path/to/idd-framework/plugin/skills/idd-interview --agent codex claude-code --skill idd-interview
+```
+
+Use `idd-gap-check` or `idd-implement-spec` in both source path and `--skill` to
+install a different pilot alone. Add `--copy` to test a source-independent copy.
+Select just `--agent codex` or `--agent claude-code` if you want one host. These
+commands are project-scoped; avoid installing duplicate native-plugin and standalone
+copies in the same host. This branch is unpushed, so GitHub shorthand would still
+fetch the earlier repository state rather than these changes.
+
+Start a fresh session in that consuming project and request the installed skill
+by name (for example, `$idd-gap-check` in Codex or `/idd-gap-check` in Claude Code),
+or provide its installed SKILL.md path explicitly. The unattended evaluator uses
+explicit paths; selector discovery and native alias UX still need interactive
+review. Full native Codex plugin installation is a later milestone.
+
+Run `npm run test:install` for deterministic package checks. Optional host scenarios
+and evidence handling are described in the [contributor guide](../docs/contributing-agents.md#setup-assembly-and-validation).
+See the [pilot evaluation report](../docs/reviews/SPEC-b2e3-host-evaluation.md) for
+actual tested behavior and limitations. Installation success does not certify
+model behavior, human review or release readiness.
+
+The optional host evaluator can diagnose Claude output-style conflicts with
+`--claude-output-style default`. This affects only the test process, preserves the
+configured model, and is recorded separately from runs with the configured style.
+Styles that suppress intermediate messages may conflict with IDD's required
+pre-write Boundary acknowledgments; a final execution report cannot replace them.

@@ -41,6 +41,84 @@
           "executable": false
         }
       ]
+    },
+    {
+      "directory": "idd-interview",
+      "profile": "portable",
+      "files": [
+        {
+          "source": "plugin/workflows/interview.md",
+          "destination": "SKILL.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/product-template.md",
+          "destination": "references/product-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/bin/idd-next-id",
+          "destination": "scripts/idd-next-id",
+          "executable": true
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "LICENSE",
+          "executable": false
+        }
+      ]
+    },
+    {
+      "directory": "idd-gap-check",
+      "profile": "portable",
+      "files": [
+        {
+          "source": "plugin/workflows/gap-check.md",
+          "destination": "SKILL.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/spec-reference.md",
+          "destination": "references/spec-reference.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/gap-reviewer.md",
+          "destination": "references/gap-reviewer.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "LICENSE",
+          "executable": false
+        }
+      ]
+    },
+    {
+      "directory": "idd-implement-spec",
+      "profile": "portable",
+      "files": [
+        {
+          "source": "plugin/workflows/implement-spec.md",
+          "destination": "SKILL.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/spec-reference.md",
+          "destination": "references/spec-reference.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/spec-implementer.md",
+          "destination": "references/spec-implementer.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "LICENSE",
+          "executable": false
+        }
+      ]
     }
   ],
   "stages": [
@@ -82,17 +160,17 @@
     {
       "legacyCommand": "gap-check",
       "skill": "idd-gap-check",
-      "state": "planned"
+      "state": "pilot"
     },
     {
       "legacyCommand": "implement-spec",
       "skill": "idd-implement-spec",
-      "state": "planned"
+      "state": "pilot"
     },
     {
       "legacyCommand": "interview",
       "skill": "idd-interview",
-      "state": "planned"
+      "state": "pilot"
     },
     {
       "legacyCommand": "quick-spec",
