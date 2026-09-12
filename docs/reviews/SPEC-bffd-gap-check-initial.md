@@ -182,4 +182,3 @@ The sweep used Deliverable path basenames (including directory basenames such as
   **evidence:** `idd-next-id` — found at line 10.
   **severity:** Warning
   **suggested disposition:** accept-omission (The helper invocation and artifact schema remain unchanged; regression validation reads these templates without needing to rewrite them.)
-

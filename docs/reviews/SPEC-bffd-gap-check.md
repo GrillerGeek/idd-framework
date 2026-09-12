@@ -215,4 +215,3 @@ The sweep used Deliverable path basenames (including directory basenames such as
   **severity:** Warning
   **suggested disposition:** accept-omission (The helper invocation and artifact schema remain unchanged; regression validation reads these templates without needing to rewrite them.)
   **resolution:** resolved — Independently confirmed: The helper invocation and artifact schema remain unchanged; regression validation reads these templates without needing to rewrite them.
-
