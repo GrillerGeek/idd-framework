@@ -1,6 +1,6 @@
 # SPEC-bffd: packaging foundations peer review
 
-Human peer review: **pending**. This packet prepares milestone 2 on
+Human peer review: **approved by Jason Robey on 2026-09-12**, replying “approved” to the concrete Spec handoff. This packet prepares milestone 2 on
 `codex/portable-skills`; implementation has not started.
 
 Read the [Spec](../specs/SPEC-bffd.yaml) and
@@ -73,6 +73,4 @@ The fresh independent [gap-check](SPEC-bffd-gap-check.md) passed with zero
 unresolved blockers and warnings. All 33 author-accepted coverage omissions remain
 visible with independent resolution evidence. The [initial review](SPEC-bffd-gap-check-initial.md)
 is preserved. Packet checks passed for unique YAML keys, parent/detail links, eight
-edge cases, code references and completeness items 1–10. Actual
-human peer review of this concrete Spec is also required before ready; acceptance
-of the migration direction does not automatically approve a newly authored Spec.
+edge cases, code references and completeness items 1–10. Human peer review is now recorded for this concrete Spec. Implementation review and hosted CI validation remain later activities.
