@@ -1,0 +1,14 @@
+intention:
+  id: "INT-f2e6"
+  product: "PROD-f67b"
+  statement: >
+    Contributors and implementing agents can follow the same unambiguous IDD
+    contributor guidance and execution lifecycle regardless of their coding host.
+  rationale: >
+    Portable skills must inherit a consistent contract. Moving contradictory
+    instructions into two hosts would multiply inconsistent implementations.
+  priority: "high"
+  dependencies: []
+  expectations: ["EXP-7290", "EXP-97c0", "EXP-37d5", "EXP-4720"]
+  owner: "Jason Robey"
+  status: "draft"

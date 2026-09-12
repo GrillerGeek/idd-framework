@@ -1,0 +1,21 @@
+expectation:
+  id: "EXP-4720"
+  intention: "INT-f2e6"
+  description: >
+    Published entry points accurately describe the currently available IDD stages
+    and strict gate, while historical artifacts and Claude invocation compatibility
+    remain intact.
+  validation_criteria: >
+    Shared guidance covers optional explorations and archival alongside the eight
+    core phases. The plugin README lists all fifteen actual commands and fourteen
+    role agents. The README version badge agrees with the existing 1.6.0 manifest
+    major/minor. Normative gap-check examples use the current enum and report path
+    convention. Existing artifact IDs, completed YAML artifacts, historical reports,
+    command filenames, agent names and model fields, and the plugin version remain
+    unchanged during this foundational milestone.
+  edge_cases:
+    - "The historical v1.3 case study remains historical evidence rather than being rewritten to imply it used the new contract."
+    - "The onboarding worked example uses the current gate annotation and report format without changing its artifact IDs or feature requirements."
+  complexity: "low"
+  owner: "Jason Robey"
+  status: "draft"

@@ -1,0 +1,24 @@
+expectation:
+  id: "EXP-37d5"
+  intention: "INT-f2e6"
+  description: >
+    Repeated or unsuccessful gap-check and implementation runs never authorize a
+    build from stale evidence or report incomplete work as ready for post-build review.
+  validation_criteria: >
+    Gap-check instructions upsert one annotation from the report returned by the
+    current invocation, preserve content blocks, and invalidate old success before
+    review dispatch so failures and interruption cannot leave it executable.
+    Implementation resolves a target before mutations,
+    verifies the strict gate and matching report, restates Boundaries before any
+    initialization or status change, and reserves ready to in-progress to review
+    transitions for orchestration. A failed, interrupted, or blocker-stopped run
+    stays in-progress and is reported explicitly. Report existence alone cannot
+    justify transition to review.
+  edge_cases:
+    - "An old passing report remains on disk when a new completeness check fails: replace an existing gap_check annotation with blocked, zero warnings and a null report; count the failed completeness items as blockers and do not reuse the old report."
+    - "The implementer emits an execution report with a failed automated check or blocker-grade gap: retain in-progress and surface the failure."
+    - "No target ID or a missing/mismatched gate report: select or request the target and refuse invalid evidence before creating directories, changing status, or dispatching implementation."
+    - "Completeness passes but review fails, is interrupted, or returns no valid current report: retain the pre-dispatch blocked annotation with one operational blocker and null report."
+  complexity: "medium"
+  owner: "Jason Robey"
+  status: "draft"

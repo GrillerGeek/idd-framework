@@ -1,0 +1,22 @@
+expectation:
+  id: "EXP-97c0"
+  intention: "INT-f2e6"
+  description: >
+    Technical review and gap-check produce independent review annotations, while
+    lifecycle transitions preserve the distinction between pre-build readiness
+    and post-build review.
+  validation_criteria: >
+    The canonical lifecycle contract and normative mirrors require draft to ready
+    only after all eleven completeness items, including actual human peer review.
+    Technical and deep review preserve the input lifecycle status, annotate their
+    result, and recommend gap-check before execution. Gap-check preserves lifecycle
+    status. New gap-check annotations use passed for zero blockers and zero warnings,
+    warnings for zero blockers with warnings, and blocked for any blockers. Only
+    ready plus passed is executable. Historical pass/warned annotations remain
+    readable history but require a new gap-check for execution.
+  edge_cases:
+    - "AI technical approval alone does not establish human peer review or move draft to ready."
+    - "A ready Spec receiving gap-check warnings stays ready but cannot execute; a subsequent clean check is required."
+  complexity: "medium"
+  owner: "Jason Robey"
+  status: "draft"
