@@ -1,0 +1,13 @@
+intention:
+  id: INT-b7a6
+  product: PROD-f67b
+  statement: Users can execute reviewed IDD Specs through an installed, observable Claude checkpoint runner.
+  rationale: The validated evaluator must become a self-contained installed workflow without guessing
+    mutation permissions or validation commands.
+  priority: high
+  dependencies: []
+  expectations:
+    - EXP-b729
+    - EXP-d51e
+  owner: Jason Robey
+  status: draft

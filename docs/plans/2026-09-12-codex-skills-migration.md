@@ -237,3 +237,7 @@ OpenAI directs Claude plugin authors to move reusable commands and agent procedu
 Current OpenAI packaging guidance supports a portable root `plugin.json`, with `.codex-plugin/plugin.json` retained as a compatibility option. Marketplace packaging is separate from workflow authoring. Verify supported client versions during the pilot. [Plugin packaging](https://developers.openai.com/plugins/build/plugins).
 
 The skills installer supports GitHub sources, explicit agent selection, individual skills, and project/global installation. The local assessment tested version `1.5.25`; pin the version used by CI and record later upgrades. [Installer source and usage](https://github.com/vercel-labs/skills).
+
+## September 13 installed execution checkpoint
+
+SPEC-c45b implements a generic independently installed Claude terminal controller with reviewed execution_contract metadata, vendored parser, bounded shared transport and real acknowledgment checkpoints. Final configured-policy run passed independent trace review. Sonnet identity selection works but full workflow trace acceptance failed; native aliases remain separate. All 136 offline tests pass on Node 22.20.0 and 25.8.1 and all 16 installation combinations pass. See docs/reviews/2026-09-13-pilot-acceptance.md for the supported-lane disposition permitting broader implementation; earlier failures remain in historical reports. SPEC-8406 has a fresh passed content gap-check and remains the next implementation packet.

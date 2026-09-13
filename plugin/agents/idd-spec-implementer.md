@@ -36,3 +36,7 @@ resources inside the same installed skill and artifact paths from the consuming
 project.
 
 Require the current orchestration handoff specified by that procedure. Preserve its report-only or implementer role boundaries; never take ownership of lifecycle or gate annotation writes.
+
+## Optional guarded terminal route
+
+An independently installed `idd-implement-spec` bundle includes `scripts/idd-execute-spec.mjs` and `references/guarded-execution.md`. The user can run it from a separate terminal with Node >=22.20.0 and a reviewed execution_contract. Do not spawn it inside this Claude session or clear CLAUDECODE. This native alias keeps its existing dispatch/model policy; terminal-controller evidence does not certify native alias execution.

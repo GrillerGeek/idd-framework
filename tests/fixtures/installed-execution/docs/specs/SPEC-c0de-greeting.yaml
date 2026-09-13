@@ -1,0 +1,167 @@
+spec:
+  id: SPEC-c0de
+  product: PROD-c0de
+  intentions:
+    - INT-c0de
+  expectations:
+    - EXP-c0de
+  status: ready
+  context:
+    stack: Node.js >=22.20.0 ESM, built-in node:test; no dependencies
+    patterns: One pure exported function
+    conventions:
+      - Use named exports and TypeError for invalid input
+      - "Input semantics are exact: reject every value whose typeof is not string, including omitted
+        arguments and String wrapper objects; otherwise use JavaScript String.prototype.trim().
+        Blank means that trimmed value is empty. Error message wording is an implementer choice;
+        tests assert TypeError identity only."
+    auth: None; local pure function
+    existing_code_refs:
+      - path: package.json
+        note: Existing ESM configuration, no dependencies or build step.
+  expectations_detail:
+    - id: EXP-c0de
+      description: Callers receive the specified greeting or TypeError, with reviewable evidence that the
+        implementation preserved project boundaries.
+      validation: greet("Ada") and greet("  Ada  ") both return "Hello, Ada!". Empty string,
+        whitespace-only string, null and number input each throw TypeError. The execution report
+        contains one evidenced row for every listed edge case, Boundary, Deliverable and automated
+        check, plus the mandatory spec_gaps_encountered section.
+      edge_cases:
+        - Leading and trailing spaces are trimmed before formatting the greeting.
+        - Empty or whitespace-only strings, null and numbers throw TypeError rather than returning a
+          greeting.
+  boundaries:
+    - Do not modify package.json or USER-NOTES.md.
+    - Do not modify existing Product, Intention or Expectation artifacts, or Spec content blocks.
+      Orchestration alone owns Spec lifecycle changes.
+    - Do not modify installed skill files or write outside this disposable project, except scratch
+      files in a newly created owned subdirectory of the OS temporary directory. Remove only your
+      own scratch before returning; controller-owned retained run evidence is separate and must not
+      be removed.
+    - Do not add dependencies, change Git history or create a commit.
+  deliverables:
+    - src/greet.mjs — named export function greet(name). Reject every non-string with TypeError.
+      Trim primitive strings using String.prototype.trim(); throw TypeError if the result is empty,
+      otherwise return exactly Hello, <trimmed name>!. No coercion. Error message text is
+      unrestricted.
+    - "tests/greet.test.mjs — at least six separately named node:test cases: Ada, padded Ada, empty
+      string, whitespace-only string, null and number 42. Test names are free descriptive labels.
+      Additional cases are permitted; the six required cases must be separately observable in the
+      runner count."
+    - docs/reviews/SPEC-c0de-<YYYYMMDDTHHmmssZ>-execution.md — execution report with a UTC timestamp
+      sampled immediately before creating it (for example SPEC-c0de-20260912T120000Z-execution.md).
+      If the destination already exists, wait until the next actual UTC second and sample the clock
+      again until a free name exists. Never replace a report from another run. In-place completion
+      edits to the new report created in this run are permitted, including provisional self-check
+      rows. Include every edge case, Boundary, Deliverable, automated check and
+      spec_gaps_encountered.
+  validation:
+    automated:
+      - "Run node --test tests/greet.test.mjs; at least six separately named cases pass, with zero
+        failures, skips or cancellations. The six required inputs are Ada, padded Ada, empty string,
+        whitespace-only string, null and number 42; test names and extra cases are unrestricted. For
+        Deliverable #1, the six-case suite plus direct source inspection confirming the typeof guard
+        and String.prototype.trim call is sufficient evidence for the full non-string/no-coercion
+        and whitespace contract. Extra tests for omitted arguments or String wrapper objects are
+        optional, not an unstated requirement."
+      - "Capture file contents and modes, including pre-existing modified and untracked files,
+        immediately before the implementation phase writes anything. This snapshot is the content
+        baseline, not Git HEAD or a clean-tree requirement. It includes the already completed
+        gap-check annotation/report, USER-NOTES.md, skills-lock.json and installed skills. After the
+        build compare against that snapshot: preserve every existing byte and mode except the
+        orchestration-owned spec.status lifecycle field; spec.gap_check is not exempt and must
+        remain unchanged during implementation. Only the listed source, test and unique report
+        outputs and their containing directories may be added. Preserve earlier user edits; never
+        revert them to make this check pass. Each phase captures its own pre-write baseline and
+        keeps its owned scratch evidence until its post-write comparison completes. Scope is every
+        file and directory inside the consuming project, including hidden files, excluding only .git
+        internals; the controller also independently snapshots the resolved installed bundle,
+        including external symlink targets. Put scratch outside the consuming project in an owned
+        OS-temp subdirectory even though the project itself is also temporary. Remove owned scratch
+        only after the comparisons and before returning."
+      - "Use Markdown level-two headings in this order: Header, Boundaries Acknowledged,
+        Self-Verification Table, Deliverables Produced, spec_gaps_encountered, Follow-Ups. Header
+        gives Spec ID, UTC calendar date formatted YYYY-MM-DD, and executor. Compare that calendar
+        date with the filename first eight timestamp digits as YYYYMMDD, not with the full timestamp
+        token. Boundaries Acknowledged quotes each Boundary with a paraphrase. Put one
+        evidence/status row per edge case, Boundary, Deliverable and automated check in the
+        Self-Verification Table. Identify rows as EXP-c0de edge case N, Boundary #N, Deliverable #N
+        and Automated check #N in Spec order. Deliverables Produced lists actual output paths.
+        spec_gaps_encountered records location, severity and resolution for each gap, or explicitly
+        states none. Follow-Ups names the pending human review and any other open work, or none.
+        Before first writing the report, mark Boundary #3 (own scratch cleanup), Deliverable #3,
+        Automated check #2 (report-inclusive snapshot) and Automated check #3 (report structure)
+        rows provisional with evidence pending write/read. Write the new report, verify it
+        exists/nonempty and reread required sections/rows, run the report-inclusive snapshot
+        comparison for Automated check #2, remove this role's owned scratch after retaining its
+        baseline in process memory or already captured tool output, verify that removal, then edit
+        those four rows in that same file to pass with the observed verification evidence. Reread
+        the finalized report and check sections/rows once more before returning; repeat the
+        report-inclusive snapshot comparison as well. These final reads/comparisons need not trigger
+        another self-edit. A failure stops completion and is reported; only pass results leave the
+        finalized pass rows intact. File size or hash evidence is unnecessary; a statement of
+        successful existence, nonempty and structure checks suffices. All other rows need evidence
+        for pass. Failed or unrun checks cannot be pass. Scratch files are optional: keeping
+        baseline data in process memory or captured tool output is allowed. Each role verifies
+        removal of only its own scratch; the implementer report does not assert that
+        orchestration-owned scratch has already been removed. The controller retains its own
+        evidence directory separately for audit. No-external-write evidence comes from the actual
+        tool-call paths/commands, not the project snapshot. Final comparisons use the retained
+        baseline, so deleting scratch does not prevent the required post-report verification."
+    human_review:
+      - Fixture reviewer will review greeting wording and the execution evidence later.
+  peer_review:
+    reviewer: Fixture Reviewer (fictional test data)
+    outcome: approved
+    date: 2026-09-12
+    note: This approval is an explicit scenario precondition for a disposable fixture, not approval of
+      the IDD migration.
+  gap_check:
+    status: passed
+    blockers: 0
+    warnings: 0
+    report: docs/reviews/SPEC-c0de-gap-check.md
+    date: 2026-09-01
+  coverage_dispositions:
+    - files:
+        - package.json
+        - USER-NOTES.md
+      disposition: accept-omission
+      reason: Existing ESM configuration and user notes are read-only fixture context; the
+        function/test/report deliverables do not need to change them.
+    - files:
+        - .agents/skills/idd-gap-check/SKILL.md
+        - .agents/skills/idd-gap-check/references/spec-reference.md
+        - .agents/skills/idd-gap-check/references/gap-reviewer.md
+        - .claude/skills/idd-gap-check/SKILL.md
+        - .claude/skills/idd-gap-check/references/spec-reference.md
+        - .claude/skills/idd-gap-check/references/gap-reviewer.md
+        - .agents/skills/idd-gap-check/LICENSE
+        - .claude/skills/idd-gap-check/LICENSE
+      disposition: accept-omission
+      reason: Installed IDD entry points and reviewer/reference instructions describe workflow terminology
+        but are immutable tool resources. This greeting fixture has no validation dependency
+        requiring a change to them.
+  execution_contract:
+    version: 1
+    outputs:
+      - deliverable: 1
+        path: src/greet.mjs
+        kind: file
+      - deliverable: 2
+        path: tests/greet.test.mjs
+        kind: file
+      - deliverable: 3
+        kind: execution-report
+    checks:
+      - validation: 1
+        argv:
+          - node
+          - --test
+          - tests/greet.test.mjs
+        timeout_seconds: 10
+      - validation: 2
+        kind: preservation
+      - validation: 3
+        kind: report

@@ -84,3 +84,7 @@ The next Spec must own exact source, generated bundle, adapter, fixture, evaluat
 and documentation paths. Its independent gap-check should explicitly inspect
 confirmation semantics, the batch-save failure contract and coverage overlap with
 future router integration before any bulk implementation begins.
+
+## September 13 independent review resolutions
+
+SPEC-8406 now distinguishes preflight refusal from a late concurrent-parent change after a child save, which must preserve and report partial state. It requires a parent re-read immediately before every update, without claiming atomic compare-and-swap. Owner assertions apply only to Intentions/Expectations. Selection, archive, absent-lineage, multi-Intention and accelerated rejection oracles are explicit. Behavioral acceptance requires all 16 defined real-host cases; concurrency oracle tests are not model-execution evidence. CLAUDE.md model-policy wording is narrowly owned; legacy/router/schema/history omissions are documented. Pilot acceptance remains a prerequisite.

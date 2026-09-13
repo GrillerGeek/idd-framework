@@ -284,3 +284,9 @@ the build, and verifies evidence before changing lifecycle to review. See the
 and [recovery evidence](../docs/reviews/2026-09-12-claude-checkpoint-recovery.md).
 This is development tooling in the source checkout. Installing the standalone
 skill does not install that controller or certify ordinary/native Claude execution.
+
+### Installed guarded execution pilot
+
+The `idd-implement-spec` bundle now includes a self-contained Node >=22.20.0 terminal runner for existing Claude authentication. It requires reviewed `execution_contract` output/check metadata and recorded readiness approval. Use `node <installed-skill>/scripts/idd-execute-spec.mjs --project <project> --spec <SPEC-ID> --check` for read-only preflight; omit `--check` to execute from a separate terminal. Never bypass the nested-session guard. The default preserves the configured model/style; optional `--implementer-model sonnet` requires an observed matching implementation model. The Sonnet option has verified model selection but remains experimental after a failed full workflow trace review. Native alias certification remains separate.
+
+The bundle carries the pinned YAML parser and ISC license; consuming projects need no dependency installation. Failures preserve partial work and controller evidence, and require author recovery. See [guarded execution](references/pilot/guarded-execution.md) for ownership, limits and report rules. Optional contributor host evaluation: `node scripts/evaluate-installed-execution.mjs` (or `--negative`, `--sonnet`). Offline tests use simulated host receipts and do not replace actual host evidence.

@@ -20,6 +20,10 @@ honoring an explicit host adapter policy; otherwise use the configured model and
 announce sequential orchestration/implementation phases. Sequential execution does
 not collapse ownership or remove any gate.
 
+## Installed terminal runner
+
+The optional [guarded execution reference](references/guarded-execution.md) describes the bundled terminal runner, reviewed execution metadata and failure recovery. Native/prose invocation remains a separate route. In a controller handoff, continue the specified checkpoint; do not start another runner.
+
 ## Controller checkpoints
 
 When an external controller explicitly owns lifecycle and requests a read-only

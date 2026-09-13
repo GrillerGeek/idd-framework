@@ -4,11 +4,13 @@ expectation:
   description: Authoring preserves existing user work and produces safe, consistent YAML.
   validation_criteria: Validate the complete proposed batch with duplicate-key rejection, parent/link
     consistency, reserved IDs and baseline checks before writes. Only the explicitly owned parent
-    expectations lists may change; preserve other bytes, comments and modes. Save new artifacts as draft
-    and never fabricate passed gates or lifecycle approval.
+    expectations lists may change; preserve other bytes, comments and modes. Save new artifacts as
+    draft and never fabricate passed gates or lifecycle approval.
   edge_cases:
-    - Concurrent parent changes or duplicate YAML keys stop before project writes rather than overwriting
-      or whole-file reformatting.
+    - Duplicate YAML or parent changes detected at preflight stop before any project writes. A
+      parent change detected immediately before its later update stops that update, preserves
+      already written children, and reports exact partial state without overwriting or whole-file
+      reformatting.
     - An interrupted multi-file save reports exact partial writes and IDs; recovery reconciles those
       files and does not automatically undo user edits or generate duplicate children.
   complexity: high

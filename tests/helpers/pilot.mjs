@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 import fs from 'node:fs';
 import path from 'node:path';
-import {spawn} from 'node:child_process';
 import assert from 'node:assert/strict';
 import { parse, stringify } from 'yaml';
 import { root, write } from './workspace.mjs';
@@ -9,22 +8,8 @@ import { sha256 } from '../../scripts/lib/files.mjs';
 import { runProcess } from '../../scripts/lib/process.mjs';
 import { validateArtifact } from '../../scripts/lib/artifacts.mjs';
 
-// Bounded subprocess transport, including descendant cleanup on timeout/output overflow.
-export function runHost(command,args,{cwd,input='',timeout=240000,maxBytes=4*1024*1024}={}) {
-  return new Promise(resolve=>{
-    let stdout='',stderr='',bytes=0,reason=null,settled=false;
-    const env={...process.env};delete env.NODE_TEST_CONTEXT;
-    const child=spawn(command,args,{cwd,env,detached:process.platform!=='win32',stdio:['pipe','pipe','pipe']});
-    const terminate=why=>{reason??=why;try{if(process.platform==='win32')child.kill('SIGKILL');else process.kill(-child.pid,'SIGKILL');}catch{}};
-    const timer=setTimeout(()=>terminate('timeout'),timeout);
-    const finish=(code,signal)=>{if(settled)return;settled=true;clearTimeout(timer);resolve({code,signal,reason,stdout,stderr});};
-    const receive=stream=>chunk=>{bytes+=chunk.length;if(bytes>maxBytes){terminate('output-limit');return;}if(stream==='stdout')stdout+=chunk;else stderr+=chunk;};
-    child.stdout.on('data',receive('stdout'));child.stderr.on('data',receive('stderr'));
-    child.on('exit',()=>{try{if(process.platform!=='win32')process.kill(-child.pid,'SIGKILL');}catch{}});
-    child.on('error',error=>{reason=error.code??error.message;finish(null,null);});child.on('close',finish);
-    child.stdin.on('error',()=>{});child.stdin.end(input);
-  });
-}
+import {runHost} from '../../plugin/runtime/transport.mjs';
+export {runHost};
 export const scenarios = ['interview','gap-clean','gap-flawed','gap-incomplete','implement-clean','implement-refuse'];
 export const skillFor = scenario => scenario === 'interview' ? 'idd-interview' : scenario.startsWith('gap-') ? 'idd-gap-check' : 'idd-implement-spec';
 export const specFile = 'docs/specs/SPEC-a1b2.yaml';

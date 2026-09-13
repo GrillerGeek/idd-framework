@@ -1,0 +1,17 @@
+expectation:
+  id: EXP-b729
+  intention: INT-b7a6
+  description: An independently installed implementation skill can run a real reviewed Spec through
+    observable Claude checkpoints.
+  validation_criteria: A bundled Node runner validates a declarative execution_contract, obtains both
+    visible acknowledgments with read-only tools, resumes the same conversation to implement, executes
+    reviewed verification argument vectors, preserves unrelated user changes and advances lifecycle only
+    after checks. It has no imports from the source checkout or a consuming project package.
+  edge_cases:
+    - Absent/invalid runtime contract, duplicate YAML, invalid readiness/gap evidence, ambiguous IDs and
+      unsafe paths refuse before workflow calls or project writes.
+    - Failed or interrupted execution keeps partial work and in-progress; unexpected model lifecycle
+      writes fail and are preserved as evidence rather than silently repaired.
+  complexity: high
+  owner: Jason Robey
+  status: draft

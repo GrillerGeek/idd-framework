@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import { fileURLToPath } from 'node:url';
 import { assemble, repositoryRoot } from './build-skills.mjs';
 import { runProcess } from './lib/process.mjs';
+import { spawnSync } from 'node:child_process';
 import { portableFixture, workspace } from '../tests/helpers/workspace.mjs';
 
 export function installerExecutable() {
@@ -48,6 +49,10 @@ export function probeInstall() {
           for(const [file,{bytes,mode}]of expected) {assert.deepEqual(fs.readFileSync(path.join(installed,file)),bytes,`${agent}: ${file}`);assert.equal(fs.statSync(path.join(installed,file)).mode&0o777,mode);}
           if(!bundle)assert.equal(runProcess(path.join(installed,'scripts/probe.sh'),[],{cwd:target}),'IDD package probe\n');
           if(name==='idd-interview')assert.match(runProcess('bash',[path.join(installed,'scripts/idd-next-id'),'product'],{cwd:target}),/^PROD-[a-f0-9]{4,8}\n$/);
+          if(name==='idd-implement-spec') {
+            const probe=spawnSync(process.execPath,[path.join(installed,'scripts/idd-execute-spec.mjs'),'--project',target,'--spec','SPEC-c0de','--check'],{cwd:working,encoding:'utf8',timeout:15000});
+            assert.equal(probe.status,1);const result=JSON.parse(probe.stdout);assert.equal(result.outcome,'refused');assert.equal(result.hostInvocations,0);assert.match(result.error,/Missing\/unsafe path/,'installed runtime loads and reaches project preflight');
+          }
           assert.equal(fs.existsSync(path.join(target,'docs')),false,'installation/helper does not initialize project artifacts');
           console.log(`PASS: ${name}, ${agent} ${mode}, resources and executable modes`);
         }

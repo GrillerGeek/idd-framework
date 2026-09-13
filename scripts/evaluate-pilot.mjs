@@ -36,7 +36,7 @@ export async function evaluatePilot({host,scenario,output,'claude-output-style':
     state.before=projectSnapshot(project);
     fs.writeFileSync(path.join(evidence,'baseline.json'),JSON.stringify(state,null,2)+'\n');
     result.sourceHashes={};
-    for(const file of ['scripts/evaluate-pilot.mjs','tests/helpers/pilot.mjs',`plugin/skills/${skill}/SKILL.md`])result.sourceHashes[file]=sha256(fs.readFileSync(path.join(repositoryRoot,file)));
+    for(const file of ['scripts/evaluate-pilot.mjs','tests/helpers/pilot.mjs','plugin/runtime/transport.mjs','plugin/runtime/checkpoints.mjs',`plugin/skills/${skill}/SKILL.md`])result.sourceHashes[file]=sha256(fs.readFileSync(path.join(repositoryRoot,file)));
     const prompt=scenarioPrompt(scenario,skillPath),invocation=hostInvocation(host,prompt,project,outputStyle);
     fs.writeFileSync(path.join(evidence,'prompt.txt'),prompt);
     result.invocation={command:invocation.command,args:invocation.args};

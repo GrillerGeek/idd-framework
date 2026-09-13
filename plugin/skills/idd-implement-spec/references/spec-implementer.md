@@ -3,6 +3,10 @@ You are the IDD Spec Implementer. Your role is to implement a Spec's Deliverable
 **ORDERING INVARIANT — follow these five steps in strict sequence. Do not begin a step until all previous steps are complete, except the report-self-check row explicitly finalized in Step 5.**
 
 ---
+## Installed terminal runner
+
+The optional [guarded execution reference](guarded-execution.md) describes the bundled terminal runner, reviewed execution metadata and failure recovery. Native/prose invocation remains a separate route. In a controller handoff, continue the specified checkpoint; do not start another runner.
+
 
 ## Step 1 — Refuse-Unless-Ready Gate
 
@@ -94,7 +98,7 @@ Compare PRE_STATUS and POST_STATUS. Every path that appears in POST_STATUS but n
 
 ## Step 4 — Self-Verification Table
 
-After implementation and boundary-verification, produce a self-verification table. Include **one row per edge case** (listed as "[EXP-ID] edge case [N]"), **one row per Boundary** (listed as "Boundary #N"), and **one row per Deliverable** (listed as "Deliverable #N"). No Spec item may be silently omitted.
+After implementation and boundary-verification, produce a self-verification table. Include **one row per edge case** (listed as "[EXP-ID] edge case [N]"), **one row per Boundary** (listed as "Boundary #N"), and **one row per Deliverable** (listed as "Deliverable #N"). Use these exact first-column labels without descriptive suffixes; put descriptions in Evidence. Automated validation rows use exactly "Automated check #N". No Spec item may be silently omitted.
 
 Status values: **pass** | **fail** | **unverifiable at build time**
 - Every `pass` row must include a one-line evidence note.

@@ -117,6 +117,431 @@
           "source": "plugin/LICENSE",
           "destination": "LICENSE",
           "executable": false
+        },
+        {
+          "source": "plugin/runtime/checkpoints.mjs",
+          "destination": "scripts/checkpoints.mjs",
+          "executable": false
+        },
+        {
+          "source": "plugin/runtime/idd-execute-spec.mjs",
+          "destination": "scripts/idd-execute-spec.mjs",
+          "executable": true
+        },
+        {
+          "source": "plugin/runtime/profile.mjs",
+          "destination": "scripts/profile.mjs",
+          "executable": false
+        },
+        {
+          "source": "plugin/runtime/report.mjs",
+          "destination": "scripts/report.mjs",
+          "executable": false
+        },
+        {
+          "source": "plugin/runtime/runner.mjs",
+          "destination": "scripts/runner.mjs",
+          "executable": false
+        },
+        {
+          "source": "plugin/runtime/snapshot.mjs",
+          "destination": "scripts/snapshot.mjs",
+          "executable": false
+        },
+        {
+          "source": "plugin/runtime/transport.mjs",
+          "destination": "scripts/transport.mjs",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/LICENSE",
+          "destination": "vendor/yaml/LICENSE",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/compose-collection.js",
+          "destination": "vendor/yaml/dist/compose/compose-collection.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/compose-doc.js",
+          "destination": "vendor/yaml/dist/compose/compose-doc.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/compose-node.js",
+          "destination": "vendor/yaml/dist/compose/compose-node.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/compose-scalar.js",
+          "destination": "vendor/yaml/dist/compose/compose-scalar.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/composer.js",
+          "destination": "vendor/yaml/dist/compose/composer.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/resolve-block-map.js",
+          "destination": "vendor/yaml/dist/compose/resolve-block-map.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/resolve-block-scalar.js",
+          "destination": "vendor/yaml/dist/compose/resolve-block-scalar.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/resolve-block-seq.js",
+          "destination": "vendor/yaml/dist/compose/resolve-block-seq.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/resolve-end.js",
+          "destination": "vendor/yaml/dist/compose/resolve-end.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/resolve-flow-collection.js",
+          "destination": "vendor/yaml/dist/compose/resolve-flow-collection.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/resolve-flow-scalar.js",
+          "destination": "vendor/yaml/dist/compose/resolve-flow-scalar.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/resolve-props.js",
+          "destination": "vendor/yaml/dist/compose/resolve-props.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/util-contains-newline.js",
+          "destination": "vendor/yaml/dist/compose/util-contains-newline.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/util-empty-scalar-position.js",
+          "destination": "vendor/yaml/dist/compose/util-empty-scalar-position.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/util-flow-indent-check.js",
+          "destination": "vendor/yaml/dist/compose/util-flow-indent-check.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/util-map-includes.js",
+          "destination": "vendor/yaml/dist/compose/util-map-includes.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/doc/Document.js",
+          "destination": "vendor/yaml/dist/doc/Document.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/doc/anchors.js",
+          "destination": "vendor/yaml/dist/doc/anchors.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/doc/applyReviver.js",
+          "destination": "vendor/yaml/dist/doc/applyReviver.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/doc/createNode.js",
+          "destination": "vendor/yaml/dist/doc/createNode.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/doc/directives.js",
+          "destination": "vendor/yaml/dist/doc/directives.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/errors.js",
+          "destination": "vendor/yaml/dist/errors.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/index.js",
+          "destination": "vendor/yaml/dist/index.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/log.js",
+          "destination": "vendor/yaml/dist/log.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/nodes/Alias.js",
+          "destination": "vendor/yaml/dist/nodes/Alias.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/nodes/Collection.js",
+          "destination": "vendor/yaml/dist/nodes/Collection.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/nodes/Node.js",
+          "destination": "vendor/yaml/dist/nodes/Node.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/nodes/Pair.js",
+          "destination": "vendor/yaml/dist/nodes/Pair.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/nodes/Scalar.js",
+          "destination": "vendor/yaml/dist/nodes/Scalar.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/nodes/YAMLMap.js",
+          "destination": "vendor/yaml/dist/nodes/YAMLMap.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/nodes/YAMLSeq.js",
+          "destination": "vendor/yaml/dist/nodes/YAMLSeq.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/nodes/addPairToJSMap.js",
+          "destination": "vendor/yaml/dist/nodes/addPairToJSMap.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/nodes/identity.js",
+          "destination": "vendor/yaml/dist/nodes/identity.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/nodes/toJS.js",
+          "destination": "vendor/yaml/dist/nodes/toJS.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/parse/cst-scalar.js",
+          "destination": "vendor/yaml/dist/parse/cst-scalar.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/parse/cst-stringify.js",
+          "destination": "vendor/yaml/dist/parse/cst-stringify.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/parse/cst-visit.js",
+          "destination": "vendor/yaml/dist/parse/cst-visit.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/parse/cst.js",
+          "destination": "vendor/yaml/dist/parse/cst.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/parse/lexer.js",
+          "destination": "vendor/yaml/dist/parse/lexer.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/parse/line-counter.js",
+          "destination": "vendor/yaml/dist/parse/line-counter.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/parse/parser.js",
+          "destination": "vendor/yaml/dist/parse/parser.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/public-api.js",
+          "destination": "vendor/yaml/dist/public-api.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/Schema.js",
+          "destination": "vendor/yaml/dist/schema/Schema.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/common/map.js",
+          "destination": "vendor/yaml/dist/schema/common/map.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/common/null.js",
+          "destination": "vendor/yaml/dist/schema/common/null.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/common/seq.js",
+          "destination": "vendor/yaml/dist/schema/common/seq.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/common/string.js",
+          "destination": "vendor/yaml/dist/schema/common/string.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/core/bool.js",
+          "destination": "vendor/yaml/dist/schema/core/bool.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/core/float.js",
+          "destination": "vendor/yaml/dist/schema/core/float.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/core/int.js",
+          "destination": "vendor/yaml/dist/schema/core/int.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/core/schema.js",
+          "destination": "vendor/yaml/dist/schema/core/schema.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/json/schema.js",
+          "destination": "vendor/yaml/dist/schema/json/schema.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/tags.js",
+          "destination": "vendor/yaml/dist/schema/tags.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/yaml-1.1/binary.js",
+          "destination": "vendor/yaml/dist/schema/yaml-1.1/binary.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/yaml-1.1/bool.js",
+          "destination": "vendor/yaml/dist/schema/yaml-1.1/bool.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/yaml-1.1/float.js",
+          "destination": "vendor/yaml/dist/schema/yaml-1.1/float.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/yaml-1.1/int.js",
+          "destination": "vendor/yaml/dist/schema/yaml-1.1/int.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/yaml-1.1/merge.js",
+          "destination": "vendor/yaml/dist/schema/yaml-1.1/merge.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/yaml-1.1/omap.js",
+          "destination": "vendor/yaml/dist/schema/yaml-1.1/omap.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/yaml-1.1/pairs.js",
+          "destination": "vendor/yaml/dist/schema/yaml-1.1/pairs.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/yaml-1.1/schema.js",
+          "destination": "vendor/yaml/dist/schema/yaml-1.1/schema.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/yaml-1.1/set.js",
+          "destination": "vendor/yaml/dist/schema/yaml-1.1/set.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/yaml-1.1/timestamp.js",
+          "destination": "vendor/yaml/dist/schema/yaml-1.1/timestamp.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/stringify/foldFlowLines.js",
+          "destination": "vendor/yaml/dist/stringify/foldFlowLines.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/stringify/stringify.js",
+          "destination": "vendor/yaml/dist/stringify/stringify.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/stringify/stringifyCollection.js",
+          "destination": "vendor/yaml/dist/stringify/stringifyCollection.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/stringify/stringifyComment.js",
+          "destination": "vendor/yaml/dist/stringify/stringifyComment.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/stringify/stringifyDocument.js",
+          "destination": "vendor/yaml/dist/stringify/stringifyDocument.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/stringify/stringifyNumber.js",
+          "destination": "vendor/yaml/dist/stringify/stringifyNumber.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/stringify/stringifyPair.js",
+          "destination": "vendor/yaml/dist/stringify/stringifyPair.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/stringify/stringifyString.js",
+          "destination": "vendor/yaml/dist/stringify/stringifyString.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/test-events.js",
+          "destination": "vendor/yaml/dist/test-events.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/util.js",
+          "destination": "vendor/yaml/dist/util.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/visit.js",
+          "destination": "vendor/yaml/dist/visit.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/package.json",
+          "destination": "vendor/yaml/package.json",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/integrity.json",
+          "destination": "vendor/yaml/integrity.json",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/guarded-execution.md",
+          "destination": "references/guarded-execution.md",
+          "executable": false
         }
       ]
     }

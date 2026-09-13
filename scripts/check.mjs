@@ -8,12 +8,15 @@ import { validateArtifacts } from './lib/artifacts.mjs';
 import { validateBundles, validatePlugin } from './lib/packages.mjs';
 import { parseYAML } from './lib/yaml.mjs';
 
+import { checkVendor } from './check-vendor.mjs';
+
 export function checkRepository(root = repositoryRoot) {
   const errors = [];
   const run = fn => { try { fn(); } catch (e) { errors.push(e.message); } };
   run(() => assemble(root,{ check: true }));
   run(() => validateBundles(root));
   run(() => validatePlugin(root));
+  run(() => checkVendor(root));
   run(() => errors.push(...validateArtifacts(root).errors));
   const helpers = ['plugin/bin/idd-next-id','plugin/bin/idd-archive-scan','plugin/scripts/init-idd.sh'];
   run(() => {
