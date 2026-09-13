@@ -5,15 +5,21 @@ expectation:
     unrelated project work on both hosts.
   validation_criteria: Pinned skills1.5.25 discovers exactly sixteen public skill entrypoints. Real
     bulk installation, documented update no-op for local sources, explicit host/mode-preserving
-    re-add refresh and selected removal probes exercise both hosts and both supported modes,
-    preserving unrelated skills/artifacts and complete router resources. No successful remote update
-    is claimed.
+    re-add refresh and selected removal probes exercise both hosts and explicit-copy/default mode
+    requests with actual mode recorded, preserving unrelated skills/artifacts and complete router
+    resources. No successful remote update is claimed. Selected removal includes the explicitly
+    documented shared-canonical retention limitation; retained copies must remain exact and must not
+    be called uninstalled.
   edge_cases:
     - Nested stage entry files are workflow.md rather than SKILL.md so discovery does not expose
       duplicate entrypoints.
     - Local update no-op is documented as an installer limitation; explicit local refresh and
       selected removal preserve unrelated skills/artifacts and other retained IDD skills with
-      unchanged host/mode. Copied installations still work after source removal.
+      unchanged host/mode. Copied installations still work after source removal. If other detected
+      hosts share the canonical directory, host-scoped removal may retain those exact copies; report
+      retention and preserve other hosts instead of broadening deletion. Pinned single-host default
+      installation forces copy; distinguish requested/default mode from actual mode, preserving it
+      on refresh.
   complexity: high
   owner: Jason Robey
   status: draft

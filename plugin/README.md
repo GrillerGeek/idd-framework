@@ -166,7 +166,7 @@ old report cannot authorize a build. Failed or interrupted implementations remai
 in-progress even if a partial report exists. These are agent protocol instructions,
 not an executable state validator. Resume requires a recovery decision.
 
-Native Codex packaging and complete standalone skills distribution are planned;
+Native Codex packaging and release verification are planned;
 this release's documented installation routes above are for Claude Code.
 
 ## Output
@@ -207,17 +207,20 @@ The framework defines six roles. Each maps to a plugin agent:
 
 ## Developing the plugin
 
-The maintained router is `workflows/idd-orchestration.md`; its six maintained
-references are in `references/`. From the repository root, run `npm ci` with
+The maintained router is `workflows/idd-orchestration.md`. Its six historical
+reference paths map to portable sources in `references/authoring/`,
+`references/pilot/`, `references/exploration/` and `references/archive/`. From the repository root, run `npm ci` with
 Node.js 22.20.0+, edit those sources, and run `npm run build:skills` to refresh the
 committed copies in `skills/idd-orchestration/`. `skill-catalog.json` defines each
-mapping and lists fifteen implemented portable stages and no placeholder stages.
+mapping and lists fifteen implemented portable stages, sixteen public bundles
+(including the router), and no placeholder stages. The router includes complete
+`stages/<stage>/workflow.md` closures copied from the same canonical mappings.
 
 Run `npm run check` and `npm test` before submitting changes. The optional
 `npm run test:install` verifies the synthetic fixture and each pilot skill alone
 in disposable Codex and Claude projects, in copy and symlink modes. Host workflow
-evaluation is separate. The router remains Claude-only until its full catalog
-has been ported.
+evaluation is separate. Router integration and Archive host acceptance are still
+being verified; complete source packaging alone is not full host acceptance.
 See the [contributor guide](../docs/contributing-agents.md#setup-assembly-and-validation)
 for check behavior, fixture profiles and CI.
 
@@ -227,10 +230,12 @@ Apache 2.0 -- see [LICENSE](LICENSE).
 
 ## Portable workflow pilot
 
-This branch includes fifteen complete standalone skill bundles. The original three-stage pilot has a documented supported-lane acceptance; the five authoring stages have separate host evaluation evidence:
+This branch includes sixteen complete standalone skill bundles: fifteen direct stages and one complete router. The original three-stage pilot has a documented supported-lane acceptance; the five authoring stages have separate host evaluation evidence:
 
 | Skill | Purpose | Legacy Claude alias |
 |---|---|---|
+| `idd-orchestration` | Select and load any complete local stage | No new command alias |
+| `idd-archive` | Classify and explicitly apply reviewed archival | `/idd-framework:archive` |
 | `idd-interview` | Define a Product in the stakeholder conversation | `/idd-framework:interview` |
 | `idd-gap-check` | Adversarial Spec review, coverage and gate annotation | `/idd-framework:gap-check` |
 | `idd-implement-spec` | Gated implementation and execution evidence | `/idd-framework:implement-spec` |
@@ -251,9 +256,9 @@ unchanged; reviewer/implementer model choices remain in the Claude adapter. Each
 standalone bundle contains its own references and any required helper, with no
 runtime npm dependency added to the consuming project. The interview helper needs
 Bash, and artifact workflows need safe YAML parsing available in the host environment;
-missing capabilities are reported before writes. The router and archival
-stage still use the legacy integration; a full-catalog standalone install is not
-yet the supported migration path.
+missing capabilities are reported before writes. The router includes every stage
+locally and never relies on a sibling skill. Archive and final router host acceptance
+are still in progress; native and published remote installation are separate checks.
 
 For a local pilot, build this checkout, then run the following from a **disposable
 consuming project**, replacing the absolute source path with this checkout:
@@ -331,3 +336,52 @@ The map is clear only when fog is empty and every ticket is resolved or out_of_s
 `idd-archive` classifies first and saves a fresh manifest for review. Explicit apply requires the concrete manifest committed with its unchanged reviewed input files. It creates an annotated recovery tag, saves and rereads a reconciled ledger, then removes/moves only approved paths and commits locally. Artifact records and moved-review records both contribute to the new record count; co-deleted subject reviews are links only. Sources are normalized in memory and surviving artifacts remain unchanged.
 
 Legacy manifests need reclassification to capture the new reviewed-input binding before apply. Tag recovery supports Git file modes (0644/0755); unsupported permission modes refuse. See [Archive evidence](../docs/reviews/SPEC-57b4-host-evaluation.md) for disposable trials, failures and limitations. Native aliases and remote publication remain separate verification.
+
+
+## Complete router and local distribution
+
+Install just the router from a built local checkout to access all stages:
+
+```bash
+npx --yes skills@1.5.25 add /absolute/path/to/idd-framework/plugin/skills/idd-orchestration --agent codex --skill idd-orchestration --copy
+```
+
+Use `--agent claude-code` for Claude. Ask the installed router for the intended
+outcome or stage. It loads `stages/<stage>/workflow.md` and resolves resources
+from that entry's parent, preserving the selected procedure's confirmation,
+readiness and execution gates. Routing never creates consumer directories.
+The nested implementation CLI is
+`stages/implement-spec/scripts/idd-execute-spec.mjs`; run it from a separate
+terminal when the selected workflow requires the guarded Claude controller.
+Never clear the nested-Claude guard.
+
+For bulk local installation, point `add` at `plugin/skills`, use the selected
+`--agent` and `--skill '*'`, and retain `--copy` if that is your chosen mode.
+Discovery (`add <source> --list`) exposes sixteen public names; nested entries
+are `workflow.md`, so they do not become duplicate skills. Bulk installation is
+optional: the router alone already contains the full workflow closure.
+
+Pinned skills1.5.25 skips local sources during
+`npx --yes skills@1.5.25 update idd-orchestration --project --yes`.
+This is a no-op, not a content update. Refresh a local installation by repeating
+its original `add` command with the same absolute source, selected skill, host
+and copy option. Remote update behavior is not inferred from this local test.
+
+Remove a selected skill with
+`npx --yes skills@1.5.25 remove idd-orchestration --agent codex --yes`
+(or `claude-code`). Name every intended skill explicitly; avoid `--all` across
+unrelated skills. Verify the installed paths afterward: skills1.5.25 can report
+success while retaining `.agents/skills/<name>` for other detected agents that
+share it. Retained copies remain installed, including for Codex; a success
+message alone is not complete removal. A separate Claude alias/copy can be
+removed while that canonical copy remains. Preserve other agents' shared skills;
+this procedure does not silently broaden deletion.
+
+Codex uses the project's canonical `.agents/skills` directory. Claude symlink
+mode points `.claude/skills/<name>` at that project-local copy; it does not link
+to the source checkout. Claude copy mode has an independent copied directory.
+Avoid duplicate native-plugin and standalone installations of the same skills.
+See the [router evidence](../docs/reviews/SPEC-ab84-host-evaluation.md) for observed
+scope, retained failures and unfinished acceptance.
+
+Pinned installer mode detail: targeting a single host forces copy, even without `--copy`. The four bulk observations compare explicit copy and default requests while recording actual copy mode. Genuine Claude symlinks are tested separately by the individual probe, which targets Codex and Claude together. Refresh retains actual mode; no additional host is silently selected to force a symlink.

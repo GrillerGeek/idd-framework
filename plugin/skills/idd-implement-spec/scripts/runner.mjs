@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
-import {loadProfile,statusText} from './profile.mjs';
+import {loadProfile,statusText,safePath} from './profile.mjs';
 import {snapshot,gitState,verifyDelta,hash} from './snapshot.mjs';
 import {runHost} from './transport.mjs';
 import {checkpointInvocation,phaseEvidence,validateAcknowledgment} from './checkpoints.mjs';
@@ -20,6 +20,12 @@ export function bindGate(profile,before,project) {
   }
   for(const output of profile.contract.outputs.filter(o=>o.path))for(const [file,entry] of Object.entries(before.entries))if(file===output.path||(output.kind==='directory'&&file.startsWith(output.path+'/')))assert.ok(entry.kind!=='file'||entry.links===1,`Hardlinked output: ${file}`);
 }
+export function workflowEntry(bundleRoot) {
+  const name=fs.lstatSync(path.join(bundleRoot,'SKILL.md'),{throwIfNoEntry:false})?'SKILL.md':'workflow.md';
+  const entry=safePath(bundleRoot,name,{missing:false});
+  assert.ok(fs.lstatSync(entry).isFile(),'Workflow entry must be a regular file');
+  return entry;
+}
 export async function execute({project,specId,bundleRoot,check=false,implementerModel='configured',run=runHost,now=Date.now,onAcknowledgment=text=>process.stderr.write(text+'\n'),environment=process.env}) {
   const result={outcome:'refused',hostInvocations:0,phases:[],checks:[],evidence:null};let evidence,profile,currentText,before,git,bundle;
   const writeEvidence=()=>{if(evidence)fs.writeFileSync(path.join(evidence,'result.json'),JSON.stringify(result,null,2)+'\n');};
@@ -27,6 +33,7 @@ export async function execute({project,specId,bundleRoot,check=false,implementer
     runtimeVersion();assert.ok(['configured','sonnet'].includes(implementerModel),'Unknown implementer policy');
     if(!check)assert.ok(!environment.CLAUDECODE,'Nested Claude execution is unsupported. Run this command in a separate terminal; do not clear CLAUDECODE.');
     project=fs.realpathSync(project);bundleRoot=fs.realpathSync(bundleRoot);assert.notEqual(project,bundleRoot,'Bundle cannot be project root');
+    const entry=workflowEntry(bundleRoot);
     profile=loadProfile(project,specId,bundleRoot);currentText=profile.text;
     before=snapshot(project,{excludeGit:true});git=gitState(project);bundle=snapshot(bundleRoot);bindGate(profile,before,project);
     result.spec=specId;result.sourceHashes={spec:hash(profile.text),gapReport:hash(profile.gapText),bundle:hash(JSON.stringify(bundle))};
@@ -36,7 +43,7 @@ export async function execute({project,specId,bundleRoot,check=false,implementer
     if(check){result.outcome='ready';return result;}
     result.outcome='blocked';const sessionId=randomUUID();result.sessionId=sessionId;let model,outputStyle,used=0;const deadline=now()+600000;
     const reportLabels=[...profile.spec.expectations_detail.flatMap(e=>e.edge_cases.map((_,i)=>`${e.id} edge case ${i+1}`)),...profile.spec.boundaries.map((_,i)=>`Boundary #${i+1}`),...profile.spec.deliverables.map((_,i)=>`Deliverable #${i+1}`),...profile.spec.validation.automated.map((_,i)=>`Automated check #${i+1}`)];
-    const handoff=`Read the installed workflow at ${path.join(bundleRoot,'SKILL.md')} and required references. Controller verified safe complete YAML, recorded readiness approval, ready/passed integer-zero gate, canonical PASS report and Coverage. Spec path ${profile.specFile}; SHA256 ${result.sourceHashes.spec}. The controller owns lifecycle and snapshots. No delegation, no Skill tool and no extra approval. `;
+    const handoff=`Read the installed workflow at ${entry} and required references. Controller verified safe complete YAML, recorded readiness approval, ready/passed integer-zero gate, canonical PASS report and Coverage. Spec path ${profile.specFile}; SHA256 ${result.sourceHashes.spec}. The controller owns lifecycle and snapshots. No delegation, no Skill tool and no extra approval. `;
     function acknowledgment(role){return `This is ONLY the read-only ${role} checkpoint. Inspect the Spec with read tools. The ENTIRE final assistant message must be exactly the heading Boundaries Acknowledged — ${role}, followed by numbered N. blocks containing EVERY Boundary verbatim in Spec order, with no fences, quotes, styling, introduction or closing text. ${role==='implementation'?'After each quote put a new line Meaning: followed by your comprehension paraphrase. ':''}No scratch, directories, status edits, implementation or report writes. The controller will validate and resume this same session.`;}
     for(const phase of ['orchestration','implementation','build']) {
       unchanged();assert.ok(deadline>now()&&used<4*1024*1024,'Shared model budget exhausted');

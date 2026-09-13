@@ -95,3 +95,33 @@ Fresh sweep: 55 candidates, all independently resolved with reasoned author disp
 | docs/plans/2026-09-12-claude-checkpoint-recovery.md | router, line 9 | Warning | accept-omission | resolved — Historical evidence and compatibility paths remain; current tracking separately owned. |
 | docs/plans/2026-09-13-router-distribution-assessment.md | router, line 1 | Warning | accept-omission | resolved — Historical evidence and compatibility paths remain; current tracking separately owned. |
 | docs/plans/2026-09-12-codex-skills-migration.md | router, line 34 | Warning | accept-omission | resolved — Historical evidence and compatibility paths remain; current tracking separately owned. |
+
+## Fresh scheduling recovery gate
+
+Independent PASS0/0 on revised Spec hashfe34fc1f5749bb8712fa50f56625fec4374a8c30fd19083b6547e6f6179759ad before annotation. Completeness1–10, linked membership and embedded parity pass. All55 original coverage candidates independently rechecked and resolved; scheduling terms add none. A committed Archive source/offline/install checkpoint permits Router implementation during frozen-copy host evaluation, with one canonical/catalog writer. Required Archive production changes pause affected integration. Router review still requires all8 accepted Archive cases and committed closure. Human review remains pending under session authorization. Archive source checkpoint fe46d55 now satisfies the revised implementation prerequisite; it does not establish Archive acceptance.
+
+## Fresh installer retention recovery gate
+
+PASS — 0 blockers, 0 warnings. Independent reviewer: checkpoint_contract_review; September 13, 2026. Reviewed Spec SHA-256 before gate annotation: `ddfc26c2a026e6772f85cde120545ceeebcd81d747539706a5f167ba4754c204`. Completeness items 1–10 and all three linked Expectation/detail comparisons pass, including the author-aligned EXP-88ea validation. Human peer review remains pending.
+
+The correction is supported by the actual pinned skills 1.5.25 removal receipt in `idd-router-codex-installer-N50ypU/receipts.json` and local `node_modules/skills/dist/cli.mjs` lines 6325–6366. The CLI skips canonical paths during selected-agent cleanup and retains the canonical directory when another detected agent still resolves an installed path. Its success message therefore does not establish complete uninstallation.
+
+The revised contract independently requires removal of separate selected-host aliases/copies and either actual canonical removal or exact preservation of its original bytes/modes with explicit still-installed reporting. Retained IDD skills, unrelated skills and consumer files remain protected. Selected names and explicit host scope are mandatory; neither broader `--all` removal nor manual canonical deletion is authorized. Local update remains a separately reported no-op, explicit re-add remains local refresh, and no remote update, native discovery or complete host-isolated uninstall is inferred.
+
+### Coverage of the recovery revision
+
+All 55 prior candidate omissions remain visible in the Coverage table above and have matching reasoned author dispositions; their shared links, direct workflows/adapters, generic installer/assembly behavior, independent fixtures and historical references remain valid. The removal-observation delta is owned by `tests/helpers/router-distribution.mjs`, `tests/router-distribution.test.mjs` and `scripts/evaluate-router.mjs`. Retention guidance and outcome reporting are owned by README.md, plugin/README.md, docs/contributing-agents.md, CLAUDE.md and the Spec's execution/host reports. No new unowned impact-surface file or unmet ownership dependency was found.
+
+This is a content/coverage recovery gate only. The four actual host/mode installer combinations, required routing/controller observations and final Archive acceptance/closure prerequisite remain required; this report does not declare those validations complete or reset the in-progress lifecycle.
+
+## Fresh installer mode recovery gate
+
+PASS — 0 blockers, 0 warnings. Independent reviewer: checkpoint_contract_review; September 13, 2026. Reviewed Spec SHA-256 before gate annotation: `dc08103373ca039c5c300aa7dd8ad43f542b6129def3932de6ed1b11d67b3721`. Completeness items 1–10, linked parent membership and all three linked Expectation/detail comparisons pass. The stale copy/symlink matrix sentence is now aligned with the explicit-copy/default requested-mode contract. Human peer review remains pending.
+
+The correction is supported by pinned skills 1.5.25 source in `node_modules/skills/dist/cli.mjs` lines 4980–5001 and the original `idd-router-claude-installer-Nq29GJ/receipts.json`. That run requested only claude-code without --copy; the CLI reported all sixteen skills copied, and independent lstat inspection confirms all sixteen installed Claude skill roots are directories rather than symlinks. Single-host default mode must therefore be recorded as actual copy under this pin. Requested mode and actual filesystem mode remain separate facts, and refresh must preserve actual mode. The unchanged individual installation probe targets both hosts and explicitly checks Claude symlinks; its separate coverage is not inferred from these bulk copies. No additional host is authorized merely to force a different mode.
+
+### Coverage of the mode recovery revision
+
+All 55 existing candidate omissions retain matching reasoned accept-omission dispositions and remain resolved. The optional --default-mode flag, requested/actual mode records, full bundle-byte/root-path checks and failed subprocess receipts are owned by the existing router helper, tests, fixture and evaluator Deliverables. Current mode and retention guidance is owned by the existing documentation and report Deliverables. The generic dual-host individual installer probe remains valid and unchanged. No new unowned impact-surface file or unmet validation dependency was found.
+
+This content/coverage gate does not certify the pending helper/oracle corrections or actual bulk reruns. All four revised host/requested-mode combinations, separate individual symlink verification, routing/controller full-trace acceptance and Archive closure remain required. Original failed receipts remain unchanged; no lifecycle reset or human approval is inferred.

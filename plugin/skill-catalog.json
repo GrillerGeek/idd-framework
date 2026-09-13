@@ -3,7 +3,7 @@
   "bundles": [
     {
       "directory": "idd-orchestration",
-      "profile": "legacy-claude",
+      "profile": "portable",
       "files": [
         {
           "source": "plugin/workflows/idd-orchestration.md",
@@ -11,33 +11,813 @@
           "executable": false
         },
         {
-          "source": "plugin/references/expectation-template.md",
+          "source": "plugin/LICENSE",
+          "destination": "LICENSE",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/expectation-template.md",
           "destination": "references/expectation-template.md",
           "executable": false
         },
         {
-          "source": "plugin/references/exploration-template.md",
+          "source": "plugin/references/exploration/format.md",
           "destination": "references/exploration-template.md",
           "executable": false
         },
         {
-          "source": "plugin/references/intention-template.md",
+          "source": "plugin/references/authoring/intention-template.md",
           "destination": "references/intention-template.md",
           "executable": false
         },
         {
-          "source": "plugin/references/ledger-reference.md",
+          "source": "plugin/references/archive/ledger.md",
           "destination": "references/ledger-reference.md",
           "executable": false
         },
         {
-          "source": "plugin/references/product-template.md",
+          "source": "plugin/references/pilot/product-template.md",
           "destination": "references/product-template.md",
           "executable": false
         },
         {
-          "source": "plugin/references/spec-reference.md",
+          "source": "plugin/references/pilot/spec-reference.md",
           "destination": "references/spec-reference.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/workflows/archive.md",
+          "destination": "stages/archive/workflow.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/archive/archive.md",
+          "destination": "stages/archive/references/archive.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/archive/manifest.md",
+          "destination": "stages/archive/references/manifest.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/archive/ledger.md",
+          "destination": "stages/archive/references/ledger.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/bin/idd-archive-scan",
+          "destination": "stages/archive/scripts/idd-archive-scan",
+          "executable": true
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "stages/archive/LICENSE",
+          "executable": false
+        },
+        {
+          "source": "plugin/workflows/chart.md",
+          "destination": "stages/chart/workflow.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/exploration/exploration.md",
+          "destination": "stages/chart/references/exploration.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/exploration/format.md",
+          "destination": "stages/chart/references/format.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/bin/idd-next-id",
+          "destination": "stages/chart/scripts/idd-next-id",
+          "executable": true
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "stages/chart/LICENSE",
+          "executable": false
+        },
+        {
+          "source": "plugin/workflows/deep-review.md",
+          "destination": "stages/deep-review/workflow.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/review/review.md",
+          "destination": "stages/deep-review/references/review.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/spec-reference.md",
+          "destination": "stages/deep-review/references/spec-reference.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "stages/deep-review/LICENSE",
+          "executable": false
+        },
+        {
+          "source": "plugin/workflows/define-expectations.md",
+          "destination": "stages/define-expectations/workflow.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/authoring.md",
+          "destination": "stages/define-expectations/references/authoring.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/expectation-template.md",
+          "destination": "stages/define-expectations/references/expectation-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/bin/idd-next-id",
+          "destination": "stages/define-expectations/scripts/idd-next-id",
+          "executable": true
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "stages/define-expectations/LICENSE",
+          "executable": false
+        },
+        {
+          "source": "plugin/workflows/define-intentions.md",
+          "destination": "stages/define-intentions/workflow.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/authoring.md",
+          "destination": "stages/define-intentions/references/authoring.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/intention-template.md",
+          "destination": "stages/define-intentions/references/intention-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/bin/idd-next-id",
+          "destination": "stages/define-intentions/scripts/idd-next-id",
+          "executable": true
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "stages/define-intentions/LICENSE",
+          "executable": false
+        },
+        {
+          "source": "plugin/workflows/define-outcomes.md",
+          "destination": "stages/define-outcomes/workflow.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/authoring.md",
+          "destination": "stages/define-outcomes/references/authoring.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/intention-template.md",
+          "destination": "stages/define-outcomes/references/intention-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/expectation-template.md",
+          "destination": "stages/define-outcomes/references/expectation-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/bin/idd-next-id",
+          "destination": "stages/define-outcomes/scripts/idd-next-id",
+          "executable": true
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "stages/define-outcomes/LICENSE",
+          "executable": false
+        },
+        {
+          "source": "plugin/workflows/forge.md",
+          "destination": "stages/forge/workflow.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "stages/forge/LICENSE",
+          "executable": false
+        },
+        {
+          "source": "plugin/workflows/gap-check.md",
+          "destination": "stages/gap-check/workflow.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/spec-reference.md",
+          "destination": "stages/gap-check/references/spec-reference.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/gap-reviewer.md",
+          "destination": "stages/gap-check/references/gap-reviewer.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "stages/gap-check/LICENSE",
+          "executable": false
+        },
+        {
+          "source": "plugin/workflows/implement-spec.md",
+          "destination": "stages/implement-spec/workflow.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/spec-reference.md",
+          "destination": "stages/implement-spec/references/spec-reference.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/spec-implementer.md",
+          "destination": "stages/implement-spec/references/spec-implementer.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "stages/implement-spec/LICENSE",
+          "executable": false
+        },
+        {
+          "source": "plugin/runtime/checkpoints.mjs",
+          "destination": "stages/implement-spec/scripts/checkpoints.mjs",
+          "executable": false
+        },
+        {
+          "source": "plugin/runtime/idd-execute-spec.mjs",
+          "destination": "stages/implement-spec/scripts/idd-execute-spec.mjs",
+          "executable": true
+        },
+        {
+          "source": "plugin/runtime/profile.mjs",
+          "destination": "stages/implement-spec/scripts/profile.mjs",
+          "executable": false
+        },
+        {
+          "source": "plugin/runtime/report.mjs",
+          "destination": "stages/implement-spec/scripts/report.mjs",
+          "executable": false
+        },
+        {
+          "source": "plugin/runtime/runner.mjs",
+          "destination": "stages/implement-spec/scripts/runner.mjs",
+          "executable": false
+        },
+        {
+          "source": "plugin/runtime/snapshot.mjs",
+          "destination": "stages/implement-spec/scripts/snapshot.mjs",
+          "executable": false
+        },
+        {
+          "source": "plugin/runtime/transport.mjs",
+          "destination": "stages/implement-spec/scripts/transport.mjs",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/LICENSE",
+          "destination": "stages/implement-spec/vendor/yaml/LICENSE",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/compose-collection.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/compose/compose-collection.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/compose-doc.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/compose/compose-doc.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/compose-node.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/compose/compose-node.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/compose-scalar.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/compose/compose-scalar.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/composer.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/compose/composer.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/resolve-block-map.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/compose/resolve-block-map.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/resolve-block-scalar.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/compose/resolve-block-scalar.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/resolve-block-seq.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/compose/resolve-block-seq.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/resolve-end.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/compose/resolve-end.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/resolve-flow-collection.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/compose/resolve-flow-collection.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/resolve-flow-scalar.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/compose/resolve-flow-scalar.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/resolve-props.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/compose/resolve-props.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/util-contains-newline.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/compose/util-contains-newline.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/util-empty-scalar-position.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/compose/util-empty-scalar-position.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/util-flow-indent-check.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/compose/util-flow-indent-check.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/compose/util-map-includes.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/compose/util-map-includes.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/doc/Document.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/doc/Document.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/doc/anchors.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/doc/anchors.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/doc/applyReviver.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/doc/applyReviver.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/doc/createNode.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/doc/createNode.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/doc/directives.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/doc/directives.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/errors.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/errors.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/index.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/index.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/log.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/log.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/nodes/Alias.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/nodes/Alias.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/nodes/Collection.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/nodes/Collection.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/nodes/Node.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/nodes/Node.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/nodes/Pair.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/nodes/Pair.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/nodes/Scalar.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/nodes/Scalar.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/nodes/YAMLMap.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/nodes/YAMLMap.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/nodes/YAMLSeq.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/nodes/YAMLSeq.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/nodes/addPairToJSMap.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/nodes/addPairToJSMap.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/nodes/identity.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/nodes/identity.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/nodes/toJS.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/nodes/toJS.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/parse/cst-scalar.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/parse/cst-scalar.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/parse/cst-stringify.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/parse/cst-stringify.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/parse/cst-visit.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/parse/cst-visit.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/parse/cst.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/parse/cst.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/parse/lexer.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/parse/lexer.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/parse/line-counter.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/parse/line-counter.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/parse/parser.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/parse/parser.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/public-api.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/public-api.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/Schema.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/schema/Schema.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/common/map.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/schema/common/map.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/common/null.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/schema/common/null.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/common/seq.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/schema/common/seq.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/common/string.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/schema/common/string.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/core/bool.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/schema/core/bool.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/core/float.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/schema/core/float.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/core/int.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/schema/core/int.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/core/schema.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/schema/core/schema.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/json/schema.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/schema/json/schema.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/tags.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/schema/tags.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/yaml-1.1/binary.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/schema/yaml-1.1/binary.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/yaml-1.1/bool.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/schema/yaml-1.1/bool.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/yaml-1.1/float.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/schema/yaml-1.1/float.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/yaml-1.1/int.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/schema/yaml-1.1/int.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/yaml-1.1/merge.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/schema/yaml-1.1/merge.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/yaml-1.1/omap.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/schema/yaml-1.1/omap.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/yaml-1.1/pairs.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/schema/yaml-1.1/pairs.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/yaml-1.1/schema.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/schema/yaml-1.1/schema.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/yaml-1.1/set.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/schema/yaml-1.1/set.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/schema/yaml-1.1/timestamp.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/schema/yaml-1.1/timestamp.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/stringify/foldFlowLines.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/stringify/foldFlowLines.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/stringify/stringify.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/stringify/stringify.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/stringify/stringifyCollection.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/stringify/stringifyCollection.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/stringify/stringifyComment.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/stringify/stringifyComment.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/stringify/stringifyDocument.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/stringify/stringifyDocument.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/stringify/stringifyNumber.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/stringify/stringifyNumber.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/stringify/stringifyPair.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/stringify/stringifyPair.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/stringify/stringifyString.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/stringify/stringifyString.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/test-events.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/test-events.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/util.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/util.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/dist/visit.js",
+          "destination": "stages/implement-spec/vendor/yaml/dist/visit.js",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/package.json",
+          "destination": "stages/implement-spec/vendor/yaml/package.json",
+          "executable": false
+        },
+        {
+          "source": "plugin/vendor/yaml/integrity.json",
+          "destination": "stages/implement-spec/vendor/yaml/integrity.json",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/guarded-execution.md",
+          "destination": "stages/implement-spec/references/guarded-execution.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/workflows/interview.md",
+          "destination": "stages/interview/workflow.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/product-template.md",
+          "destination": "stages/interview/references/product-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/bin/idd-next-id",
+          "destination": "stages/interview/scripts/idd-next-id",
+          "executable": true
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "stages/interview/LICENSE",
+          "executable": false
+        },
+        {
+          "source": "plugin/workflows/quick-spec.md",
+          "destination": "stages/quick-spec/workflow.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/authoring.md",
+          "destination": "stages/quick-spec/references/authoring.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/intention-template.md",
+          "destination": "stages/quick-spec/references/intention-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/expectation-template.md",
+          "destination": "stages/quick-spec/references/expectation-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/spec-reference.md",
+          "destination": "stages/quick-spec/references/spec-reference.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/bin/idd-next-id",
+          "destination": "stages/quick-spec/scripts/idd-next-id",
+          "executable": true
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "stages/quick-spec/LICENSE",
+          "executable": false
+        },
+        {
+          "source": "plugin/workflows/resolve.md",
+          "destination": "stages/resolve/workflow.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/exploration/exploration.md",
+          "destination": "stages/resolve/references/exploration.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/exploration/format.md",
+          "destination": "stages/resolve/references/format.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/bin/idd-next-id",
+          "destination": "stages/resolve/scripts/idd-next-id",
+          "executable": true
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "stages/resolve/LICENSE",
+          "executable": false
+        },
+        {
+          "source": "plugin/workflows/review-spec.md",
+          "destination": "stages/review-spec/workflow.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/review/review.md",
+          "destination": "stages/review-spec/references/review.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/spec-reference.md",
+          "destination": "stages/review-spec/references/spec-reference.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "stages/review-spec/LICENSE",
+          "executable": false
+        },
+        {
+          "source": "plugin/workflows/tech-review.md",
+          "destination": "stages/tech-review/workflow.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/review/review.md",
+          "destination": "stages/tech-review/references/review.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/spec-reference.md",
+          "destination": "stages/tech-review/references/spec-reference.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "stages/tech-review/LICENSE",
+          "executable": false
+        },
+        {
+          "source": "plugin/workflows/write-spec.md",
+          "destination": "stages/write-spec/workflow.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/authoring.md",
+          "destination": "stages/write-spec/references/authoring.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/spec-reference.md",
+          "destination": "stages/write-spec/references/spec-reference.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/bin/idd-next-id",
+          "destination": "stages/write-spec/scripts/idd-next-id",
+          "executable": true
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "stages/write-spec/LICENSE",
           "executable": false
         }
       ]

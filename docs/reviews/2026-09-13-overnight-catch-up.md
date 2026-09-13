@@ -2,10 +2,49 @@
 
 This is the running catch-up report for the authorized unattended implementation on `codex/portable-skills`. It distinguishes completed implementation, measured host behavior, remaining integration and actual human review. No push, tag or release has occurred.
 
+## Current status after the usage reset
+
+The complete router is implemented with all fifteen stages and318 generated
+files across sixteen standalone entrypoints. All five required routing/controller
+observations have independent full-trace acceptance. Full455-test regression runs
+passed on both Node versions;127 targeted Archive/router checks passed after nine
+new regressions (464 current total).68 individual installation combinations pass.
+Four hardened actual bulk install/update/refresh/remove observations pass, with
+independent review accepted all four.
+
+Archive source is committed as `fe46d55`. Seven of eight required host cases are
+accepted. The1200-second medium-effort Claude apply trial timed out after partial
+approved archival; the recovery tag preserves every original selected byte/mode,
+and the exact partial state is retained. The freshly gated low-effort diagnostic also timed out after resource reads
+only; its entire fixture remains unchanged. Further unchanged retries are paused.
+Archive is still in-progress. Router may not enter review until Archive acceptance and closure are
+committed; native packaging is being scheduled from the verified Router source checkpoint,
+while final acceptance remains dependent on the unresolved Archive observation.
+
+Decisions based on actual installer evidence:
+
+- Keep local `skills update` explicitly documented as a no-op; use the original
+  host/mode-specific `add` command for a local refresh.
+- Host-scoped removal can retain `.agents/skills` for other detected agents.
+  Retained copies remain installed, including for Codex. Preserve those exact
+  bytes and do not silently broaden removal or report complete uninstallation.
+- Pinned single-host installs force copy even without `--copy`. Bulk checks now
+  distinguish requested explicit-copy/default from actual copy mode. Genuine
+  Claude symlink coverage remains the separate dual-host individual probes.
+- Independent review found and fixed verification holes in root resource bytes,
+  dangling/root-symlink checks and failed installer receipts. Earlier weaker
+  observations remain retained and are superseded by hardened reruns.
+
+See [router host evidence](SPEC-ab84-host-evaluation.md) and
+[Archive host evidence](SPEC-57b4-host-evaluation.md) for hashes, failures and limits.
+The following sections retain milestone-by-milestone history; the status above is
+current. No actual-repository push, tag, release or personal installation occurred.
+
 ## Completed milestones
 
 | Commit | Outcome | Review state |
 |---|---|---|
+| `fe46d55` | Archive source/offline/install checkpoint; host acceptance pending | SPEC-57b4 in-progress |
 | `e8b4c8e` | Independently gated router, native distribution and local release-preparation packets | Draft; implementation remains serialized behind Archive acceptance |
 | `f92b4ee` | Portable Exploration chart/resolve with twelve accepted traces and verified claims | SPEC-c11a in review |
 | `54d134f` | Installed Claude execution controller: actual read-only acknowledgments, guarded write transition, explicit output/check metadata, report verification, preservation and bounded process transport | SPEC-c45b in review; configured-policy terminal lane independently accepted |

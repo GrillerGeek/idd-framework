@@ -1,0 +1,53 @@
+#!/bin/bash
+# idd-next-id: Generate a unique ID for an IDD artifact type
+# Usage: idd-next-id <type>
+# Types: product, intention, expectation, spec, exploration
+# Example: idd-next-id spec → outputs SPEC-a3f8; idd-next-id exploration → outputs EXPL-a3f8
+#
+# IDs are random short hashes (4 hex chars by default) rather than sequential.
+# There is no shared counter to coordinate; collision checks cover the current
+# working tree, not unseen branches or archived artifacts.
+# On rare collision against an existing on-disk file, the script extends to 6
+# then 8 hex chars before giving up.
+
+set -euo pipefail
+
+TYPE="${1:-}"
+
+case "$TYPE" in
+  product|products)         PREFIX="PROD"; DIR="docs/products" ;;
+  intention|intentions)     PREFIX="INT";  DIR="docs/intentions" ;;
+  expectation|expectations) PREFIX="EXP";  DIR="docs/expectations" ;;
+  spec|specs)               PREFIX="SPEC"; DIR="docs/specs" ;;
+  exploration|explorations) PREFIX="EXPL"; DIR="docs/explorations" ;;
+  *)
+    echo "Usage: idd-next-id <product|intention|expectation|spec|exploration>" >&2
+    exit 1
+    ;;
+esac
+
+gen_hash() {
+  # $1 = number of bytes (each byte = 2 hex chars)
+  od -An -tx1 -N"$1" /dev/urandom | tr -d ' \n'
+}
+
+# Try 4-hex first (2 bytes), extend to 6 then 8 on persistent collisions.
+for bytes in 2 3 4; do
+  for attempt in 1 2 3 4 5; do
+    ID="$(gen_hash "$bytes")"
+    if [ "$PREFIX" = "EXPL" ]; then
+      # Explorations are directories named EXPL-<id>-<slug>/
+      if ! compgen -G "$DIR/${PREFIX}-${ID}-*" > /dev/null; then
+        printf "%s-%s\n" "$PREFIX" "$ID"
+        exit 0
+      fi
+    elif [ ! -e "$DIR/${PREFIX}-${ID}.yaml" ] &&
+         ! compgen -G "$DIR/${PREFIX}-${ID}-*.yaml" > /dev/null; then
+      printf "%s-%s\n" "$PREFIX" "$ID"
+      exit 0
+    fi
+  done
+done
+
+echo "idd-next-id: failed to generate unique ID after 15 attempts" >&2
+exit 1

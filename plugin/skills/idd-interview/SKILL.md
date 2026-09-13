@@ -11,7 +11,8 @@ confirmed decisions already supplied; do not send the person through a second
 interview in a background agent. Use the host's available question mechanism or
 plain conversation for missing facts. Keep the user's chosen scope and language.
 
-Resolve this installed skill's directory from the loaded SKILL.md path. Read
+Resolve this stage's installed directory from the parent of its loaded entry path,
+whether standalone SKILL.md or routed workflow.md. Read
 [the Product template](references/product-template.md). Run the bundled
 [ID helper](scripts/idd-next-id) by its absolute resolved path, with the consuming
 project as the working directory. Quote paths containing spaces. Installed files

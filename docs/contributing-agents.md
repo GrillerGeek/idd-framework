@@ -22,11 +22,11 @@ do not repeatedly ask for the same approval.
 
 Codex can maintain this checkout through AGENTS.md and this guide. The currently
 packaged workflow integration is the [Claude Code plugin](../plugin/README.md).
-Native Codex packaging and complete standalone `npx skills` installation are
+Native Codex packaging and release verification are
 planned in the [migration plan](plans/2026-09-12-codex-skills-migration.md).
 Fifteen standalone stages have complete bundles, covering interview, authoring, technical/deep
 review, gap-check, guarded implementation, validation, Forge, exploration and archival. Archive
-host acceptance is in progress; the complete router and native Codex distribution remain pending. See the [pilot instructions](../plugin/README.md#portable-workflow-pilot)
+host acceptance is in progress; the complete router is implemented and undergoing integration verification, with native Codex distribution next. See the [pilot instructions](../plugin/README.md#portable-workflow-pilot)
 for local installation and recorded host-evaluation limits.
 
 ## Source ownership and discovery
@@ -40,10 +40,10 @@ for local installation and recorded host-evaluation limits.
 | `CLAUDE.md`, `.github/copilot-instructions.md`, `.cursor/rules/idd.mdc` | Host entry points; Claude-specific dispatch details remain in CLAUDE.md |
 | `templates/` | Commented YAML starters for people |
 | `examples/` | Worked hierarchies; historical cases remain historical evidence |
-| `plugin/commands/`, `plugin/agents/` | Claude entry points; pilot bodies are thin adapters, remaining stages retain their procedures; frontmatter owns names and models |
-| `plugin/workflows/`, `plugin/references/` | Canonical router, portable pilot procedures and reference sources; edit these |
-| `plugin/skill-catalog.json` | Explicit source/destination mappings and pending stage inventory |
-| `plugin/skills/` | Committed generated legacy router and standalone pilot bundles; rebuild rather than edit |
+| `plugin/commands/`, `plugin/agents/` | Claude entry points; all stage bodies are thin adapters; frontmatter owns names and models |
+| `plugin/workflows/`, `plugin/references/` | Canonical router, portable stage procedures and reference sources; edit these |
+| `plugin/skill-catalog.json` | Explicit source/destination mappings, fifteen stages and sixteen bundles |
+| `plugin/skills/` | Committed generated complete router and standalone stage bundles; rebuild rather than edit |
 | `scripts/`, `tests/`, `.github/workflows/validate.yml` | Assembly, validation, regression tests and CI |
 | `plugin/bin/`, `plugin/scripts/` | ID generation, archive inventory, and directory initialization helpers |
 | `plugin/.claude-plugin/plugin.json`, `plugin/hooks/hooks.json` | Plugin identity/configuration and currently empty hooks |
@@ -59,7 +59,7 @@ Create artifact directories only when a workflow needs to write them.
 
 The plugin's [Spec reference](../plugin/skills/idd-orchestration/references/spec-reference.md)
 must stand alone after installation. Its maintained source is
-`plugin/references/spec-reference.md`; `npm run build:skills` updates the bundled
+`plugin/references/pilot/spec-reference.md`; `npm run build:skills` updates the bundled
 copy. When changing the lifecycle, reconcile it
 with the canonical contract and affected commands/agents in the same change.
 Keep the two license domains independently authored. Schema changes also require
@@ -270,3 +270,38 @@ Default offline tests exercise acceptance oracles, including binary tag recovery
 For Archive evaluator latency diagnosis only, `--host claude --claude-effort medium` sets reasoning effort for that one session while preserving the configured model and output style. The default remains configured. Receipts record the option; it does not change installed workflow behavior, personal settings, required phase checks or the600-second/4-MiB bound. Acceptance applies only to the measured effort lane.
 
 After documented preparation timeouts, Archive evaluation additionally accepts `--host claude --scenario apply --timeout-seconds 1200`. This explicit twenty-minute lane retains the4-MiB output cap; all other cases and the default remain600seconds. Invalid host/case/value combinations fail before fixture creation. Requested/effective timeout and effort are recorded. This contributor experiment does not alter the shipped workflow.
+
+
+## Router distribution verification
+
+The router has all fifteen stage closures under `stages/<stage>/`, with nested
+`workflow.md` entries and one public root `SKILL.md`. Catalog mappings reuse each
+direct source exactly. The only direct workflow/runtime changes in this milestone
+are interview's loaded-entry root clarification and guarded execution's safe
+`SKILL.md`/`workflow.md` entry selection. All three handoffs use that resolved entry.
+
+`npm run test:install` now covers68 individual combinations (sixteen bundles plus
+the synthetic probe, two hosts, two modes). These are not bulk lifecycle tests.
+Run `node scripts/evaluate-router.mjs --host codex --scenario installer` (or
+`claude`, optional `--default-mode`) for actual pinned discovery, bulk installation,
+list, local update no-op, explicit host/requested-mode-preserving refresh and selected
+removal. Four separate combinations are required. Retained canonical directories
+are compared byte-for-byte and reported still installed: skills1.5.25 may keep
+shared `.agents/skills` content for other detected hosts despite a removal success
+message. Do not manually remove shared skills to make a test pass.
+
+Optional actual-host cases are `--scenario outcomes` and `--scenario missing` for
+both hosts, and `--host claude --scenario controller` from an outer terminal.
+They install only a copied router, remove its source and preserve unrelated dirty
+notes. Routing cases stop before authoring. The controller copies the existing
+gated fixture unchanged and exercises the original three-phase controller API
+through its nested installation. Configured models,600seconds/4MiB and existing
+credentials apply; no nested-session guard is cleared. Evidence is retained in
+OS-temp and source hashes are captured when modules load. Independent full-trace
+review is required beyond final-text/output oracles. These observations do not
+certify native aliases, a desktop fresh session, remote updates, release or actual
+human peer review. See [router evidence](reviews/SPEC-ab84-host-evaluation.md).
+
+Pinned installer mode detail: targeting a single host forces copy, even without `--copy`. The four bulk observations compare explicit copy and default requests while recording actual copy mode. Genuine Claude symlinks are tested separately by the individual probe, which targets Codex and Claude together. Refresh retains actual mode; no additional host is silently selected to force a symlink.
+
+Archive contributor diagnostics also permit explicit `--claude-effort low` after recorded medium-effort timeouts. This retains the configured model/style and existing bounds, with lane-qualified evidence. First Git HEAD/index/config/refs must remain bound to the original capture; later checks cannot silently adopt a replacement baseline.

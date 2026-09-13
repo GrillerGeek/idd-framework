@@ -136,7 +136,10 @@ spec:
         visible scripts and independent full trace review required; model output stays capped
         at4MiB, the default run limit is600seconds, and an explicit contributor-only
         --timeout-seconds1200 option is permitted only for Claude apply after documented preparation
-        timeouts; cleanup never removes evidence tags before verification."
+        timeouts; cleanup never removes evidence tags before verification. Explicit Claude low
+        effort is also permitted after recorded medium timeout recovery; receipts distinguish the
+        actual effort lane, all original filesystem and Git baselines remain bound, and prior
+        failures stay retained."
       - Success fixture archives one terminal artifact and one entire terminal Exploration, moves
         one cross-cutting review and co-deletes one subject review, preserves one live referenced
         artifact and old ledger record; verify3new records/one archives entry and every original
@@ -251,7 +254,16 @@ spec:
       ready reset or human review. The medium-effort sKMCpp trial issued its inline process but
       failed during capture on unsupported git for-each-ref -z; it timed out before a correction.
       The next prompt may explicitly use supported --format output instead. This is retained as a
-      real command failure plus timeout, not only latency. No project mutation occurred."
+      real command failure plus timeout, not only latency. No project mutation occurred. After the
+      V9Z3Qa1200second/medium timeout with independently recoverable partial state, allow an
+      explicit low effort evaluator lane for Claude only, keeping the configured model/output style
+      and1200second/4MiB apply bound. Default configured and medium remain supported. Capture low in
+      each receipt. The evaluator prompt must require comparing original Git HEAD/index/config/refs
+      retained at first capture against every later Git check before adopting any expected owned
+      tag/commit delta. Never recapture as a new Git baseline. Preserve V9Z3Qa partial evidence
+      without repair. This changes only optional evaluator controls and prompts, not canonical
+      Archive procedures, shipped resources, required8-case acceptance or production safety
+      contracts."
   coverage_dispositions:
     - files:
         - AGENTS.md

@@ -54,3 +54,29 @@ Claude apply `ijtvMb` timed out without issuing the required retained-baseline p
 The medium-effort `sKMCpp` trial failed during capture on unsupported `git for-each-ref -z` (exit129), then timed out before a correction. It also inspected consumer context before the required complete original capture. Exact harness snapshots/root/Git/tags remain unchanged. Original receipt SHA-256 `5f89ba9167b8ef758290276569d86ff7cd32f46dc8dfde7cc1c5d4115ea8f4e0`. This is a real command failure plus timeout, not pure latency or accepted procedural evidence.
 
 A fresh independent author recovery gate passed for optional1200-second Claude apply evaluation only. Default600 seconds, configured model/style, all mutation/phase/receipt requirements and4MiB cap remain. The new prompt requires emitting retained raw originals before fallible Git/parser work, uses supported for-each-ref formatting and forbids reading consumer context before capture. A new frozen fixture is running; no failed fixture is repaired. The Spec remains in-progress. The implementation source can be checkpointed locally without calling its incomplete host matrix accepted.
+
+
+Claude apply V9Z3Qa timed out at1200seconds with explicit medium effort. Original receipt SHA-256 `f27c1891f30f4bbe0c230226279b2095a09cd6a907ca7e8c2aab33f81c82bf72`. The single apply tool returned exit137 without phase stdout; this does not establish completed postguards. HEAD/index/branch/config remain at6d2b1aa0018d0c8c5085df726fb0f23d5870692b. Annotated idd-archive-2026-09 tag objectd52cf4cc4a4ff5f1bc310f3a9b2adbc2ab2bde2a points there. Ledger preserves original records/custom metadata plus3planned records/count3. INT-a111, subject review and all4Exploration files/3directories were removed; docs/archive is empty. Crosscut review and manifest remain exact originals; no staging/commit. Independent review recovered all selected originals, binary bytes,0755 executable and old ledger/manifest from the tag; unowned entries/root mode remain exact. No repair performed. Missing phase stdout limits exact last-guard certification.
+
+No deterministic stopping-point script error was found; deadline termination is the supported diagnosis. A separate Git baseline adoption weakness was found: later G0 did not compare to the first retained Git capture. The fresh optional low-effort diagnostic reinforces that comparison and flushed phase output, keeping configured model/style,1200apply/4MiB and all required acceptance. The fresh recovery gate is recorded separately; V9Z3Qa remains a partial failure.
+
+
+Claude apply vL5F2u remains blocked by a1200-second low-effort preparation/transport
+timeout (exit143). It issued only installed-resource listing and fiveReads, no
+consumer capture, parser/binding/preflight, inline apply process or mutation.
+Telemetry reached roughly24,000 preparation tokens followed by an unknown API
+retry/stream-resume request; a rate-limit event said allowed. No shell exception
+or usage exhaustion is established. Low effort alone did not resolve the latency.
+
+Independent root and34-entry snapshots, modes/links/bytes, Git HEAD
+`ef80ebaa21cc01fe7cd3c62542ed4d4745e87e4b`, branch/index/config/status and empty tags
+remain exact. All ledger/manifest/reviews/Exploration assets remain original. No
+repair or recovery was performed. Separate oracle correctly fails for no recovery
+tag. Receipt SHA-256 `020cf2c78fb5cd1d84208f01f6266218d12a6b9a53ae9b7a565fb3060d38ea91`;
+stdout `bae28810f389300ae0f321c7a90fdcf5dd593d3eb68be9176f0eb0acb62b7f4a`.
+Model claude-opus-5[1m], ELI5, Claude2.1.269. Bundle hash
+`666f7ec111000e6b7658d240bfe3bd11efeb326cce8afb2f3c9c5a3db9b05dd5`;
+evaluator `d6a05f9dcb4bf9757b6bf67b3806e1bf4b20b08c06a6e1fcff8f31a48e08ce6d`;
+module-loaded/current helper `b84922a4fba4126bcc52dc7b9af5debd9e3e3ba34de8b4487c0465ed4cf38a5f`.
+Further unchanged retries are paused. Seven required cases remain accepted; full
+Claude apply and Archive lifecycle closure are not complete.

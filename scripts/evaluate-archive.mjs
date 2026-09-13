@@ -4,7 +4,7 @@ import fs from 'node:fs';import os from 'node:os';import path from 'node:path';i
 import {assemble,repositoryRoot} from './build-skills.mjs';import {installLocal} from './test-install.mjs';import {hostInvocation,runHost} from './evaluate-pilot.mjs';import {snapshot,hash} from '../plugin/runtime/snapshot.mjs';import {cases,setupArchive,finalizeArchive,archivePrompt,verifyArchive,sourceHash as oracleHash} from '../tests/helpers/archive-workflows.mjs';
 const evaluatorHash=hash(fs.readFileSync(fileURLToPath(import.meta.url)));
 export function archiveInvocation(host,prompt,project,claudeEffort='configured') {
-  assert.ok(['configured','medium'].includes(claudeEffort),'Unsupported evaluation effort');
+  assert.ok(['configured','medium','low'].includes(claudeEffort),'Unsupported evaluation effort');
   assert.ok(claudeEffort==='configured'||host==='claude','Claude effort requires Claude');
   const invocation=hostInvocation(host,prompt,project);
   if(claudeEffort!=='configured')invocation.args.push('--effort',claudeEffort);

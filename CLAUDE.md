@@ -24,11 +24,13 @@ Assignments are explicit (not `inherit`) so a user running Opus in their main se
 
 ## Resources and configuration
 
-- Edit the router in `plugin/workflows/idd-orchestration.md` and the six references
-  in `plugin/references/`; `npm run build:skills` assembles their exact copies into
-  `plugin/skills/idd-orchestration/`. The catalog records these mappings.
-  Installed agents use these resources through `CLAUDE_PLUGIN_ROOT`; they cannot
-  assume this repository's `docs/` is present in the consuming project.
+- Edit canonical workflows and portable references through the explicit mappings
+  in `plugin/skill-catalog.json`; `npm run build:skills` builds direct bundles and
+  the complete `plugin/skills/idd-orchestration/stages/` closures. Six historical
+  root reference paths remain as aliases of portable sources. The selected
+  loaded `SKILL.md` or `workflow.md` determines its local resource root.
+  Claude command adapters use `CLAUDE_PLUGIN_ROOT` to reach those bundles;
+  portable stages need no plugin-root variable or sibling skill.
 - `plugin/bin/idd-next-id` generates artifact IDs; `plugin/bin/idd-archive-scan`
   provides read-only archive inventory. Create output directories lazily.
 - `plugin/hooks/hooks.json` currently defines no hooks.
@@ -36,8 +38,9 @@ Assignments are explicit (not `inherit`) so a user running Opus in their main se
   `userConfig` entries `default_product_id` and `team_name`.
 
 Run `npm run check` and `npm test` for contributor validation. The shared guide
-describes setup and the isolated `npm run test:install` probe; it does not establish
-that real IDD workflows are portable yet.
+describes setup, the isolated `npm run test:install` probe and separate actual-host
+evidence. Sixteen bundle entrypoints represent fifteen stages plus the complete
+router; native installation and final Archive/router acceptance remain separate.
 
 ## Review and execution
 
