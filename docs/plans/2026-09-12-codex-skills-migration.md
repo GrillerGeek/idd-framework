@@ -253,3 +253,7 @@ SPEC-44b9 is in review: technical, deep and implementation validation add three 
 ## September 13 Forge completion
 
 SPEC-e1d4 is in review: twelve portable stages, three planned,146 generated files. Four controlled host traces accepted after capturing original Codex background returns; old EPERM and incomplete-return receipts remain failed/limited. 283 full-suite tests on both Node versions plus36 final targeted tests after one added regression (284 final total),52 installation combinations. No published Forge UI/native alias/cross-session persistence claim. Exploration follows its clean gate.
+
+## September 13 Exploration completion
+
+SPEC-c11a is in review: fourteen portable stages, one planned, 156 generated files. Twelve required cases passed separate output oracles and strict independent trace reviews; five original Claude procedural/question failures remain documented alongside reinforced retries. 335 full tests on both Node versions plus 53 final targeted after two regressions (337 final total), 60 individual installations. Claims preserve unrelated staged/dirty work; empty frontier alone never makes a map clear. Native aliases, real concurrency and later-answer continuation remain unverified. Archive follows its passed gate. See docs/reviews/SPEC-c11a-host-evaluation.md.

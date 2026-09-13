@@ -211,7 +211,7 @@ The maintained router is `workflows/idd-orchestration.md`; its six maintained
 references are in `references/`. From the repository root, run `npm ci` with
 Node.js 22.20.0+, edit those sources, and run `npm run build:skills` to refresh the
 committed copies in `skills/idd-orchestration/`. `skill-catalog.json` defines each
-mapping and lists twelve implemented portable stages plus three planned stages.
+mapping and lists fourteen implemented portable stages plus one planned stage.
 
 Run `npm run check` and `npm test` before submitting changes. The optional
 `npm run test:install` verifies the synthetic fixture and each pilot skill alone
@@ -227,7 +227,7 @@ Apache 2.0 -- see [LICENSE](LICENSE).
 
 ## Portable workflow pilot
 
-This branch includes twelve complete standalone skill bundles. The original three-stage pilot has a documented supported-lane acceptance; the five authoring stages have separate host evaluation evidence:
+This branch includes fourteen complete standalone skill bundles. The original three-stage pilot has a documented supported-lane acceptance; the five authoring stages have separate host evaluation evidence:
 
 | Skill | Purpose | Legacy Claude alias |
 |---|---|---|
@@ -243,14 +243,16 @@ This branch includes twelve complete standalone skill bundles. The original thre
 | `idd-deep-review` | Three perspectives with truthful delegation fallback | `/idd-framework:deep-review` |
 | `idd-review-spec` | Evidence-based implementation validation | `/idd-framework:review-spec` |
 | `idd-forge` | Local Forge launcher with observed startup and owned stop handle | `/idd-framework:forge` |
+| `idd-chart` | Confirmed phase-zero map and factual research proposals | `/idd-framework:chart` |
+| `idd-resolve` | One eligible decision with a path-scoped claim commit | `/idd-framework:resolve` |
 
 The Claude aliases load these shared procedures. Their names and frontmatter stay
 unchanged; reviewer/implementer model choices remain in the Claude adapter. Each
 standalone bundle contains its own references and any required helper, with no
 runtime npm dependency added to the consuming project. The interview helper needs
 Bash, and artifact workflows need safe YAML parsing available in the host environment;
-missing capabilities are reported before writes. The router and other three
-stages still use the legacy integration; a full-catalog standalone install is not
+missing capabilities are reported before writes. The router and archival
+stage still use the legacy integration; a full-catalog standalone install is not
 yet the supported migration path.
 
 For a local pilot, build this checkout, then run the following from a **disposable
@@ -317,3 +319,9 @@ See [review host evidence](../docs/reviews/SPEC-44b9-host-evaluation.md) for the
 Install `idd-forge` alone using the same local pattern above. It accepts `--port`, `--no-open` and `--docs` as literal arguments, launches from the consuming root through an available background process capability, and reports the actual startup URL and owned stop handle. It uses the existing unpinned `npx --yes @jasonrobey/idd-forge` policy; Node20+ and npm access may be required for the published app. It initializes no IDD artifacts.
 
 The migration evaluator substitutes an explicitly controlled local launcher in an isolated child PATH and verifies arguments, process inspection and owned cleanup; this does not certify the published UI, native aliases or cross-session persistence. See [Forge evidence](../docs/reviews/SPEC-e1d4-host-evaluation.md).
+
+### Portable exploration
+
+`idd-chart` and `idd-resolve` each install independently with complete formats/procedure and ID helper. Main conversation owns stakeholder questions, claims and serialized writes; optional Sonnet research roles remain Claude-specific and read-only. A claim commit contains only the selected tracked, clean ticket and preserves unrelated staged/dirty work. Unpublished factual research proposals can be investigated before exclusive creation; persisted tickets always require their claim. Missing human answers never become resolutions.
+
+The map is clear only when fog is empty and every ticket is resolved or out_of_scope with valid dependencies; an empty frontier alone is insufficient. The same terminal correction is included in the legacy reference. See [exploration evidence](../docs/reviews/SPEC-c11a-host-evaluation.md) for controlled facts/claim tests and unverified native/concurrent-session behavior.

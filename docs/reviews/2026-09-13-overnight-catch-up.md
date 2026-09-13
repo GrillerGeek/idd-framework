@@ -7,6 +7,7 @@ This is the running catch-up report for the authorized unattended implementation
 | Commit | Outcome | Review state |
 |---|---|---|
 | `54d134f` | Installed Claude execution controller: actual read-only acknowledgments, guarded write transition, explicit output/check metadata, report verification, preservation and bounded process transport | SPEC-c45b in review; configured-policy terminal lane independently accepted |
+| `190abb0` | Portable Forge launcher with four accepted controlled host traces | SPEC-e1d4 in review |
 | `cba0ea9` | Three review stages with ten strict host observations; follow-on authoring packets | SPEC-44b9 in review |
 | `5b78b78` | Five authoring stages: intentions, expectations, combined outcomes, quick Spec and existing Expectations to Spec | SPEC-8406 in review; sixteen required actual-host observations independently accepted |
 
@@ -51,12 +52,18 @@ SPEC-44b9 is complete and in review: eleven portable stages, four planned. All t
 
 Forge SPEC-e1d4 is now implemented and in review. Four controlled host traces are accepted;283 full tests on both runtimes plus36 final targeted tests after one extra regression (284 final total),52 installations and146 generated files pass. See [Forge host evidence](SPEC-e1d4-host-evaluation.md) and [Execution Report](SPEC-e1d4-20260913T065500Z-execution.md). The Codex evaluator enables network per invocation for the controlled fixture and saves normal owned history to capture actual background returns; no personal configuration is edited. This does not certify the public Forge UI or native aliases.
 
-Exploration SPEC-c11a and archive SPEC-57b4 retain independently passed authoring gates and remain draft behind their implementation dependencies. See [remaining-workflow assessment](../plans/2026-09-13-remaining-workflow-assessment.md) for archive and exploration issues found before implementation. The exploration draft explicitly resolves new-research ownership and bounded prototype/task assets; these decisions are not yet shipped.
+Exploration SPEC-c11a is implemented and in review: chart/resolve, four exact-metadata adapters, full standalone resources and the terminal predicate correction. All twelve required observations now pass independent full-trace review and separate oracle revalidation. Five original Claude failures remain documented: weak preservation guards, pre-claim source inspection, unselected-ticket context loading and an extra human question. Reinforced retries preserve the actual failed receipts. Verification: 335 full tests on both Nodes followed by 53 targeted after two added regressions (337 final total), 60 individual installations, 156 generated files. See [exploration host evidence](SPEC-c11a-host-evaluation.md) and [Execution Report](SPEC-c11a-20260913T072446Z-execution.md).
 
-Remaining migration work includes exploration chart/resolve, archival, complete router integration, native Codex packaging/marketplace discovery, native Claude aliases, update/removal verification, documentation and release preparation. Actual human review remains necessary. Remote publication and personal installations remain separate actions.
+Decisions: exact original plus intended owned state is required before every Exploration write; claimed human-input work resumes in its existing conversation, with verified expected state; missing dependencies/cycles prevent clear even when fog is empty. These do not certify real concurrent sessions or later-answer continuation. Archive SPEC-57b4 has a clean authored gate and follows the Exploration commit. See [remaining-workflow assessment](../plans/2026-09-13-remaining-workflow-assessment.md).
+
+Remaining migration work includes archival, complete router integration, native Codex packaging/marketplace discovery, native Claude aliases, update/removal verification, documentation and release preparation. Actual human review remains necessary. Remote publication and personal installations remain separate actions.
 
 ## Evidence and practical limits
 
 Detailed reports include local disposable evidence directory identifiers and source/oracle provenance. OS temporary files may eventually be removed by the operating system; checked-in reports retain conclusions and limitations. No credentials are copied into reports. Actual model observations are stronger than package tests but remain bounded observations, not universal reliability claims.
+
+Installation evidence clarification: the48/52/60-combination probes install every catalog bundle individually in both hosts/modes plus the synthetic probe. Earlier “all-catalog” shorthand must not be read as a bulk install of every skill at once; that behavior has not yet been observed and remains a router/distribution acceptance gate. See [router/distribution assessment](../plans/2026-09-13-router-distribution-assessment.md).
+
+Source provenance clarification: some earlier long-lived matrix runners read on-disk source hashes per case after module import. Those hashes may describe a later file revision, not the exact loaded verifier. Original copied bundles/prompts/traces are retained, final results are separately revalidated, and new exploration tooling captures module hashes at load time. No original receipt is rewritten.
 
 This running report will be updated as further packets complete.

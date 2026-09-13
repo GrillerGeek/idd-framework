@@ -16,7 +16,7 @@ Traditional agile methodologies were also designed for a world where human codin
 
 The frameworks haven't caught up. Teams are using 2-week sprints to manage work that takes 2 hours to build. They're estimating story points for tasks where effort is no longer the dominant variable. They're holding planning meetings to decompose work that AI agents can execute from a well-written specification.
 
-Contributing with Codex or another coding agent? Start with the [shared contributor guide](docs/contributing-agents.md). On Node.js 22.20.0+, use `npm ci`, `npm run build:skills`, `npm run check`, and `npm test`. These are private development tools. Twelve [portable workflow skills](plugin/README.md#portable-workflow-pilot) now have complete standalone bundles, including five accepted authoring stages and three accepted review stages and an accepted controlled Forge launcher; three remaining stages and native Codex packaging are still in progress.
+Contributing with Codex or another coding agent? Start with the [shared contributor guide](docs/contributing-agents.md). On Node.js 22.20.0+, use `npm ci`, `npm run build:skills`, `npm run check`, and `npm test`. These are private development tools. Fourteen [portable workflow skills](plugin/README.md#portable-workflow-pilot) now have complete standalone bundles, including five accepted authoring stages and three accepted review stages and an accepted controlled Forge launcher, plus accepted controlled exploration stages; archival and native Codex packaging are still in progress.
 
 ## The Framework
 

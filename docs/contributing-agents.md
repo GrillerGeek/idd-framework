@@ -24,8 +24,8 @@ Codex can maintain this checkout through AGENTS.md and this guide. The currently
 packaged workflow integration is the [Claude Code plugin](../plugin/README.md).
 Native Codex packaging and complete standalone `npx skills` installation are
 planned in the [migration plan](plans/2026-09-12-codex-skills-migration.md).
-Twelve standalone stages are available, covering interview, authoring, technical/deep
-review, gap-check, guarded implementation, validation and the Forge launcher. Three stage ports and native
+Fourteen standalone stages are available, covering interview, authoring, technical/deep
+review, gap-check, guarded implementation, validation, Forge and exploration. Archival and native
 Codex distribution remain pending. See the [pilot instructions](../plugin/README.md#portable-workflow-pilot)
 for local installation and recorded host-evaluation limits.
 
@@ -132,8 +132,8 @@ Checks never rewrite artifacts, infer human peer review, detect every semantic
 gap, or grant execution permission.
 
 The orchestration skill remains an explicit `legacy-claude` bundle with unchanged
-resources. Twelve catalog stages are `pilot` and require matching portable bundles;
-the other three remain `planned` and must not emit placeholder skills. Pilot
+resources. Fourteen catalog stages are `pilot` and require matching portable bundles;
+the archive stage remains `planned` and must not emit placeholder skills. Pilot
 references are maintained in `plugin/references/pilot/`; retain parity with the
 legacy contract when future changes affect both. Installation evidence alone
 does not prove real workflow behavior.
@@ -235,7 +235,7 @@ The bundle carries the pinned YAML parser and ISC license; consuming projects ne
 
 ### Authoring stage evaluation
 
-Five standalone authoring bundles now share `plugin/references/authoring/authoring.md`; edit sources and rebuild. They preserve existing command/agent frontmatter while keeping stakeholder interaction and saving in the main conversation. The catalog drives individual copy/symlink installation checks for both hosts (52 combinations including the synthetic probe, review stages and Forge). The ID helper is exercised after copy-source removal and creates no artifact directories.
+Five standalone authoring bundles now share `plugin/references/authoring/authoring.md`; edit sources and rebuild. They preserve existing command/agent frontmatter while keeping stakeholder interaction and saving in the main conversation. The catalog drives individual copy/symlink installation checks for both hosts (60 combinations including the synthetic probe, reviews, Forge and exploration). The ID helper is exercised after copy-source removal and creates no artifact directories.
 
 Use `node scripts/evaluate-authoring.mjs --host codex --stage quick-spec` or select `--host claude`. Optional `--variant missing-confirmation` applies to define-expectations; `--variant accelerated-rejected-edge` applies to define-outcomes/quick-spec. Each case creates a fresh copied installation, removes its copy source, preserves dirty notes, bounds one configured-model session to ten minutes/4 MiB and retains evidence under its reported OS-temp directory. Default tests and CI invoke no models.
 
@@ -254,3 +254,9 @@ Acceptance requires those two negative cases plus all three happy stages in each
 Default tests include a real controlled local process but no models or public package installs. Offline argument/receipt oracles are not the production model launcher. Read [Forge host evidence](reviews/SPEC-e1d4-host-evaluation.md) for measured cases and remaining native/UI/persistence limits.
 
 Codex controlled evaluation enables network per invocation while retaining filesystem sandboxing; it is not a loopback-only policy. It saves normal owned session history to collect background tool returns, checks exact UUID/project provenance, and copies only bounded tool records into evidence. Personal configuration is unchanged.
+
+### Exploration evaluation
+
+Canonical chart/resolve procedures and format live in `plugin/references/exploration/`; edit and rebuild both standalone bundles. The legacy Exploration reference receives only the explicit terminal correction. Optional `node scripts/evaluate-exploration.mjs --host codex --scenario task` (or Claude) creates a disposable project with unrelated staged and further dirty notes, configured fixture Git identity and local factual sources. Cases: chart, no-fog, task, hitl, blocked, research-failure.
+
+Twelve actual observations and independent full traces are required. Codex resolve receives a per-invocation writable root only for that fixture’s Git metadata, enabling the authorized path-scoped claim while personal configuration stays unchanged. All research is local and worker dispatch is explicitly unavailable. Each configured-model case is bounded600seconds/4MiB with copy-source removal and original receipts. These observations do not certify native aliases, competing real sessions or every prototype/external tool. Default tests validate acceptance oracles and actual fixture Git behavior, without model calls. See [exploration evidence](reviews/SPEC-c11a-host-evaluation.md).

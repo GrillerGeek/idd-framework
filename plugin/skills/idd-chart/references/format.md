@@ -1,6 +1,6 @@
 # Exploration Template
 
-The Exploration is IDD's **phase-0** artifact — for efforts too foggy to survive `/idd-framework:interview`. It is a wayfinder-style map of **decision tickets**: questions whose resolution is a decision, not slices of a build. The effort is done when the way is clear — `status: clear` — and the map seeds `/interview` or `/quick-spec`.
+The Exploration is IDD's **phase-0** artifact — for efforts too foggy to survive `idd-interview`. It is a wayfinder-style map of **decision tickets**: questions whose resolution is a decision, not slices of a build. The effort is done when the way is clear — `status: clear` — and the map seeds `idd-interview` or `idd-quick-spec`.
 
 ## Layout
 
@@ -20,7 +20,7 @@ docs/explorations/EXPL-<id>-<slug>/
 
 ```markdown
 ---
-id: EXPL-<id>                 # from bin/idd-next-id exploration
+id: EXPL-<id>                 # from scripts/idd-next-id exploration
 title: <short name>
 status: charting               # charting | resolving | clear | abandoned
 created: <ISO8601>
@@ -43,7 +43,7 @@ the scope.>
 <!-- index only — one line per resolved ticket: gist + relative link.
      The detail lives in the ticket file, never here. -->
 
-- [<ticket title>](tickets/NN-<slug>.md) — <one-line gist of the answer>
+<!-- Add one Markdown link to the actual ticket basename, followed by its one-line gist. -->
 
 ## Not yet specified
 
@@ -87,7 +87,7 @@ blocked_by: []                 # ticket file basenames, e.g. ["01-pick-datastore
 
 Every ticket is **HITL** (human in the loop — the agent never stands in for the human's side) or **AFK** (agent-driven):
 
-- **research** (AFK) — surface a fact a decision waits on. Resolved by a research subagent dispatched from the command layer.
+- **research** (AFK) — surface a fact a decision waits on. Investigated with available read-only tools or an optional read-only research worker; orchestration alone publishes validated findings.
 - **prototype** (HITL) — raise discussion fidelity with a cheap concrete artifact to react to. May hand to Guildhall's `prototype-builder` when installed.
 - **grilling** (HITL, the default) — conversation, one question at a time.
 - **task** (HITL or AFK) — manual work that must happen before a decision *can* be made (provision access, move data). The one type that does rather than decides; it earns its place by unblocking a decision.
@@ -96,7 +96,7 @@ Every ticket is **HITL** (human in the loop — the agent never stands in for th
 
 The **frontier** = tickets with `status: open`, empty `claimed_by`, and every `blocked_by` entry resolved. It is mechanically computable from ticket frontmatter.
 
-To **claim**: set `status: claimed` AND `claimed_by: <name>`, and commit, *before any work*. A race produces a merge conflict — that IS the conflict-detection mechanism (acceptable for a repo-reading dev audience).
+To **claim**: set `status: claimed` AND `claimed_by: <name>`, and commit, *before any work*. Use a path-scoped commit and preserve unrelated staged changes; this coordinates Git history but is not a lock between unmerged clones. See the bundled coordination procedure for unpublished research proposals.
 
 ## Hard rules
 
@@ -111,4 +111,4 @@ When an Exploration reaches `clear` and seeds downstream work, the Product (and 
 
 ## Terminal states and archival
 
-`clear` (fog empty AND every ticket resolved or out_of_scope AND no missing dependencies or cycles; an empty frontier alone is insufficient) and `abandoned` are terminal. The archivist distills the map and each ticket's Resolution into `docs/idd-ledger.yaml` and deletes the whole directory (full text recoverable via the archive git tag). There is no `archived` status.
+`clear` (fog empty AND every ticket resolved or out_of_scope AND no missing dependencies or cycles; an empty frontier alone is insufficient) and `abandoned` are terminal. The separate archive workflow distills the map and each ticket's Resolution into `docs/idd-ledger.yaml` and deletes the whole directory (full text recoverable via the archive git tag). There is no `archived` status.

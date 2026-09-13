@@ -808,6 +808,68 @@
           "executable": false
         }
       ]
+    },
+    {
+      "directory": "idd-chart",
+      "profile": "portable",
+      "files": [
+        {
+          "source": "plugin/workflows/chart.md",
+          "destination": "SKILL.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/exploration/exploration.md",
+          "destination": "references/exploration.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/exploration/format.md",
+          "destination": "references/format.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/bin/idd-next-id",
+          "destination": "scripts/idd-next-id",
+          "executable": true
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "LICENSE",
+          "executable": false
+        }
+      ]
+    },
+    {
+      "directory": "idd-resolve",
+      "profile": "portable",
+      "files": [
+        {
+          "source": "plugin/workflows/resolve.md",
+          "destination": "SKILL.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/exploration/exploration.md",
+          "destination": "references/exploration.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/exploration/format.md",
+          "destination": "references/format.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/bin/idd-next-id",
+          "destination": "scripts/idd-next-id",
+          "executable": true
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "LICENSE",
+          "executable": false
+        }
+      ]
     }
   ],
   "stages": [
@@ -819,7 +881,7 @@
     {
       "legacyCommand": "chart",
       "skill": "idd-chart",
-      "state": "planned"
+      "state": "pilot"
     },
     {
       "legacyCommand": "deep-review",
@@ -869,7 +931,7 @@
     {
       "legacyCommand": "resolve",
       "skill": "idd-resolve",
-      "state": "planned"
+      "state": "pilot"
     },
     {
       "legacyCommand": "review-spec",

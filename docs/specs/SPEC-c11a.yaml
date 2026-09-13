@@ -7,7 +7,7 @@ spec:
     - EXP-e54a
     - EXP-f9c7
     - EXP-bee0
-  status: draft
+  status: review
   context:
     stack: Existing Markdown/YAML/JSON/Bash; private Node>=22.20.0, yaml2.8.3 and skills1.5.25 tools.
     patterns: Canonical portable stage procedures, generated closed bundles, main-conversation

@@ -111,4 +111,4 @@ When an Exploration reaches `clear` and seeds downstream work, the Product (and 
 
 ## Terminal states and archival
 
-`clear` (frontier empty + fog empty) and `abandoned` are terminal. The archivist distills the map and each ticket's Resolution into `docs/idd-ledger.yaml` and deletes the whole directory (full text recoverable via the archive git tag). There is no `archived` status.
+`clear` (fog empty AND every ticket resolved or out_of_scope AND no missing dependencies or cycles; an empty frontier alone is insufficient) and `abandoned` are terminal. The archivist distills the map and each ticket's Resolution into `docs/idd-ledger.yaml` and deletes the whole directory (full text recoverable via the archive git tag). There is no `archived` status.
