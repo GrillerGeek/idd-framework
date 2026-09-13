@@ -870,13 +870,49 @@
           "executable": false
         }
       ]
+    },
+    {
+      "directory": "idd-archive",
+      "profile": "portable",
+      "files": [
+        {
+          "source": "plugin/workflows/archive.md",
+          "destination": "SKILL.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/archive/archive.md",
+          "destination": "references/archive.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/archive/manifest.md",
+          "destination": "references/manifest.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/archive/ledger.md",
+          "destination": "references/ledger.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/bin/idd-archive-scan",
+          "destination": "scripts/idd-archive-scan",
+          "executable": true
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "LICENSE",
+          "executable": false
+        }
+      ]
     }
   ],
   "stages": [
     {
       "legacyCommand": "archive",
       "skill": "idd-archive",
-      "state": "planned"
+      "state": "pilot"
     },
     {
       "legacyCommand": "chart",

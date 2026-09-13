@@ -211,7 +211,7 @@ The maintained router is `workflows/idd-orchestration.md`; its six maintained
 references are in `references/`. From the repository root, run `npm ci` with
 Node.js 22.20.0+, edit those sources, and run `npm run build:skills` to refresh the
 committed copies in `skills/idd-orchestration/`. `skill-catalog.json` defines each
-mapping and lists fourteen implemented portable stages plus one planned stage.
+mapping and lists fifteen implemented portable stages and no placeholder stages.
 
 Run `npm run check` and `npm test` before submitting changes. The optional
 `npm run test:install` verifies the synthetic fixture and each pilot skill alone
@@ -227,7 +227,7 @@ Apache 2.0 -- see [LICENSE](LICENSE).
 
 ## Portable workflow pilot
 
-This branch includes fourteen complete standalone skill bundles. The original three-stage pilot has a documented supported-lane acceptance; the five authoring stages have separate host evaluation evidence:
+This branch includes fifteen complete standalone skill bundles. The original three-stage pilot has a documented supported-lane acceptance; the five authoring stages have separate host evaluation evidence:
 
 | Skill | Purpose | Legacy Claude alias |
 |---|---|---|
@@ -325,3 +325,9 @@ The migration evaluator substitutes an explicitly controlled local launcher in a
 `idd-chart` and `idd-resolve` each install independently with complete formats/procedure and ID helper. Main conversation owns stakeholder questions, claims and serialized writes; optional Sonnet research roles remain Claude-specific and read-only. A claim commit contains only the selected tracked, clean ticket and preserves unrelated staged/dirty work. Unpublished factual research proposals can be investigated before exclusive creation; persisted tickets always require their claim. Missing human answers never become resolutions.
 
 The map is clear only when fog is empty and every ticket is resolved or out_of_scope with valid dependencies; an empty frontier alone is insufficient. The same terminal correction is included in the legacy reference. See [exploration evidence](../docs/reviews/SPEC-c11a-host-evaluation.md) for controlled facts/claim tests and unverified native/concurrent-session behavior.
+
+### Portable archival
+
+`idd-archive` classifies first and saves a fresh manifest for review. Explicit apply requires the concrete manifest committed with its unchanged reviewed input files. It creates an annotated recovery tag, saves and rereads a reconciled ledger, then removes/moves only approved paths and commits locally. Artifact records and moved-review records both contribute to the new record count; co-deleted subject reviews are links only. Sources are normalized in memory and surviving artifacts remain unchanged.
+
+Legacy manifests need reclassification to capture the new reviewed-input binding before apply. Tag recovery supports Git file modes (0644/0755); unsupported permission modes refuse. See [Archive evidence](../docs/reviews/SPEC-57b4-host-evaluation.md) for disposable trials, failures and limitations. Native aliases and remote publication remain separate verification.

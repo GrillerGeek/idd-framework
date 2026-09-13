@@ -55,9 +55,11 @@ Field notes:
 
 Review files moved (not deleted) get a minimal record: `id` = filename stem, `type: review`, `disposition: completed`, and the new path in `evidence`.
 
+Reconciliation counts A archived artifact records plus R moved-review records: exactly A+R new records and A+R in the run’s archives-entry count. Co-deleted subject reviews are links.reports, not extra records; link each to every archived same-ID variant by source_path. If any variant stays active, keep its review. Preserve all old records and archive entries.
+
 ## Status normalization
 
-Classification operates on **canonical** statuses. Map raw values first (case-insensitive match, quoted values unquoted). Normalize on disk **only for surviving artifacts** — never churn files that are about to be deleted.
+Classification operates on **canonical** statuses. Map raw values first (case-insensitive match, quoted values unquoted). Normalize **only in memory** — preserve surviving and candidate source files byte-for-byte.
 
 | Raw (any casing) | Canonical |
 |---|---|
@@ -102,3 +104,7 @@ Active artifacts are **never** edited to note that something they reference was 
 | Review keyed to an artifact that stays active | Keep in place |
 | Review linked from published docs | Keep in place (it is completion evidence) |
 | Dated cross-cutting artifacts (audits, PR findings, coverage matrices) | Move to `docs/archive/` with a `type: review` ledger record |
+
+## Reviewed manifest compatibility
+
+New manifests add `manifest.reviewed_inputs`: version 1, excluded_manifest equal to that manifest’s exact repository-relative path, and sorted files entries with path, kind=file, numeric mode and exact-byte SHA-256. Capture every Git-visible tracked/untracked nonignored file except this manifest before classification, recheck before saving, and require exact equality before apply tagging. All code, artifact and ledger inputs must be captured. Git HEAD/index bookkeeping and empty directories are excluded; committing unchanged content with the reviewed manifest is valid. Committed input changes still invalidate review. Human manifest edits require explicit approval and commitment. Legacy unbound manifests remain readable but require reclassification, review and commitment before apply. Ledger record fields and artifact schemas remain unchanged.

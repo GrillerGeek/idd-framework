@@ -18,7 +18,7 @@ function replaceGate(dir,gate) {
 }
 test('each pilot bundle copies standalone, validates and retains required resources',t=>{
  const catalog=JSON.parse(fs.readFileSync(path.join(root,'plugin/skill-catalog.json')));const before=snapshot(path.join(root,'plugin/skills'));
- assert.equal(catalog.stages.filter(s=>s.state==='pilot').length,14);assert.equal(catalog.stages.filter(s=>s.state==='planned').length,1);
+ assert.equal(catalog.stages.filter(s=>s.state==='pilot').length,15);assert.equal(catalog.stages.filter(s=>s.state==='planned').length,0);
  assert.equal(assemble(root,{check:true}).changed,0);
  for(const bundle of catalog.bundles.filter(b=>b.profile==='portable')) {
    const isolated=workspace(t);fs.cpSync(path.join(root,'plugin/skills',bundle.directory),path.join(isolated,'plugin/skills',bundle.directory),{recursive:true});

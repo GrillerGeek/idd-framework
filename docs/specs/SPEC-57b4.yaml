@@ -7,7 +7,7 @@ spec:
     - EXP-b9a2
     - EXP-c4ca
     - EXP-92ce
-  status: draft
+  status: in-progress
   context:
     stack: Existing Markdown/YAML/JSON/Bash, private Node>=22.20.0, yaml2.8.3 and skills1.5.25. Existing
       Git and safe YAML parser capabilities required for apply.
@@ -133,8 +133,10 @@ spec:
       - "Eight actual-host observations: both hosts classify a mixed fixture, apply a committed
         explicitly reviewed manifest successfully, refuse a dirty apply, and stop a deliberately
         undistillable/mismatched apply before deletion. Configured models, copy-source removal,
-        visible scripts,600sec/4MiB bounds and independent full trace review required; cleanup never
-        removes evidence tags before verification."
+        visible scripts and independent full trace review required; model output stays capped
+        at4MiB, the default run limit is600seconds, and an explicit contributor-only
+        --timeout-seconds1200 option is permitted only for Claude apply after documented preparation
+        timeouts; cleanup never removes evidence tags before verification."
       - Success fixture archives one terminal artifact and one entire terminal Exploration, moves
         one cross-cutting review and co-deletes one subject review, preserves one live referenced
         artifact and old ledger record; verify3new records/one archives entry and every original
@@ -233,6 +235,23 @@ spec:
       active-review rule. A delete review with no archived subject, a mixed keep/archive subject, or
       duplicated/conflicting operation is invalid at preflight. The review is removed once and
       creates no extra record; source_path+tag retains lossless shared provenance.
+    evaluation_recovery: "September13 author recovery decision: repeated original600-second Claude apply
+      trials stopped during lengthy reasoning/preparation; default and explicit medium effort trials
+      remain failed/blocked evidence. Preserve all original fixtures/receipts. Add an optional
+      evaluation-only timeout-seconds value1200 for Claude apply, with default600 for all
+      hosts/cases; reject other values/host-case combinations before fixture creation. Record the
+      requested/actual bound and effort in each receipt. Configured model/style remain unchanged
+      unless the already documented contributor-only medium-effort experiment is explicitly
+      selected. No production procedure/runtime, phase gate, output oracle, mutation ownership
+      or4MiB bound changes. Prior successful cases completed within600seconds and remain valid
+      within this maximum; the longer case is reported as a20-minute performance lane, never
+      retroactively as ten-minute evidence. Require a fresh independent content/coverage gate on
+      this revision before implementing the option or starting its trial; then resume existing
+      in-progress implementation under this explicit author recovery decision, without fabricating
+      ready reset or human review. The medium-effort sKMCpp trial issued its inline process but
+      failed during capture on unsupported git for-each-ref -z; it timed out before a correction.
+      The next prompt may explicitly use supported --format output instead. This is retained as a
+      real command failure plus timeout, not only latency. No project mutation occurred."
   coverage_dispositions:
     - files:
         - AGENTS.md
@@ -266,4 +285,5 @@ spec:
   migration_authorization:
     source: Repeated user approval and unattended continuation with documented best-judgment decisions.
     human_peer_review: pending
-    scope: Session-specific authoring/orchestration only; implementation waits for SPEC-c11a acceptance and commit.
+    scope: Session-specific authoring/orchestration only; implementation waits for SPEC-c11a acceptance
+      and commit.

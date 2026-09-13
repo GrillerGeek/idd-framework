@@ -24,9 +24,9 @@ Codex can maintain this checkout through AGENTS.md and this guide. The currently
 packaged workflow integration is the [Claude Code plugin](../plugin/README.md).
 Native Codex packaging and complete standalone `npx skills` installation are
 planned in the [migration plan](plans/2026-09-12-codex-skills-migration.md).
-Fourteen standalone stages are available, covering interview, authoring, technical/deep
-review, gap-check, guarded implementation, validation, Forge and exploration. Archival and native
-Codex distribution remain pending. See the [pilot instructions](../plugin/README.md#portable-workflow-pilot)
+Fifteen standalone stages have complete bundles, covering interview, authoring, technical/deep
+review, gap-check, guarded implementation, validation, Forge, exploration and archival. Archive
+host acceptance is in progress; the complete router and native Codex distribution remain pending. See the [pilot instructions](../plugin/README.md#portable-workflow-pilot)
 for local installation and recorded host-evaluation limits.
 
 ## Source ownership and discovery
@@ -132,8 +132,8 @@ Checks never rewrite artifacts, infer human peer review, detect every semantic
 gap, or grant execution permission.
 
 The orchestration skill remains an explicit `legacy-claude` bundle with unchanged
-resources. Fourteen catalog stages are `pilot` and require matching portable bundles;
-the archive stage remains `planned` and must not emit placeholder skills. Pilot
+resources. Fifteen catalog stages are `pilot` and require matching portable bundles;
+all fifteen stages now emit complete bundles; no placeholder stage remains. Pilot
 references are maintained in `plugin/references/pilot/`; retain parity with the
 legacy contract when future changes affect both. Installation evidence alone
 does not prove real workflow behavior.
@@ -235,7 +235,7 @@ The bundle carries the pinned YAML parser and ISC license; consuming projects ne
 
 ### Authoring stage evaluation
 
-Five standalone authoring bundles now share `plugin/references/authoring/authoring.md`; edit sources and rebuild. They preserve existing command/agent frontmatter while keeping stakeholder interaction and saving in the main conversation. The catalog drives individual copy/symlink installation checks for both hosts (60 combinations including the synthetic probe, reviews, Forge and exploration). The ID helper is exercised after copy-source removal and creates no artifact directories.
+Five standalone authoring bundles now share `plugin/references/authoring/authoring.md`; edit sources and rebuild. They preserve existing command/agent frontmatter while keeping stakeholder interaction and saving in the main conversation. The catalog drives individual copy/symlink installation checks for both hosts (64 individual combinations including the synthetic probe and all fifteen stages). The ID helper is exercised after copy-source removal and creates no artifact directories.
 
 Use `node scripts/evaluate-authoring.mjs --host codex --stage quick-spec` or select `--host claude`. Optional `--variant missing-confirmation` applies to define-expectations; `--variant accelerated-rejected-edge` applies to define-outcomes/quick-spec. Each case creates a fresh copied installation, removes its copy source, preserves dirty notes, bounds one configured-model session to ten minutes/4 MiB and retains evidence under its reported OS-temp directory. Default tests and CI invoke no models.
 
@@ -260,3 +260,13 @@ Codex controlled evaluation enables network per invocation while retaining files
 Canonical chart/resolve procedures and format live in `plugin/references/exploration/`; edit and rebuild both standalone bundles. The legacy Exploration reference receives only the explicit terminal correction. Optional `node scripts/evaluate-exploration.mjs --host codex --scenario task` (or Claude) creates a disposable project with unrelated staged and further dirty notes, configured fixture Git identity and local factual sources. Cases: chart, no-fog, task, hitl, blocked, research-failure.
 
 Twelve actual observations and independent full traces are required. Codex resolve receives a per-invocation writable root only for that fixture’s Git metadata, enabling the authorized path-scoped claim while personal configuration stays unchanged. All research is local and worker dispatch is explicitly unavailable. Each configured-model case is bounded600seconds/4MiB with copy-source removal and original receipts. These observations do not certify native aliases, competing real sessions or every prototype/external tool. Default tests validate acceptance oracles and actual fixture Git behavior, without model calls. See [exploration evidence](reviews/SPEC-c11a-host-evaluation.md).
+
+## Archive workflow verification
+
+Canonical archival resources live in `plugin/references/archive/`. Rebuild after edits. `node scripts/evaluate-archive.mjs --host codex --scenario apply` (or Claude) runs an optional bounded model observation in a disposable Git repository. Cases are classify, apply, dirty and undistillable. The fixture supplies explicit fictional manifest approval; it never archives this project or certifies its human review.
+
+Default offline tests exercise acceptance oracles, including binary tag recovery, reviewed-input staleness after committed changes, complete Exploration removal, old-ledger/tag preservation, exact review attribution and safe move destinations. Actual trials require independent full-trace review in addition to output oracles. Source hashes are captured at module load. Each host invocation retains copied-bundle/prompt/trace receipts, uses existing configured authentication and a 600-second/4-MiB bound; Codex apply receives only the disposable Git metadata as an additional writable root. No personal settings change or remote push occurs. See [Archive host evidence](reviews/SPEC-57b4-host-evaluation.md).
+
+For Archive evaluator latency diagnosis only, `--host claude --claude-effort medium` sets reasoning effort for that one session while preserving the configured model and output style. The default remains configured. Receipts record the option; it does not change installed workflow behavior, personal settings, required phase checks or the600-second/4-MiB bound. Acceptance applies only to the measured effort lane.
+
+After documented preparation timeouts, Archive evaluation additionally accepts `--host claude --scenario apply --timeout-seconds 1200`. This explicit twenty-minute lane retains the4-MiB output cap; all other cases and the default remain600seconds. Invalid host/case/value combinations fail before fixture creation. Requested/effective timeout and effort are recorded. This contributor experiment does not alter the shipped workflow.
