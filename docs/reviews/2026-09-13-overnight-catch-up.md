@@ -7,6 +7,7 @@ This is the running catch-up report for the authorized unattended implementation
 | Commit | Outcome | Review state |
 |---|---|---|
 | `54d134f` | Installed Claude execution controller: actual read-only acknowledgments, guarded write transition, explicit output/check metadata, report verification, preservation and bounded process transport | SPEC-c45b in review; configured-policy terminal lane independently accepted |
+| `cba0ea9` | Three review stages with ten strict host observations; follow-on authoring packets | SPEC-44b9 in review |
 | `5b78b78` | Five authoring stages: intentions, expectations, combined outcomes, quick Spec and existing Expectations to Spec | SPEC-8406 in review; sixteen required actual-host observations independently accepted |
 
 Earlier contributor/lifecycle, assembly and three-workflow pilot work remains in the branch. The framework and plugin remain version 1.6.0 while distribution/release work is incomplete.
@@ -48,9 +49,11 @@ See [authoring host evidence](SPEC-8406-host-evaluation.md) and [Execution Repor
 
 SPEC-44b9 is complete and in review: eleven portable stages, four planned. All ten required host cases now have strict independent acceptance. The first Codex passes were withdrawn after deeper audit found loss of the initial baseline; those failures, hidden-script limitations and a ten-minute timeout remain documented. Final verification: 248 tests on both runtimes, 48 installation combinations and 144 generated files. See [review host evidence](SPEC-44b9-host-evaluation.md) and [Execution Report](SPEC-44b9-20260913T064000Z-execution.md).
 
-Forge SPEC-e1d4, exploration SPEC-c11a and archive SPEC-57b4 have independently passed authoring gap-checks but remain draft behind their implementation dependencies. See [remaining-workflow assessment](../plans/2026-09-13-remaining-workflow-assessment.md) for archive and exploration issues found before implementation. The exploration draft explicitly resolves new-research ownership and bounded prototype/task assets; these decisions are not yet shipped.
+Forge SPEC-e1d4 is now implemented and in review. Four controlled host traces are accepted;283 full tests on both runtimes plus36 final targeted tests after one extra regression (284 final total),52 installations and146 generated files pass. See [Forge host evidence](SPEC-e1d4-host-evaluation.md) and [Execution Report](SPEC-e1d4-20260913T065500Z-execution.md). The Codex evaluator enables network per invocation for the controlled fixture and saves normal owned history to capture actual background returns; no personal configuration is edited. This does not certify the public Forge UI or native aliases.
 
-Remaining migration work includes exploration chart/resolve, archival, Forge, complete router integration, native Codex packaging/marketplace discovery, native Claude aliases, update/removal verification, documentation and release preparation. Actual human review remains necessary. Remote publication and personal installations remain separate actions.
+Exploration SPEC-c11a and archive SPEC-57b4 retain independently passed authoring gates and remain draft behind their implementation dependencies. See [remaining-workflow assessment](../plans/2026-09-13-remaining-workflow-assessment.md) for archive and exploration issues found before implementation. The exploration draft explicitly resolves new-research ownership and bounded prototype/task assets; these decisions are not yet shipped.
+
+Remaining migration work includes exploration chart/resolve, archival, complete router integration, native Codex packaging/marketplace discovery, native Claude aliases, update/removal verification, documentation and release preparation. Actual human review remains necessary. Remote publication and personal installations remain separate actions.
 
 ## Evidence and practical limits
 

@@ -792,6 +792,22 @@
           "executable": false
         }
       ]
+    },
+    {
+      "directory": "idd-forge",
+      "profile": "portable",
+      "files": [
+        {
+          "source": "plugin/workflows/forge.md",
+          "destination": "SKILL.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "LICENSE",
+          "executable": false
+        }
+      ]
     }
   ],
   "stages": [
@@ -828,7 +844,7 @@
     {
       "legacyCommand": "forge",
       "skill": "idd-forge",
-      "state": "planned"
+      "state": "pilot"
     },
     {
       "legacyCommand": "gap-check",

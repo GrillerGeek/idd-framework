@@ -24,8 +24,8 @@ Codex can maintain this checkout through AGENTS.md and this guide. The currently
 packaged workflow integration is the [Claude Code plugin](../plugin/README.md).
 Native Codex packaging and complete standalone `npx skills` installation are
 planned in the [migration plan](plans/2026-09-12-codex-skills-migration.md).
-Eleven standalone stages are available, covering interview, authoring, technical/deep
-review, gap-check, guarded implementation and validation. Four stage ports and native
+Twelve standalone stages are available, covering interview, authoring, technical/deep
+review, gap-check, guarded implementation, validation and the Forge launcher. Three stage ports and native
 Codex distribution remain pending. See the [pilot instructions](../plugin/README.md#portable-workflow-pilot)
 for local installation and recorded host-evaluation limits.
 
@@ -132,8 +132,8 @@ Checks never rewrite artifacts, infer human peer review, detect every semantic
 gap, or grant execution permission.
 
 The orchestration skill remains an explicit `legacy-claude` bundle with unchanged
-resources. Eleven catalog stages are `pilot` and require matching portable bundles;
-the other four remain `planned` and must not emit placeholder skills. Pilot
+resources. Twelve catalog stages are `pilot` and require matching portable bundles;
+the other three remain `planned` and must not emit placeholder skills. Pilot
 references are maintained in `plugin/references/pilot/`; retain parity with the
 legacy contract when future changes affect both. Installation evidence alone
 does not prove real workflow behavior.
@@ -235,7 +235,7 @@ The bundle carries the pinned YAML parser and ISC license; consuming projects ne
 
 ### Authoring stage evaluation
 
-Five standalone authoring bundles now share `plugin/references/authoring/authoring.md`; edit sources and rebuild. They preserve existing command/agent frontmatter while keeping stakeholder interaction and saving in the main conversation. The catalog drives individual copy/symlink installation checks for both hosts (48 combinations including the synthetic probe and review stages). The ID helper is exercised after copy-source removal and creates no artifact directories.
+Five standalone authoring bundles now share `plugin/references/authoring/authoring.md`; edit sources and rebuild. They preserve existing command/agent frontmatter while keeping stakeholder interaction and saving in the main conversation. The catalog drives individual copy/symlink installation checks for both hosts (52 combinations including the synthetic probe, review stages and Forge). The ID helper is exercised after copy-source removal and creates no artifact directories.
 
 Use `node scripts/evaluate-authoring.mjs --host codex --stage quick-spec` or select `--host claude`. Optional `--variant missing-confirmation` applies to define-expectations; `--variant accelerated-rejected-edge` applies to define-outcomes/quick-spec. Each case creates a fresh copied installation, removes its copy source, preserves dirty notes, bounds one configured-model session to ten minutes/4 MiB and retains evidence under its reported OS-temp directory. Default tests and CI invoke no models.
 
@@ -246,3 +246,11 @@ Acceptance requires five happy stages plus missing-confirmation and both acceler
 The canonical sources for tech-review, deep-review and review-spec are in `plugin/workflows/` and `plugin/references/review/`. Rebuild all three bundles together. `node scripts/evaluate-reviews.mjs --host codex --stage tech-review` (or Claude) uses a fresh copied installation with source removal, configured models, ten-minute/4 MiB bounds and retained original evidence. `--variant contradiction` applies to tech-review; `--variant broken` applies to review-spec.
 
 Acceptance requires those two negative cases plus all three happy stages in each host, with current output checks and independent full-trace review. The deep fixture uses explicitly unavailable dispatch and must truthfully cover all three perspectives sequentially. Offline receipt simulations do not certify real parallel/partial delegation. The good validation fixture intentionally returns Needs Changes because human wording and historical preservation remain unverified. See [review evidence](reviews/SPEC-44b9-host-evaluation.md).
+
+### Forge process evaluation
+
+`node scripts/evaluate-forge.mjs --host codex --variant success` (or Claude, or `failure`) exercises a copied standalone launcher with its copy source removed. The purpose-built npx shim records exact argv/cwd and owned process identity outside the consumer, serves loopback for a live inspection, and supports a deterministic startup failure. Child-only PATH leaves personal settings unchanged; tests never execute the public package. Loopback binding needs an environment that permits local listening. Each host run is bounded to600seconds/4MiB; startup inspection to30seconds. Cleanup targets only recorded processes after verifying command identity, with any remaining process reported as failure.
+
+Default tests include a real controlled local process but no models or public package installs. Offline argument/receipt oracles are not the production model launcher. Read [Forge host evidence](reviews/SPEC-e1d4-host-evaluation.md) for measured cases and remaining native/UI/persistence limits.
+
+Codex controlled evaluation enables network per invocation while retaining filesystem sandboxing; it is not a loopback-only policy. It saves normal owned session history to collect background tool returns, checks exact UUID/project provenance, and copies only bounded tool records into evidence. Personal configuration is unchanged.

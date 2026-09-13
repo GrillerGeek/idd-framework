@@ -249,3 +249,7 @@ SPEC-8406 is implemented and in review: five additional portable authoring stage
 ## September 13 review-stage completion
 
 SPEC-44b9 is in review: technical, deep and implementation validation add three standalone stages, eleven total and four planned. All ten required actual-host cases passed current oracle plus strict independent trace review. Earlier baseline-loss/hidden-stdin/timeout evidence remains failed or limited, and reinforced-prompt limits are explicit. 248 tests pass on both Node runtimes and 48 installation combinations pass. Forge, exploration and archive packets now have independent clean authoring gates; serialized implementation follows. See docs/reviews/SPEC-44b9-host-evaluation.md and docs/reviews/2026-09-13-overnight-catch-up.md.
+
+## September 13 Forge completion
+
+SPEC-e1d4 is in review: twelve portable stages, three planned,146 generated files. Four controlled host traces accepted after capturing original Codex background returns; old EPERM and incomplete-return receipts remain failed/limited. 283 full-suite tests on both Node versions plus36 final targeted tests after one added regression (284 final total),52 installation combinations. No published Forge UI/native alias/cross-session persistence claim. Exploration follows its clean gate.

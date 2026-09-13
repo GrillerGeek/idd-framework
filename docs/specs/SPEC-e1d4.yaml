@@ -6,7 +6,7 @@ spec:
   expectations:
     - EXP-b238
     - EXP-dc7c
-  status: draft
+  status: review
   context:
     stack: Existing Markdown/JSON, private Node>=22.20.0 verification tooling, pinned skills1.5.25.
       Published Forge metadata observed 2026-09-13:0.6.1, Node>=20, idd-forge bin.
