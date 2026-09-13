@@ -1,0 +1,20 @@
+expectation:
+  id: EXP-92ce
+  description: Archive packaging and behavior remain verifiable across both hosts without archiving
+    the actual project.
+  validation_criteria: One complete bundle carries portable procedure, ledger/manifest resources and
+    existing scan helper; both hosts/modes install independently after source removal. Two native
+    adapter frontmatters remain byte-identical with Claude Sonnet policy. Offline oracles and eight
+    bounded actual-host cases distinguish procedural evidence from native aliases and real
+    publication.
+  edge_cases:
+    - A disposable apply fixture with an artifact, whole Exploration and moved review yields three
+      records, exact annotated-tag recovery and unchanged survivors; old ledger records remain
+      preserved.
+    - Host/auth/Git/parser failures remain failed/blocked; no test calls models by default or
+      archives this repository. Personal configuration, remote push/tag publication and user
+      installations remain unchanged.
+  intention: INT-6f96
+  complexity: high
+  owner: Jason Robey
+  status: draft

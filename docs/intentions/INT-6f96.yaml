@@ -1,0 +1,16 @@
+intention:
+  id: INT-6f96
+  product: PROD-f67b
+  statement: Maintainers can retire completed IDD artifacts through portable, reviewable and
+    recoverable archival.
+  rationale: Preserve the existing classify/apply checkpoint while making recovery/count/path
+    ownership explicit across hosts.
+  priority: high
+  dependencies:
+    - INT-47e0
+  expectations:
+    - EXP-b9a2
+    - EXP-c4ca
+    - EXP-92ce
+  owner: Jason Robey
+  status: draft

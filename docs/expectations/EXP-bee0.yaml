@@ -1,0 +1,19 @@
+expectation:
+  id: EXP-bee0
+  description: Exploration workflows retain portable installability, native compatibility and
+    independently reviewed evidence.
+  validation_criteria: Both bundles carry complete portable format/procedure resources and ID helper
+    where needed; individual host/mode installs work after source removal. Four adapter frontmatters
+    remain identical with Claude Sonnet policy. Offline fixture/oracles and twelve actual-host
+    observations are distinguished from native aliases and concurrent-session guarantees.
+  edge_cases:
+    - Projects with spaces and existing exploration assets require no other installed stage or
+      consumer dependency. Safe exact IDs, paths, YAML frontmatter and original byte/mode baselines
+      prevent overwriting user files.
+    - Unavailable safe parser, Git claim capability or worker tools is an actionable failure or
+      truthful sequential fallback; isolated test configuration never changes personal Git/agent
+      settings or archives the real repository.
+  intention: INT-47e0
+  complexity: high
+  owner: Jason Robey
+  status: draft

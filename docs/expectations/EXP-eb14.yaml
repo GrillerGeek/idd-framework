@@ -1,0 +1,16 @@
+expectation:
+  id: EXP-eb14
+  description: Review skills install independently with accurate compatibility and behavioral evidence.
+  validation_criteria: Three complete generated bundles install alone for both hosts in copy and
+    symlink modes, retain resources after copied source removal, and create no artifacts during
+    setup. Six Claude adapter frontmatter blocks/model policies remain identical. Offline checks and
+    ten required actual-host observations are recorded distinctly.
+  edge_cases:
+    - Resources resolve with spaces in the consuming project path without other installed IDD stages
+      or project package dependencies.
+    - Host/auth/tool failures remain failed or blocked observations; partial model traces and
+      offline oracle passes do not certify ordinary native aliases or subagent dispatch.
+  intention: INT-083e
+  complexity: high
+  owner: Jason Robey
+  status: draft

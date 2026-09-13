@@ -1,0 +1,21 @@
+expectation:
+  id: EXP-c4ca
+  description: Reviewed archival preserves lossless recovery and reconciles every ledger record before
+    deleting only approved files.
+  validation_criteria: Explicit apply requires a clean Git tree and committed reviewed manifest,
+    validates all paths/current identities/operations, creates a new annotated tag before
+    mutation/deletion, distills exact artifact and moved-review records, reconciles them separately
+    and together, then performs only approved removals/moves and commits. Entire Exploration content
+    is recoverable from the tag; surviving artifacts are unchanged.
+  edge_cases:
+    - Dirty tree, uncommitted/stale/unsafe manifest, untracked or unsafe Exploration assets, missing
+      files or tag failure refuse before destructive steps. Existing tags are never replaced; choose
+      a fresh numeric suffix.
+    - Ledger mismatch or failed distillation retains the recovery tag and any owned partial ledger
+      state but deletes nothing. Later interruption preserves exact partial operations for recovery;
+      never silently skip missing rows, overwrite move destinations, or edit dangling-reference
+      survivors.
+  intention: INT-6f96
+  complexity: high
+  owner: Jason Robey
+  status: draft

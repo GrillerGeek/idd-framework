@@ -211,7 +211,7 @@ The maintained router is `workflows/idd-orchestration.md`; its six maintained
 references are in `references/`. From the repository root, run `npm ci` with
 Node.js 22.20.0+, edit those sources, and run `npm run build:skills` to refresh the
 committed copies in `skills/idd-orchestration/`. `skill-catalog.json` defines each
-mapping and lists eight implemented portable stages plus seven planned stages.
+mapping and lists eleven implemented portable stages plus four planned stages.
 
 Run `npm run check` and `npm test` before submitting changes. The optional
 `npm run test:install` verifies the synthetic fixture and each pilot skill alone
@@ -227,7 +227,7 @@ Apache 2.0 -- see [LICENSE](LICENSE).
 
 ## Portable workflow pilot
 
-This branch includes eight complete standalone skill bundles. The original three-stage pilot has a documented supported-lane acceptance; the five authoring stages have separate host evaluation evidence:
+This branch includes eleven complete standalone skill bundles. The original three-stage pilot has a documented supported-lane acceptance; the five authoring stages have separate host evaluation evidence:
 
 | Skill | Purpose | Legacy Claude alias |
 |---|---|---|
@@ -239,13 +239,16 @@ This branch includes eight complete standalone skill bundles. The original three
 | `idd-define-outcomes` | Linked Intention/Expectation batch | `/idd-framework:define-outcomes` |
 | `idd-quick-spec` | Confirmed draft Intention/Expectation/Spec batch | `/idd-framework:quick-spec` |
 | `idd-write-spec` | Five-block draft Spec from selected Expectations | `/idd-framework:write-spec` |
+| `idd-tech-review` | Current architectural review without lifecycle changes | `/idd-framework:tech-review` |
+| `idd-deep-review` | Three perspectives with truthful delegation fallback | `/idd-framework:deep-review` |
+| `idd-review-spec` | Evidence-based implementation validation | `/idd-framework:review-spec` |
 
 The Claude aliases load these shared procedures. Their names and frontmatter stay
 unchanged; reviewer/implementer model choices remain in the Claude adapter. Each
 standalone bundle contains its own references and any required helper, with no
 runtime npm dependency added to the consuming project. The interview helper needs
 Bash, and artifact workflows need safe YAML parsing available in the host environment;
-missing capabilities are reported before writes. The router and other seven
+missing capabilities are reported before writes. The router and other four
 stages still use the legacy integration; a full-catalog standalone install is not
 yet the supported migration path.
 
@@ -301,3 +304,9 @@ The bundle carries the pinned YAML parser and ISC license; consuming projects ne
 The five authoring skills share `references/authoring/authoring.md` as their maintained procedure and each bundles its required templates, references and executable ID helper. Selection, confirmation, validation and saves stay in the stakeholder conversation. Optional Claude drafting preserves existing model policy and returns read-only proposals. Accelerated modes save no intermediate YAML until every proposed Expectation has at least two explicitly confirmed edge cases. All new artifacts remain draft; content confirmation never supplies human Spec peer review.
 
 Parent context baselines begin when loaded, and only an existing Intention expectations list may be changed. Concurrent edits or interrupted saves are reported with exact partial state; there is no automatic rollback or atomic multi-file guarantee. See the [authoring evidence](../docs/reviews/SPEC-8406-host-evaluation.md) for observed cases and limitations.
+
+### Portable review stages
+
+The three review bundles share `references/review/review.md` in the source tree. Technical/deep orchestration invalidates old approval before reviewing, preserves all Spec content/lifecycle/gap bytes, and publishes only current findings. Deep review labels actual parallel, partial or sequential coverage. Implementation validation writes only its report, runs explicitly specified safe bounded checks, and leaves unavailable historical evidence and pending human checks unverified. Such pending items prevent an unqualified Pass.
+
+See [review host evidence](../docs/reviews/SPEC-44b9-host-evaluation.md) for the current evaluation state. Native aliases and parallel dispatch are separate acceptance gates.

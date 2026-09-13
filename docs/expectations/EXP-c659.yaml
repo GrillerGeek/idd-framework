@@ -1,0 +1,19 @@
+expectation:
+  id: EXP-c659
+  description: Implementation validation distinguishes observed correctness from unavailable or
+    historical evidence.
+  validation_criteria: The independently installed validation stage reports every linked Expectation
+    and each edge, every Boundary, Deliverable and automated/human check against actual code/test
+    evidence. It writes only its validation report; it never repairs code or promotes lifecycle.
+    Pending human checks and unknown historical boundary evidence are explicit and prevent an
+    unqualified overall Pass.
+  edge_cases:
+    - A failing greeting implementation yields failed checks and a non-pass report while preserving
+      all project code, artifacts, dirty notes and existing test files.
+    - Unavailable, unsafe or non-command validation remains unverified rather than guessed or
+      reported passed. No historical baseline means no claim that off-limits files were unchanged
+      during the prior implementation.
+  intention: INT-083e
+  complexity: high
+  owner: Jason Robey
+  status: draft

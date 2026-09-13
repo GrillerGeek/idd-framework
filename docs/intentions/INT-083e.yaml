@@ -1,0 +1,15 @@
+intention:
+  id: INT-083e
+  product: PROD-f67b
+  statement: Developers can review Specs and implementations through complete portable workflows
+    without losing evidence or lifecycle ownership.
+  rationale: Continue the accepted authoring and execution migration with cohesive review stages.
+  priority: high
+  dependencies:
+    - INT-53c1
+  expectations:
+    - EXP-d2ed
+    - EXP-c659
+    - EXP-eb14
+  owner: Jason Robey
+  status: draft

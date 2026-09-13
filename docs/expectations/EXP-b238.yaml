@@ -1,0 +1,19 @@
+expectation:
+  id: EXP-b238
+  description: Users can launch Forge from an independently installed portable skill with correct
+    arguments and observable process state.
+  validation_criteria: The skill launches npx --yes @jasonrobey/idd-forge from the consuming project
+    root through actual native background-process tools, passes supported flags as argv, captures
+    the actual startup URL and an owned stop handle, and reports startup failure without inventing
+    success. No project artifact edits or setup-time hierarchy creation.
+  edge_cases:
+    - A --docs path containing spaces is one argument; unknown flags, missing values and an invalid
+      port fail before starting a process. Shell metacharacters in values remain data, not shell
+      code.
+    - A long-running server is inspected for startup output without waiting for normal process exit.
+      A missing background tool, unavailable Node/npx or startup error is an actionable failure;
+      never stop a pre-existing unrelated server.
+  intention: INT-a815
+  complexity: medium
+  owner: Jason Robey
+  status: draft

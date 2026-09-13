@@ -1,0 +1,19 @@
+expectation:
+  id: EXP-e54a
+  description: Stakeholders can chart a portable phase-zero map without invented human decisions or
+    unnecessary artifacts.
+  validation_criteria: The standalone chart skill reuses confirmed destination/frontier context, asks
+    one missing stakeholder question at a time, preserves precise tickets versus fog, and creates a
+    valid linked map/ticket batch only when warranted. No-fog returns the next appropriate authoring
+    phase with no project writes. Research results contain observed facts; orchestration alone
+    serializes map decisions.
+  edge_cases:
+    - Already confirmed facts are reused; absent human answers are never supplied by a worker or
+      inferred from silence. A no-fog result creates no Exploration directory.
+    - Failed/unavailable research leaves its ticket unresolved and contributes no decision gist;
+      blocked research dependencies are not skipped. Successful local factual research is recorded
+      only in its ticket with a one-line map link/gist.
+  intention: INT-47e0
+  complexity: high
+  owner: Jason Robey
+  status: draft

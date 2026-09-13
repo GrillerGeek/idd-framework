@@ -1,0 +1,19 @@
+expectation:
+  id: EXP-d2ed
+  description: Technical and deep reviews remain complete and evidence-based when independently installed.
+  validation_criteria: Both standalone stages select exact internal Spec IDs in descriptive filenames,
+    check completeness 1–10 and actual repository context, detect cross-block contradictions, and
+    publish current review findings without changing lifecycle, five content blocks, human facts or
+    gap annotations. Deep review covers all three named perspectives and truthfully labels parallel,
+    partial, or sequential execution.
+  edge_cases:
+    - Malformed/ambiguous/empty selection produces an actionable response and no writes. A failed or
+      interrupted selected review must never leave an old approved annotation presented as current
+      success.
+    - Unavailable delegation uses all three sequential perspectives; partial delegation failure
+      self-reviews only failed perspectives and explicitly labels degradation. Missing perspectives
+      cannot count as complete.
+  intention: INT-083e
+  complexity: high
+  owner: Jason Robey
+  status: draft

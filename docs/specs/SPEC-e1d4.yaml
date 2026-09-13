@@ -1,0 +1,157 @@
+spec:
+  id: SPEC-e1d4
+  product: PROD-f67b
+  intentions:
+    - INT-a815
+  expectations:
+    - EXP-b238
+    - EXP-dc7c
+  status: draft
+  context:
+    stack: Existing Markdown/JSON, private Node>=22.20.0 verification tooling, pinned skills1.5.25.
+      Published Forge metadata observed 2026-09-13:0.6.1, Node>=20, idd-forge bin.
+    patterns: One canonical portable launcher skill, generated closed bundle and thin native command;
+      use available background-process capabilities.
+    conventions:
+      - Use consuming project root for cwd and skill-relative resources.
+      - Treat flags/values as arguments, never arbitrary shell source.
+      - Published-app metadata is read-only evidence; no migration publication or personal
+        installation.
+    existing_code_refs:
+      - path: plugin/commands/forge.md
+        note: Existing launcher behavior/flags and preserved frontmatter.
+      - path: scripts/test-install.mjs
+        note: Generic catalog installer probes.
+      - path: scripts/evaluate-reviews.mjs
+        note: Bounded optional host evidence pattern, reuse transport/hostInvocation unchanged.
+    auth: Existing local host authentication only in bounded disposable tests; public npm metadata is
+      read-only. No credentials or personal configuration edits.
+  expectations_detail:
+    - id: EXP-b238
+      description: Users can launch Forge from an independently installed portable skill with correct
+        arguments and observable process state.
+      validation: The skill launches npx --yes @jasonrobey/idd-forge from the consuming project root
+        through actual native background-process tools, passes supported flags as argv, captures the
+        actual startup URL and an owned stop handle, and reports startup failure without inventing
+        success. No project artifact edits or setup-time hierarchy creation.
+      edge_cases:
+        - A --docs path containing spaces is one argument; unknown flags, missing values and an
+          invalid port fail before starting a process. Shell metacharacters in values remain data,
+          not shell code.
+        - A long-running server is inspected for startup output without waiting for normal process
+          exit. A missing background tool, unavailable Node/npx or startup error is an actionable
+          failure; never stop a pre-existing unrelated server.
+    - id: EXP-dc7c
+      description: Maintainers can install and verify the Forge wrapper without mistaking a controlled
+        fixture for the published application.
+      validation: The generated bundle installs alone in both hosts/modes with source removal; the
+        existing Claude command frontmatter remains byte-identical and its body is a thin adapter.
+        Offline argument/lifecycle acceptance fixtures and four bounded actual-host
+        controlled-launcher observations distinguish launch success, startup failure, process
+        cleanup and published-app/native-alias limits.
+      edge_cases:
+        - Copy-source removal leaves the skill complete; no personal settings/global installation or
+          consuming npm dependency is introduced by migration tests.
+        - Controlled npx fixtures record actual argv/cwd/URL and owned process cleanup. Registry
+          metadata and any separately run real Forge smoke test are identified independently; fake
+          startup cannot certify the published UI or cross-session persistence.
+  boundaries:
+    - Do not implement this packet until SPEC-44b9 review-stage integration is accepted and its
+      catalog changes are committed.
+    - Do not rewrite Forge, framework schemas/lifecycle, artifacts, templates/examples, other stage
+      bundles, helper/runtime implementations, plugin identity/version/hooks or personal settings.
+    - Do not change the existing Forge command frontmatter or invent host-specific tool names in the
+      canonical skill.
+    - Do not execute arbitrary shell syntax from arguments, change consumer artifacts/dependencies,
+      open an unrelated browser/server, or stop processes not owned by this launch.
+    - Do not push, tag, publish, modify external marketplaces, perform global installation or write
+      outside the Deliverables. Authoring/gates/lifecycle/migration tracking are separately owned
+      orchestration.
+  deliverables:
+    - plugin/workflows/forge.md — canonical portable launcher with argument, background
+      output/handle and failure rules.
+    - plugin/commands/forge.md body only — thin adapter preserving exact existing metadata.
+    - plugin/skill-catalog.json and plugin/skills/idd-forge/ — complete SKILL.md and Apache LICENSE
+      bundle; twelve portable/three planned stages, preserve others. tests/pilot.test.mjs inventory
+      count only.
+    - tests/forge-workflow.test.mjs, tests/helpers/forge-workflow.mjs and
+      tests/fixtures/forge-workflow/ — controlled launcher recording argv/cwd/URL/owned lifecycle
+      plus negative acceptance-oracle cases.
+    - scripts/evaluate-forge.mjs — optional bounded actual-host controlled-launcher evaluator with
+      isolated npx command shim, no network package execution, original receipts and owned cleanup.
+      Reuse existing shared transport/installer unchanged.
+    - README.md, plugin/README.md and docs/contributing-agents.md — inventory/local invocation and
+      separate controlled/published/native evidence.
+    - docs/reviews/SPEC-e1d4-<UTC>-execution.md and docs/reviews/SPEC-e1d4-host-evaluation.md —
+      itemized checks and actual limitations.
+  validation:
+    automated:
+      - All existing/new tests and npm check pass on minimum/current Node; deterministic assembly,
+        protected bundles/frontmatter/modes, ownership and local links verified.
+      - 52 install combinations pass for complete current catalog plus synthetic probe; the four new
+        individual Forge combinations retain copied skill after source removal without artifacts.
+      - Offline fixture/oracle checks reject bad argv/cwd, invalid-port/unknown-flag launch,
+        invented URL/handle, unowned project writes and leaked owned child processes; default tests
+        call no models or public package installs.
+      - 'Both hosts run a controlled successful launch with --no-open --port 43123 --docs "docs with
+        spaces" and a controlled startup-failure case: four actual sessions with fully visible tool
+        commands, original receipt and independent trace review. Host timeout600sec/output4MiB,
+        fixture startup budget30sec; test cleanup stops only recorded owned process(es).'
+      - No real Forge UI or cross-session persistence certification from controlled fixtures. Report
+        files exist/nonempty, itemized rows and git diff --check verified after report reread.
+    human_review:
+      - Review argv/process behavior and observed capability limitations; actual human peer review
+        remains pending under the repeated unattended-session authorization.
+      - Native Claude alias, published Forge UI and client cross-session persistence remain later
+        integration gates unless separately observed.
+  launcher_contract:
+    arguments: Only optional --port integer1..65535, --no-open boolean, --docs one nonempty path; each
+      at most once. Preserve supported values as literal argv. Reject unknown/missing/duplicate args
+      before launch; do not pass raw shell syntax through. Resolve project root cwd, preserve docs
+      path literally and allow relative spaces. If only shell-string tool exists, quote each argv
+      using proper shell quoting (never JSON.stringify as shell escaping).
+    process: Use actual native background process/session tool, retain its owned handle/PID and command
+      identity, inspect startup output within30sec without waiting for long-running exit. Report
+      actual URL and stop instructions for that handle. If unsupported, stop with actionable
+      limitation before launching. If startup fails, surface useful exact error and stop; if owned
+      startup exceeds bound, stop only that launch and report failure. Never kill by broad
+      process-name/port matching.
+    fixture: The evaluator uses an isolated temporary PATH prefix containing a purpose-built npx shim in
+      the child host environment only; all other paths/auth remain unchanged. Shim accepts only
+      expected package/argv, records cwd/argv in its own external fixture evidence directory and
+      emits a unique local URL/owned process ID. It creates no consumer files and can simulate
+      immediate startup error. It is explicitly identified to the host as a controlled test, not the
+      published Forge app. The successful fixture must be observed alive while the host inspects
+      startup; the harness terminates its own recorded fixture processes after evaluation.
+      Cross-session survival is not certified. Evidence must distinguish native returned process
+      handle from a fabricated one.
+    metadata: npm view @jasonrobey/idd-forge version engines bin repository --json
+      observed0.6.1/Node>=20 on2026-09-13; repository URL GitHub/JasonRobey-Burke/Forge. Existing
+      wrapper uses unpinned npx package; this migration preserves that policy without claiming a
+      pinned application build.
+  coverage_dispositions:
+    - files:
+        - CLAUDE.md
+        - plugin/workflows/idd-orchestration.md
+        - plugin/skills/idd-orchestration/
+        - AGENTS.md
+        - docs/framework.md
+        - templates/
+        - examples/
+        - tests/fixtures/plugin-inventory.json
+        - scripts/test-install.mjs
+        - scripts/lib/assembly.mjs
+      disposition: accept-omission
+      reason: Names/router navigation, schemas/history/metadata and generic catalog tools remain valid and
+        protected. Complete router/native integration is later work.
+  gap_check:
+    status: passed
+    blockers: 0
+    warnings: 0
+    report: docs/reviews/SPEC-e1d4-gap-check.md
+    date: 2026-09-13
+  migration_authorization:
+    source: Repeated user approval and unattended continuation with documented best-judgment decisions.
+    human_peer_review: pending
+    scope: Session-specific authoring/orchestration only; implementation still waits for SPEC-44b9
+      acceptance and commit.

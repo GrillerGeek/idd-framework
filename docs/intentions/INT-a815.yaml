@@ -1,0 +1,14 @@
+intention:
+  id: INT-a815
+  product: PROD-f67b
+  statement: Developers can open the local Forge artifact viewer from portable agent workflows.
+  rationale: Remove Claude-specific background-tool names from the last utility command while
+    preserving the launcher behavior.
+  priority: medium
+  dependencies:
+    - INT-083e
+  expectations:
+    - EXP-b238
+    - EXP-dc7c
+  owner: Jason Robey
+  status: draft

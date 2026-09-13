@@ -714,6 +714,84 @@
           "executable": false
         }
       ]
+    },
+    {
+      "directory": "idd-tech-review",
+      "profile": "portable",
+      "files": [
+        {
+          "source": "plugin/workflows/tech-review.md",
+          "destination": "SKILL.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/review/review.md",
+          "destination": "references/review.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/spec-reference.md",
+          "destination": "references/spec-reference.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "LICENSE",
+          "executable": false
+        }
+      ]
+    },
+    {
+      "directory": "idd-deep-review",
+      "profile": "portable",
+      "files": [
+        {
+          "source": "plugin/workflows/deep-review.md",
+          "destination": "SKILL.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/review/review.md",
+          "destination": "references/review.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/spec-reference.md",
+          "destination": "references/spec-reference.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "LICENSE",
+          "executable": false
+        }
+      ]
+    },
+    {
+      "directory": "idd-review-spec",
+      "profile": "portable",
+      "files": [
+        {
+          "source": "plugin/workflows/review-spec.md",
+          "destination": "SKILL.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/review/review.md",
+          "destination": "references/review.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/spec-reference.md",
+          "destination": "references/spec-reference.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "LICENSE",
+          "executable": false
+        }
+      ]
     }
   ],
   "stages": [
@@ -730,7 +808,7 @@
     {
       "legacyCommand": "deep-review",
       "skill": "idd-deep-review",
-      "state": "planned"
+      "state": "pilot"
     },
     {
       "legacyCommand": "define-expectations",
@@ -780,12 +858,12 @@
     {
       "legacyCommand": "review-spec",
       "skill": "idd-review-spec",
-      "state": "planned"
+      "state": "pilot"
     },
     {
       "legacyCommand": "tech-review",
       "skill": "idd-tech-review",
-      "state": "planned"
+      "state": "pilot"
     },
     {
       "legacyCommand": "write-spec",

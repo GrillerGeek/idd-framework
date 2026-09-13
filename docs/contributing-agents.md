@@ -24,9 +24,9 @@ Codex can maintain this checkout through AGENTS.md and this guide. The currently
 packaged workflow integration is the [Claude Code plugin](../plugin/README.md).
 Native Codex packaging and complete standalone `npx skills` installation are
 planned in the [migration plan](plans/2026-09-12-codex-skills-migration.md).
-The three standalone pilot skills are `idd-interview`, `idd-gap-check` and
-`idd-implement-spec`. The other twelve stages and native Codex distribution remain
-pending. See the [pilot instructions](../plugin/README.md#portable-workflow-pilot)
+Eleven standalone stages are available, covering interview, authoring, technical/deep
+review, gap-check, guarded implementation and validation. Four stage ports and native
+Codex distribution remain pending. See the [pilot instructions](../plugin/README.md#portable-workflow-pilot)
 for local installation and recorded host-evaluation limits.
 
 ## Source ownership and discovery
@@ -132,8 +132,8 @@ Checks never rewrite artifacts, infer human peer review, detect every semantic
 gap, or grant execution permission.
 
 The orchestration skill remains an explicit `legacy-claude` bundle with unchanged
-resources. Three catalog stages are `pilot` and require matching portable bundles;
-the other twelve remain `planned` and must not emit placeholder skills. Pilot
+resources. Eleven catalog stages are `pilot` and require matching portable bundles;
+the other four remain `planned` and must not emit placeholder skills. Pilot
 references are maintained in `plugin/references/pilot/`; retain parity with the
 legacy contract when future changes affect both. Installation evidence alone
 does not prove real workflow behavior.
@@ -235,8 +235,14 @@ The bundle carries the pinned YAML parser and ISC license; consuming projects ne
 
 ### Authoring stage evaluation
 
-Five standalone authoring bundles now share `plugin/references/authoring/authoring.md`; edit sources and rebuild. They preserve existing command/agent frontmatter while keeping stakeholder interaction and saving in the main conversation. The catalog drives individual copy/symlink installation checks for both hosts (36 combinations including the synthetic probe). The ID helper is exercised after copy-source removal and creates no artifact directories.
+Five standalone authoring bundles now share `plugin/references/authoring/authoring.md`; edit sources and rebuild. They preserve existing command/agent frontmatter while keeping stakeholder interaction and saving in the main conversation. The catalog drives individual copy/symlink installation checks for both hosts (48 combinations including the synthetic probe and review stages). The ID helper is exercised after copy-source removal and creates no artifact directories.
 
 Use `node scripts/evaluate-authoring.mjs --host codex --stage quick-spec` or select `--host claude`. Optional `--variant missing-confirmation` applies to define-expectations; `--variant accelerated-rejected-edge` applies to define-outcomes/quick-spec. Each case creates a fresh copied installation, removes its copy source, preserves dirty notes, bounds one configured-model session to ten minutes/4 MiB and retains evidence under its reported OS-temp directory. Default tests and CI invoke no models.
 
 Acceptance requires five happy stages plus missing-confirmation and both accelerated rejections in each host: 16 actual trace-reviewed successes. Other negative/concurrency cases have deterministic acceptance-oracle coverage; that is not production-writer or actual interleaving evidence. The oracle requires exact supplied fixture strings and rejects operational errors masquerading as workflow refusals. See [authoring host evidence](reviews/SPEC-8406-host-evaluation.md). Native aliases and human peer review remain separate.
+
+### Review stage evaluation
+
+The canonical sources for tech-review, deep-review and review-spec are in `plugin/workflows/` and `plugin/references/review/`. Rebuild all three bundles together. `node scripts/evaluate-reviews.mjs --host codex --stage tech-review` (or Claude) uses a fresh copied installation with source removal, configured models, ten-minute/4 MiB bounds and retained original evidence. `--variant contradiction` applies to tech-review; `--variant broken` applies to review-spec.
+
+Acceptance requires those two negative cases plus all three happy stages in each host, with current output checks and independent full-trace review. The deep fixture uses explicitly unavailable dispatch and must truthfully cover all three perspectives sequentially. Offline receipt simulations do not certify real parallel/partial delegation. The good validation fixture intentionally returns Needs Changes because human wording and historical preservation remain unverified. See [review evidence](reviews/SPEC-44b9-host-evaluation.md).

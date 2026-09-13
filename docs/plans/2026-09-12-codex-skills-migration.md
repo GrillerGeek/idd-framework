@@ -245,3 +245,7 @@ SPEC-c45b implements a generic independently installed Claude terminal controlle
 ## September 13 authoring implementation
 
 SPEC-8406 is implemented and in review: five additional portable authoring stages, eight total portable stages, seven planned. All sixteen required actual-host observations passed independent trace review; two required reinforced-prompt retries and earlier failures remain documented. The final suite passes 185 tests on both Node runtimes; 36 installation combinations pass. Shared authoring enforces confirmed edges, draft lifecycle and conservative batch/parent preservation. See docs/reviews/SPEC-8406-host-evaluation.md and the timestamped Execution Report. Human review, native aliases, remaining stage ports, router/distribution and release certification remain open.
+
+## September 13 review-stage completion
+
+SPEC-44b9 is in review: technical, deep and implementation validation add three standalone stages, eleven total and four planned. All ten required actual-host cases passed current oracle plus strict independent trace review. Earlier baseline-loss/hidden-stdin/timeout evidence remains failed or limited, and reinforced-prompt limits are explicit. 248 tests pass on both Node runtimes and 48 installation combinations pass. Forge, exploration and archive packets now have independent clean authoring gates; serialized implementation follows. See docs/reviews/SPEC-44b9-host-evaluation.md and docs/reviews/2026-09-13-overnight-catch-up.md.
