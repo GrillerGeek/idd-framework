@@ -1,0 +1,245 @@
+spec:
+  id: SPEC-aa60
+  product: PROD-f67b
+  intentions:
+    - INT-1d32
+  expectations:
+    - EXP-89e9
+    - EXP-35d4
+  status: draft
+  context:
+    stack: Existing Node>=22.20.0 private tooling, pinned skills1.5.25 and YAML2.8.3; installed
+      Codex0.153.4 and Claude2.1.269 native plugin CLIs.
+    patterns: Shared plugin/ root and generated portable skills with host-specific manifests and
+      repository marketplace adapters. Native lifecycle probes use isolated disposable client state
+      and no models.
+    conventions:
+      - Keep existing plugin directory and idd-framework identity; user-approved migration does not
+        rename plugin/ to satisfy a new-scaffold convention.
+      - Retain version1.6.0 in production manifests until separately gated release preparation.
+        Fixture-only cache-busting versions never modify production metadata.
+      - Preserve Apache plugin license and existing Claude frontmatter/userConfig; no MCP, hooks or
+        app connection is added.
+    existing_code_refs:
+      - path: plugin/.claude-plugin/plugin.json
+        note: Existing identity, package validation and primary-source assessment.
+      - path: plugin/skill-catalog.json
+        note: Existing identity, package validation and primary-source assessment.
+      - path: scripts/lib/packages.mjs
+        note: Existing identity, package validation and primary-source assessment.
+      - path: scripts/check.mjs
+        note: Existing identity, package validation and primary-source assessment.
+      - path: tests/fixtures/plugin-inventory.json
+        note: Existing identity, package validation and primary-source assessment.
+      - path: docs/plans/2026-09-13-router-distribution-assessment.md
+        note: Existing identity, package validation and primary-source assessment.
+    auth: No model authentication is needed. Native CLI commands run in owned temporary
+      project/client/cache roots only, with child-process configuration-directory overrides; never
+      change shell HOME or personal configuration. Retain local receipts and fail closed if
+      isolation cannot be established.
+  expectations_detail:
+    - id: EXP-89e9
+      description: Users can discover and install the same complete IDD plugin through native Codex and
+        Claude marketplaces while retaining existing Claude identities.
+      validation: Repository-local Codex and Claude marketplace manifests resolve ./plugin from repository
+        root; Codex portable and compatibility manifests expose sixteen complete skills. Claude
+        retains all original fifteen commands, fourteen agents, model metadata and userConfig.
+        Actual installed CLI inventories and cached resource bytes/modes are checked in disposable
+        client roots.
+      edge_cases:
+        - A manifest pointing outside the repository, to a missing skills directory, or to a
+          mismatched plugin identity fails validation rather than advertising an unusable plugin.
+        - A native installation is independent of a separately installed standalone skill; fixture
+          source removal leaves the installed cache usable, and discovery evidence never claims all
+          native aliases were executed.
+    - id: EXP-35d4
+      description: Maintainers can verify native installation refresh and removal without changing
+        personal client state or consumer artifacts.
+      validation: Bounded actual native CLI probes install a fixture copy, refresh an explicitly versioned
+        fixture-only change, verify changed cached content, remove IDD and its fixture marketplace,
+        and preserve an unrelated installed plugin/skill and consumer notes. Receipts distinguish
+        Codex reinstall/upgrade from Claude update and document unsupported capabilities without
+        inferred success.
+      edge_cases:
+        - A missing CLI, denied capability, failed refresh or incomplete component inventory is
+          blocked/failed evidence with exact retained partial state; no fallback writes into
+          personal configuration or caches.
+        - Removing IDD does not remove unrelated plugins/skills or project artifact bytes, and
+          refresh changes only the selected fixture package; remote publication and desktop session
+          pickup remain separate evidence.
+  boundaries:
+    - Do not implement until SPEC-ab84 is accepted and committed; serialize distribution integration.
+    - Do not alter canonical workflows, generated skill bytes, runtime/helpers, command/agent
+      metadata or bodies, framework schemas, existing artifacts/templates/examples, hooks or
+      consumer dependencies.
+    - Do not change production plugin identity, version1.6.0, Claude userConfig or licensing;
+      fixture-only version changes are explicitly isolated.
+    - Do not install into or edit personal client roots/settings/caches, copy credentials, bypass
+      nested-session guards, run models or invoke external marketplace install commands.
+    - Do not push, publish, tag the actual repository or edit remote marketplace ownership. Local
+      fixture Git commits/tags and client mutations are allowed only in owned disposable roots.
+    - Do not write outside Deliverables. New authoring/gates/lifecycle and migration tracking are
+      separately owned orchestration work.
+  deliverables:
+    - plugin/plugin.json and plugin/.codex-plugin/plugin.json — valid portable root schema with
+      fixed skills/ discovery, distinct Codex compatibility metadata/legacy skills declaration and
+      display interface; common identity/version/license agree, no new tool server or hook.
+    - .agents/plugins/marketplace.json and .claude-plugin/marketplace.json — repository-owned native
+      marketplace catalogs with distinct host schema and ./plugin sources; existing
+      plugin/.claude-plugin/plugin.json remains unchanged.
+    - scripts/lib/packages.mjs and scripts/check.mjs if needed, plus
+      tests/native-distribution.test.mjs, tests/helpers/native-distribution.mjs and
+      tests/fixtures/native-distribution/ — strict manifest/path/identity/closure validation
+      integrated into normal checks, offline regressions and isolated CLI fixture support. Existing
+      Claude baseline inventory remains exact.
+    - scripts/evaluate-native-distribution.mjs — optional bounded real Codex and Claude plugin
+      lifecycle probes with captured CLI/version/results/cache inventory, source removal and
+      preservation checks; default tests and CI run no native client mutations.
+    - README.md, plugin/README.md, docs/contributing-agents.md and docs/installation.md — exact
+      local native and standalone installation choices, explicit refresh/removal,
+      duplicate-installation guidance, no-consumer-dependency prerequisites and measured
+      limitations. Remote examples are labeled unavailable until branch publication.
+    - docs/reviews/SPEC-aa60-<UTC>-execution.md and docs/reviews/SPEC-aa60-native-evaluation.md —
+      itemized evidence, failures/partial-state handling, source citations and remaining
+      release/native-execution limits.
+  validation:
+    automated:
+      - All existing/new tests and npm check pass on minimum/current Node; assembly remains
+        unchanged and direct resource/frontmatter/Claude metadata hashes remain exact.
+      - Offline validation rejects missing/escaped/symlinked fixed skills targets, missing/wrong
+        portable $schema, undeclared root skills/interface/userConfig, wrong identity/version,
+        incompatible marketplace policy/source and conflicting common compatibility metadata; valid
+        repository-root ./plugin resolves correctly. Check fixed discovery separately from
+        overlay-only legacy declaration.
+      - Two real native CLI lifecycle observations, one per host, install all expected components
+        into isolated cache roots, refresh a changed fixture version/marker, verify cached exact
+        bytes and executable modes after source removal, then remove IDD and its fixture marketplace
+        while preserving unrelated plugin/skill and consumer content. No model calls or personal
+        configuration writes.
+      - Plugin-creator compatibility validator runs on a fixture copy with folder idd-framework
+        (production plugin/ path remains); Claude native validation checks its manifest/marketplace.
+        Any schema/client mismatch receives author review before changing scope, never fabricated
+        success.
+      - Execution report is nonempty and reread before passes; final ownership, local links,
+        protected-source comparison and git diff --check pass.
+    human_review:
+      - Actual human review of installation instructions remains pending under unattended
+        authorization.
+      - Desktop fresh-session discovery, actual native alias workflow execution, GitHub shorthand,
+        hosted CI, release tagging and remote publication are not certified by CLI inventory.
+  distribution_contract:
+    metadata: Portable plugin/plugin.json has exactly
+      $schema:https://agent-plugins.org/schemas/1.0.0/plugin.schema.json, name:idd-framework,
+      version:1.6.0, description, author:{name:GrillerGeek},
+      homepage/repository:https://github.com/grillergeek/idd-framework, license:Apache-2.0 and
+      keywords. No root skills, interface, userConfig, hooks, apps or mcpServers fields; no inline
+      extensions are needed. Portable discovery uses fixed skills/. Compatibility
+      plugin/.codex-plugin/plugin.json retains the same common identity/metadata (without $schema)
+      plus skills:./skills/ for older clients and
+      interface:{displayName,shortDescription,longDescription,developerName,category,capabilities,websiteURL,defaultPrompt}.
+      Capabilities are the truthful string array [Read, Write]; defaults are actual IDD
+      descriptions, category Productivity and repository website, with no invented privacy/terms
+      URLs/assets. Compatibility interface supplies OpenAI display data because root
+      extensions.com.openai is absent; its skills declaration never overrides fixed portable
+      discovery. Validate these separate allowed field sets and common-field agreement; the
+      compatibility validator is not the portable schema validator. Claude manifest/userConfig
+      remains unchanged. No tool, hook or credential integration. Production directory remains
+      plugin for existing compatibility.
+    marketplaces: New repository catalogs only, named idd-framework-local to distinguish them from
+      external catalogs. Codex .agents/plugins/marketplace.json has source
+      {source:local,path:./plugin}, policy installation AVAILABLE/authentication ON_INSTALL and
+      category Productivity. Claude .claude-plugin/marketplace.json has name,
+      owner{name:GrillerGeek}, plugins[{name:idd-framework,source:./plugin}]. Relative path resolves
+      from repository root; no ../, absolute or remote source. These are not edits to any installed
+      personal/external marketplace.
+    isolation: Create fresh owned temporary marketplace copy, consumer project and separate
+      client/state/cache roots. Set only spawned child environment CODEX_HOME and CLAUDE_CONFIG_DIR
+      to task-specific absolute paths, leaving the parent shell environment unchanged; do not copy
+      personal authentication/config. Set child XDG_CONFIG_HOME, XDG_CACHE_HOME, XDG_STATE_HOME and
+      GIT_CONFIG_GLOBAL to owned empty state, GIT_CONFIG_NOSYSTEM=1, so native CLI housekeeping
+      cannot update personal Git excludes. Use explicit Claude project scope for
+      install/update/uninstall and marketplace add/remove where the command supports scope; named
+      marketplace update/list remain bound to the isolated CLAUDE_CONFIG_DIR and exact fixture
+      marketplace; Codex has no scope flag and uses its isolated client root. Verify actual reported
+      client/cache/install paths stay within the owned root before later operations; minimal
+      subprocess environment/probes fail without personal fallback. Each command
+      bounded60seconds/4MiB; total per host ten minutes; retained receipts/partial fixtures and no
+      model calls. Cleanup only exact owned resources after verification.
+    lifecycle: Use production-shaped copied package and catalogs plus an unrelated tiny fixture plugin
+      in a separate retained fixture marketplace. Both marketplaces live inside the owned root;
+      removing the IDD marketplace must not uninstall the unrelated plugin. Capture consumer and
+      unrelated state after installing unrelated fixture. Install IDD; capture actual CLI
+      list/details plus cached file inventory. Verify sixteen skills and Claude fifteen
+      commands/fourteen agents with metadata; Codex discovery plus cache contents does not imply it
+      executes Claude adapters. Add a fixture-only version cache-buster and marker to one IDD skill,
+      refresh via actual supported native CLI operations (Codex marketplace upgrade/re-add
+      installation; Claude marketplace update/plugin update), and verify changed cached
+      marker/version. Remove copied source after refresh and verify resources/helpers from installed
+      cache without dependencies or hierarchy creation. Remove selected IDD and fixture marketplace
+      via CLI, preserving unrelated installation/cache and consumer files. No native model
+      execution, hidden installer command, global unrelated removal or personal writes. If CLI
+      update semantics cannot meet refresh, stop affected acceptance and author the limitation
+      explicitly.
+    sources:
+      - https://developers.openai.com/plugins/build/plugins
+      - https://developers.openai.com/plugins/guides/submit-claude-plugin
+      - https://code.claude.com/docs/en/plugin-marketplaces
+      - https://code.claude.com/docs/en/plugins-reference
+      - https://code.claude.com/docs/en/claude-directory
+  coverage_dispositions:
+    - files:
+        - AGENTS.md
+        - CLAUDE.md
+        - docs/framework.md
+        - docs/artifacts.md
+        - templates/
+        - examples/
+        - plugin/workflows/
+        - plugin/references/
+        - plugin/commands/
+        - plugin/agents/
+        - plugin/runtime/
+        - plugin/bin/
+        - plugin/skills/
+        - plugin/.claude-plugin/plugin.json
+        - plugin/hooks/hooks.json
+        - tests/fixtures/plugin-inventory.json
+        - scripts/lib/assembly.mjs
+        - scripts/test-install.mjs
+        - .github/workflows/validate.yml
+        - package.json
+        - package-lock.json
+      disposition: accept-omission
+      reason: Shared instructions/direct behavior, generated closure and legacy identity remain unchanged.
+        Existing checks are integrated through the owned package validator; optional native CLI
+        probes deliberately remain outside default CI. No dependency/version or workflow change is
+        needed.
+    - files:
+        - CONTRIBUTING.md
+        - .github/pull_request_template.md
+        - .github/copilot-instructions.md
+        - .cursor/rules/idd.mdc
+        - tests/pilot.test.mjs
+        - tests/assembly.test.mjs
+        - tests/helpers/archive-workflows.mjs
+        - docs/superpowers/plans/2026-07-28-exploration-phase-0.md
+        - docs/plans/2026-09-12-codex-skills-migration.md
+        - docs/plans/2026-09-12-claude-checkpoint-recovery.md
+        - docs/plans/2026-09-13-router-distribution-assessment.md
+        - docs/plans/2026-09-13-remaining-workflow-assessment.md
+      disposition: accept-omission
+      reason: Existing guide delegation/validator APIs remain compatible; newly owned native tests cover
+        new metadata. Archive fixture README is unrelated. Dated history/assessments remain intact,
+        with corrected distinct schema contract and current installation guidance in this Spec and
+        owned docs. Current migration tracking is separately owned orchestration. No validation
+        dependency requires these files to change.
+  migration_authorization:
+    source: Repeated user approval and unattended best-judgment continuation.
+    human_peer_review: pending
+    scope: Authoring only; implementation waits for accepted Router commit and independent passed gate.
+  gap_check:
+    status: passed
+    blockers: 0
+    warnings: 0
+    report: docs/reviews/SPEC-aa60-gap-check.md
+    date: 2026-09-13

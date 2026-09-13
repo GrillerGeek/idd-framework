@@ -1,0 +1,181 @@
+spec:
+  id: SPEC-3671
+  product: PROD-f67b
+  intentions:
+    - INT-9e6c
+  expectations:
+    - EXP-eda3
+  status: draft
+  context:
+    stack: Existing Node>=22.20.0 validation, Markdown/JSON plugin metadata and repository Git branch.
+    patterns: Serialized local release preparation after accepted portable router/native distribution;
+      exact metadata version changes plus evidence-based handoff.
+    conventions:
+      - Use framework minor1.7 and plugin1.7.0 according to contributor versioning, as the next
+        local migration candidate after1.6.0.
+      - Historical versions and failed evidence remain intact; actual publication requires a
+        separate explicit action.
+      - Human review remains pending under session authorization and is never inferred from machine
+        evidence.
+    existing_code_refs:
+      - path: README.md
+        note: Existing version and verification policy.
+      - path: plugin/.claude-plugin/plugin.json
+        note: Existing version and verification policy.
+      - path: scripts/lib/packages.mjs
+        note: Existing version and verification policy.
+      - path: tests/fixtures/plugin-inventory.json
+        note: Existing version and verification policy.
+      - path: docs/contributing-agents.md
+        note: Existing version and verification policy.
+      - path: docs/reviews/2026-09-13-overnight-catch-up.md
+        note: Existing version and verification policy.
+    auth: Local source edits and local branch commits authorized; no remote write, tag, release,
+      personal installation, model or marketplace mutation.
+  expectations_detail:
+    - id: EXP-eda3
+      description: Maintainers can review a coherent local v1.7 release candidate with complete migration
+        evidence and explicit publication steps.
+      validation: Production framework badge and all three plugin manifests agree at
+        framework1.7/plugin1.7.0; reviewed version baselines agree while all nonversion
+        identities/frontmatters stay unchanged. Release notes and final catch-up report link actual
+        accepted execution/distribution evidence and accurately separate local success, pending
+        human review, hosted CI and remote publication. The branch is committed locally and no
+        release action is performed.
+      edge_cases:
+        - Historical artifacts/reports/examples keep their original versions and conclusions;
+          bumping current metadata never certifies an old failure or marks review artifacts done.
+        - Unavailable native behavior, hosted CI, unpublished GitHub shorthand or human approval
+          remains explicitly unverified; release notes contain no fabricated successful remote run,
+          tag, marketplace update or merge.
+  boundaries:
+    - Do not implement until SPEC-aa60 is accepted and committed.
+    - Do not change any workflow/runtime/helper, command/agent metadata or body, schemas, historical
+      artifacts/reports/templates/examples, dependency versions or personal settings. Current
+      metadata version fields and their explicitly owned validator/fixture assertions may change,
+      along with the explicitly owned README release prose, new release notes, current living
+      catch-up report and this Execution Report. Other existing reports remain protected history.
+    - Do not publish, push, tag, merge, create a public release, update any installed/remote
+      marketplace or claim remote installation/hosted CI evidence.
+    - Do not mark human review or lifecycle done from unattended implementation; preserve actual
+      failed/limited trial records.
+    - Do not write outside Deliverables. New authoring/gates/lifecycle and migration tracking are
+      separately owned orchestration work.
+  deliverables:
+    - README.md badge/current release paragraph, plugin/plugin.json,
+      plugin/.codex-plugin/plugin.json and plugin/.claude-plugin/plugin.json version fields only —
+      coherent framework1.7/plugin1.7.0 local candidate with all nonversion metadata preserved.
+    - scripts/lib/packages.mjs, tests/fixtures/plugin-inventory.json and only version-specific
+      assertions/fixture metadata in tests/native-distribution.test.mjs,
+      tests/helpers/native-distribution.mjs and tests/fixtures/native-distribution/ if present —
+      align reviewed current-version validation without weakening nonversion identity/frontmatter
+      checks or native behavior.
+    - docs/releases/v1.7.md and docs/reviews/2026-09-13-overnight-catch-up.md — comprehensive
+      results/decisions/remaining action report, accepted/failed evidence links,
+      platform/model/install limits and explicit manual publication checklist. No claimed release
+      event.
+    - docs/reviews/SPEC-3671-<UTC>-execution.md — complete itemized version/preservation/test
+      verification and pending human/remote follow-ups.
+  validation:
+    automated:
+      - All prior tests/checks pass at minimum/current Node and individual installer checks remain
+        valid for the final candidate; deterministic generated skills remain byte-identical to the
+        accepted native-distribution commit.
+      - All three current manifest versions equal1.7.0, README framework badge equals1.7, reviewed
+        inventory manifest agrees; nonversion metadata and all adapter frontmatter hashes equal the
+        accepted pre-bump baseline. Existing historical versions remain unchanged.
+      - Release/catch-up reports exist and are reread before passes; each success links actual
+        evidence with its limits, pending hosted CI/publication/human review are explicit, final
+        ownership/local links/git diff --check pass. Local branch commit exists; no
+        actual-repository tag or remote ref mutation.
+    human_review:
+      - Review final installation choices, model/evidence limitations and release candidate; human
+        approval remains pending.
+      - Authorize and perform publication/hosted CI/GitHub shorthand testing separately when ready;
+        these actions are not part of local release preparation.
+  release_contract:
+    version: Choose1.7.0 as the next migration candidate using the documented minor-release rule;
+      preserve all manifest properties except version and matching reviewed version assertions. Do
+      not add a Git tag or imply the published marketplace has changed. Existing version-specific
+      source/test assertions introduced by native distribution are owned narrowly here; no behavior
+      edits.
+    evidence: "Report the entire approved migration: repository/contributor setup, source
+      assembly/portable stages, guarded Claude checkpoint,
+      authoring/review/Forge/Exploration/Archive, router and native distribution. Link their actual
+      reports, list consequential autonomous decisions, retain failed runs and current
+      Sonnet/native/remote limitations. Current docs may say candidate-ready only after their checks
+      pass; report lifecycle review versus done honestly."
+    publication: Manual next steps describe review, authorize push/PR, inspect hosted CI, verify install
+      from published ref/default branch, then authorized release/tag/marketplace propagation.
+      Provide no unverified published URLs or assumed remote success. Existing external
+      GrillerGeek/skills marketplace is separate ownership and must not be edited. User personal
+      installation remains their choice.
+  coverage_dispositions:
+    - files:
+        - AGENTS.md
+        - CLAUDE.md
+        - docs/framework.md
+        - docs/artifacts.md
+        - docs/contributing-agents.md
+        - plugin/README.md
+        - docs/installation.md
+        - .agents/plugins/marketplace.json
+        - .claude-plugin/marketplace.json
+        - package.json
+        - package-lock.json
+        - .github/workflows/validate.yml
+        - plugin/workflows/
+        - plugin/references/
+        - plugin/skills/
+        - plugin/runtime/
+        - plugin/bin/
+        - plugin/commands/
+        - plugin/agents/
+        - templates/
+        - examples/
+        - docs/plans/
+        - docs/superpowers/
+      disposition: accept-omission
+      reason: Version-free installation/process guidance and marketplace identities remain valid; private
+        tooling is not versioned as a consumer package. Canonical/generated behavior and historical
+        evidence remain intact. New current release notes own candidate summary and manual
+        publication steps; current migration tracking is separately owned.
+    - files:
+        - scripts/evaluate-exploration.mjs
+        - scripts/evaluate-forge.mjs
+        - scripts/evaluate-installed-execution.mjs
+        - scripts/evaluate-pilot.mjs
+        - scripts/evaluate-authoring.mjs
+        - scripts/test-install.mjs
+        - scripts/evaluate-archive.mjs
+        - scripts/check-vendor.mjs
+        - scripts/evaluate-reviews.mjs
+        - scripts/check.mjs
+        - tests/pilot.test.mjs
+        - tests/helpers/archive-workflows.mjs
+        - plugin/vendor/yaml/integrity.json
+        - plugin/vendor/yaml/package.json
+        - plugin/vendor/yaml/dist/compose/composer.js
+        - plugin/vendor/yaml/dist/doc/Document.js
+        - plugin/vendor/yaml/dist/doc/directives.js
+        - plugin/LICENSE
+        - docs/spec-authoring.md
+        - tests/artifacts.test.mjs
+        - tests/assembly.test.mjs
+        - tests/fixtures/installed-execution/docs/specs/SPEC-c0de-greeting.yaml
+      disposition: accept-omission
+      reason: These version references describe host CLI/runtime/dependency versions, YAML language or
+        archive/execution schemas, Apache licensing, generic stack guidance or unchanged validator
+        APIs. They are independent of the production framework/plugin release version and must
+        remain unchanged. No release validation depends on modifying them.
+  migration_authorization:
+    source: Repeated user approval and unattended best-judgment continuation.
+    human_peer_review: pending
+    scope: Authoring only; implementation waits for accepted native distribution commit and independent
+      clean gate.
+  gap_check:
+    status: passed
+    blockers: 0
+    warnings: 0
+    report: docs/reviews/SPEC-3671-gap-check.md
+    date: 2026-09-13

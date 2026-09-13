@@ -1,0 +1,17 @@
+expectation:
+  id: EXP-9913
+  intention: INT-751d
+  description: Users can install one portable router and reach every complete IDD stage with the same
+    gates and context ownership.
+  validation_criteria: The router selects among all fifteen accepted stages, loads complete local
+    stage resources from its own installation, preserves main-conversation human/lifecycle ownership
+    and refuses missing prerequisites without setup writes. Six historical bundled reference paths
+    remain resolvable through portable source mappings.
+  edge_cases:
+    - Router installed alone after source removal can load an authoring stage and its
+      templates/helper without any sibling skill installation.
+    - A request to implement a missing or ungated Spec cannot create hierarchy directories, forge
+      approval, execute code or fabricate a gate.
+  complexity: high
+  owner: Jason Robey
+  status: draft

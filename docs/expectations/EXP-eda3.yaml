@@ -1,0 +1,20 @@
+expectation:
+  id: EXP-eda3
+  intention: INT-9e6c
+  description: Maintainers can review a coherent local v1.7 release candidate with complete migration
+    evidence and explicit publication steps.
+  validation_criteria: Production framework badge and all three plugin manifests agree at
+    framework1.7/plugin1.7.0; reviewed version baselines agree while all nonversion
+    identities/frontmatters stay unchanged. Release notes and final catch-up report link actual
+    accepted execution/distribution evidence and accurately separate local success, pending human
+    review, hosted CI and remote publication. The branch is committed locally and no release action
+    is performed.
+  edge_cases:
+    - Historical artifacts/reports/examples keep their original versions and conclusions; bumping
+      current metadata never certifies an old failure or marks review artifacts done.
+    - Unavailable native behavior, hosted CI, unpublished GitHub shorthand or human approval remains
+      explicitly unverified; release notes contain no fabricated successful remote run, tag,
+      marketplace update or merge.
+  complexity: medium
+  owner: Jason Robey
+  status: draft

@@ -1,0 +1,19 @@
+expectation:
+  id: EXP-d5df
+  intention: INT-751d
+  description: Contributors can maintain one canonical source per stage and assess router evidence
+    without overstating native or release support.
+  validation_criteria: Catalog mappings derive all router stage resources from accepted canonical
+    sources, deterministic assembly/licenses pass, two narrowly owned entry-root changes preserve
+    all other direct/adaptor behavior, and five bounded routing/controller observations pass
+    separate output and independent full-trace review. Docs distinguish standalone routing/local
+    refresh from pending native and remote update/release evidence.
+  edge_cases:
+    - A stage resource change becomes visible in both its direct bundle and the router after
+      assembly; stale or extra output files fail checks rather than being silently removed.
+    - Unavailable host/parser/tool capability is failed or blocked; route-only observations do not
+      certify every stage execution, native alias, remote shorthand, publication or human peer
+      review.
+  complexity: high
+  owner: Jason Robey
+  status: draft

@@ -1,0 +1,19 @@
+expectation:
+  id: EXP-89e9
+  intention: INT-1d32
+  description: Users can discover and install the same complete IDD plugin through native Codex and
+    Claude marketplaces while retaining existing Claude identities.
+  validation_criteria: Repository-local Codex and Claude marketplace manifests resolve ./plugin from
+    repository root; Codex portable and compatibility manifests expose sixteen complete skills.
+    Claude retains all original fifteen commands, fourteen agents, model metadata and userConfig.
+    Actual installed CLI inventories and cached resource bytes/modes are checked in disposable
+    client roots.
+  edge_cases:
+    - A manifest pointing outside the repository, to a missing skills directory, or to a mismatched
+      plugin identity fails validation rather than advertising an unusable plugin.
+    - A native installation is independent of a separately installed standalone skill; fixture
+      source removal leaves the installed cache usable, and discovery evidence never claims all
+      native aliases were executed.
+  complexity: high
+  owner: Jason Robey
+  status: draft

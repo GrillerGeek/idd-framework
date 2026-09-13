@@ -1,0 +1,20 @@
+expectation:
+  id: EXP-35d4
+  intention: INT-1d32
+  description: Maintainers can verify native installation refresh and removal without changing
+    personal client state or consumer artifacts.
+  validation_criteria: Bounded actual native CLI probes install a fixture copy, refresh an explicitly
+    versioned fixture-only change, verify changed cached content, remove IDD and its fixture
+    marketplace, and preserve an unrelated installed plugin/skill and consumer notes. Receipts
+    distinguish Codex reinstall/upgrade from Claude update and document unsupported capabilities
+    without inferred success.
+  edge_cases:
+    - A missing CLI, denied capability, failed refresh or incomplete component inventory is
+      blocked/failed evidence with exact retained partial state; no fallback writes into personal
+      configuration or caches.
+    - Removing IDD does not remove unrelated plugins/skills or project artifact bytes, and refresh
+      changes only the selected fixture package; remote publication and desktop session pickup
+      remain separate evidence.
+  complexity: high
+  owner: Jason Robey
+  status: draft
