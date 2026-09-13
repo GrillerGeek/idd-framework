@@ -544,6 +544,176 @@
           "executable": false
         }
       ]
+    },
+    {
+      "directory": "idd-define-intentions",
+      "profile": "portable",
+      "files": [
+        {
+          "source": "plugin/workflows/define-intentions.md",
+          "destination": "SKILL.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/authoring.md",
+          "destination": "references/authoring.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/intention-template.md",
+          "destination": "references/intention-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/bin/idd-next-id",
+          "destination": "scripts/idd-next-id",
+          "executable": true
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "LICENSE",
+          "executable": false
+        }
+      ]
+    },
+    {
+      "directory": "idd-define-expectations",
+      "profile": "portable",
+      "files": [
+        {
+          "source": "plugin/workflows/define-expectations.md",
+          "destination": "SKILL.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/authoring.md",
+          "destination": "references/authoring.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/expectation-template.md",
+          "destination": "references/expectation-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/bin/idd-next-id",
+          "destination": "scripts/idd-next-id",
+          "executable": true
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "LICENSE",
+          "executable": false
+        }
+      ]
+    },
+    {
+      "directory": "idd-define-outcomes",
+      "profile": "portable",
+      "files": [
+        {
+          "source": "plugin/workflows/define-outcomes.md",
+          "destination": "SKILL.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/authoring.md",
+          "destination": "references/authoring.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/intention-template.md",
+          "destination": "references/intention-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/expectation-template.md",
+          "destination": "references/expectation-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/bin/idd-next-id",
+          "destination": "scripts/idd-next-id",
+          "executable": true
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "LICENSE",
+          "executable": false
+        }
+      ]
+    },
+    {
+      "directory": "idd-quick-spec",
+      "profile": "portable",
+      "files": [
+        {
+          "source": "plugin/workflows/quick-spec.md",
+          "destination": "SKILL.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/authoring.md",
+          "destination": "references/authoring.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/intention-template.md",
+          "destination": "references/intention-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/expectation-template.md",
+          "destination": "references/expectation-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/spec-reference.md",
+          "destination": "references/spec-reference.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/bin/idd-next-id",
+          "destination": "scripts/idd-next-id",
+          "executable": true
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "LICENSE",
+          "executable": false
+        }
+      ]
+    },
+    {
+      "directory": "idd-write-spec",
+      "profile": "portable",
+      "files": [
+        {
+          "source": "plugin/workflows/write-spec.md",
+          "destination": "SKILL.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/authoring.md",
+          "destination": "references/authoring.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/spec-reference.md",
+          "destination": "references/spec-reference.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/bin/idd-next-id",
+          "destination": "scripts/idd-next-id",
+          "executable": true
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "LICENSE",
+          "executable": false
+        }
+      ]
     }
   ],
   "stages": [
@@ -565,17 +735,17 @@
     {
       "legacyCommand": "define-expectations",
       "skill": "idd-define-expectations",
-      "state": "planned"
+      "state": "pilot"
     },
     {
       "legacyCommand": "define-intentions",
       "skill": "idd-define-intentions",
-      "state": "planned"
+      "state": "pilot"
     },
     {
       "legacyCommand": "define-outcomes",
       "skill": "idd-define-outcomes",
-      "state": "planned"
+      "state": "pilot"
     },
     {
       "legacyCommand": "forge",
@@ -600,7 +770,7 @@
     {
       "legacyCommand": "quick-spec",
       "skill": "idd-quick-spec",
-      "state": "planned"
+      "state": "pilot"
     },
     {
       "legacyCommand": "resolve",
@@ -620,7 +790,7 @@
     {
       "legacyCommand": "write-spec",
       "skill": "idd-write-spec",
-      "state": "planned"
+      "state": "pilot"
     }
   ]
 }

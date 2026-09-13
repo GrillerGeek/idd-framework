@@ -48,7 +48,11 @@ export function probeInstall() {
           if(agent==='claude-code')assert.equal(fs.lstatSync(installed).isSymbolicLink(),!copy,`${mode}: installation method`);
           for(const [file,{bytes,mode}]of expected) {assert.deepEqual(fs.readFileSync(path.join(installed,file)),bytes,`${agent}: ${file}`);assert.equal(fs.statSync(path.join(installed,file)).mode&0o777,mode);}
           if(!bundle)assert.equal(runProcess(path.join(installed,'scripts/probe.sh'),[],{cwd:target}),'IDD package probe\n');
-          if(name==='idd-interview')assert.match(runProcess('bash',[path.join(installed,'scripts/idd-next-id'),'product'],{cwd:target}),/^PROD-[a-f0-9]{4,8}\n$/);
+          if(mappings.some(f=>f.destination==='scripts/idd-next-id')) {
+            const kind=name==='idd-interview'?'product':name==='idd-define-expectations'?'expectation':name==='idd-write-spec'||name==='idd-quick-spec'?'spec':'intention';
+            const prefix={product:'PROD',intention:'INT',expectation:'EXP',spec:'SPEC'}[kind];
+            assert.match(runProcess('bash',[path.join(installed,'scripts/idd-next-id'),kind],{cwd:target}),new RegExp('^'+prefix+'-[a-f0-9]{4,8}\\n$'));
+          }
           if(name==='idd-implement-spec') {
             const probe=spawnSync(process.execPath,[path.join(installed,'scripts/idd-execute-spec.mjs'),'--project',target,'--spec','SPEC-c0de','--check'],{cwd:working,encoding:'utf8',timeout:15000});
             assert.equal(probe.status,1);const result=JSON.parse(probe.stdout);assert.equal(result.outcome,'refused');assert.equal(result.hostInvocations,0);assert.match(result.error,/Missing\/unsafe path/,'installed runtime loads and reaches project preflight');

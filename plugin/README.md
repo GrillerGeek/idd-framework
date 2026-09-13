@@ -211,7 +211,7 @@ The maintained router is `workflows/idd-orchestration.md`; its six maintained
 references are in `references/`. From the repository root, run `npm ci` with
 Node.js 22.20.0+, edit those sources, and run `npm run build:skills` to refresh the
 committed copies in `skills/idd-orchestration/`. `skill-catalog.json` defines each
-mapping and lists three pilot stages plus twelve planned stages.
+mapping and lists eight implemented portable stages plus seven planned stages.
 
 Run `npm run check` and `npm test` before submitting changes. The optional
 `npm run test:install` verifies the synthetic fixture and each pilot skill alone
@@ -227,20 +227,25 @@ Apache 2.0 -- see [LICENSE](LICENSE).
 
 ## Portable workflow pilot
 
-This branch includes three complete standalone skill bundles:
+This branch includes eight complete standalone skill bundles. The original three-stage pilot has a documented supported-lane acceptance; the five authoring stages have separate host evaluation evidence:
 
 | Skill | Purpose | Legacy Claude alias |
 |---|---|---|
 | `idd-interview` | Define a Product in the stakeholder conversation | `/idd-framework:interview` |
 | `idd-gap-check` | Adversarial Spec review, coverage and gate annotation | `/idd-framework:gap-check` |
 | `idd-implement-spec` | Gated implementation and execution evidence | `/idd-framework:implement-spec` |
+| `idd-define-intentions` | Confirmed draft outcomes from a Product | `/idd-framework:define-intentions` |
+| `idd-define-expectations` | Confirmed draft constraints and parent links | `/idd-framework:define-expectations` |
+| `idd-define-outcomes` | Linked Intention/Expectation batch | `/idd-framework:define-outcomes` |
+| `idd-quick-spec` | Confirmed draft Intention/Expectation/Spec batch | `/idd-framework:quick-spec` |
+| `idd-write-spec` | Five-block draft Spec from selected Expectations | `/idd-framework:write-spec` |
 
 The Claude aliases load these shared procedures. Their names and frontmatter stay
 unchanged; reviewer/implementer model choices remain in the Claude adapter. Each
 standalone bundle contains its own references and any required helper, with no
 runtime npm dependency added to the consuming project. The interview helper needs
 Bash, and artifact workflows need safe YAML parsing available in the host environment;
-missing capabilities are reported before writes. The router and other twelve
+missing capabilities are reported before writes. The router and other seven
 stages still use the legacy integration; a full-catalog standalone install is not
 yet the supported migration path.
 
@@ -251,8 +256,8 @@ consuming project**, replacing the absolute source path with this checkout:
 npx --yes skills@1.5.25 add /absolute/path/to/idd-framework/plugin/skills/idd-interview --agent codex claude-code --skill idd-interview
 ```
 
-Use `idd-gap-check` or `idd-implement-spec` in both source path and `--skill` to
-install a different pilot alone. Add `--copy` to test a source-independent copy.
+Use any skill in the table in both source path and `--skill` to
+install that stage alone. Add `--copy` to test a source-independent copy.
 Select just `--agent codex` or `--agent claude-code` if you want one host. These
 commands are project-scoped; avoid installing duplicate native-plugin and standalone
 copies in the same host. This branch is unpushed, so GitHub shorthand would still
@@ -290,3 +295,9 @@ skill does not install that controller or certify ordinary/native Claude executi
 The `idd-implement-spec` bundle now includes a self-contained Node >=22.20.0 terminal runner for existing Claude authentication. It requires reviewed `execution_contract` output/check metadata and recorded readiness approval. Use `node <installed-skill>/scripts/idd-execute-spec.mjs --project <project> --spec <SPEC-ID> --check` for read-only preflight; omit `--check` to execute from a separate terminal. Never bypass the nested-session guard. The default preserves the configured model/style; optional `--implementer-model sonnet` requires an observed matching implementation model. The Sonnet option has verified model selection but remains experimental after a failed full workflow trace review. Native alias certification remains separate.
 
 The bundle carries the pinned YAML parser and ISC license; consuming projects need no dependency installation. Failures preserve partial work and controller evidence, and require author recovery. See [guarded execution](references/pilot/guarded-execution.md) for ownership, limits and report rules. Optional contributor host evaluation: `node scripts/evaluate-installed-execution.mjs` (or `--negative`, `--sonnet`). Offline tests use simulated host receipts and do not replace actual host evidence.
+
+## Portable authoring
+
+The five authoring skills share `references/authoring/authoring.md` as their maintained procedure and each bundles its required templates, references and executable ID helper. Selection, confirmation, validation and saves stay in the stakeholder conversation. Optional Claude drafting preserves existing model policy and returns read-only proposals. Accelerated modes save no intermediate YAML until every proposed Expectation has at least two explicitly confirmed edge cases. All new artifacts remain draft; content confirmation never supplies human Spec peer review.
+
+Parent context baselines begin when loaded, and only an existing Intention expectations list may be changed. Concurrent edits or interrupted saves are reported with exact partial state; there is no automatic rollback or atomic multi-file guarantee. See the [authoring evidence](../docs/reviews/SPEC-8406-host-evaluation.md) for observed cases and limitations.

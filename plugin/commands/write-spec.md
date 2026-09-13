@@ -4,18 +4,6 @@ argument-hint: "[expectation-ids...]"
 allowed-tools: "Read Write Glob Grep Bash(mkdir *) Bash(ls *) AskUserQuestion"
 ---
 
-!`mkdir -p docs/products docs/intentions docs/expectations docs/specs docs/reviews`
+Load the installed canonical workflow at `${CLAUDE_PLUGIN_ROOT}/skills/idd-write-spec/SKILL.md` and pass `$ARGUMENTS` as its selection/context. Keep selection, missing questions, confirmation, validation and saves in the main stakeholder conversation. Do not create directories during startup or while awaiting confirmation.
 
-Available Expectations:
-!`ls docs/expectations/*.yaml 2>/dev/null | head -20 || echo "No expectations found. Run /idd-framework:define-expectations first."`
-
-Existing Specs:
-!`ls docs/specs/*.yaml 2>/dev/null | head -20 || echo "No specs yet."`
-
-Launch the `idd-spec-author` subagent to create an AI-ready Spec.
-
-**Model directive:** When dispatching this subagent, you MUST explicitly pass `model: "sonnet"` to the Agent/Task tool call. This subagent is tuned for the current Sonnet generation (5-block synthesis with codebase pattern scanning) and must not inherit the main session's model. Do NOT skip this parameter.
-
-If `$ARGUMENTS` contains expectation IDs (e.g., EXP-9b04 EXP-3f2a), pass them to the agent so it can load the correct Expectation artifacts from `docs/expectations/`.
-
-If no expectation IDs are provided, the agent will list available Expectations in `docs/expectations/` and ask the user which ones to include in the Spec.
+Optional drafting delegation uses `idd-spec-author` with explicit `model: "sonnet"`. Supply already confirmed facts and the resolved workflow/resource paths; request read-only proposals, never stakeholder interaction or project writes. If delegation or required tools are unavailable, follow the canonical main-conversation procedure with existing capabilities or explain the missing capability; never fabricate a tool call or bypass permissions. Model policy stays in this adapter.

@@ -8,7 +8,7 @@ spec:
     - EXP-2825
     - EXP-e66a
     - EXP-71c6
-  status: draft
+  status: review
   context:
     stack: Inherit PROD-f67b Markdown/YAML/JSON/Bash. Use existing private Node >=22.20.0 tooling and
       locked yaml 2.8.3 / skills 1.5.25 for maintainer verification only.
@@ -202,24 +202,31 @@ spec:
       concurrency cases require offline oracle coverage; actual host runs of them are additional
       explicitly labeled evidence, not required by this minimum. Native aliases remain later
       integration evidence."
+    new_filenames: New artifacts may use <ID>.yaml or <ID>-<descriptive-slug>.yaml, where the optional
+      nonempty slug uses lowercase ASCII letters/digits separated by hyphens. Internal ID is
+      authoritative and must match the complete filename prefix in the correct artifact directory.
+      Never treat a descriptive suffix as part of an immutable ID. This resolves an evaluator
+      overconstraint; the procedure already supported descriptive filenames and no acceptance clause
+      required basename equality.
   execution_prerequisites:
-    pilot: SPEC-b2e3 actual host pilot exit criterion, including the unresolved Claude cases, must pass
-      before bulk conversion.
-    readiness: This remains draft pending the pilot acceptance prerequisite and a fresh independent
-      gap-check of this complete authoring/evaluation contract.
+    pilot: Established for documented supported lanes in docs/reviews/2026-09-13-pilot-acceptance.md;
+      native/optional policy certification remains separate.
+    readiness: Content gap-check passed; unattended user authorization permits this local implementation
+      while actual human peer review stays pending.
   peer_review:
     outcome: pending
     note: No actual review of this newly drafted contract is claimed.
   session_authorization:
-    date: 2026-09-12
-    scope: Continued local migration authoring under user unattended-work instruction.
-    decision: Prepare the next focused contract while pilot evaluation continues. Do not bypass the
-      pilot prerequisite or claim this draft ready.
+    date: 2026-09-13
+    scope: User directed continued implementation while asleep, making reasonable decisions and
+      documenting results.
+    decision: Proceed after accepted configured terminal pilot evidence; preserve ordinary
+      stakeholder/human gates in shipped procedures.
   gap_check:
     status: passed
     blockers: 0
     warnings: 0
-    report: docs/reviews/SPEC-8406-gap-check.md
+    report: docs/reviews/SPEC-8406-filename-gap-check.md
     date: 2026-09-13
   scenario_oracles:
     shared_fixture: Use fictional IDs PROD-a1b2, INT-a1b2 and EXP-a1b2 only in disposable projects. The

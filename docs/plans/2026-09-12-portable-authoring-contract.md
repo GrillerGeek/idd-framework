@@ -1,8 +1,6 @@
 # Next migration packet: portable artifact authoring
 
-Status: assessed and drafted as [SPEC-8406](../specs/SPEC-8406.yaml), including exact scenario oracles; not an execution gate. Bulk conversion waits for acceptance of
-SPEC-b2e3's three-workflow pilot. This document records decisions made under the
-2026-09-12 unattended-work authorization.
+Status: implemented as [SPEC-8406](../specs/SPEC-8406.yaml), now in review under the recorded unattended-session authorization. All sixteen required actual-host observations passed independent trace review; human peer review remains pending. See [host evidence](../reviews/SPEC-8406-host-evaluation.md). Earlier assessment and author decisions below are retained for context.
 
 ## Outcome and scope
 
@@ -88,3 +86,7 @@ future router integration before any bulk implementation begins.
 ## September 13 independent review resolutions
 
 SPEC-8406 now distinguishes preflight refusal from a late concurrent-parent change after a child save, which must preserve and report partial state. It requires a parent re-read immediately before every update, without claiming atomic compare-and-swap. Owner assertions apply only to Intentions/Expectations. Selection, archive, absent-lineage, multi-Intention and accelerated rejection oracles are explicit. Behavioral acceptance requires all 16 defined real-host cases; concurrency oracle tests are not model-execution evidence. CLAUDE.md model-policy wording is narrowly owned; legacy/router/schema/history omissions are documented. Pilot acceptance remains a prerequisite.
+
+### New filename decision
+
+A live Claude authoring case exposed that the oracle required exactly `<ID>.yaml`, while the accepted procedure/spec did not forbid descriptive new filenames. Author decision: allow `<ID>.yaml` or `<ID>-<lowercase-hyphenated-slug>.yaml`, always checking internal identity and owning directory. Preserve the original observed result and separately revalidate after independent contract review; do not classify a naming assumption as model noncompliance.

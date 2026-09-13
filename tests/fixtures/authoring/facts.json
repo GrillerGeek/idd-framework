@@ -1,0 +1,12 @@
+{
+  "owner": "Casey Example",
+  "statement": "Callers receive a consistent greeting",
+  "rationale": "Avoid duplicated formatting",
+  "description": "Valid names receive Hello, <trimmed name>!; invalid nonstring or blank input throws TypeError",
+  "validation": "Ada and padded Ada receive Hello, Ada!; empty string and null throw TypeError",
+  "edges": ["Leading and trailing padding is trimmed.", "Nonstring or blank input throws TypeError."],
+  "boundaries": ["Do not modify package.json, USER-NOTES.md or installed skills.", "Do not add dependencies."],
+  "deliverables": ["src/greet.mjs", "tests/greet.test.mjs"],
+  "automated": ["Run node --test tests/greet.test.mjs."],
+  "human_review": ["Review greeting wording."]
+}

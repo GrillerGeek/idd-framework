@@ -241,3 +241,7 @@ The skills installer supports GitHub sources, explicit agent selection, individu
 ## September 13 installed execution checkpoint
 
 SPEC-c45b implements a generic independently installed Claude terminal controller with reviewed execution_contract metadata, vendored parser, bounded shared transport and real acknowledgment checkpoints. Final configured-policy run passed independent trace review. Sonnet identity selection works but full workflow trace acceptance failed; native aliases remain separate. All 136 offline tests pass on Node 22.20.0 and 25.8.1 and all 16 installation combinations pass. See docs/reviews/2026-09-13-pilot-acceptance.md for the supported-lane disposition permitting broader implementation; earlier failures remain in historical reports. SPEC-8406 has a fresh passed content gap-check and remains the next implementation packet.
+
+## September 13 authoring implementation
+
+SPEC-8406 is implemented and in review: five additional portable authoring stages, eight total portable stages, seven planned. All sixteen required actual-host observations passed independent trace review; two required reinforced-prompt retries and earlier failures remain documented. The final suite passes 185 tests on both Node runtimes; 36 installation combinations pass. Shared authoring enforces confirmed edges, draft lifecycle and conservative batch/parent preservation. See docs/reviews/SPEC-8406-host-evaluation.md and the timestamped Execution Report. Human review, native aliases, remaining stage ports, router/distribution and release certification remain open.
