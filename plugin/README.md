@@ -275,3 +275,12 @@ The optional host evaluator can diagnose Claude output-style conflicts with
 configured model, and is recorded separately from runs with the configured style.
 Styles that suppress intermediate messages may conflict with IDD's required
 pre-write Boundary acknowledgments; a final execution report cannot replace them.
+
+
+The implementation pilot also has an optional staged evaluation controller. It
+validates two read-only acknowledgment turns in one Claude session before enabling
+the build, and verifies evidence before changing lifecycle to review. See the
+[controller instructions](../docs/contributing-agents.md#setup-assembly-and-validation)
+and [recovery evidence](../docs/reviews/2026-09-12-claude-checkpoint-recovery.md).
+This is development tooling in the source checkout. Installing the standalone
+skill does not install that controller or certify ordinary/native Claude execution.

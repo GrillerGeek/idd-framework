@@ -86,7 +86,7 @@ export function visibleAssistantText(transcript) {
   }
   return messages.join('\n');
 }
-export async function verifyScenario(directory, state, transcript, {verificationTimeout=10000}={}) {
+export async function verifyScenario(directory, state, transcript, {verificationTimeout=10000,expectedStatus='review'}={}) {
   const after=projectSnapshot(directory),changes=Object.keys({...state.before,...after}).filter(f=>JSON.stringify(state.before[f])!==JSON.stringify(after[f]));
   const execution=/^docs\/reviews\/SPEC-a1b2-\d{8}T\d{6}Z-execution\.md$/;
   const allow = file => {
@@ -144,7 +144,8 @@ export async function verifyScenario(directory, state, transcript, {verification
   } else if(state.scenario==='implement-refuse') {
     assert.deepEqual(changes,[]);assert.match(transcript,/refus|cannot|blocked|warnings|gate/i);
   } else {
-    assert.equal(spec.status,'review');assert.equal(text.replace(/^  status: review$/m,'  status: ready'),state.specText,'Spec changes beyond status');
+    assert.ok(['review','in-progress'].includes(expectedStatus));
+    assert.equal(spec.status,expectedStatus);assert.equal(text.replace(new RegExp('^  status: '+expectedStatus+'$','m'),'  status: ready'),state.specText,'Spec changes beyond status');
     const oracle = `import assert from 'node:assert/strict';
 import {greet} from './src/greet.mjs';
 assert.equal(greet('Ada'),'Hello, Ada!');assert.equal(greet('  Ada  '),'Hello, Ada!');

@@ -36,6 +36,14 @@ advances to review only after successful verification, not just report creation.
 
 ## Step 2 — Boundaries Acknowledged (before any file modification)
 
+A controller may request this step as a read-only checkpoint and resume the same
+conversation afterward. Return the acknowledgment, then wait for that continuation
+before starting Step 3. The controller's successful checkpoint handoff identifies
+the prior message and this invocation's gate evidence; verify it is actually in
+this conversation. Keep lifecycle in-progress when returning the build result to
+that controller. Its readiness/status handoff is orchestration evidence, not an
+instruction to impersonate a human reviewer.
+
 Read every entry in the Spec's `boundaries` block. Before writing or editing any file, send a visible assistant message headed **"Boundaries Acknowledged — implementation"**. For each Boundary (by index, starting at 1), quote the Boundary verbatim, then add a comprehension paraphrase demonstrating that you understand the prohibition. Send this message before any tool call that creates or modifies a file, including temporary snapshots. Private reasoning, quoted tool output, a delegation prompt and a later execution report do not satisfy this step. A delegated implementer sends its own message; in sequential execution, send a new message when entering the implementing role.
 
 **Edge case — stale path reference:** If a Boundary references a file path that no longer exists in the codebase, still restate that Boundary verbatim and add a `spec_gaps_encountered` entry for the stale reference (severity: minor; resolution: documented).

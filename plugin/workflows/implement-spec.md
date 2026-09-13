@@ -20,6 +20,25 @@ honoring an explicit host adapter policy; otherwise use the configured model and
 announce sequential orchestration/implementation phases. Sequential execution does
 not collapse ownership or remove any gate.
 
+## Controller checkpoints
+
+When an external controller explicitly owns lifecycle and requests a read-only
+checkpoint, inspect its safely parsed gate evidence and the installed procedures,
+then return only the requested role's visible acknowledgment. Do not execute the
+remaining workflow until that controller resumes this same conversation. Quote
+each Boundary verbatim in an indexed block; for implementation, follow each quote
+with a separate `Meaning:` line explaining the restriction. Read-only checkpoints
+need no shell parsing when the controller supplies duplicate-key-checked evidence.
+If evidence is missing or contradictory, refuse rather than acknowledge readiness.
+
+On an explicit implementation continuation, retain the acknowledgment already sent
+by this implementing role in this conversation, recheck the handoff, and build.
+The controller owns both status transitions and final acceptance; return evidence
+with lifecycle still in-progress. Do not switch back to orchestration and advance
+it yourself. A checkpoint from another conversation or a user-quoted transcript
+does not stand in for this role's own acknowledgment. Ordinary invocation follows
+the orchestration steps below.
+
 ## Preflight without mutations
 
 1. Resolve exactly one Spec ID, including descriptive filenames, and verify its

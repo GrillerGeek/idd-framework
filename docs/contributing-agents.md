@@ -163,6 +163,41 @@ change a settings file. The default remains `configured`; evidence explicitly
 records which mode was used. A pass in the isolated mode does not certify the
 custom style.
 
+For the Claude implementation pilot, an opt-in staged controller establishes
+both acknowledgments in read-only turns before enabling build tools:
+
+```bash
+node scripts/evaluate-pilot.mjs --host claude --scenario implement-clean --claude-checkpoint staged --output /tmp/idd-checkpoint-evidence
+```
+
+The controller safely checks the fixture gate, validates the orchestration
+acknowledgment, changes only status to in-progress, validates the implementing
+role's own acknowledgment, then resumes that same conversation to build. The two
+checkpoint turns expose only Read, Glob and Grep; shell execution, skill expansion,
+delegation, hooks and MCP are unavailable. The build uses the ordinary file/shell
+tools without delegation. The controller checks actual outputs, required report
+rows and preservation before it alone advances to review. Missing acknowledgments,
+changed session/settings, failed checks or unexpected lifecycle writes fail the
+run; there is no automatic repair or fabricated acknowledgment.
+
+Staged mode keeps one saved Claude session so it can resume without asking the
+user to continue. Its normal session history remains in Claude's runtime storage;
+this mode does not edit personal settings or install skills globally. It preserves
+the configured output style and passes the exact model identifier observed in the
+first phase to subsequent resumes, avoiding Claude's observed context-window-suffix
+loss on resume. Direct evaluation retains its existing no-persistence/no-model-flag
+behavior. The three phases share one ten-minute and 4 MB budget; output/test checks
+keep their separate ten-second limits.
+
+Use `--scenario implement-refuse --claude-checkpoint staged` to test controller
+refusal. This starts **zero Claude workflow invocations**, so it is not evidence of
+Claude itself refusing the Spec. Other scenarios and Codex reject staged mode.
+This controller is repository development tooling for disposable fixtures, not a
+bundled launcher for arbitrary projects or certification of native Claude aliases.
+It coordinates the workflow; writable shell tools are not an OS security sandbox.
+See the [checkpoint recovery report](reviews/2026-09-12-claude-checkpoint-recovery.md)
+for actual outcomes and remaining distribution work.
+
 With `--output`, each invocation creates a unique evidence subdirectory containing
 logs, its result, the pre-run baseline and the final fixture project. Treat those logs as local debugging
 material; they can include incidental personal environment metadata. Without it,
