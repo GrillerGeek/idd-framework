@@ -1,0 +1,32 @@
+{
+  "name": "idd-framework",
+  "version": "1.6.0",
+  "description": "Intent-Driven Development framework plugin — automates the IDD workflow with role-specific tools for stakeholder interviews, artifact generation, and structured documentation",
+  "author": {
+    "name": "GrillerGeek"
+  },
+  "homepage": "https://github.com/grillergeek/idd-framework",
+  "repository": "https://github.com/grillergeek/idd-framework",
+  "license": "Apache-2.0",
+  "keywords": [
+    "idd",
+    "spec-driven",
+    "intent-driven",
+    "process",
+    "ai-ready-specs"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Intent-Driven Development",
+    "shortDescription": "Turn product purpose into reviewed, executable specifications.",
+    "longDescription": "Create linked Products, Intentions, Expectations and Specs; review gaps, implement gated work and validate outcomes with a complete portable IDD workflow.",
+    "developerName": "GrillerGeek",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/grillergeek/idd-framework",
+    "defaultPrompt": "Help me choose the next IDD workflow for this project."
+  }
+}

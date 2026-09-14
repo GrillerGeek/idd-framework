@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 import fs from 'node:fs';
 import path from 'node:path';
+import assert from 'node:assert/strict';
 import { containedPath, fail, readJSON, sha256 } from './files.mjs';
 import { frontmatter } from './yaml.mjs';
 
@@ -94,4 +95,31 @@ export function validatePlugin(root, catalog = readJSON(root,'plugin/skill-catal
   }
   const hooks = readJSON(root,'plugin/hooks/hooks.json');
   if (!hooks.hooks || Object.keys(hooks.hooks).length) fail('plugin/hooks/hooks.json','HOOKS','expected unchanged empty hook mapping');
+}
+export function validateNativeDistribution(root) {
+  const strict=(value,keys,label)=>{assert.ok(value&&typeof value==='object'&&!Array.isArray(value),`${label}: expected object`);assert.deepEqual(Object.keys(value).sort(),keys.slice().sort(),`${label}: incorrect fields`);};
+  const json=relative=>readJSON(root,path.relative(root,containedPath(root,relative)));
+  const portable=json('plugin/plugin.json'),compat=json('plugin/.codex-plugin/plugin.json'),claude=json('plugin/.claude-plugin/plugin.json');
+  const fields=['name','version','description','author','homepage','repository','license','keywords'];
+  strict(portable,['$schema',...fields],'portable manifest');strict(compat,[...fields,'skills','interface'],'Codex compatibility manifest');
+  assert.equal(portable.$schema,'https://agent-plugins.org/schemas/1.0.0/plugin.schema.json','Portable schema');
+  for(const k of fields){assert.deepEqual(portable[k],claude[k],`Common Claude metadata ${k}`);assert.deepEqual(compat[k],portable[k],`Common compatibility metadata ${k}`);}
+  assert.equal(portable.name,'idd-framework');assert.equal(portable.version,'1.6.0');assert.equal(portable.license,'Apache-2.0');
+  assert.equal(compat.skills,'./skills/','Legacy declaration must preserve fixed discovery');
+  const skills=containedPath(root,'plugin/skills');assert.ok(fs.statSync(skills).isDirectory(),'Fixed skills discovery requires a directory');
+  const catalog=json('plugin/skill-catalog.json');assert.equal(catalog.bundles.length,16);assert.deepEqual(fs.readdirSync(skills).sort(),catalog.bundles.map(b=>b.directory).sort(),'Native skill inventory');
+  for(const b of catalog.bundles)assert.ok(fs.statSync(containedPath(root,`plugin/skills/${b.directory}/SKILL.md`)).isFile(),'Missing skill entry');
+  validateBundles(root,catalog);
+  const display=['displayName','shortDescription','longDescription','developerName','category','capabilities','websiteURL','defaultPrompt'];strict(compat.interface,display,'Codex interface');
+  for(const k of display.filter(k=>k!=='capabilities'))assert.ok(typeof compat.interface[k]==='string'&&compat.interface[k].trim(),`Empty interface ${k}`);
+  assert.deepEqual(compat.interface.capabilities,['Read','Write']);assert.equal(compat.interface.category,'Productivity');assert.equal(compat.interface.websiteURL,portable.homepage);
+  const codexMarket=json('.agents/plugins/marketplace.json'),claudeMarket=json('.claude-plugin/marketplace.json');
+  strict(codexMarket,['name','interface','plugins'],'Codex marketplace');strict(codexMarket.interface,['displayName'],'Marketplace interface');assert.ok(codexMarket.interface.displayName.trim());
+  strict(claudeMarket,['name','owner','plugins'],'Claude marketplace');assert.deepEqual(claudeMarket.owner,{name:'GrillerGeek'});
+  for(const market of [codexMarket,claudeMarket]){assert.equal(market.name,'idd-framework-local');assert.ok(Array.isArray(market.plugins)&&market.plugins.length===1);assert.equal(market.plugins[0].name,'idd-framework');}
+  const cp=codexMarket.plugins[0],clp=claudeMarket.plugins[0];strict(cp,['name','source','policy','category'],'Codex marketplace plugin');strict(clp,['name','source'],'Claude marketplace plugin');
+  assert.deepEqual(cp.source,{source:'local',path:'./plugin'});assert.deepEqual(cp.policy,{installation:'AVAILABLE',authentication:'ON_INSTALL'});assert.equal(cp.category,'Productivity');assert.equal(clp.source,'./plugin');
+  // Resolve both host source declarations from repository root, not hidden folders.
+  const plugin=containedPath(root,'plugin');assert.ok(fs.statSync(plugin).isDirectory());
+  return {name:portable.name,version:portable.version,skills:catalog.bundles.length,pluginRoot:plugin};
 }

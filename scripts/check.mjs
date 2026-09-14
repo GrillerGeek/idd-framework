@@ -5,7 +5,7 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { assemble, repositoryRoot } from './build-skills.mjs';
 import { validateArtifacts } from './lib/artifacts.mjs';
-import { validateBundles, validatePlugin } from './lib/packages.mjs';
+import { validateBundles, validatePlugin, validateNativeDistribution } from './lib/packages.mjs';
 import { parseYAML } from './lib/yaml.mjs';
 
 import { checkVendor } from './check-vendor.mjs';
@@ -16,6 +16,7 @@ export function checkRepository(root = repositoryRoot) {
   run(() => assemble(root,{ check: true }));
   run(() => validateBundles(root));
   run(() => validatePlugin(root));
+  run(() => validateNativeDistribution(root));
   run(() => checkVendor(root));
   run(() => errors.push(...validateArtifacts(root).errors));
   const helpers = ['plugin/bin/idd-next-id','plugin/bin/idd-archive-scan','plugin/scripts/init-idd.sh'];

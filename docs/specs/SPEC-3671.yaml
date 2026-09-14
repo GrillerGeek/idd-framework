@@ -8,8 +8,9 @@ spec:
   status: draft
   context:
     stack: Existing Node>=22.20.0 validation, Markdown/JSON plugin metadata and repository Git branch.
-    patterns: Serialized local release preparation after accepted portable router/native distribution;
-      exact metadata version changes plus evidence-based handoff.
+    patterns: Serialized local candidate preparation after verified native source checkpoint; exact
+      metadata version changes plus evidence-based handoff, with unresolved upstream acceptance
+      explicit.
     conventions:
       - Use framework minor1.7 and plugin1.7.0 according to contributor versioning, as the next
         local migration candidate after1.6.0.
@@ -49,7 +50,12 @@ spec:
           remains explicitly unverified; release notes contain no fabricated successful remote run,
           tag, marketplace update or merge.
   boundaries:
-    - Do not implement until SPEC-aa60 is accepted and committed.
+    - Do not implement until the SPEC-aa60 source checkpoint is committed with passing package
+      checks, all individual test cases verified on both supported runtimes and both native
+      lifecycle observations independently accepted. Only upstream Archive/Router acceptance and
+      report/lifecycle closure may remain pending. Do not advance this Release Spec to review or
+      call the candidate release-ready until SPEC-57b4, SPEC-ab84 and SPEC-aa60 have full required
+      acceptance and committed closures.
     - Do not change any workflow/runtime/helper, command/agent metadata or body, schemas, historical
       artifacts/reports/templates/examples, dependency versions or personal settings. Current
       metadata version fields and their explicitly owned validator/fixture assertions may change,
@@ -80,10 +86,10 @@ spec:
     automated:
       - All prior tests/checks pass at minimum/current Node and individual installer checks remain
         valid for the final candidate; deterministic generated skills remain byte-identical to the
-        accepted native-distribution commit.
+        verified native source checkpoint.
       - All three current manifest versions equal1.7.0, README framework badge equals1.7, reviewed
         inventory manifest agrees; nonversion metadata and all adapter frontmatter hashes equal the
-        accepted pre-bump baseline. Existing historical versions remain unchanged.
+        verified pre-bump source baseline. Existing historical versions remain unchanged.
       - Release/catch-up reports exist and are reread before passes; each success links actual
         evidence with its limits, pending hosted CI/publication/human review are explicit, final
         ownership/local links/git diff --check pass. Local branch commit exists; no
@@ -110,6 +116,17 @@ spec:
       Provide no unverified published URLs or assumed remote success. Existing external
       GrillerGeek/skills marketplace is separate ownership and must not be edited. User personal
       installation remains their choice.
+    integration: "Author scheduling decision: native packaging, direct native host evidence and
+      individual current/minimum runtime test coverage may be checkpointed while upstream Archive
+      remains unaccepted. Local version-only candidate preparation can proceed from this verified
+      committed source; it does not imply any pending milestone is accepted or the candidate is
+      ready to release. Preserve failed/sleep-interrupted full runs alongside passing targeted
+      reruns, report test-case coverage distinctly from one uninterrupted full-suite result, and
+      retain all upstream lifecycle gates. Final review/readiness requires all prior
+      acceptance/closures; no push/tag/publication or personal install. A required earlier source
+      change pauses/reconciles affected candidate integration. This performs the remaining
+      reversible local implementation while waiting for an awake host, rather than removing the
+      required Claude Archive observation."
   coverage_dispositions:
     - files:
         - AGENTS.md
@@ -171,11 +188,12 @@ spec:
   migration_authorization:
     source: Repeated user approval and unattended best-judgment continuation.
     human_peer_review: pending
-    scope: Authoring only; implementation waits for accepted native distribution commit and independent
-      clean gate.
+    scope: User-authorized unattended local candidate preparation after the verified committed Native
+      source checkpoint described in Boundary1; no final review/readiness until upstream acceptance
+      and closures. Human peer review remains pending.
   gap_check:
     status: passed
     blockers: 0
     warnings: 0
     report: docs/reviews/SPEC-3671-gap-check.md
-    date: 2026-09-13
+    date: 2026-09-14

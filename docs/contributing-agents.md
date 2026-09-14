@@ -22,11 +22,11 @@ do not repeatedly ask for the same approval.
 
 Codex can maintain this checkout through AGENTS.md and this guide. The currently
 packaged workflow integration is the [Claude Code plugin](../plugin/README.md).
-Native Codex packaging and release verification are
+Native Codex packaging is implemented; final release verification remains
 planned in the [migration plan](plans/2026-09-12-codex-skills-migration.md).
 Fifteen standalone stages have complete bundles, covering interview, authoring, technical/deep
 review, gap-check, guarded implementation, validation, Forge, exploration and archival. Archive
-host acceptance is in progress; the complete router is implemented and undergoing integration verification, with native Codex distribution next. See the [pilot instructions](../plugin/README.md#portable-workflow-pilot)
+host acceptance is in progress; the complete router is implemented and undergoing integration verification, with native Codex/Claude packaging implemented and undergoing final verification. See the [pilot instructions](../plugin/README.md#portable-workflow-pilot)
 for local installation and recorded host-evaluation limits.
 
 ## Source ownership and discovery
@@ -305,3 +305,31 @@ human peer review. See [router evidence](reviews/SPEC-ab84-host-evaluation.md).
 Pinned installer mode detail: targeting a single host forces copy, even without `--copy`. The four bulk observations compare explicit copy and default requests while recording actual copy mode. Genuine Claude symlinks are tested separately by the individual probe, which targets Codex and Claude together. Refresh retains actual mode; no additional host is silently selected to force a symlink.
 
 Archive contributor diagnostics also permit explicit `--claude-effort low` after recorded medium-effort timeouts. This retains the configured model/style and existing bounds, with lane-qualified evidence. First Git HEAD/index/config/refs must remain bound to the original capture; later checks cannot silently adopt a replacement baseline.
+
+
+## Native distribution verification
+
+`plugin/plugin.json` follows the portable root schema and fixed `skills/`
+discovery. `plugin/.codex-plugin/plugin.json` supplies separate compatibility and
+interface fields. The original Claude manifest, userConfig, adapters and generated
+skills stay exact. Repository-owned catalogs in `.agents/plugins/` and
+`.claude-plugin/` resolve `./plugin` from repository root. Normal package checks
+validate their distinct field sets, path safety and metadata agreement.
+
+Run `node scripts/evaluate-native-distribution.mjs --host codex` or `claude` for
+isolated native lifecycle observations. Children receive owned client/XDG/Git
+state, no copied credentials, explicit project scope where supported,60seconds
+per command/4MiB and ten minutes per host. No model runs or personal installations
+occur. Unrelated plugins use their own retained marketplace. Default tests run
+only offline fixtures and a harmless child-environment probe.
+
+The evaluator checks actual installed inventories and complete cached bytes/modes,
+fixture-only cache-buster/marker refresh, source removal, installed helper behavior
+and selected plugin/marketplace removal. Codex uses local re-add; marketplace
+upgrade is Git-only. Claude details combines15commands+16skills as31skills and
+retains cache directories after uninstall. Receipts and failed partial fixtures
+are retained, with independent review separate from output checks. See
+[native evidence](reviews/SPEC-aa60-native-evaluation.md) and the
+[installation guide](installation.md). Final upstream Archive/Router acceptance,
+fresh desktop sessions, actual native alias execution and publication are not
+inferred from CLI inventory.

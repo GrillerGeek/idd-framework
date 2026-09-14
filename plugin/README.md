@@ -1,22 +1,32 @@
-# IDD Framework Plugin for Claude Code
+# IDD Framework Plugin for Codex and Claude Code
 
-A Claude Code plugin that automates the [Intent-Driven Development](https://github.com/GrillerGeek/idd-framework) workflow with role-specific tools for stakeholder interviews, artifact generation, and structured documentation.
+One shared plugin packages sixteen portable skills, including a complete workflow
+router. Claude also retains its fifteen command aliases and fourteen role agents.
 
 ## Installation
 
-**Option 1: Via the GrillerGeek marketplace** (recommended)
+See the [installation guide](../docs/installation.md) for native Codex, native
+Claude and standalone `npx skills` choices, local refresh/removal and prerequisites.
+The new catalogs are available in this local migration checkout; they have not
+been published to GitHub's default ref or the external Claude marketplace.
+
+Local native commands use the repository root as the marketplace source:
 
 ```bash
-claude plugin marketplace add https://github.com/GrillerGeek/skills.git
-claude plugin install idd-framework
+codex plugin marketplace add /absolute/path/to/idd-framework --json
+codex plugin add idd-framework@idd-framework-local --json
 ```
 
-**Option 2: Local testing**
+Or, from a Claude consuming project:
 
 ```bash
-git clone https://github.com/GrillerGeek/idd-framework.git
-claude --plugin-dir ./idd-framework/plugin
+claude plugin marketplace add /absolute/path/to/idd-framework --scope project
+claude plugin install idd-framework@idd-framework-local --scope project --json
 ```
+
+Avoid duplicate native and standalone installations. CLI/cache lifecycle evidence
+does not certify every native workflow; Archive's final Claude apply observation
+and final integration acceptance remain pending.
 
 ## What Is IDD?
 
@@ -166,8 +176,8 @@ old report cannot authorize a build. Failed or interrupted implementations remai
 in-progress even if a partial report exists. These are agent protocol instructions,
 not an executable state validator. Resume requires a recovery decision.
 
-Native Codex packaging and release verification are planned;
-this release's documented installation routes above are for Claude Code.
+Native Codex and Claude packaging is implemented with isolated CLI lifecycle evidence.
+Final upstream acceptance, desktop discovery and publication remain separate.
 
 ## Output
 

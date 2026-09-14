@@ -1,0 +1,20 @@
+{
+  "name": "idd-framework-local",
+  "interface": {
+    "displayName": "IDD Framework local marketplace"
+  },
+  "plugins": [
+    {
+      "name": "idd-framework",
+      "source": {
+        "source": "local",
+        "path": "./plugin"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

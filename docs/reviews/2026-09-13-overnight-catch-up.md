@@ -2,43 +2,57 @@
 
 This is the running catch-up report for the authorized unattended implementation on `codex/portable-skills`. It distinguishes completed implementation, measured host behavior, remaining integration and actual human review. No push, tag or release has occurred.
 
-## Current status after the usage reset
+## Current status — September 14
 
-The complete router is implemented with all fifteen stages and318 generated
-files across sixteen standalone entrypoints. All five required routing/controller
-observations have independent full-trace acceptance. Full455-test regression runs
-passed on both Node versions;127 targeted Archive/router checks passed after nine
-new regressions (464 current total).68 individual installation combinations pass.
-Four hardened actual bulk install/update/refresh/remove observations pass, with
-independent review accepted all four.
+The complete router and native Codex/Claude packaging are implemented. Router
+source is committed as `4c27a23`; the native source checkpoint is being finalized.
+All five router observations and both native installation/refresh/removal
+observations have independent acceptance. The bundles contain sixteen public
+skills, fifteen complete stages and318 generated files. Existing Claude command,
+agent and configuration metadata remains unchanged.
 
-Archive source is committed as `fe46d55`. Seven of eight required host cases are
-accepted. The1200-second medium-effort Claude apply trial timed out after partial
-approved archival; the recovery tag preserves every original selected byte/mode,
-and the exact partial state is retained. The freshly gated low-effort diagnostic also timed out after resource reads
-only; its entire fixture remains unchanged. Further unchanged retries are paused.
-Archive is still in-progress. Router may not enter review until Archive acceptance and closure are
-committed; native packaging is being scheduled from the verified Router source checkpoint,
-while final acceptance remains dependent on the unresolved Archive observation.
+All497 individual regression cases have passing coverage on both Node versions
+after targeted reruns. Package checks pass on both. Several full-suite runs were
+interrupted by host sleep and remain documented as failed runs; this is not a claim
+of one uninterrupted green run. The68 individual installations and four bulk
+lifecycle checks passed separately.
 
-Decisions based on actual installer evidence:
+Archive has seven of eight required accepted cases. A successful complete Claude
+apply observation remains missing. The latest trial explicitly reported computer
+sleep mid-response and issued no apply command. Power logs corroborate long sleep
+intervals despite a temporary process-scoped idle assertion. Its fixture is exact
+and needs no recovery. Earlier partial failures retain verified recovery tags and
+precise unfinished state. Further identical trials should wait for a reliably
+awake host. No persistent power setting was changed.
 
-- Keep local `skills update` explicitly documented as a no-op; use the original
-  host/mode-specific `add` command for a local refresh.
-- Host-scoped removal can retain `.agents/skills` for other detected agents.
-  Retained copies remain installed, including for Codex. Preserve those exact
-  bytes and do not silently broaden removal or report complete uninstallation.
-- Pinned single-host installs force copy even without `--copy`. Bulk checks now
-  distinguish requested explicit-copy/default from actual copy mode. Genuine
-  Claude symlink coverage remains the separate dual-host individual probes.
-- Independent review found and fixed verification holes in root resource bytes,
-  dangling/root-symlink checks and failed installer receipts. Earlier weaker
-  observations remain retained and are superseded by hardened reruns.
+Native and router final lifecycle review still depend on Archive acceptance and
+closure. A separately reviewed scheduling decision permits reversible local v1.7
+candidate preparation from the verified native source checkpoint; it does not
+allow release-ready claims, publication or bypass of outstanding acceptance.
 
-See [router host evidence](SPEC-ab84-host-evaluation.md) and
-[Archive host evidence](SPEC-57b4-host-evaluation.md) for hashes, failures and limits.
-The following sections retain milestone-by-milestone history; the status above is
-current. No actual-repository push, tag, release or personal installation occurred.
+Consequential decisions based on actual observations:
+
+- Local `skills update` skips local sources. Explicit re-add is the local refresh
+  path, with host and mode options retained.
+- Host-scoped standalone removal can retain shared `.agents/skills` copies.
+  Those remain installed, including for Codex; no broader deletion is inferred.
+- Single-host installs force copy even without `--copy`. Actual Claude symlink
+  coverage comes from the separate dual-host installation probe.
+- Codex native local refresh uses a version cache-buster and re-add. Marketplace
+  upgrade is Git-only. Claude native update works with its named local catalog.
+- Codex removes installed cache versions; Claude unregisters IDD but retains
+  cached directories with orphan markers. Unrelated plugins, skills and consumer
+  files remain intact on both hosts.
+- Independent review strengthened byte comparisons, path/link checks, failed
+  receipts, scope preservation and separate registry/catalog removal checks.
+  Original failed and weaker observations remain visible.
+
+See [router evidence](SPEC-ab84-host-evaluation.md),
+[native evidence](SPEC-aa60-native-evaluation.md),
+[Archive evidence](SPEC-57b4-host-evaluation.md) and the
+[installation guide](../installation.md). The sections below retain chronological
+milestone history; this opening status is current. No actual-repository push, tag,
+release or personal installation occurred.
 
 ## Completed milestones
 

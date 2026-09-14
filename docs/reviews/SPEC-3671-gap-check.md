@@ -112,3 +112,17 @@ There are **82 candidates: 60 resolved, 22 unresolved Warnings**. None has an un
 ## Fresh independent review
 
 Reviewed corrected Spec SHA-256: d39ee75febf10c841e24ca6acaafb22d1cd82a848e9e249d45c5f9ebf6c11e20, before orchestration annotation. Completeness1–10, linked membership and embedded parity pass. GC-1 is resolved by explicitly permitting owned current documentation while protecting historical reports. All82 coverage candidates were independently rechecked, with no additions/removals and no unmet validation dependencies. Historical initial counts/findings above are retained; current gate is0/0. Accepted native-distribution commit and actual human review remain prerequisites.
+
+## Fresh scheduling recovery gate
+
+PASS — 0 blockers, 0 warnings. Independent reviewer: checkpoint_contract_review; September 14, 2026 UTC. Reviewed Spec SHA-256 before gate annotation: `14f193ead1b4ad3cd9f467cea13dcfed46fa5b84a9360bfb7d922d1cf1dd3839`. Completeness items 1–10, linked Product/Intention/Expectation membership and exact embedded description, validation and edge-case parity pass. Human peer review remains pending.
+
+Boundary 1, Context, Validation, release_contract.integration and migration_authorization.scope consistently permit only reversible local candidate preparation after a committed Native source checkpoint with passing package checks, every individual test case verified on both supported runtimes and both native lifecycle observations independently accepted. This replaces the earlier fully accepted Native commit implementation prerequisite; it does not declare pending upstream work accepted. Final Release review and any candidate-ready or release-ready claim remain subject to full SPEC-57b4, SPEC-ab84 and SPEC-aa60 acceptance and committed closures, as required by Boundary 1 and integration.
+
+The revision preserves version-only metadata/assertion ownership and explicitly owned current documentation, frozen generated behavior, protected history, all remaining automated checks and human/remote limitations. Earlier source changes pause and reconcile affected candidate work. Failed or sleep-interrupted full runs remain evidence; passing targeted reruns establish only the test-case coverage they actually supply, not an uninterrupted full-suite success. Push, tag, publication, marketplace mutations and personal installation remain outside scope.
+
+### Coverage of the scheduling revision
+
+All 82 prior candidates still exist, match reasoned author accept-omission dispositions and remain resolved. The scheduling/readiness sweep adds only separately owned migration tracking and existing managed-execution references to candidate readiness, whose implementation/report protocol is unchanged and already covered by the accepted canonical/generated behavior dispositions. Current release claims, evidence qualifications and publication steps are owned by README release prose, the new release notes and the living catch-up/Execution Reports. No new unowned impact-surface file or unmet validation dependency was found.
+
+This content/coverage gate does not certify that the prerequisite checkpoint commit exists, revalidate the reported host/test receipts, waive the final candidate checks, or authorize a release-ready claim while upstream acceptance remains pending. No lifecycle status or human approval is changed.
