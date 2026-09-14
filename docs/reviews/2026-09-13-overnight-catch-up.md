@@ -1,132 +1,167 @@
-# Overnight migration catch-up — September 13, 2026
+# Migration catch-up — September 14, 2026
 
-This is the running catch-up report for the authorized unattended implementation on `codex/portable-skills`. It distinguishes completed implementation, measured host behavior, remaining integration and actual human review. No push, tag or release has occurred.
+The implementation is on `codex/portable-skills`. All fifteen stages, the complete
+portable router and native Codex/Claude packaging are implemented. A local
+framework 1.7 / plugin 1.7.0 candidate is prepared from native checkpoint
+`234199c`, but **it is unreleased and not release-ready**. The required complete
+Claude Archive apply observation remains unaccepted, keeping Archive and the
+three dependent integration/release Specs in-progress. Actual human review is
+pending. No actual-repository push, tag, release, external marketplace update or
+personal installation occurred.
 
-## Current status — September 14
+## What you can use and review
 
-The complete router and native Codex/Claude packaging are implemented. Router
-source is committed as `4c27a23`; the native source checkpoint is being finalized.
-All five router observations and both native installation/refresh/removal
-observations have independent acceptance. The bundles contain sixteen public
-skills, fifteen complete stages and318 generated files. Existing Claude command,
-agent and configuration metadata remains unchanged.
+The [contributor guide](../contributing-agents.md) explains working on IDD with
+Codex. The [installation guide](../installation.md) covers native Codex, native
+Claude, a single self-contained router and selected standalone skills installed
+through pinned `npx skills@1.5.25`. The generated distribution has sixteen public
+skills, fifteen complete stages and 318 files. Native Claude preserves fifteen
+legacy commands, fourteen agents and its two optional configuration fields.
 
-All497 individual regression cases have passing coverage on both Node versions
-after targeted reruns. Package checks pass on both. Several full-suite runs were
-interrupted by host sleep and remain documented as failed runs; this is not a claim
-of one uninterrupted green run. The68 individual installations and four bulk
-lifecycle checks passed separately.
+The [candidate notes](../releases/v1.7.md) summarize the changes and remaining
+publication sequence. Production versions and strict version assertions are now
+1.7.0; the README framework badge is 1.7. Version preparation preserves all other
+manifest data, generated/workflow/runtime bytes, adapter bodies/frontmatter,
+dependencies, templates, examples and historical evidence.
 
-Archive has seven of eight required accepted cases. A successful complete Claude
-apply observation remains missing. The latest trial explicitly reported computer
-sleep mid-response and issued no apply command. Power logs corroborate long sleep
-intervals despite a temporary process-scoped idle assertion. Its fixture is exact
-and needs no recovery. Earlier partial failures retain verified recovery tags and
-precise unfinished state. Further identical trials should wait for a reliably
-awake host. No persistent power setting was changed.
+## Accomplishments and evidence
 
-Native and router final lifecycle review still depend on Archive acceptance and
-closure. A separately reviewed scheduling decision permits reversible local v1.7
-candidate preparation from the verified native source checkpoint; it does not
-allow release-ready claims, publication or bypass of outstanding acceptance.
-
-Consequential decisions based on actual observations:
-
-- Local `skills update` skips local sources. Explicit re-add is the local refresh
-  path, with host and mode options retained.
-- Host-scoped standalone removal can retain shared `.agents/skills` copies.
-  Those remain installed, including for Codex; no broader deletion is inferred.
-- Single-host installs force copy even without `--copy`. Actual Claude symlink
-  coverage comes from the separate dual-host installation probe.
-- Codex native local refresh uses a version cache-buster and re-add. Marketplace
-  upgrade is Git-only. Claude native update works with its named local catalog.
-- Codex removes installed cache versions; Claude unregisters IDD but retains
-  cached directories with orphan markers. Unrelated plugins, skills and consumer
-  files remain intact on both hosts.
-- Independent review strengthened byte comparisons, path/link checks, failed
-  receipts, scope preservation and separate registry/catalog removal checks.
-  Original failed and weaker observations remain visible.
-
-See [router evidence](SPEC-ab84-host-evaluation.md),
-[native evidence](SPEC-aa60-native-evaluation.md),
-[Archive evidence](SPEC-57b4-host-evaluation.md) and the
-[installation guide](../installation.md). The sections below retain chronological
-milestone history; this opening status is current. No actual-repository push, tag,
-release or personal installation occurred.
-
-## Completed milestones
-
-| Commit | Outcome | Review state |
+| Local checkpoint | Outcome | Acceptance state and evidence |
 |---|---|---|
-| `fe46d55` | Archive source/offline/install checkpoint; host acceptance pending | SPEC-57b4 in-progress |
-| `e8b4c8e` | Independently gated router, native distribution and local release-preparation packets | Draft; implementation remains serialized behind Archive acceptance |
-| `f92b4ee` | Portable Exploration chart/resolve with twelve accepted traces and verified claims | SPEC-c11a in review |
-| `54d134f` | Installed Claude execution controller: actual read-only acknowledgments, guarded write transition, explicit output/check metadata, report verification, preservation and bounded process transport | SPEC-c45b in review; configured-policy terminal lane independently accepted |
-| `190abb0` | Portable Forge launcher with four accepted controlled host traces | SPEC-e1d4 in review |
-| `cba0ea9` | Three review stages with ten strict host observations; follow-on authoring packets | SPEC-44b9 in review |
-| `5b78b78` | Five authoring stages: intentions, expectations, combined outcomes, quick Spec and existing Expectations to Spec | SPEC-8406 in review; sixteen required actual-host observations independently accepted |
+| `2f9c1d8` | Shared contributor instructions and lifecycle ownership | [Foundation execution](SPEC-5113-20260912T130127Z-execution.md); human review remains distinct |
+| `ea0c878` | Deterministic skill assembly, catalog, package checks, CI and installation probes | [Packaging execution](SPEC-bffd-20260912T152817Z-execution.md) |
+| `86e096a` and `54d134f` | Interview/gap-check/implementation pilot and guarded installed Claude controller | [Pilot acceptance](2026-09-13-pilot-acceptance.md), [controller evidence](SPEC-c45b-host-evaluation.md); configured terminal lane accepted, Sonnet full-procedure lane experimental |
+| `5b78b78` | Five authoring workflows and exact-metadata thin adapters | Sixteen actual-host observations accepted; [evidence](SPEC-8406-host-evaluation.md), [execution](SPEC-8406-20260913T052450Z-execution.md); Spec in review |
+| `cba0ea9` | Technical review, deep review and review-spec | Ten observations accepted; [evidence](SPEC-44b9-host-evaluation.md), [execution](SPEC-44b9-20260913T064000Z-execution.md); Spec in review |
+| `190abb0` | Controlled portable Forge launcher | Four observations accepted; [evidence](SPEC-e1d4-host-evaluation.md), [execution](SPEC-e1d4-20260913T065500Z-execution.md); Spec in review |
+| `f92b4ee` | Exploration chart/resolve, actual claims and preservation guards | Twelve observations accepted; [evidence](SPEC-c11a-host-evaluation.md), [execution](SPEC-c11a-20260913T072446Z-execution.md); Spec in review |
+| `fe46d55` | Archive implementation, guarded apply protocol and fixture oracles | Seven of eight required observations accepted; [evidence](SPEC-57b4-host-evaluation.md), [execution](SPEC-57b4-20260913T080211Z-execution.md); in-progress |
+| `4c27a23` | Complete router with all fifteen stage resources | Five host observations and four bulk lifecycle cases accepted; [evidence](SPEC-ab84-host-evaluation.md), [execution](SPEC-ab84-20260913T115416Z-execution.md); final closure waits for Archive |
+| `234199c` | Native manifests/catalogs, strict validation, isolated lifecycle evaluator and installation guide | Both native cases independently accepted, 35 successful command receipts; [evidence](SPEC-aa60-native-evaluation.md), [execution](SPEC-aa60-20260913T191708Z-execution.md); final closure waits for upstream acceptance |
+| Commit containing this report | Version-only 1.7 candidate and comprehensive handoff | [Release execution](SPEC-3671-20260914T034930Z-execution.md); in-progress, no release event |
 
-Earlier contributor/lifecycle, assembly and three-workflow pilot work remains in the branch. The framework and plugin remain version 1.6.0 while distribution/release work is incomplete.
+Earlier detailed chronology remains in the
+[September 12 report](2026-09-12-unattended-migration-report.md) and the linked
+milestone reports. Their historical versions, failed receipts and conclusions
+remain unchanged.
 
-## Claude execution checkpoint
+## Claude execution checkpoint and Archive distinction
 
-The installed `idd-implement-spec` skill includes a generic Node terminal controller and its complete pinned YAML runtime. A consuming project does not need an npm dependency. A reviewed `execution_contract` explicitly names writable outputs and executable validation argv; the controller never guesses these from prose.
+The requested installed Claude execution checkpoint was completed in `54d134f`.
+The controller uses reviewed `execution_contract` output paths and validation
+argv, preserves configured model/style by default, verifies real read-only
+acknowledgments before writes, restricts writable paths and validates the report.
+Orchestration owns lifecycle transitions. The accepted trace preserves its
+baseline and confirms all controlled deliverables; this is stronger than a package
+loading test. Missing/unsafe prerequisites refuse before host execution. Native
+alias certification remains separate from terminal-controller success.
 
-The final configured-policy run completed actual orchestration and implementation acknowledgments before writes, verified its deliverables and Execution Report, preserved its baseline, and let orchestration alone advance lifecycle to review. The actual full trace was independently reviewed. Sonnet model selection worked, but its full workflow trace omitted required procedural evidence, so that lane remains experimental. Native Claude aliases have not been certified by terminal-runner success.
+Archive is a later, separate workflow acceptance checkpoint. Its source implements
+reviewed classification, clean committed manifest binding, full raw-byte/type/mode
+preservation, annotated pre-delete recovery tags, ledger reconciliation before
+first deletion and explicit partial-failure reporting. Codex apply and both-host
+classification/dirty/malformed cases are accepted. Complete Claude apply is not.
 
-See [installed host evidence](SPEC-c45b-host-evaluation.md), [Execution Report](SPEC-c45b-20260913T044008Z-execution.md), and [pilot acceptance](2026-09-13-pilot-acceptance.md). Historical failed runs remain documented.
+The latest trial, `6FhPEF`, explicitly reported computer sleep mid-response and
+never issued an apply command. Independent inspection found its complete fixture
+and Git state unchanged. Power logs corroborated long Maintenance Sleep/DarkWake
+intervals despite a temporary process-only idle assertion; persistent power
+settings were not changed. Earlier partial trials `V9Z3Qa` and `tcUCw4` retain
+verified recovery tags and their exact unfinished state. They were not repaired,
+deleted or relabeled as successful. Usage, procedural and timeout failures remain
+separate in the [Archive evidence report](SPEC-57b4-host-evaluation.md). Further
+identical model trials should wait for a reliably awake host.
 
-## Portable authoring
+## Final candidate verification
 
-Eight stages now have standalone bundles: interview, gap-check, implementation, define-intentions, define-expectations, define-outcomes, quick-spec and write-spec. Five new stages share one canonical authoring procedure and generated resources. Claude aliases remain thin adapters with original frontmatter and model assignments.
+Both Node 25.8.1 and minimum Node 22.20.0 pass package checks. Deterministic assembly
+reports 318 files and zero changes. The final version-only audit compares against
+`234199c`, checks every protected tracked file and executable bit, requires exact
+nonversion manifest/fixture data and confirms unchanged repository refs before
+commit. Reports and local links are checked separately.
 
-Authoring retains selection and confirmation in the main conversation. Optional drafting workers are read-only. New artifacts remain draft; confirmed content is not human peer review. Accelerated workflows prepare the whole proposed batch before saving and require at least two explicitly confirmed edges per Expectation. Existing parent updates are restricted to the expectations list, with byte/type/mode preservation and explicit partial-save recovery rather than a false atomic-transaction claim.
+The candidate's individual installer probes pass all 68 combinations on each
+runtime: sixteen real bundles plus one synthetic package, two hosts and two
+requested modes. Copy-source removal is real. These are individual installations;
+the four previously accepted bulk lifecycle cases are separate evidence.
 
-Verification at the authoring commit:
+Initial candidate full suites recorded 488/497 passing on current Node and
+484/497 on minimum Node, with long Git subprocess timeouts and a controlled Forge
+startup failure. The 21 distinct affected test names were rerun serially on both
+runtimes; all cleared except Forge. A direct loopback probe produced `EPERM` in
+the sandbox. The unchanged Forge test then passed outside that network restriction
+on both runtimes, including HTTP inspection and owned cleanup. Thus all 497 cases
+have passing final-candidate coverage through full runs plus targeted rechecks.
+Those failed full runs are retained; passing coverage does not mean an
+uninterrupted green full-suite run. The final current serial full rerun with network access reached 496/497,
+with another Git timeout; its conditional minimum-Node follow-on did not run.
+Full-suite validation remains pending. Status and log hashes are recorded in the [release execution report](SPEC-3671-20260914T034930Z-execution.md).
 
-- 185 tests pass on Node 25.8.1 and minimum Node 22.20.0.
-- 36 installation combinations pass for Codex/Claude, copy/symlink and individual/catalog cases; copy-source removal is real.
-- All sixteen required actual-host observations pass final oracle and independent full-trace review.
-- Deterministic assembly emits 132 files. Protected sources and ten modified adapter frontmatter blocks retain their required bytes.
-- Synthetic concurrency tests validate an acceptance oracle; they do not prove a production transaction mechanism or actual interleaved host writes.
+The native lifecycle observations were made on version 1.6.0 plus disposable
+fixture refresh versions. This version-only preparation does not claim a new
+actual native lifecycle run at production 1.7.0. Native static regression cases
+are included in the candidate suite, and nonversion package data remains exact.
 
-See [authoring host evidence](SPEC-8406-host-evaluation.md) and [Execution Report](SPEC-8406-20260913T052450Z-execution.md).
+## Decisions made under unattended authorization
 
-## Decisions made while unattended
+1. Keep one canonical workflow source and generate closed portable bundles. Keep
+   Claude adapters and model assignments compatible rather than duplicate logic.
+2. Ship native plugins alongside the pinned standalone installer. Keep development
+   dependencies out of consumer projects; the installed controller includes its
+   pinned YAML runtime.
+3. Preserve configured Claude policy. Optional Sonnet selection is verified, but
+   its full-procedure failure keeps that lane experimental.
+4. Preserve real human confirmation, readiness and peer-review rules. Unattended
+   authorization applies to this migration; it is not a shipped bypass.
+5. Correct oracle deficiencies through reviewed authoring/recovery packets and
+   independent review. Preserve weaker/failed original receipts and record later
+   revalidation separately, with source/hash provenance limitations disclosed.
+6. Permit serialized router, native and version-only source checkpoints while a
+   frozen Archive copy awaits acceptance. Keep all final upstream acceptance and
+   lifecycle gates intact. Pause and reconcile downstream work if an earlier
+   source correction becomes necessary.
+7. Use 1.7/1.7.0 as the next local minor candidate under contributor versioning.
+   Do not imply publication, completed human review or release readiness.
+8. Use explicit re-add for local standalone refresh: `skills update` skips local
+   sources. Single-host default mode is copy; actual Claude symlinks were observed
+   in dual-host probes. Host-scoped removal may retain shared canonical copies,
+   which remain installed. No broad deletion is inferred from installer output.
+9. Use changed-version re-add for local Codex native refresh; its marketplace
+   upgrade is Git-only. Claude named local update works. Codex removes observed
+   cached versions; Claude unregisters and retains orphaned caches. Verify both
+   plugin and catalog removal separately while preserving unrelated registrations.
+10. Treat sleeping-host timeouts and sandbox networking restrictions as evidence
+    limitations to diagnose, not reasons to weaken safeguards or test assertions.
+    Do not keep spending model trials while the computer repeatedly sleeps.
 
-1. Accepted the three-stage pilot for the specific measured standalone/terminal lanes, allowing broader migration. This does not certify every model, output style, native alias or release path.
-2. Preserved the configured Claude execution lane as supported; kept the failed Sonnet full-procedure lane experimental instead of silently relaxing the gate.
-3. Allowed safe descriptive filenames for newly authored artifacts after an explicit author revision and independent fresh gap-check. The original contract did not require bare-ID basenames; old failed receipts were preserved and revalidation recorded separately.
-4. Corrected overly narrow oracle formatting checks for candidate tables and equivalent two-edge-minimum wording, with regression tests. No stakeholder confirmation rule was weakened.
-5. Retained two actual authoring procedural failures. Claude outcomes used unowned scratch files and weak baseline handling; Codex Quick Spec initially missed current filename enumeration in its final ID sweep. Reinforced-prompt retries passed independent review, with this limitation disclosed.
-6. Kept actual human peer review pending. The user's unattended authorization permits this migration work; it is not shipped as an exception to ordinary IDD gates.
+## Practical limits and remaining work
 
-## Work in progress and remaining work
+The installation probes used Codex 0.153.4, Claude Code 2.1.269 and skills 1.5.25.
+Model observations are bounded traces, not universal reliability guarantees.
+Native aliases, fresh desktop discovery, arbitrary project execution, public Forge
+UI behavior, real concurrent Exploration writes and later-answer continuation
+have not been certified. Some successful traces required reinforced prompts;
+original failures and narrow trace limitations remain in their reports.
 
-SPEC-44b9 is complete and in review: eleven portable stages, four planned. All ten required host cases now have strict independent acceptance. The first Codex passes were withdrawn after deeper audit found loss of the initial baseline; those failures, hidden-script limitations and a ten-minute timeout remain documented. Final verification: 248 tests on both runtimes, 48 installation combinations and 144 generated files. See [review host evidence](SPEC-44b9-host-evaluation.md) and [Execution Report](SPEC-44b9-20260913T064000Z-execution.md).
+Raw receipts live in owned temporary directories and can eventually be removed by
+the operating system. Checked-in reports retain case identifiers, hashes,
+conclusions and limitations; no credentials are copied. An older matrix sometimes
+reported on-disk hashes after module import, so final independent revalidation is
+separate evidence and does not rewrite original receipts.
 
-Forge SPEC-e1d4 is now implemented and in review. Four controlled host traces are accepted;283 full tests on both runtimes plus36 final targeted tests after one extra regression (284 final total),52 installations and146 generated files pass. See [Forge host evidence](SPEC-e1d4-host-evaluation.md) and [Execution Report](SPEC-e1d4-20260913T065500Z-execution.md). The Codex evaluator enables network per invocation for the controlled fixture and saves normal owned history to capture actual background returns; no personal configuration is edited. This does not certify the public Forge UI or native aliases.
+The remaining sequence is:
 
-Exploration SPEC-c11a is implemented and in review: chart/resolve, four exact-metadata adapters, full standalone resources and the terminal predicate correction. All twelve required observations now pass independent full-trace review and separate oracle revalidation. Five original Claude failures remain documented: weak preservation guards, pre-claim source inspection, unselected-ticket context loading and an extra human question. Reinforced retries preserve the actual failed receipts. Verification: 335 full tests on both Nodes followed by 53 targeted after two added regressions (337 final total), 60 individual installations, 156 generated files. See [exploration host evidence](SPEC-c11a-host-evaluation.md) and [Execution Report](SPEC-c11a-20260913T072446Z-execution.md).
+1. Finish and independently accept complete Claude Archive apply on a reliably
+   awake host, using a fresh owned fixture. Preserve all earlier partial states.
+2. Obtain uninterrupted full-suite passes on both runtimes and close Archive,
+   router, native and release reports/lifecycle in order. Reconcile any necessary
+   earlier source fix before downstream acceptance.
+3. Complete maintainer review of the candidate and installation choices. No Spec
+   is marked done or human-reviewed merely from unattended implementation.
+4. With publication authorization, push/open a PR, inspect hosted CI and test
+   installation from the actual intended published ref/default branch.
+5. With final release authorization, merge/tag/publish and coordinate the separately
+   owned external `GrillerGeek/skills` marketplace. Personal installation remains
+   a separate choice.
 
-Decisions: exact original plus intended owned state is required before every Exploration write; claimed human-input work resumes in its existing conversation, with verified expected state; missing dependencies/cycles prevent clear even when fog is empty. These do not certify real concurrent sessions or later-answer continuation. Archive SPEC-57b4 is now in progress after Exploration commit f92b4ee. All fifteen stages have complete source/bundles (162 generated files); Archive has 434 full tests on both Node versions, then103 final targeted after six additional regressions (440 final total), and 64 individual installation combinations passing. Seven of eight required actual-host cases have independent acceptance. Claude apply remains in progress, now with a freshly gated explicit1200-second/medium-effort trial after repeated600-second preparation failures; failed and usage-interrupted originals are retained. No actual-project archival occurs. See [remaining-workflow assessment](../plans/2026-09-13-remaining-workflow-assessment.md).
-
-Remaining migration work includes archival, complete router integration, native Codex packaging/marketplace discovery, native Claude aliases, update/removal verification, documentation and release preparation. Actual human review remains necessary. Remote publication and personal installations remain separate actions.
-
-## Evidence and practical limits
-
-Detailed reports include local disposable evidence directory identifiers and source/oracle provenance. OS temporary files may eventually be removed by the operating system; checked-in reports retain conclusions and limitations. No credentials are copied into reports. Actual model observations are stronger than package tests but remain bounded observations, not universal reliability claims.
-
-Installation evidence clarification: the48/52/60-combination probes install every catalog bundle individually in both hosts/modes plus the synthetic probe. Earlier “all-catalog” shorthand must not be read as a bulk install of every skill at once; that behavior has not yet been observed and remains a router/distribution acceptance gate. See [router/distribution assessment](../plans/2026-09-13-router-distribution-assessment.md).
-
-Source provenance clarification: some earlier long-lived matrix runners read on-disk source hashes per case after module import. Those hashes may describe a later file revision, not the exact loaded verifier. Original copied bundles/prompts/traces are retained, final results are separately revalidated, and new exploration tooling captures module hashes at load time. No original receipt is rewritten.
-
-Router SPEC-ab84 is authored as a follow-on draft with an independent passed gap-check: zero unresolved findings and 55 coverage candidates dispositioned. Implementation waits for the accepted Archive commit. Decision: preserve six historical bundled reference paths by mapping portable equivalents, avoiding broken contributor/history links while namespacing all fifteen complete stage bundles inside the router. Native packaging remains a separate integration step.
-
-Native distribution SPEC-aa60 is now authored with an independent passed gap-check: zero unresolved findings and17 resolved coverage candidates. It owns portable/compatibility manifests, repository-local catalogs, strict metadata/path checks and isolated native client install/refresh/remove evidence. Author corrections distinguish the portable root schema from its compatibility overlay, specify isolated child-process client/Git/XDG state and keep the unrelated preservation fixture in its own marketplace. No native packaging implementation or personal installation has begun.
-
-Release-preparation SPEC-3671 has passed independent gap-check with zero unresolved findings and82 resolved coverage candidates; implementation follows native distribution. Best-judgment decision: use framework1.7/plugin1.7.0 for the local migration candidate, preserving historical versions and every nonversion identity. Implementation waits for the accepted native commit. The packet owns final release notes and this comprehensive handoff; it expressly excludes push/tag/release, remote marketplace changes and personal installation.
-
-This running report will be updated as further packets complete.
-
-Scheduling recovery: Archive source/offline/install work is being checkpointed as in-progress. A fresh Router author review permits implementation from that stable committed source while the final Archive trial runs from a frozen copy; final Router review still requires all Archive evidence and a closure commit. This changes scheduling, not workflow safeguards or acceptance outcomes.
+The [candidate notes](../releases/v1.7.md) provide the concise release-facing view.

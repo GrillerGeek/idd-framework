@@ -5,7 +5,7 @@ spec:
     - INT-9e6c
   expectations:
     - EXP-eda3
-  status: draft
+  status: in-progress
   context:
     stack: Existing Node>=22.20.0 validation, Markdown/JSON plugin metadata and repository Git branch.
     patterns: Serialized local candidate preparation after verified native source checkpoint; exact

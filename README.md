@@ -2,7 +2,7 @@
 
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC_BY--SA_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 [![Claude Code Plugin](https://img.shields.io/badge/Claude_Code-plugin-blueviolet.svg)](https://claude.com/claude-code)
-[![Framework](https://img.shields.io/badge/framework-v1.6-green.svg)](docs/framework.md)
+[![Framework](https://img.shields.io/badge/framework-v1.7-green.svg)](docs/framework.md)
 
 **A process framework that gives developers and AI agents enough context to make decisions autonomously — without waiting for someone to tell them what to do.**
 
@@ -16,7 +16,7 @@ Traditional agile methodologies were also designed for a world where human codin
 
 The frameworks haven't caught up. Teams are using 2-week sprints to manage work that takes 2 hours to build. They're estimating story points for tasks where effort is no longer the dominant variable. They're holding planning meetings to decompose work that AI agents can execute from a well-written specification.
 
-Contributing with Codex or another coding agent? Start with the [shared contributor guide](docs/contributing-agents.md). On Node.js 22.20.0+, use `npm ci`, `npm run build:skills`, `npm run check`, and `npm test`. These are private development tools. Sixteen [portable workflow skills](plugin/README.md#portable-workflow-pilot) now have complete standalone bundles: fifteen stages plus a router containing every stage resource. Authoring, review, controlled Forge and exploration observations are accepted; Archive acceptance and router integration verification are in progress. Native Codex/Claude packaging is implemented with isolated install/refresh/remove observations; final upstream acceptance and publication remain pending. See the [installation guide](docs/installation.md).
+Contributing with Codex or another coding agent? Start with the [shared contributor guide](docs/contributing-agents.md). On Node.js 22.20.0+, use `npm ci`, `npm run build:skills`, `npm run check`, and `npm test`. These are private development tools. The local **framework 1.7 / plugin 1.7.0 candidate is unreleased and not release-ready**. Sixteen [portable workflow skills](plugin/README.md#portable-workflow-pilot) contain fifteen complete stages and a router. Router observations and isolated native Codex/Claude install, refresh and removal checks are accepted; final upstream acceptance remains pending on the Claude Archive apply checkpoint. See the [installation guide](docs/installation.md), [candidate notes](docs/releases/v1.7.md) and [catch-up report](docs/reviews/2026-09-13-overnight-catch-up.md).
 
 ## The Framework
 

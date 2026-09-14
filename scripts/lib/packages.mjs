@@ -84,7 +84,7 @@ export function validatePlugin(root, catalog = readJSON(root,'plugin/skill-catal
   const commands = Object.keys(expected.commands).map(f => f.replace(/\.md$/,'')).sort();
   if (JSON.stringify(catalog.stages.map(s => s.legacyCommand).sort()) !== JSON.stringify(commands)) fail('plugin/skill-catalog.json','INVENTORY','every legacy command needs a stage record');
   const manifest = readJSON(root,'plugin/.claude-plugin/plugin.json');
-  if (JSON.stringify(manifest) !== JSON.stringify(expected.manifest) || manifest.version !== '1.6.0') fail('plugin/.claude-plugin/plugin.json','MANIFEST_CHANGED','manifest differs from reviewed baseline');
+  if (JSON.stringify(manifest) !== JSON.stringify(expected.manifest) || manifest.version !== '1.7.0') fail('plugin/.claude-plugin/plugin.json','MANIFEST_CHANGED','manifest differs from reviewed baseline');
   for (const field of ['commands','agents','skills','hooks','mcpServers','lspServers']) {
     const values = Array.isArray(manifest[field]) ? manifest[field] : [manifest[field]];
     for (let value of values) if (typeof value === 'string') {
@@ -104,7 +104,7 @@ export function validateNativeDistribution(root) {
   strict(portable,['$schema',...fields],'portable manifest');strict(compat,[...fields,'skills','interface'],'Codex compatibility manifest');
   assert.equal(portable.$schema,'https://agent-plugins.org/schemas/1.0.0/plugin.schema.json','Portable schema');
   for(const k of fields){assert.deepEqual(portable[k],claude[k],`Common Claude metadata ${k}`);assert.deepEqual(compat[k],portable[k],`Common compatibility metadata ${k}`);}
-  assert.equal(portable.name,'idd-framework');assert.equal(portable.version,'1.6.0');assert.equal(portable.license,'Apache-2.0');
+  assert.equal(portable.name,'idd-framework');assert.equal(portable.version,'1.7.0');assert.equal(portable.license,'Apache-2.0');
   assert.equal(compat.skills,'./skills/','Legacy declaration must preserve fixed discovery');
   const skills=containedPath(root,'plugin/skills');assert.ok(fs.statSync(skills).isDirectory(),'Fixed skills discovery requires a directory');
   const catalog=json('plugin/skill-catalog.json');assert.equal(catalog.bundles.length,16);assert.deepEqual(fs.readdirSync(skills).sort(),catalog.bundles.map(b=>b.directory).sort(),'Native skill inventory');
