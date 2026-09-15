@@ -20,13 +20,13 @@ actual human peer review, and a clean gap-check precede implementation. AI revie
 is not evidence of human approval. Record a human decision when it is given;
 do not repeatedly ask for the same approval.
 
-Codex can maintain this checkout through AGENTS.md and this guide. The currently
-packaged workflow integration is the [Claude Code plugin](../plugin/README.md).
-Native Codex packaging is implemented; final release verification remains
-planned in the [migration plan](plans/2026-09-12-codex-skills-migration.md).
+Codex can maintain this checkout through AGENTS.md and this guide. Native Codex
+and Claude plugins and portable skills have verified local implementation. See
+the [installation guide](installation.md) and current
+[catch-up report](reviews/2026-09-13-overnight-catch-up.md) for choices and limits.
 Fifteen standalone stages have complete bundles, covering interview, authoring, technical/deep
 review, gap-check, guarded implementation, validation, Forge, exploration and archival. Archive
-host acceptance is complete for all eight required cases; the complete router has accepted integration evidence, with native Codex/Claude packaging implemented and undergoing final verification. See the [pilot instructions](../plugin/README.md#portable-workflow-pilot)
+host acceptance is complete for all eight required cases; the complete router has accepted integration evidence, with native Codex/Claude packaging and its isolated lifecycle checks complete. See the [pilot instructions](../plugin/README.md#portable-workflow-pilot)
 for local installation and recorded host-evaluation limits.
 
 ## Source ownership and discovery
@@ -330,6 +330,6 @@ upgrade is Git-only. Claude details combines15commands+16skills as31skills and
 retains cache directories after uninstall. Receipts and failed partial fixtures
 are retained, with independent review separate from output checks. See
 [native evidence](reviews/SPEC-aa60-native-evaluation.md) and the
-[installation guide](installation.md). Final upstream Archive/Router acceptance,
-fresh desktop sessions, actual native alias execution and publication are not
-inferred from CLI inventory.
+[installation guide](installation.md). Archive/Router acceptance and native
+implementation closures are complete. Fresh desktop sessions, actual native alias
+execution, human review and publication are not inferred from CLI inventory.

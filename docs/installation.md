@@ -10,9 +10,10 @@ The migration is a local candidate on `codex/portable-skills`. Its new native
 catalogs are not published to the default GitHub ref or external marketplaces.
 Use a built local checkout for the commands below. Remote shorthand installation,
 marketplace propagation and a release tag require later publication verification.
-Archive's final Claude apply acceptance remains incomplete; see the
-[Archive report](reviews/SPEC-57b4-host-evaluation.md). Native package inventory does
-not establish that every workflow or native alias completed successfully.
+All eight Archive cases and the documented router/native lifecycle observations
+have independent acceptance; see the [Archive report](reviews/SPEC-57b4-host-evaluation.md)
+and [final verification](reviews/2026-09-15-final-acceptance.md). Human review,
+fresh desktop discovery and actual native alias execution remain separate checks.
 
 ## Choose one installation
 

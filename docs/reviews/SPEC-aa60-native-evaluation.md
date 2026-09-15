@@ -49,3 +49,20 @@ Independent reviewer accepted all three oracle fixes and finalCodex4lQF7O/Claude
 Current Node's later497-case suite was interrupted byhostsleep:492passed,5failedwithGit/controlledprocesstimeouts. All5targeted reruns passed in1.57seconds. MinimumNode's495-case suite had488passes/7timeouts; a9-case targeted run passed all7affectedcasesplus2newguardtests in4.25seconds. This providespassing individualcase coverage forall497checks atbothruntimes, notoneuninterruptedfull-suite result. Separate packagechecks onbothversions,318-file deterministicassembly,local-links/protectedsource/ownership/whitespace audits pass. Nativecurrent33tests includeallnewguards.
 
 The temporarycaffeinate attempt did notpreventMaintenanceSleep. Archive6FhPEF explicitlyreported computer sleepmidresponse; powerlogsshows117,768and878second sleepintervals duringit. It ranonlyinstalledresourcereads andleftallconsumer/Gitstateunchanged. Native/sourcechecksremainvalidboundedobservations;uninterruptedfullsuiteandArchiveapplyneedsareexplicitfollow-ups.
+
+
+## Final implementation closure — September 15
+
+Archive closure `2970f3d` and Router closure `68836de` satisfy the final
+upstream gates. Native source `234199c` and its original 1.6.0/disposable refresh
+observations remain the evidence for this Spec. Release `bb2f9e8` separately changes
+only current versions to 1.7.0, preserving every nonversion property and production
+resource; no native 1.6.0 receipt is relabeled as an actual 1.7.0 client run.
+
+Both final full suites pass 499/499 with native regression coverage. Original
+Codex `4lQF7O` and Claude `mSTRNK` lifecycle observations retain independent
+acceptance, including all 35 command receipts, exact unrelated preservation and
+accurate cache-retention/removal conclusions. No new native operation was needed
+for this report closure. See [SPEC-aa60-20260915T014613Z-execution.md](SPEC-aa60-20260915T014613Z-execution.md)
+and [final verification](2026-09-15-final-acceptance.md). Human review, desktop
+discovery, native alias execution, hosted CI and publication remain separate.

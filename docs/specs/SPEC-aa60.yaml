@@ -6,7 +6,7 @@ spec:
   expectations:
     - EXP-89e9
     - EXP-35d4
-  status: in-progress
+  status: review
   context:
     stack: Existing Node>=22.20.0 private tooling, pinned skills1.5.25 and YAML2.8.3; installed
       Codex0.153.4 and Claude2.1.269 native plugin CLIs.
