@@ -40,7 +40,8 @@ Assignments are explicit (not `inherit`) so a user running Opus in their main se
 Run `npm run check` and `npm test` for contributor validation. The shared guide
 describes setup, the isolated `npm run test:install` probe and separate actual-host
 evidence. Sixteen bundle entrypoints represent fifteen stages plus the complete
-router; native installation and final Archive/router acceptance remain separate.
+router. Archive and router observations are accepted for their documented cases;
+native alias execution and published-ref installation remain separate.
 
 ## Review and execution
 

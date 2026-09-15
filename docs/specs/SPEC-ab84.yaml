@@ -7,7 +7,7 @@ spec:
     - EXP-9913
     - EXP-88ea
     - EXP-d5df
-  status: in-progress
+  status: review
   context:
     stack: Existing private Node>=22.20.0 tooling, Markdown/JSON/YAML, yaml2.8.3, pinned skills1.5.25
       and existing host CLIs.

@@ -229,8 +229,8 @@ mapping and lists fifteen implemented portable stages, sixteen public bundles
 Run `npm run check` and `npm test` before submitting changes. The optional
 `npm run test:install` verifies the synthetic fixture and each pilot skill alone
 in disposable Codex and Claude projects, in copy and symlink modes. Host workflow
-evaluation is separate. Router integration and Archive host acceptance are still
-being verified; complete source packaging alone is not full host acceptance.
+evaluation is separate. All five router and eight Archive host observations have
+independent acceptance, with original failures and measured-lane limits retained.
 See the [contributor guide](../docs/contributing-agents.md#setup-assembly-and-validation)
 for check behavior, fixture profiles and CI.
 
@@ -267,8 +267,9 @@ standalone bundle contains its own references and any required helper, with no
 runtime npm dependency added to the consuming project. The interview helper needs
 Bash, and artifact workflows need safe YAML parsing available in the host environment;
 missing capabilities are reported before writes. The router includes every stage
-locally and never relies on a sibling skill. Archive and final router host acceptance
-are still in progress; native and published remote installation are separate checks.
+locally and never relies on a sibling skill. Archive and router host acceptance
+are complete for the documented cases; native alias execution and published remote
+installation remain separate checks.
 
 For a local pilot, build this checkout, then run the following from a **disposable
 consuming project**, replacing the absolute source path with this checkout:

@@ -26,7 +26,7 @@ Native Codex packaging is implemented; final release verification remains
 planned in the [migration plan](plans/2026-09-12-codex-skills-migration.md).
 Fifteen standalone stages have complete bundles, covering interview, authoring, technical/deep
 review, gap-check, guarded implementation, validation, Forge, exploration and archival. Archive
-host acceptance is complete for all eight required cases; the complete router is implemented and undergoing integration verification, with native Codex/Claude packaging implemented and undergoing final verification. See the [pilot instructions](../plugin/README.md#portable-workflow-pilot)
+host acceptance is complete for all eight required cases; the complete router has accepted integration evidence, with native Codex/Claude packaging implemented and undergoing final verification. See the [pilot instructions](../plugin/README.md#portable-workflow-pilot)
 for local installation and recorded host-evaluation limits.
 
 ## Source ownership and discovery

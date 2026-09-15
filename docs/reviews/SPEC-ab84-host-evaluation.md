@@ -52,3 +52,18 @@ Independent review accepted all four hardened runs. Every operation has full bou
 Current routing oracle SHA-256 `97192ec8b56ee358aea6752e70105f02a956db2819e6ddcac8071361976fe5ff`. Four routing baselines revalidated without rewriting originals. Earlier original bundles/prompts remain the actual evaluated sources; later helper hardening is separately identified. Controller acceptance includes an independent current six-case oracle and unchanged fixture snapshot.
 
 Final verification:455 full tests on both Node25.8.1 and22.20.0 before nine additional regressions;127 targeted Archive/router tests on both afterward (464total).68 individual installs pass. Deterministic assembly reports318files,0changed. Protected-source audit againstfe46d55 verifies all direct bytes except the two owned entry-root deltas, exact adapters/helper/hooks/Claude metadata and unchanged stage identities/direct mappings. Whitespace and package checks pass. Router final lifecycle still waits for Archive full acceptance and committed closure.
+
+
+## Final implementation closure — September 15
+
+Archive now has all eight required independent acceptances, including QqBauk,
+and committed closure `2970f3d`. The Router upstream gate is satisfied. All five
+previously accepted host cases and four pinned-installer bulk lifecycle cases
+remain accepted with their original limitations; no original receipt is rewritten.
+Both final full suites pass 499/499, and all 318 generated files remain exact.
+Archive recovery changed only contributor evaluation prompts/date plumbing and
+tests; no router, direct bundle, runtime or adapter bytes changed.
+
+See [SPEC-ab84-20260915T014456Z-execution.md](SPEC-ab84-20260915T014456Z-execution.md) for the complete closure,
+and [final verification](2026-09-15-final-acceptance.md) for full-run hashes.
+Human review, native alias execution and publication remain separate.
