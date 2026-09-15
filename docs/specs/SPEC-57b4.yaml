@@ -264,6 +264,28 @@ spec:
       without repair. This changes only optional evaluator controls and prompts, not canonical
       Archive procedures, shipped resources, required8-case acceptance or production safety
       contracts."
+    evaluation_clock_and_index: "September15 author recovery after ltRP7Q: preserve the actual
+      partial fixture and original failed receipt. The contributor evaluator owns an explicit
+      invocation date, captured in UTC by archiveState before the model call. Pass that exact date
+      into archivePrompt and state it as fixture-only context for new dated filenames, ledger
+      updated_at/archived_at/archive-entry date and the tag month. Validate a real ISO calendar
+      date without changing any process-wide or personal timezone, existing manifest dates or
+      production workflow date semantics. Existing strict date assertions remain unchanged; do
+      not retrospectively accept the local-date failed receipt. Add focused regression coverage
+      for a supplied invocation date different from the host day and for invalid calendar dates.
+      Clarify that Git HEAD/config/branch/refs remain bound to first capture while the index and
+      status acquire only the exact intended owned staging delta. Derive that expected delta
+      before git add, verify staged path/mode/blob and deletion membership plus absence of
+      unstaged/untracked changes, and after the owned commit require clean status and the exact
+      parent/tree delta. Do not require empty status while approved staged changes exist; never
+      recapture index/status as a new baseline or whitelist only paths. All original preservation,
+      pre-tag binding, persisted reconciliation, per-operation guards, configured model/style,
+      low-effort option,1200second bound and4MiB output cap remain. These are narrow optional
+      evaluator prompt/date plumbing and tests in existing Deliverable5, not a production engine
+      or weakened acceptance oracle. Require independent content/coverage review before editing
+      evaluator code and starting a fresh fixture; lifecycle stays in-progress. Downstream
+      integration is paused for this evaluation-only correction and must revalidate affected
+      evidence and final tests before closure."
   coverage_dispositions:
     - files:
         - AGENTS.md
@@ -293,7 +315,7 @@ spec:
     blockers: 0
     warnings: 0
     report: docs/reviews/SPEC-57b4-gap-check.md
-    date: 2026-09-13
+    date: 2026-09-15
   migration_authorization:
     source: Repeated user approval and unattended continuation with documented best-judgment decisions.
     human_peer_review: pending

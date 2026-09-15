@@ -82,3 +82,24 @@ test('CLI rejects invalid evaluation time before any fixture work',async()=>{
   for(const args of [['--host','codex','--scenario','apply','--timeout-seconds','1200'],['--host','claude','--scenario','apply','--timeout-seconds','bad'],['--host','claude','--scenario','classify','--timeout-seconds','1200'],['--host','claude','--scenario','apply','--timeout-seconds']])assert.throws(()=>parseArchiveOptions(args));
 });
 test('low effort is explicit Claude-only evaluation without model/style overrides',async()=>{const {archiveInvocation,parseArchiveOptions}=await import('../scripts/evaluate-archive.mjs');const standard=archiveInvocation('claude','prompt','/tmp');assert.deepEqual(archiveInvocation('claude','prompt','/tmp','low'),{...standard,args:[...standard.args,'--effort','low']});assert.throws(()=>archiveInvocation('codex','prompt','/tmp','low'));assert.equal(parseArchiveOptions(['--host','claude','--scenario','apply','--claude-effort','low','--timeout-seconds','1200']).claudeEffort,'low');});
+
+
+test('fixture invocation date is explicit and independent of host calendar day',async()=>{
+  const {archivePrompt}=await import('./helpers/archive-workflows.mjs');
+  for(const scenario of ['classify','apply']){
+    const prompt=archivePrompt(scenario,'/installed/SKILL.md','/safe/python','2024-02-29');
+    assert.ok(prompt.includes('fixture invocation date is 2024-02-29 (UTC)'));
+    assert.ok(prompt.includes('new manifest.date'));
+    assert.ok(prompt.includes('ledger.updated_at'));
+    assert.ok(prompt.includes('do not change timezone settings'));
+  }
+  const prompt=archivePrompt('apply','/installed/SKILL.md','/safe/python','2024-02-29');
+  assert.ok(prompt.includes('complete expected index from the original index'));
+  assert.ok(prompt.includes('one explicit-path git add operation'));
+  assert.ok(prompt.includes('do not require empty porcelain before the commit'));
+});
+test('fixture invocation date rejects impossible or ambiguous calendar inputs',async()=>{
+  const {archivePrompt}=await import('./helpers/archive-workflows.mjs');
+  for(const value of ['2025-02-29','2026-13-01','2026-04-31','2026-9-15','2026-09-15T00:00:00Z','',null,123])
+    assert.throws(()=>archivePrompt('apply','/installed/SKILL.md','/safe/python',value),/Invalid fixture invocation date/);
+});

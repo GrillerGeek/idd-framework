@@ -29,8 +29,7 @@ pre-run snapshot contains 730 tracked files and unchanged Git refs, saved in
 
 Final-candidate installation evidence remains the independently reviewed 68
 individual combinations per runtime from the
-[release checkpoint](SPEC-3671-20260914T034930Z-execution.md). No implementation or
-package bytes have changed since those probes. Four bulk standalone lifecycle
+[release checkpoint](SPEC-3671-20260914T034930Z-execution.md). No production package bytes have changed since those probes. Four bulk standalone lifecycle
 cases and both native lifecycle cases remain separate accepted observations,
 linked from the [catch-up report](2026-09-13-overnight-catch-up.md).
 
@@ -38,8 +37,13 @@ linked from the [catch-up report](2026-09-13-overnight-catch-up.md).
 
 A fresh Claude apply trial uses an owned disposable fixture, configured model and
 output style, explicit low effort and the independently gated 1200-second / 4 MiB
-bounds. The fixture is `ltRP7Q`. Its completion and independent full-trace review
-are pending; no success or closure is inferred from the clean test suites.
+bounds. The fixture is `ltRP7Q`. It completed in 262.4 seconds but failed after staging because its generated
+script incorrectly required empty status before commit. Independent review
+confirmed exact recovery and preserved survivors; no repair was made. A narrow,
+independently gated evaluation-only recovery makes the UTC fixture date explicit
+and clarifies exact staged-index checks. Two new regression cases bring the suite
+to 499; both fresh complete suites now pass, as recorded below. The original 497-case passes above
+remain valid historical evidence. No Archive success or closure is inferred.
 Previous partial and interrupted fixtures remain preserved without repair.
 
 ## Remaining gates
@@ -49,3 +53,38 @@ commit Archive, router, native and release closures in that order. Actual human
 review, fresh desktop/native alias checks, hosted CI and published-ref installation
 remain separate. No actual-repository push, tag, release, personal installation
 or external marketplace change has occurred.
+
+
+## Complete verification after date/index recovery
+
+Both unchanged test commands ran again after the two contributor-only regression
+cases were added. All 499 cases pass in each single run, with zero failures,
+skips or cancellations. Production bundles and all strict acceptance-oracle code
+remain unchanged; the prompt/date-call changes are covered by independent review
+and the [Archive recovery gate](SPEC-57b4-gap-check.md).
+
+| Runtime | Passing tests | Duration | Original log SHA-256 |
+|---|---|---|---|
+| Node 25.8.1 | 499 / 499 | 75.575 s | `70f4558ac78242411899ca2a2e73623656dcadbe072f8cb2f60ae28708243c9f` |
+| Node 22.20.0 | 499 / 499 | 76.291 s | `1f7a336cf1b8e3e3a4eec7bf2c4ce75b3a495194d9b50dcc5c8d7e1a616ae904` |
+
+Logs: `/tmp/idd-acceptance-recovery-current-full.txt` and
+`/tmp/idd-acceptance-recovery-node22-full.txt`. Earlier 497-case passes and
+ltRP7Q partial failure remain preserved; neither is retrospectively changed.
+
+
+The final combined-baseline/per-operation/hook-policy prompt clarification was
+independently reviewed at helper SHA-256
+`f2240b53f02a072969eabb6f398e98b6490e6afb1a010d8a049604bc4a5825f9`.
+Both full suites again pass 499/499, zero failures/skips/cancellations. This is the
+final prompt revision used by the next bounded trial; oracle/production bytes
+remain unchanged.
+
+| Runtime | Duration | Final log SHA-256 |
+|---|---|---|
+| Node 25.8.1 | 82.530 s | `8e594a1d377903bc39f6be470e98fa3665606a925d249a560b15d65fc5a19505` |
+| Node 22.20.0 | 84.414 s | `3c8a16145041d0ea7c38ada61f88dd9ac44cd5472fb64f3ec865c9a993b6ab7f` |
+
+Final logs: `/tmp/idd-acceptance-composite-current-full.txt` and
+`/tmp/idd-acceptance-composite-node22-full.txt`. These full passes do not certify
+UIZWcO, whose completed output was rejected by independent procedural review.

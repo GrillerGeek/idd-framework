@@ -25,3 +25,24 @@ Independent PASS — 0 blockers, 0 warnings at reviewed full-file SHA-256 `e1cf9
 ### Coverage of recovery
 
 Evaluator options/receipts belong to scripts/evaluate-archive.mjs; regressions and original-Git prompt reinforcement to Archive tests/helper; contributor instructions and qualified evidence to named guides/reports. A sweep for claude-effort, evaluationTimeout, parseArchiveOptions, archiveInvocation and timeout-seconds found only these owned current files. Existing omission dispositions remain valid: portable procedures/adapters/resources, shared runtime/transport, other evaluators, helpers, schemas/templates/examples and historical artifacts require no low-effort change. No additional omissions or unmet dependencies.
+
+
+## Invocation-date and staged-index recovery gate — September 15
+
+Independent PASS: 0 blockers, 0 warnings at full-file SHA-256
+`d5aef394dd1cb97d183d27a8af09eb35fb24c0782dd1f372ea6275277373f9c2`.
+Completeness items 1–10, all three linked Expectation/detail comparisons and
+parent membership pass. The fixture-only UTC date convention leaves production
+date semantics and the strict existing oracle unchanged. Exact owned index/status
+deltas preserve first-state binding; an approved staged change is not clean
+status before commit. The failed ltRP7Q receipt and partial fixture remain intact.
+Lifecycle remains in-progress; downstream closure waits for affected revalidation.
+
+### Coverage
+
+Searches for archivePrompt/archiveState found only the owned Archive helper, tests
+and evaluator. Existing Deliverable 5 owns the date plumbing and staging guidance.
+No production resource, shared runtime, schema, template or example changes are
+required; accepted omissions remain valid. Independent review must check
+ledger.updated_at explicitly: the unchanged oracle checks archive-entry/new-record
+dates but does not assert that field. No broader automated date claim is made.

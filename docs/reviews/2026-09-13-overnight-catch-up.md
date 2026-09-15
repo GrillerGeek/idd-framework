@@ -62,15 +62,23 @@ preservation, annotated pre-delete recovery tags, ledger reconciliation before
 first deletion and explicit partial-failure reporting. Codex apply and both-host
 classification/dirty/malformed cases are accepted. Complete Claude apply is not.
 
-The latest trial, `6FhPEF`, explicitly reported computer sleep mid-response and
-never issued an apply command. Independent inspection found its complete fixture
-and Git state unchanged. Power logs corroborated long Maintenance Sleep/DarkWake
-intervals despite a temporary process-only idle assertion; persistent power
-settings were not changed. Earlier partial trials `V9Z3Qa` and `tcUCw4` retain
-verified recovery tags and their exact unfinished state. They were not repaired,
-deleted or relabeled as successful. Usage, procedural and timeout failures remain
-separate in the [Archive evidence report](SPEC-57b4-host-evaluation.md). Further
-identical model trials should wait for a reliably awake host.
+Earlier trial `6FhPEF` reported computer sleep before any apply command, with its
+fixture unchanged. Awake-host trial `ltRP7Q` later reached exact staging but failed
+on an incorrect generated check requiring empty Git status before commit. Its
+annotated recovery tag and exact partial state remain preserved. A reviewed
+contributor-only correction made the fixture UTC date explicit and clarified
+staged-index checks; production workflows and the strict oracle did not change.
+
+The next case, `UIZWcO`, completed its commit and passed the final-state oracle,
+but independent review found incomplete original Git binding and missing Git
+checks around individual mutations. Its original output-pass receipt remains
+intact; it does **not** count as procedural acceptance. A further reviewed prompt
+clarification requires an actual combined-baseline equality assertion, complete
+filesystem/Git guards at each mutation and preservation of hook/signing policy.
+The fresh trial is pending. No failed fixture was repaired or silently accepted.
+The [Archive evidence](SPEC-57b4-host-evaluation.md) records exact state, hashes,
+recovery proof and limitations for every attempt. Persistent power settings were
+not changed; bounded tests used temporary process-only assertions.
 
 ## Final candidate verification
 
@@ -85,9 +93,10 @@ runtime: sixteen real bundles plus one synthetic package, two hosts and two
 requested modes. Copy-source removal is real. These are individual installations;
 the four previously accepted bulk lifecycle cases are separate evidence.
 
-Both final uninterrupted suites now pass **497/497**, with zero failures, skips
-or cancellations: current Node in 85.206 seconds and minimum Node in 81.337
-seconds. See the [final acceptance record](2026-09-15-final-acceptance.md) for
+The original candidate passed both uninterrupted **497/497** suites. After two
+contributor-only regressions were added, both expanded suites passed **499/499**,
+with zero failures, skips or cancellations: current Node in 75.575 seconds and
+minimum Node in 76.291 seconds. The final prompt clarification also passes both complete 499-case suites. See the [final acceptance record](2026-09-15-final-acceptance.md) for
 commands, hashes and environment details. Earlier Git timeouts, sandbox Forge
 failures, targeted reruns and the failed 496/497 serial run remain unchanged in
 the [release checkpoint report](SPEC-3671-20260914T034930Z-execution.md). The new

@@ -85,3 +85,110 @@ Claude apply and Archive lifecycle closure are not complete.
 Fresh low-effort1200second trial6FhPEF under a process-scoped idle-sleep assertion also timedout(exit143). Its actualClaude APIevent says the computer wentto sleepmid-response. Powerlogs independentlycorroborate MaintenanceSleep intervals117,768and878seconds coveringmostelapsedwalltime; the temporarycaffeinate assertion didnotestablishanuninterruptedawakerun. Only5installedresourcetoolcallscompleted; no consumer capture orapplycommandran. This isnotanapply-script orBash-timeouterror.
 
 Originalroot+34descendants,HEAD80d4fc8968518a4d9b231c40badde004b104a80d,master,index/status/config andemptytagsremainexact. Ledger,manifest,reviews,Explorationbinary/executablebytes/modesarepreserved; no recoveryneeded. ReceiptSHA-256498a351591984c84995f117d8267b874d679cb6195b742c09a5d9c365af2e86a; stdout679f26b1fe2d6c38ea8ef8963b9597937fe4e28496b7d69d387628981f54e0af. Bundle/evaluator/oraclehashesmatchvL5F2u. Separatecurrentoraclecorrectlyfails0versus1recoverytag. Waitforreliablyawakehoststatebeforeanothertrial; preserveallpreviousactualprocedurefailuresandqualifypreparation-latencyclaims,withoutretroactivelycallinganytimeoutaccepted.
+
+
+## September 15: awake-host apply trial and narrow recovery
+
+Fresh low-effort trial `ltRP7Q` completed in 262.4 seconds with process exit zero,
+Claude Code 2.1.269, configured Opus 5[1m]/ELI5, and the explicit 1200-second bound.
+It is **failed partial implementation evidence**, not an accepted apply or timeout.
+All earlier observations and original receipts remain unchanged.
+
+The visible script staged the approved changes and then asserted that overall Git
+status was empty before committing. Staged changes correctly make that status
+nonempty. Independent inspection established this deterministic defect from the
+complete script and final state; the literal error traceback was truncated in the
+host tool result, which mostly repeated raw base64. No commit occurred. The first
+complete filesystem/Git capture remained bound through its combined digest,
+`75e3536aabf7d65cc6fa52575724b0fe2137365963969935dc40fa57b32b8bac`.
+A read-only binary-display decoding error did not replace that original baseline.
+
+Annotated tag `idd-archive-2026-09`, object
+`210dbe29fbce452b1efe5ac255a5d5453ebf2660`, points to unchanged HEAD
+`221719f7e9ce4e2116bffa7287a1896f68421739`. Root mode, master and configuration are
+preserved. The persisted ledger retains all previous data plus exactly two
+artifact records and one moved-review record, with count three. Approved artifact,
+subject-review, entire Exploration and manifest deletions completed; the audit
+review moved with exact bytes/mode. Ten staged paths match the intended A/M/D
+changes, and independently checked index blobs/modes match the expected content.
+No unstaged or unowned changes exist. All nine recovery files, including the old
+ledger, manifest, seven-byte binary and 0755 executable, recover exactly from the
+tag. The partial fixture was not repaired or restarted.
+
+The first automated assertion instead reported September 14 versus September 15.
+The workflow does not prescribe a timezone: September 14 local and September 15
+UTC were both actual invocation dates. The original verifier requires its UTC
+fixture date. A separate in-memory local-date diagnostic proceeded through
+recovery/ledger/preservation checks and then correctly failed for uncommitted
+changes. Neither the baseline nor original receipt was altered or accepted.
+
+The independently gated recovery makes the existing UTC fixture date explicit in
+the contributor prompt, without changing production date semantics or loosening
+any verifier assertion. It also explains full expected index/blob/mode/status
+deltas before one guarded staging operation, and clean status after commit.
+First raw capture before fallible work, full per-operation guards and concise
+error-first output remain required. Independent trace review checks updated_at;
+the unchanged oracle checks archive-entry and new-record dates, not that field.
+
+Original receipt SHA-256:
+`77a8b7d5ddf17d54fc6b79e2fe1f2b2313a81cd16f2b34f3419d10891b707093`;
+stdout: `0b081273c1a472af4c79fb444948fdeb2689a31373e9b6b6e4f4426b9344f335`;
+baseline: `d599e553c47b8a0ae05f4198af7af709d1bb5d312aa6470f2ff2b082b6936a8a`.
+Bundle/evaluator/oracle hashes match the earlier low-effort originals. A fresh
+fixture, not repair of this one, is required for the next full observation.
+
+
+The date/index recovery was independently reviewed after implementation: only
+archivePrompt and its evaluator call changed; reconcile, verifyArchive, shared
+transport and all production plugin files are byte-identical. The two added
+regressions pass, with all 106 Archive tests passing on both runtimes. A final
+review clarification explicitly includes new manifest.date in the supplied-date
+fields. Existing original source-checkpoint reports remain unchanged.
+
+Recovered evaluator SHA-256:
+`26f11c87b79fb694ae17e6d9b9a02f2bc53661d3eac8341a7aaa065fdf0cf891`;
+helper/module hash: `4df3098d35c86002e5d1619c4e67ad25e1908ca405c90d8db0a21eb02039c3db`.
+All seven previously accepted cases independently revalidate against this module
+without modifying original receipts; separate output is
+`/tmp/idd-acceptance-archive-seven-recovery.json`. The installed Archive bundle hash
+remains `666f7ec111000e6b7658d240bfe3bd11efeb326cce8afb2f3c9c5a3db9b05dd5`.
+
+
+## UIZWcO: output passes, procedural review fails
+
+The next low-effort case `UIZWcO` completed in 229.214 seconds. Its original
+receipt records output-oracle **passed**, and that receipt remains unchanged.
+Independent procedural review **did not pass**. This case does not supply the
+eighth required acceptance.
+
+The second complete filesystem inventory and raw bytes match the harness and
+first filesystem digest. However, the script only printed its new Git digest;
+it never asserted equality with the complete original Git capture. Comparing
+HEAD/branch/status/refs left original config/index binding incomplete. Git guards
+ran around batches rather than each filesystem mutation. An intervening consumer
+read used current files rather than retained originals. A per-command hooksPath
+override also failed to demonstrate honoring the existing hook policy. These
+are actual procedural gaps, not a failure merely because two processes were used.
+
+Independent final-state checks do pass: one commit
+`7b65c9697943b0622f7ce6b69c19ac654e0d9a62`, parent
+`97c6a36efdaea60f8f3e42e1c0c7730f953f33ac`, annotated recovery tag object
+`e3cedc1e0a7889728a7a4caea5a1ec04ad7f91dc`, three new records and one count-three
+entry, exact previous ledger data, approved full Exploration removals, exact moved
+review, recoverable removed bytes/modes, preserved survivors/root/config, and a
+clean index/worktree. ledger.updated_at was independently verified as the supplied
+2026-09-15, matching archive-entry and new-record dates. No repair was performed.
+
+Receipt SHA-256: `67a84f8f14ece4f1a44a64bc8f8431fc5a4e30151b1e356e4ea32b37bedf45fa`;
+stdout: `12d73290ab9a8194e41ca3bbae89bf4be5d6db6bb19a73d5cb81276aded7e4b4`;
+baseline: `6559f1ed3fdc67888109ff3d07463e0e0d78744c5929b16099c25d016d0c269b`.
+Bundle/evaluator/helper hashes are the date/index recovery hashes above. Separate
+`/tmp/idd-acceptance-archive-eight.json` verifies eight output states only; it is
+not eight independent procedural acceptances.
+
+The optional prompt now reiterates an actual equality assertion against the first
+combined filesystem/full-Git digest, semantic reads from retained originals, a
+full filesystem-plus-Git guard at each mutation, and source self-review before
+invocation. Existing hook/signing policy must be honored without a command-level
+override. These restate current safety requirements; no production source or
+acceptance-oracle assertion is changed. Prior failures remain intact.
