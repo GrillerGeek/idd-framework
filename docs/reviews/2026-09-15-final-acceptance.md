@@ -4,6 +4,12 @@ Baseline: `bb2f9e8` on `codex/portable-skills`, framework 1.7 / plugin 1.7.0.
 This is additive verification evidence; earlier failed runs and checkpoint reports
 remain unchanged. Human review and publication are not inferred from these tests.
 
+Current outcome: all eight required Archive cases have independent acceptance;
+both final complete suites pass 499/499. Archive, router, native and release
+implementation closures are complete and in review. Human review and publication
+remain pending. The chronological sections below preserve earlier checkpoint
+states; the final addendum records the accepted trace and closure commits.
+
 ## Uninterrupted full-suite verification
 
 Both supported test runtimes completed all 497 existing cases without failures,
@@ -33,7 +39,7 @@ individual combinations per runtime from the
 cases and both native lifecycle cases remain separate accepted observations,
 linked from the [catch-up report](2026-09-13-overnight-catch-up.md).
 
-## Archive acceptance
+## Historical Archive checkpoint — superseded by final acceptance below
 
 A fresh Claude apply trial uses an owned disposable fixture, configured model and
 output style, explicit low effort and the independently gated 1200-second / 4 MiB
@@ -46,7 +52,7 @@ to 499; both fresh complete suites now pass, as recorded below. The original 497
 remain valid historical evidence. No Archive success or closure is inferred.
 Previous partial and interrupted fixtures remain preserved without repair.
 
-## Remaining gates
+## Historical pending gates — superseded by final closures below
 
 Complete and independently accept the Claude Archive apply observation, then
 commit Archive, router, native and release closures in that order. Actual human
@@ -88,3 +94,34 @@ remain unchanged.
 Final logs: `/tmp/idd-acceptance-composite-current-full.txt` and
 `/tmp/idd-acceptance-composite-node22-full.txt`. These full passes do not certify
 UIZWcO, whose completed output was rejected by independent procedural review.
+
+
+## Accepted final trace and ordered closures
+
+QqBauk passes independent full-trace review, completing all eight required Archive
+cases. Its output pass is backed by actual first-combined-digest equality,
+filesystem/Git guards at every mutation, persisted reconciliation before deletion,
+exact staged blobs/modes/status, one correct commit and complete tag recovery.
+Harmless read-only preparation corrections and all previous failures remain in the
+[Archive evidence](SPEC-57b4-host-evaluation.md). The explicit low-effort Claude
+lane completed in582.137seconds under1200seconds/4MiB; no default-effort or native
+alias claim is inferred.
+
+| Closure | Local commit | Final report |
+|---|---|---|
+| Archive | 2970f3d | [SPEC-57b4-20260915T014331Z-execution.md](SPEC-57b4-20260915T014331Z-execution.md) |
+| Router | 68836de | [SPEC-ab84-20260915T014456Z-execution.md](SPEC-ab84-20260915T014456Z-execution.md) |
+| Native | 2fe5180 | [SPEC-aa60-20260915T014613Z-execution.md](SPEC-aa60-20260915T014613Z-execution.md) |
+| Release | Commit containing this final addendum | [SPEC-3671-20260915T014756Z-execution.md](SPEC-3671-20260915T014756Z-execution.md) |
+
+All four Specs are in review, with human implementation review pending. Original
+source-checkpoint Execution Reports remain unchanged. Only separately owned
+contributor evaluation prompts/date plumbing/tests changed after the version-only
+candidate; production bundles, metadata identities and adapters remain intact.
+No actual-repository tag, remote push, publication, personal installation or
+external marketplace change occurred.
+
+Final preservation audit verifies 712 protected tracked files, all 318 generated
+files, 130 local links, exact nonversion metadata and unchanged strict oracle and
+original checkpoint reports. Only the local branch ref changed. Details are in
+`/tmp/idd-final-migration-audit.json` and the final release execution report.

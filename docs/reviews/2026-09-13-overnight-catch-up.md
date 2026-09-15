@@ -1,13 +1,13 @@
 # Migration catch-up — September 15, 2026 UTC
 
-The implementation is on `codex/portable-skills`. All fifteen stages, the complete
-portable router and native Codex/Claude packaging are implemented. A local
-framework 1.7 / plugin 1.7.0 candidate is prepared from native checkpoint
-`234199c`, but **it is unreleased and not release-ready**. The required complete
-Claude Archive apply observation remains unaccepted, keeping Archive and the
-three dependent integration/release Specs in-progress. Actual human review is
-pending. No actual-repository push, tag, release, external marketplace update or
-personal installation occurred.
+**The local migration implementation is complete and verified**, on
+`codex/portable-skills`. All fifteen stages, the full portable router, native
+Codex/Claude packaging and framework 1.7 / plugin 1.7.0 candidate are implemented.
+All eight Archive cases now have independent acceptance, including complete Claude
+apply. Both final full suites pass 499/499. Archive (`2970f3d`), router
+(`68836de`), native (`2fe5180`) and release preparation are in **review**.
+Actual human implementation review remains pending; no Spec is marked done from
+unattended work. Nothing was pushed, tagged, published or installed personally.
 
 ## What you can use and review
 
@@ -35,10 +35,10 @@ dependencies, templates, examples and historical evidence.
 | `cba0ea9` | Technical review, deep review and review-spec | Ten observations accepted; [evidence](SPEC-44b9-host-evaluation.md), [execution](SPEC-44b9-20260913T064000Z-execution.md); Spec in review |
 | `190abb0` | Controlled portable Forge launcher | Four observations accepted; [evidence](SPEC-e1d4-host-evaluation.md), [execution](SPEC-e1d4-20260913T065500Z-execution.md); Spec in review |
 | `f92b4ee` | Exploration chart/resolve, actual claims and preservation guards | Twelve observations accepted; [evidence](SPEC-c11a-host-evaluation.md), [execution](SPEC-c11a-20260913T072446Z-execution.md); Spec in review |
-| `fe46d55` | Archive implementation, guarded apply protocol and fixture oracles | Seven of eight required observations accepted; [evidence](SPEC-57b4-host-evaluation.md), [execution](SPEC-57b4-20260913T080211Z-execution.md); in-progress |
-| `4c27a23` | Complete router with all fifteen stage resources | Five host observations and four bulk lifecycle cases accepted; [evidence](SPEC-ab84-host-evaluation.md), [execution](SPEC-ab84-20260913T115416Z-execution.md); final closure waits for Archive |
-| `234199c` | Native manifests/catalogs, strict validation, isolated lifecycle evaluator and installation guide | Both native cases independently accepted, 35 successful command receipts; [evidence](SPEC-aa60-native-evaluation.md), [execution](SPEC-aa60-20260913T191708Z-execution.md); final closure waits for upstream acceptance |
-| Commit containing this report | Version-only 1.7 candidate and comprehensive handoff | [Release execution](SPEC-3671-20260914T034930Z-execution.md); in-progress, no release event |
+| `fe46d55` | Archive implementation, guarded apply protocol and fixture oracles | Eight required observations accepted; [evidence](SPEC-57b4-host-evaluation.md), [execution](SPEC-57b4-20260915T014331Z-execution.md); final closure `2970f3d`, in review |
+| `4c27a23` | Complete router with all fifteen stage resources | Five host observations and four bulk lifecycle cases accepted; [evidence](SPEC-ab84-host-evaluation.md), [execution](SPEC-ab84-20260915T014456Z-execution.md); final closure `68836de`, in review |
+| `234199c` | Native manifests/catalogs, strict validation, isolated lifecycle evaluator and installation guide | Both native cases independently accepted, 35 successful command receipts; [evidence](SPEC-aa60-native-evaluation.md), [execution](SPEC-aa60-20260915T014613Z-execution.md); final closure `2fe5180`, in review |
+| `bb2f9e8` | Version-only 1.7 candidate and comprehensive handoff | [Final release execution](SPEC-3671-20260915T014756Z-execution.md); in review, no release event |
 
 Earlier detailed chronology remains in the
 [September 12 report](2026-09-12-unattended-migration-report.md) and the linked
@@ -60,7 +60,8 @@ Archive is a later, separate workflow acceptance checkpoint. Its source implemen
 reviewed classification, clean committed manifest binding, full raw-byte/type/mode
 preservation, annotated pre-delete recovery tags, ledger reconciliation before
 first deletion and explicit partial-failure reporting. Codex apply and both-host
-classification/dirty/malformed cases are accepted. Complete Claude apply is not.
+classification/dirty/malformed cases are accepted.
+Complete Claude apply now also has independent acceptance in QqBauk.
 
 Earlier trial `6FhPEF` reported computer sleep before any apply command, with its
 fixture unchanged. Awake-host trial `ltRP7Q` later reached exact staging but failed
@@ -75,7 +76,14 @@ checks around individual mutations. Its original output-pass receipt remains
 intact; it does **not** count as procedural acceptance. A further reviewed prompt
 clarification requires an actual combined-baseline equality assertion, complete
 filesystem/Git guards at each mutation and preservation of hook/signing policy.
-The fresh trial is pending. No failed fixture was repaired or silently accepted.
+The fresh QqBauk trial subsequently passed independent full-trace review. It
+asserts the first complete combined baseline, checks filesystem and Git state
+before/after every mutation, reconciles the actual persisted ledger before
+deletion and verifies exact staging/commit/recovery. It completed in 582.137
+seconds with explicit low effort and a 1200-second bound. Harmless read-only
+preparation corrections remain recorded. No failed fixture was repaired or
+silently accepted.
+
 The [Archive evidence](SPEC-57b4-host-evaluation.md) records exact state, hashes,
 recovery proof and limitations for every attempt. Persistent power settings were
 not changed; bounded tests used temporary process-only assertions.
@@ -96,7 +104,9 @@ the four previously accepted bulk lifecycle cases are separate evidence.
 The original candidate passed both uninterrupted **497/497** suites. After two
 contributor-only regressions were added, both expanded suites passed **499/499**,
 with zero failures, skips or cancellations: current Node in 75.575 seconds and
-minimum Node in 76.291 seconds. The final prompt clarification also passes both complete 499-case suites. See the [final acceptance record](2026-09-15-final-acceptance.md) for
+minimum Node in 76.291 seconds. The final prompt clarification also passes both
+complete 499-case suites (82.530 and 84.414 seconds). See the
+[final acceptance record](2026-09-15-final-acceptance.md) for
 commands, hashes and environment details. Earlier Git timeouts, sandbox Forge
 failures, targeted reruns and the failed 496/497 serial run remain unchanged in
 the [release checkpoint report](SPEC-3671-20260914T034930Z-execution.md). The new
@@ -121,12 +131,12 @@ are included in the candidate suite, and nonversion package data remains exact.
 5. Correct oracle deficiencies through reviewed authoring/recovery packets and
    independent review. Preserve weaker/failed original receipts and record later
    revalidation separately, with source/hash provenance limitations disclosed.
-6. Permit serialized router, native and version-only source checkpoints while a
-   frozen Archive copy awaits acceptance. Keep all final upstream acceptance and
-   lifecycle gates intact. Pause and reconcile downstream work if an earlier
-   source correction becomes necessary.
+6. Permit serialized source checkpoints while frozen Archive evaluation proceeds,
+   retaining every final acceptance gate. Final closure was then committed in
+   dependency order after full acceptance; evaluation-only recovery left all
+   production resource bytes intact.
 7. Use 1.7/1.7.0 as the next local minor candidate under contributor versioning.
-   Do not imply publication, completed human review or release readiness.
+   Verified local implementation does not imply publication or human review.
 8. Use explicit re-add for local standalone refresh: `skills update` skips local
    sources. Single-host default mode is copy; actual Claude symlinks were observed
    in dual-host probes. Host-scoped removal may retain shared canonical copies,
@@ -156,17 +166,16 @@ separate evidence and does not rewrite original receipts.
 
 The remaining sequence is:
 
-1. Finish and independently accept complete Claude Archive apply on a reliably
-   awake host, using a fresh owned fixture. Preserve all earlier partial states.
-2. Full-suite passes are complete on both runtimes. Close Archive, router, native
-   and release reports/lifecycle in order after Archive acceptance. Reconcile any necessary
-   earlier source fix before downstream acceptance.
-3. Complete maintainer review of the candidate and installation choices. No Spec
-   is marked done or human-reviewed merely from unattended implementation.
-4. With publication authorization, push/open a PR, inspect hosted CI and test
+1. Complete maintainer review of the candidate and installation choices, then the
+   remaining validation lifecycle. No artifact becomes done or human-reviewed
+   merely because local implementation and AI review passed.
+2. With publication authorization, push/open a PR, inspect hosted CI and test
    installation from the actual intended published ref/default branch.
-5. With final release authorization, merge/tag/publish and coordinate the separately
+3. With final release authorization, merge/tag/publish and coordinate the separately
    owned external `GrillerGeek/skills` marketplace. Personal installation remains
    a separate choice.
+
+Implementation acceptance is no longer blocked on Archive or full-suite tests.
+The remaining native alias/desktop and published-ref limits are described above.
 
 The [candidate notes](../releases/v1.7.md) provide the concise release-facing view.
