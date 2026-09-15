@@ -1,4 +1,4 @@
-# Migration catch-up — September 14, 2026
+# Migration catch-up — September 15, 2026 UTC
 
 The implementation is on `codex/portable-skills`. All fifteen stages, the complete
 portable router and native Codex/Claude packaging are implemented. A local
@@ -85,17 +85,13 @@ runtime: sixteen real bundles plus one synthetic package, two hosts and two
 requested modes. Copy-source removal is real. These are individual installations;
 the four previously accepted bulk lifecycle cases are separate evidence.
 
-Initial candidate full suites recorded 488/497 passing on current Node and
-484/497 on minimum Node, with long Git subprocess timeouts and a controlled Forge
-startup failure. The 21 distinct affected test names were rerun serially on both
-runtimes; all cleared except Forge. A direct loopback probe produced `EPERM` in
-the sandbox. The unchanged Forge test then passed outside that network restriction
-on both runtimes, including HTTP inspection and owned cleanup. Thus all 497 cases
-have passing final-candidate coverage through full runs plus targeted rechecks.
-Those failed full runs are retained; passing coverage does not mean an
-uninterrupted green full-suite run. The final current serial full rerun with network access reached 496/497,
-with another Git timeout; its conditional minimum-Node follow-on did not run.
-Full-suite validation remains pending. Status and log hashes are recorded in the [release execution report](SPEC-3671-20260914T034930Z-execution.md).
+Both final uninterrupted suites now pass **497/497**, with zero failures, skips
+or cancellations: current Node in 85.206 seconds and minimum Node in 81.337
+seconds. See the [final acceptance record](2026-09-15-final-acceptance.md) for
+commands, hashes and environment details. Earlier Git timeouts, sandbox Forge
+failures, targeted reruns and the failed 496/497 serial run remain unchanged in
+the [release checkpoint report](SPEC-3671-20260914T034930Z-execution.md). The new
+full passes supply additional evidence; they do not rewrite those old outcomes.
 
 The native lifecycle observations were made on version 1.6.0 plus disposable
 fixture refresh versions. This version-only preparation does not claim a new
@@ -153,8 +149,8 @@ The remaining sequence is:
 
 1. Finish and independently accept complete Claude Archive apply on a reliably
    awake host, using a fresh owned fixture. Preserve all earlier partial states.
-2. Obtain uninterrupted full-suite passes on both runtimes and close Archive,
-   router, native and release reports/lifecycle in order. Reconcile any necessary
+2. Full-suite passes are complete on both runtimes. Close Archive, router, native
+   and release reports/lifecycle in order after Archive acceptance. Reconcile any necessary
    earlier source fix before downstream acceptance.
 3. Complete maintainer review of the candidate and installation choices. No Spec
    is marked done or human-reviewed merely from unattended implementation.
