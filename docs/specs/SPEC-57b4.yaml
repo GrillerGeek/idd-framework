@@ -7,7 +7,7 @@ spec:
     - EXP-b9a2
     - EXP-c4ca
     - EXP-92ce
-  status: in-progress
+  status: review
   context:
     stack: Existing Markdown/YAML/JSON/Bash, private Node>=22.20.0, yaml2.8.3 and skills1.5.25. Existing
       Git and safe YAML parser capabilities required for apply.

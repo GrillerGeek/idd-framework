@@ -192,3 +192,58 @@ full filesystem-plus-Git guard at each mutation, and source self-review before
 invocation. Existing hook/signing policy must be honored without a command-level
 override. These restate current safety requirements; no production source or
 acceptance-oracle assertion is changed. Prior failures remain intact.
+
+
+## Final acceptance — September 15: QqBauk
+
+**All eight required cases now have independent procedural acceptance.** The
+final Claude apply case is `QqBauk`, not the output-only `UIZWcO`. It completed in
+582.137 seconds with configured Claude Code 2.1.269 / Opus 5[1m] / ELI5, explicit
+low effort, a 1200-second allowance and the unchanged 4 MiB cap. Acceptance applies
+to this measured lane; default effort, native aliases and arbitrary projects are
+not inferred from it.
+
+Independent review reconstructed all 35 first filesystem entries including root,
+21 raw files and nine original Git observations, matching every baseline
+byte/type/mode/link and recomputing the combined digest
+`7d6c1a729179faae9b42f7dc271b375d8bda8548b351719163c248da6eef098c`.
+The successful script actually asserts equality with that first digest before
+parsing or adopting state; the untruncated result records the assertion.
+
+The same complete filesystem-and-Git guard runs before and after each tag,
+ledger write, six file unlinks, three directory removals, mkdir, move, manifest
+unlink, one explicit-path staging operation and commit. Expected states derive
+from the original plus exact intended changes. All corresponding guard/step
+markers are retained. Candidate and persisted ledger reconciliation precede any
+deletion. The full 14-entry staged index is prederived with modes, blobs and stage
+zero, plus exact diff/status, and checked after staging and before commit.
+Existing hooks/signing policy is respected without bypass.
+
+An earlier read-only preflight stopped on an overly strict environment predicate;
+the retry allowed only the actual harmless values GIT_PAGER=cat and
+GIT_EDITOR=true. It reasserted the exact original combined digest before proceeding,
+proving no intervening fixture/Git mutation. Retained-output extraction and binary
+display corrections were also read-only and used original captured data. These
+preparation corrections remain visible; no destructive partial state was repaired.
+
+Final commit `11830efb8dcbb714f0c6718e4e07ccf3c8079f8a` has parent
+`54311bea9b40f2b0661223743a6c0506bdccbc59`. Annotated tag `idd-archive-2026-09`,
+object `f46aa278d5e743439e507e80cfef7e04d630ed90`, points to that parent. Every
+approved removed/moved byte and Git mode recovers from the tag, including the
+seven-byte binary, 0755 script and old ledger. Two artifact records plus one moved
+review yield count three while preserving all previous ledger data. updated_at was
+independently checked as 2026-09-15, matching new archive/record dates. Only approved
+changes exist; survivors/root/config and moved-review bytes/mode are preserved.
+Commit tree/parent/message/index/refs and clean status pass. No operation remains
+unfinished, and the unchanged live reference is explicitly reported.
+
+Receipt SHA-256: `5bca6fd656d6f9cadb3fec987ffd4dc87403dfaf3475c4d244a8a29638bd1812`;
+stdout: `140a2f0177c7e06d0673a44c517efb84921c385fd188a89dcd7a6a97c921b239`;
+baseline: `b5168eb8baeaf6147624fea7fa4800222f9e1a860b7aa2e212a9161e7f7e7ce7`.
+Evaluator: `26f11c87b79fb694ae17e6d9b9a02f2bc53661d3eac8341a7aaa065fdf0cf891`;
+helper/module: `f2240b53f02a072969eabb6f398e98b6490e6afb1a010d8a049604bc4a5825f9`;
+bundle: `666f7ec111000e6b7658d240bfe3bd11efeb326cce8afb2f3c9c5a3db9b05dd5`.
+Separate `/tmp/idd-acceptance-archive-final-eight.json` revalidates the eight accepted
+original cases without rewriting receipts. Both final full suites pass 499/499;
+see [final verification](2026-09-15-final-acceptance.md). Actual human review and
+publication remain pending.

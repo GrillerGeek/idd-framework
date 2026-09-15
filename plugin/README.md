@@ -25,8 +25,8 @@ claude plugin install idd-framework@idd-framework-local --scope project --json
 ```
 
 Avoid duplicate native and standalone installations. CLI/cache lifecycle evidence
-does not certify every native workflow; Archive's final Claude apply observation
-and final integration acceptance remain pending.
+does not certify every native workflow. All eight Archive observations are now
+accepted; final integration closures and actual human review remain pending.
 
 ## What Is IDD?
 
