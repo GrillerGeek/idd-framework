@@ -34,7 +34,7 @@
   },
   "manifest": {
     "name": "idd-framework",
-    "version": "1.7.0",
+    "version": "1.7.1",
     "description": "Intent-Driven Development framework plugin \u2014 automates the IDD workflow with role-specific tools for stakeholder interviews, artifact generation, and structured documentation",
     "author": {
       "name": "GrillerGeek"
