@@ -1,5 +1,12 @@
 # Migration catch-up — September 15, 2026 UTC
 
+**September 19 update:** Jason approved the completed local implementation with
+“Looks good.” The four final Specs have moved from review to validating. See the
+[approval record](2026-09-19-migration-implementation-approval.md) for scope and
+remaining validation. Publication is still pending. The September 15 handoff
+below is retained as its dated checkpoint.
+
+
 **The local migration implementation is complete and verified**, on
 `codex/portable-skills`. All fifteen stages, the full portable router, native
 Codex/Claude packaging and framework 1.7 / plugin 1.7.0 candidate are implemented.
