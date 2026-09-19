@@ -12,7 +12,7 @@
 
 ## Checklist
 
-- [ ] Changes are consistent with the framework's core positions (see CLAUDE.md "Key Concepts to Preserve")
+- [ ] Changes are consistent with the framework's core positions (see [shared contributor guide](../docs/contributing-agents.md#concepts-and-editing-conventions))
 - [ ] Any new artifacts follow existing formatting and field conventions
 - [ ] Cross-references between docs are valid
 - [ ] Templates and examples are updated if the schema changed

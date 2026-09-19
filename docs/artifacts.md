@@ -139,10 +139,38 @@ The following fields are added by the v1.3 pipeline and are not required on pre-
 
 | Sub-Field | Type / Valid Values | Description |
 |---|---|---|
-| `status` | `pass` · `blocked` · `warned` | Result of the gap-check run: `pass` means zero Blockers and zero Warnings; `warned` means zero Blockers but at least one Warning reviewed and accepted; `blocked` means at least one Blocker remains unresolved |
-| `blockers` | integer | Count of Blocker-grade findings at the time of the run |
-| `warnings` | integer | Count of Warning-grade findings at the time of the run |
-| `report` | file path string | Path to the gap-check report file (e.g., `docs/reviews/gap-check-SPEC-d12e.md`) |
+| `status` | `passed` · `blocked` · `warnings` | `passed`: zero unresolved findings; `warnings`: zero Blockers with outstanding Warnings; `blocked`: any Blocker, failed completeness or no valid current result |
+| `blockers` | integer | Unresolved Blockers; failed completeness uses failed-item count; pending/failed review uses one operational blocker |
+| `warnings` | integer | Unresolved Warnings; resolved coverage remains visible but is excluded |
+| `report` | file path string or null | Current report at `docs/reviews/<SPEC-ID>-gap-check.md`; null when completeness fails or no valid current reviewer result exists |
 | `date` | ISO 8601 date | Date the gap-check gate was run |
 
-Pre-v1.3 artifacts that do not include the `gap_check` field remain valid; the field is optional and its absence does not indicate an incomplete Spec.
+Pre-v1.3 artifacts without `gap_check` remain valid artifacts. Historical
+`pass`/`warned` annotations are preserved, but neither absence nor historical
+success authorizes a new build. Follow the [lifecycle contract](framework.md#spec-lifecycle-contract):
+execution requires ready plus passed, zero counts, and current report evidence.
+
+Each invocation upserts one annotation before completeness assessment or dispatch:
+
+```yaml
+  gap_check:
+    status: "blocked"              # no valid result for this invocation yet
+    blockers: 1                    # operational blocker, not a content finding
+    warnings: 0
+    report: null                   # old reports cannot authorize execution
+    date: "YYYY-MM-DD"
+```
+
+Failed completeness sets blockers to the failed-item count, still with null
+report; no finding report is written. Error, interruption or missing/malformed
+results retain the operational blocker. Only a successful current-invocation
+result with matching counts and required report structure can replace it. Reports
+always include `## Coverage`, even for zero omissions. Content and lifecycle are
+preserved. A new content revision requires a fresh gap-check.
+
+Optional author `coverage_dispositions` entries use `files` (path list),
+`disposition` (`add-to-deliverables`, `assign-to-<spec-id>`, or `accept-omission`),
+and `reason`. The reviewer confirms that an accepted omission leaves no unmet
+validation dependency before recording it as resolved. Its original severity,
+evidence and resolution remain in Coverage; only unresolved findings enter counts.
+This does not waive substantive content warnings.

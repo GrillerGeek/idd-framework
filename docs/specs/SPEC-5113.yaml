@@ -1,0 +1,260 @@
+spec:
+  id: "SPEC-5113"
+  product: "PROD-f67b"
+  intentions: ["INT-f2e6"]
+  expectations: ["EXP-7290", "EXP-97c0", "EXP-37d5", "EXP-4720"]
+  status: "review"
+
+  context:
+    stack: >
+      Inherit PROD-f67b.context.stack: Markdown documentation, YAML artifacts,
+      JSON plugin metadata and Bash helpers. This milestone introduces no build
+      system, runtime dependency or portable skill implementation.
+    patterns: >
+      Inherit the current command/orchestrator and role-agent separation from
+      PROD-f67b. The canonical process remains docs/framework.md; add the detailed
+      lifecycle subsection there and a synchronized, self-contained mirror in
+      the plugin's spec-reference.md because installed plugins lack repository docs.
+      docs/contributing-agents.md becomes the shared repository-maintenance guide.
+      This Spec implements milestone 1 of the 2026-09-12 migration plan only.
+    conventions:
+      - "Inherit all PROD-f67b conventions; keep docs CC BY-SA 4.0 and plugin content Apache 2.0."
+      - "Describe equivalent lifecycle behavior in each license domain without copying framework prose into the plugin."
+      - "All instructions are normative prose in this milestone; distinguish protocol checks from executable enforcement."
+      - "Only the author edits Spec content; reviewers report findings; orchestration owns annotations and lifecycle transitions."
+    auth: "Inherit PROD-f67b.context.auth: public GitHub repository; no authentication or permission changes."
+    existing_code_refs:
+      - path: "AGENTS.md"
+        note: "Universal schemas, completeness checklist, strict managed-execution gate."
+      - path: "CLAUDE.md"
+        note: "Extract shared contributor guidance; preserve Claude-specific model assignments."
+      - path: "docs/framework.md"
+        note: "Canonical process; inconsistent warning policy to reconcile with strict gate."
+      - path: "docs/artifacts.md"
+        note: "Legacy pass/warned values and report naming need correction for new annotations."
+      - path: "plugin/commands/gap-check.md"
+        note: "Current command appends annotations and assumes a report always exists."
+      - path: "plugin/commands/implement-spec.md"
+        note: "Current preamble mutates before gate, resolves missing IDs late, and advances on report existence."
+      - path: "plugin/agents/idd-spec-implementer.md"
+        note: "Boundary acknowledgment and self-verification protocol to align."
+      - path: "plugin/skills/idd-orchestration/references/spec-reference.md"
+        note: "Installed plugin's self-contained lifecycle and schema reference."
+
+  expectations_detail:
+    - id: "EXP-7290"
+      description: "Contributors discover complete shared guidance from AGENTS.md without reading Claude-specific instructions."
+      validation: >
+        The new guide covers source ownership, current structure, conventions,
+        licensing, versioning and runnable checks; all five entry points named
+        in EXP-7290 link it. Future npm commands and Codex installation are clearly
+        pending, not documented as currently working.
+      edge_cases:
+        - "Assessments and planning do not automatically require an execution Spec."
+        - "Executing a Spec retains all readiness, human peer review and gap-check requirements."
+    - id: "EXP-97c0"
+      description: "Pre-build review annotations and lifecycle transitions have separate, consistent ownership."
+      validation: >
+        The canonical contract, plugin mirror and review agents follow the state
+        rules below. There is no remaining normative instruction in the deliverable
+        set that moves pre-build technical review to lifecycle review or permits
+        gap_check.status warnings to execute.
+      edge_cases:
+        - "AI technical approval is not proof of human peer review."
+        - "Warnings preserve lifecycle ready but refuse execution until a new clean check."
+    - id: "EXP-37d5"
+      description: "Repeated and unsuccessful gate/build invocations cannot reuse stale success or falsely advance lifecycle status."
+      validation: >
+        Commands and agents specify every failure path in the operational contract
+        below. Repeat gap-check updates one annotation; failed completeness uses no
+        old report. Implementation refuses invalid prerequisites without mutation
+        and advances only after the stated verification conditions pass.
+      edge_cases:
+        - "Completeness failure with an old passing report invalidates the old annotation rather than consuming that report."
+        - "A failure execution report leaves lifecycle in-progress."
+        - "Missing target IDs and missing or mismatched report evidence are handled before execution mutations."
+        - "Review failure or interruption after completeness passes retains a blocked annotation, not the prior success."
+    - id: "EXP-4720"
+      description: "Entry points and worked examples describe current stages and contract without rewriting project history."
+      validation: >
+        README badge matches manifest major/minor, plugin README lists 15 commands
+        and 14 agents, and shared guidance names exploration and archival locations.
+        git diff confirms preservation of historical artifacts, IDs, models,
+        filenames and manifest version.
+      edge_cases:
+        - "Historical v1.3 case study and old execution evidence remain untouched."
+        - "Current onboarding gate example changes annotation syntax only, preserving IDs and feature requirements."
+
+  # Contract choices for the author/reviewer; not a sixth mandatory block.
+  implementation_contract:
+    readiness: >
+      Keep draft -> ready -> in-progress -> review -> validating -> done.
+      The author/orchestrator marks ready only after all eleven completeness items
+      and actual human peer review are recorded. Tech/deep review annotate their
+      review outcome while preserving input lifecycle status. They recommend
+      resolving findings, completing readiness and running gap-check, not direct
+      ungated execution. An AI review never satisfies human peer review.
+      After implementation, the reviewer/Tech Lead supplies human review approval
+      before orchestration moves review to validating; QA/Product Owner validation
+      of Expectations supplies evidence before orchestration moves validating to done.
+    warnings: >
+      Preserve the existing strict executable gate: ready plus passed with zero
+      unresolved blockers and zero unresolved warnings. An author-recorded
+      accept-omission with a reason, independently confirmed by the reviewer to
+      have no unmet validation dependency, resolves that coverage finding. Keep
+      it visible in Coverage with its disposition and resolution; exclude resolved
+      findings from gate counts. Undispositioned omissions remain warnings and
+      unmet validation dependencies remain blockers. Merely acknowledging a
+      substantive content warning does not resolve it or authorize execution.
+      Resolve outstanding warnings in the Spec and rerun gap-check. Historical pass/warned values
+      remain readable in historical documents but never grant execution permission.
+      Technical-review warnings must be addressed or carried into gap-check for
+      classification; they are not themselves a lifecycle or gap-check result.
+    gap_check: >
+      Resolve targets first; missing targets are reported without inventing files.
+      Before dispatching any reviewer or assessing completeness, orchestration
+      invalidates the previous authorization on every selected readable Spec by
+      upserting gap_check with status blocked, blockers one, warnings zero, report
+      null and current date. This single operational blocker means no valid current
+      result yet; it is not an invented content finding. Leave previous report files
+      untouched until a successful reviewer overwrites the canonical report path;
+      those files alone never authorize execution. If a selected Spec cannot be
+      parsed safely, report it without rewriting it and execution must reject it.
+      Assess completeness items 1-10 independently for each readable selected Spec.
+      No human peer review is inferred by this mechanical check.
+      If completeness fails, the reviewer returns the failed item numbers without
+      writing a gap-check finding report. Orchestration invalidates any prior result
+      by upserting gap_check with status blocked, blockers equal to failed-item count,
+      warnings zero, report null and current date. Document this additive null report
+      case in AGENTS.md, docs/artifacts.md and the plugin reference. Otherwise the
+      reviewer writes the current report at docs/reviews/<SPEC-ID>-gap-check.md.
+      Accept its result only on successful return for that Spec and invocation,
+      with matching summary counts in the returned result and report, required
+      GC finding fields where findings exist, and the mandatory Coverage section.
+      Missing/malformed reports, errors and interruption leave the pre-dispatch
+      operational blocker in place; tell the user to rerun gap-check. A successful
+      current result replaces that sentinel with actual finding counts and report
+      path. The orchestrator never determines freshness solely from a report's
+      existence or modification time. All Spec content blocks and lifecycle status
+      remain intact.
+      In mixed portfolio runs continue eligible Specs, mark incomplete ones blocked,
+      and include only eligible Specs in portfolio coverage; state the exclusions.
+    execution: >
+      Resolve/select one ID, then read the Spec, gate annotation and referenced
+      report before mutation. Require ready, passed, zero counts, a readable report
+      at the expected per-Spec path, first line PASS with zero counts, and a Coverage
+      section. If any test fails, report in the conversation and stop without writes.
+      Content changes after a gap-check require a fresh check; automatic detection
+      of undetected manual edits is not promised without provenance tooling.
+      Restate Boundaries verbatim before mkdir or any status write. Orchestration
+      changes ready to in-progress, then dispatches the implementer with the verified
+      gate note. The implementer separately restates every Boundary verbatim with
+      a comprehension paraphrase before its own modifications and never changes status.
+      It preserves pre-existing user edits; compare content diffs as well as porcelain
+      status because changes to an already-dirty file may leave its status code unchanged.
+    completion: >
+      Orchestration changes in-progress to review only when an execution report exists,
+      all Deliverables and Boundaries pass, all automated validation items pass, and
+      no blocker-grade gap remains. Edge-case rows must pass unless their validation
+      is explicitly assigned to human review by the Spec; those can be unverifiable
+      at build time with a reason and follow-up. Human-only checks stay pending for
+      later validation and do not constitute failed automated checks. Failed,
+      interrupted and blocked runs retain in-progress; surface a failure summary,
+      writing a partial execution report only if the executor can do so. No automatic
+      rollback or resetting to ready. Resume is outside this milestone; tell the user
+      that the standard command accepts only ready and a recovery decision is needed.
+
+  boundaries:
+    - "Do not implement portable skills, package generation, CI, npm tooling, new hooks, or Codex plugin manifests in this Spec."
+    - "Do not modify the existing Product, completed Intention/Expectation/Spec artifacts, historical reviews, or docs/superpowers plans."
+    - "Do not rename existing Claude commands or agents, change their model fields, modify helper scripts, or change the plugin manifest version."
+    - "Do not remove human peer review, minimum edge cases, the five blocks, report-only review, or the strict ready plus passed execution gate."
+    - "Do not rewrite Forge or Guildhall, install anything globally, publish releases, create tags, or push remote changes."
+    - "Do not modify files outside the Deliverables allowlist; Spec status and gap_check annotation changes are orchestration-only."
+
+  deliverables:
+    - "docs/contributing-agents.md — create shared contributor guide with existing runnable checks and explicit maintenance/execution distinction."
+    - "AGENTS.md — link shared guide; update lifecycle ownership, gate-failure annotation shape, and exploration/archival discovery."
+    - "CLAUDE.md — replace duplicated shared conventions with guide links; preserve host-specific command/model guidance and bring inventory current."
+    - "CONTRIBUTING.md — link shared agent guide and distinguish framework and plugin licenses."
+    - ".github/pull_request_template.md — replace the relocated CLAUDE.md section pointer with the shared contributor guide."
+    - ".github/copilot-instructions.md — reference shared contributor guidance and current artifact discovery rules."
+    - ".cursor/rules/idd.mdc — reference shared contributor guidance and current artifact discovery rules."
+    - "docs/framework.md — canonical lifecycle ownership and gate/retry/failure contract; reconcile strict warning policy and avoid claiming executable enforcement."
+    - "docs/artifacts.md — current gap_check enum, per-Spec report convention, null report for completeness/operational failure, and historical-variant explanation."
+    - "docs/spec-authoring.md — link canonical lifecycle contract and distinguish machine completeness from human peer review."
+    - "docs/autonomy.md — align gap doctrine with strict warnings and minor-gap policy; describe protocol enforcement accurately."
+    - "docs/roles.md — align author, reviewer and orchestrator responsibilities and strict warning handling."
+    - "docs/faq.md — explain strict execution gate and human review prerequisite consistently."
+    - "docs/adoption.md — distinguish gap-check from human readiness review and include the strict execution prerequisites in pilot instructions."
+    - "templates/spec-template.yaml — comment linking the canonical lifecycle without changing the five-block schema."
+    - "plugin/skills/idd-orchestration/references/spec-reference.md — self-contained plugin lifecycle and gate contract mirror, including null report for failed completeness."
+    - "plugin/skills/idd-orchestration/SKILL.md — align stage/entry descriptions with strict gate and refer to the updated bundled contract."
+    - "plugin/agents/tech-lead-reviewer.md — annotate without changing lifecycle status; require readiness and gap-check before execution recommendation."
+    - "plugin/agents/deep-review-lead.md — preserve lifecycle, clarify human peer review, and recommend gated execution."
+    - "plugin/agents/idd-gap-checker.md — return explicit completeness-failure results; align strict warning and mixed-portfolio behavior."
+    - "plugin/commands/gap-check.md — upsert one annotation using current results, block failed completeness, preserve content and lifecycle."
+    - "plugin/commands/implement-spec.md — resolve ID before mutation, verify report and strict gate, restate Boundaries before writes, and condition status transitions on verified results."
+    - "plugin/agents/idd-spec-implementer.md — align verbatim acknowledgment, gate evidence, pre-existing edits, and failure/report behavior with the contract."
+    - "plugin/README.md — complete 15-command/14-agent inventory, eight-phase quick start, and current strict gate description."
+    - "README.md — correct framework badge to v1.6 and link shared contributor guide."
+    - "examples/onboarding-portal.md — align gate status line, annotation and report path with the current contract; preserve example requirements and IDs."
+    - "docs/reviews/SPEC-5113-<UTC-timestamp>-execution.md — execution evidence covering every edge case, Boundary and Deliverable, plus spec_gaps_encountered."
+
+  coverage_dispositions:
+    # Author decisions after the initial gap-check; these do not grant execution.
+    - files: [".github/ISSUE_TEMPLATE/bug_report.yml"]
+      disposition: "accept-omission"
+      reason: "The referenced documentation path remains valid; no workflow assertion changes."
+    - files: ["docs/plans/2026-09-12-codex-skills-migration.md"]
+      disposition: "accept-omission"
+      reason: "Planning progress is maintained during authoring, outside this Spec's implementing-agent work; future capabilities are already distinguished."
+    - files: ["docs/superpowers/plans/2026-07-28-exploration-phase-0.md", "examples/self-hosted-v13.md"]
+      disposition: "accept-omission"
+      reason: "Historical evidence is explicitly preserved by Boundary 2 and EXP-4720, not current execution authorization."
+    - files: ["plugin/agents/spec-author.md", "plugin/agents/quick-spec-author.md"]
+      disposition: "accept-omission"
+      reason: "These agents consume the updated bundled reference and recommend technical review; neither grants execution permission."
+    - files: ["plugin/agents/intention-author.md", "plugin/agents/product-interviewer.md"]
+      disposition: "accept-omission"
+      reason: "Optional exploration lineage semantics are unchanged by contributor discovery documentation."
+    - files: ["plugin/agents/exploration-charter.md", "plugin/agents/exploration-resolver.md", "plugin/commands/chart.md", "plugin/commands/resolve.md"]
+      disposition: "accept-omission"
+      reason: "Exploration execution is unchanged; portability belongs to its later focused Spec."
+    - files: ["plugin/agents/idd-archivist.md", "plugin/commands/archive.md", "plugin/skills/idd-orchestration/references/ledger-reference.md"]
+      disposition: "accept-omission"
+      reason: "Archive behavior and terminal lifecycle values are unchanged; stored historical report paths do not authorize new execution."
+    - files: ["plugin/bin/idd-next-id", "plugin/bin/idd-archive-scan"]
+      disposition: "accept-omission"
+      reason: "Boundary 3 preserves helpers; they do not decide execution eligibility and the artifact lifecycle field remains unchanged."
+    - files: ["plugin/skills/idd-orchestration/references/expectation-template.md", "plugin/skills/idd-orchestration/references/intention-template.md", "plugin/skills/idd-orchestration/references/product-template.md", "plugin/skills/idd-orchestration/references/exploration-template.md"]
+      disposition: "accept-omission"
+      reason: "These artifact schemas, lifecycle values, and lineage formats are unchanged; the Spec reference owns the altered Spec gate contract."
+
+  validation:
+    automated:
+      - "git diff --check exits zero for all implementation changes."
+      - "Run bash -n on plugin/bin/idd-next-id, plugin/bin/idd-archive-scan and plugin/scripts/init-idd.sh; all exit zero and their contents remain unchanged."
+      - "Use a temporary Python standard-library script to enumerate plugin/commands/*.md and plugin/agents/*.md; assert all 15 command names and all 14 frontmatter agent names appear in plugin/README.md."
+      - "Use a temporary Python script to check shared-guide links from AGENTS.md, CLAUDE.md, CONTRIBUTING.md and both other agent config files; verify every local Markdown target introduced by this change exists."
+      - "Compare plugin/.claude-plugin/plugin.json version to README badge major/minor using Python json; both remain 1.6."
+      - "Use git diff against the execution baseline to confirm no out-of-allowlist changes, no changed command/agent names or model fields, and no historical artifact or helper changes; account separately for pre-existing authoring files."
+    human_review:
+      - "Peer-review this Spec before marking it ready; AI review and plan approval are not substitutes."
+      - "Walk draft/ready/review inputs through tech review, clean/warnings/blocked gap-check, and execution; confirm prose specifies one result without conflicting status ownership."
+      - "Walk completeness failure with old report, repeated annotation, no ID, missing report, failed build, interrupted build, and human-only validation scenarios; confirm each follows implementation_contract."
+      - "Confirm contributor instructions preserve autonomy for routine choices, preserve the execution gate, and describe only current capabilities."
+      - "Confirm independently authored plugin prose and shared documentation preserve their separate licenses and historical examples remain recognizable."
+
+  peer_review:
+    reviewer: "Jason Robey"
+    date: "2026-09-12"
+    outcome: "approved"
+    evidence: "User replied 'I approve' to the concrete SPEC-5113 peer-review handoff and proposed resolved-coverage policy."
+
+  gap_check:
+    status: "passed"
+    blockers: 0
+    warnings: 0
+    report: "docs/reviews/SPEC-5113-gap-check.md"
+    date: "2026-09-12"

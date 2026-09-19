@@ -1,0 +1,313 @@
+spec:
+  id: SPEC-ab84
+  product: PROD-f67b
+  intentions:
+    - INT-751d
+  expectations:
+    - EXP-9913
+    - EXP-88ea
+    - EXP-d5df
+  status: validating
+  context:
+    stack: Existing private Node>=22.20.0 tooling, Markdown/JSON/YAML, yaml2.8.3, pinned skills1.5.25
+      and existing host CLIs.
+    patterns: Canonical stage sources with catalog-driven closed bundles; thin portable router loads
+      complete namespaced local procedures without duplicating decision rules.
+    conventions:
+      - Preserve all accepted direct stage bytes and native adapters except the two explicitly owned
+        loaded-entry resolution deltas and their generated copies.
+      - Separate fifteen stage identities from sixteen portable skill entrypoints.
+      - Keep legacy reference paths compatible while using portable source equivalents; preserve
+        Apache plugin licensing.
+    existing_code_refs:
+      - path: plugin/workflows/idd-orchestration.md
+        note: Existing router, source mapping and controlled verification patterns.
+      - path: plugin/skill-catalog.json
+        note: Existing router, source mapping and controlled verification patterns.
+      - path: scripts/lib/assembly.mjs
+        note: Existing router, source mapping and controlled verification patterns.
+      - path: scripts/lib/packages.mjs
+        note: Existing router, source mapping and controlled verification patterns.
+      - path: scripts/test-install.mjs
+        note: Existing router, source mapping and controlled verification patterns.
+      - path: scripts/evaluate-archive.mjs
+        note: Existing router, source mapping and controlled verification patterns.
+    auth: Existing host authentication for optional bounded observations; pinned installer and all
+      mutation/update/remove probes restricted to disposable projects. No personal
+      installation/configuration or remote publication.
+  expectations_detail:
+    - id: EXP-9913
+      description: Users can install one portable router and reach every complete IDD stage with the same
+        gates and context ownership.
+      validation: The router selects among all fifteen accepted stages, loads complete local stage
+        resources from its own installation, preserves main-conversation human/lifecycle ownership
+        and refuses missing prerequisites without setup writes. Six historical bundled reference
+        paths remain resolvable through portable source mappings.
+      edge_cases:
+        - Router installed alone after source removal can load an authoring stage and its
+          templates/helper without any sibling skill installation.
+        - A request to implement a missing or ungated Spec cannot create hierarchy directories,
+          forge approval, execute code or fabricate a gate.
+    - id: EXP-88ea
+      description: Pinned skills discovery, bulk installation, explicit local refresh and removal preserve
+        unrelated project work on both hosts.
+      validation: Pinned skills1.5.25 discovers exactly sixteen public skill entrypoints. Real bulk
+        installation, documented update no-op for local sources, explicit host/mode-preserving
+        re-add refresh and selected removal probes exercise both hosts and explicit-copy/default
+        mode requests with actual mode recorded, preserving unrelated skills/artifacts and complete
+        router resources. No successful remote update is claimed. Selected removal includes the
+        explicitly documented shared-canonical retention limitation; retained copies must remain
+        exact and must not be called uninstalled.
+      edge_cases:
+        - Nested stage entry files are workflow.md rather than SKILL.md so discovery does not expose
+          duplicate entrypoints.
+        - Local update no-op is documented as an installer limitation; explicit local refresh and
+          selected removal preserve unrelated skills/artifacts and other retained IDD skills with
+          unchanged host/mode. Copied installations still work after source removal. If other
+          detected hosts share the canonical directory, host-scoped removal may retain those exact
+          copies; report retention and preserve other hosts instead of broadening deletion. Pinned
+          single-host default installation forces copy; distinguish requested/default mode from
+          actual mode, preserving it on refresh.
+    - id: EXP-d5df
+      description: Contributors can maintain one canonical source per stage and assess router evidence
+        without overstating native or release support.
+      validation: Catalog mappings derive all router stage resources from accepted canonical sources,
+        deterministic assembly/licenses pass, two narrowly owned entry-root changes preserve all
+        other direct/adaptor behavior, and five bounded routing/controller observations pass
+        separate output and independent full-trace review. Docs distinguish standalone routing/local
+        refresh from pending native and remote update/release evidence.
+      edge_cases:
+        - A stage resource change becomes visible in both its direct bundle and the router after
+          assembly; stale or extra output files fail checks rather than being silently removed.
+        - Unavailable host/parser/tool capability is failed or blocked; route-only observations do
+          not certify every stage execution, native alias, remote shorthand, publication or human
+          peer review.
+  boundaries:
+    - Do not implement until the SPEC-57b4 source checkpoint is committed with passing offline and
+      installation verification. Only its frozen-copy host evaluation and report/lifecycle closure
+      may remain concurrent; serialize all canonical source/catalog integration. Do not advance this
+      Router Spec to review until SPEC-57b4 has full required acceptance and a committed closure.
+    - Do not modify accepted direct workflow content, runtime/helpers, command/agent frontmatter or
+      bodies, plugin identity/version/hooks, framework schemas, existing
+      artifacts/templates/examples or personal settings except the explicitly owned interview
+      entry-root clarification and guarded-runner entrypoint resolution with their generated copies.
+      Preserve all other direct behavior and checkpoint gates.
+    - Do not remove the six historical router reference paths or rewrite their canonical legacy
+      sources; remap their generated aliases to existing portable reference sources.
+    - Do not weaken stakeholder, lifecycle, gap-check, archival approval or execution boundaries,
+      invent worker/model behavior, or create consumer files merely to route.
+    - Do not install into personal client directories, change remote marketplaces, push, tag or
+      publish. Installer and model observations use disposable fixtures only.
+    - Do not write outside Deliverables. New authoring/gates/lifecycle and migration tracking are
+      separately owned orchestration work.
+  deliverables:
+    - plugin/workflows/idd-orchestration.md — portable router entrypoint with all fifteen stage
+      links and explicit context/prerequisite/gate ownership.
+    - plugin/skill-catalog.json and plugin/skills/idd-orchestration/ — sixteen portable bundles,
+      fifteen direct stage identities, complete namespaced stage closures and six compatible root
+      reference aliases with Apache licenses. Regenerate only the explicitly owned interview and
+      implementation direct copies when their entry-root sources change; all other direct content
+      stays exact.
+    - plugin/workflows/interview.md and plugin/runtime/runner.mjs, with generated
+      plugin/skills/idd-interview/SKILL.md and plugin/skills/idd-implement-spec/scripts/runner.mjs —
+      narrow loaded-entry root clarification and safe SKILL.md/workflow.md selection only; no
+      checkpoint, lifecycle, output, model or permission policy changes.
+    - tests/router-distribution.test.mjs, tests/helpers/router-distribution.mjs,
+      tests/fixtures/router-distribution/ and scripts/evaluate-router.mjs — offline and actual
+      pinned-installer probes, guarded optional five-observation host evaluator and preserved
+      evidence; existing generic transport/installer and all runtime behavior except the explicit
+      entrypoint resolution reused unchanged.
+    - README.md, plugin/README.md, docs/contributing-agents.md and CLAUDE.md — accurate
+      router/source inventory, invocation/discovery/update/removal paths, compatibility references,
+      prerequisites and evidence limits.
+    - docs/reviews/SPEC-ab84-<UTC>-execution.md and docs/reviews/SPEC-ab84-host-evaluation.md —
+      complete itemized verification, actual successes/failures, sources and limits.
+  validation:
+    automated:
+      - All prior/new tests and npm check pass on minimum/current Node; deterministic assembly,
+        license/mode/path closure and unchanged direct bundles/adapters verified except the two
+        precisely owned entry-root deltas. Full synthetic guarded-controller protocol verifies every
+        handoff points to an existing entry under both supported layouts, unsafe/missing entries
+        refuse before host calls, and model/checkpoint/lifecycle logic stays unchanged.
+      - 68 individual installation combinations pass including router alone in both hosts/modes
+        after copy-source removal. Real pinned discovery reports exactly sixteen public skill names.
+      - "Four independent bulk/local-refresh/remove host/requested-mode combinations pass: install
+        all sixteen, verify closed resources, observe the real pinned project-scoped update no-op
+        for local sources, explicitly refresh one changed local source with controlled add host/copy
+        options, remove selected/all IDD skills using explicit names, and preserve unrelated
+        skills/artifacts and retained IDD installs. Assert mode/host preservation and truthful
+        update-versus-refresh reporting. Apply the explicit shared-directory retention contract when
+        the pinned CLI retains canonical copies: compare their full original bytes/modes, report
+        them as still installed, and never reinterpret CLI success text as actual uninstall.
+        Single-host default mode is observed copy under the reviewed pin; report that coercion
+        explicitly and retain actual dual-host symlink evidence separately."
+      - "Five bounded actual observations pass: both hosts route an explicit combined-outcomes
+        request to complete local resources without authoring, both refuse implementation of a
+        missing Spec without writes, and one configured Claude terminal controller completes a valid
+        gated disposable build from the nested routed implementation bundle. The controller runs
+        from the outer test process, never a nested Claude session or by clearing its guard. Copied
+        router/source removal, existing configured model,600seconds/4MiB and independent full-trace
+        review required; fully visible scripts for model work."
+      - Execution report exists/nonempty and is reread before itemized passes; final ownership,
+        links and git diff --check pass.
+    human_review:
+      - Review router context and complete-stage handoff clarity; actual human peer review remains
+        pending under recorded unattended authorization.
+      - Native Codex/Claude installations, actual desktop discovery, remote shorthand and
+        release/publication remain later separate integration evidence.
+  router_contract:
+    layout: Keep six existing root references at
+      references/{expectation-template,exploration-template,intention-template,ledger-reference,product-template,spec-reference}.md,
+      mapped respectively to authoring/expectation-template, exploration/format,
+      authoring/intention-template, archive/ledger, pilot/product-template, pilot/spec-reference
+      sources. Copy every accepted direct bundle mapping under stages/<stage>/ preserving relative
+      resource/script/vendor destinations, with only its SKILL.md destination renamed workflow.md.
+      The router root SKILL.md uses portable name idd-orchestration and root LICENSE. No nested
+      SKILL.md or new legacy command. Catalog explicit mappings remain the only assembly authority;
+      no assembler changes or ad hoc checked-in build copies. Each routed stage uses the selected
+      stages/<stage>/workflow.md as its loaded entry and its parent as bundleRoot. The interview
+      source explicitly derives its resources/helper from the loaded entry path, whether standalone
+      SKILL.md or routed workflow.md; no dependence on the router root. The guarded runner resolves
+      SKILL.md when present, otherwise workflow.md, inside the given bundleRoot; require a regular
+      single-link non-symlink contained entry and refuse before calls/writes if absent/unsafe.
+      Prefer SKILL.md when both are present. This is the only runtime behavior change; all
+      checkpoint/gate logic remains exact.
+    routing: Use supplied stage/intention/context when unambiguous; otherwise inspect only needed local
+      context and ask one focused routing question. Existing IDD artifacts/ledger/internal IDs take
+      precedence over invented context. Do not initialize directories merely to discover. Load the
+      selected workflow.md and its complete required references before acting; its canonical
+      procedure owns actual confirmation and mutation behavior. Preserve explicitly requested limits
+      such as route-only. A router is not an approval bypass, native dispatcher or lifecycle owner
+      beyond the selected existing procedure.
+    fixture: Route-only case supplies confirmed PROD-aabb and asks for combined Intentions+Expectations
+      but explicitly stops before stakeholder confirmation/authoring; expected selection is
+      define-outcomes and actual reads of its full local procedure/templates. Missing case
+      explicitly asks to implement absent SPEC-dead; expected selection is implement-spec, actual
+      prerequisite inspection and truthful no-write refusal. Both fixtures contain unrelated notes
+      and only the installed router; independent inventory/Git verification detects any
+      scratch/write or fake completion. A fifth actual observation runs the unchanged
+      gate/checkpoint/output/report protocol through the installed nested implementation runtime in
+      an outer Node test process with existing Claude authentication; it uses the existing
+      disposable execution fixture, checks actual handoff path resolution and all three controller
+      phases, and never bypasses the nested-session guard. Source mapping and an offline
+      path-resolution assertion separately cover routed interview helpers without fabricating an
+      interview conversation.
+    installer: "Use actual pinned CLI discovery/add/update/remove/list in owned local-source projects,
+      not a mocked installer. One combination per host and requested explicit-copy/default mode. The
+      reviewed skills1.5.25 source excludes local sources from update and its Git-backed update
+      child does not preserve explicit agent/copy options. Therefore run project-scoped update with
+      the selected IDD name to observe/document the local-source no-op and verify no project
+      changes; never report this as content update. Then explicitly refresh that selected local
+      skill using add with the same source, explicit host/name and copy flag when applicable,
+      checking the source marker changed only the selected installation and retained its host/mode.
+      This re-add is the supported local refresh path and is labeled separately. Preserve all
+      operation receipts/lockfiles. Copy-source removal occurs after refresh and before final
+      resource/behavior/remove verification. Remove only explicit selected IDD names with the
+      explicit host; never --all or global flags across unrelated skills. Remote/Git-backed update
+      behavior remains later native/distribution evidence and is not silently inferred from local
+      refresh. Recovery for observed skills1.5.25 shared-directory retention: explicit --agent
+      removal can report success while preserving the canonical .agents/skills/<name> because
+      another detected host shares that same path. Record the exact remaining bytes and pinned CLI
+      evidence; do not claim those skills uninstalled or broaden removal to other hosts. For each of
+      the four combinations, selected/all-ID D removal commands must remove any separate
+      selected-host aliases/copies and either remove the canonical directory or preserve its
+      complete original bytes with this shared-host limitation. Preserve retained IDD skills,
+      unrelated skills and consumer files. Retained canonical copies remain installed for Codex and
+      other universal hosts; user-facing guidance must say so and avoid promising complete
+      host-isolated removal. No manual deletion or --all fallback is part of the supported
+      procedure. Discovery/list and receipts remain actual CLI observations. This is an explicit
+      acceptance correction based on real installer behavior, not successful complete-uninstall
+      evidence. Additional observed mode correction: skills1.5.25 forces copy when only one distinct
+      agent directory is targeted (CLI lines4980-5001), even without --copy. The four bulk
+      combinations therefore cover each host with explicit copy and default-mode requests; record
+      requested and actual filesystem mode independently and require refresh to preserve the actual
+      mode. Do not call default single-host copies symlinks. Genuine Claude symlink coverage remains
+      the68 individual combinations that target Codex and Claude together; no extra host is silently
+      added merely to force symlinks. Rename the optional bulk evaluator flag to --default-mode;
+      default invocation still requests explicit copy. Validate all bundle bytes and root path
+      types, retain failed subprocess receipts, and keep full original failure evidence."
+    coverage: Legacy canonical source files and historical artifacts remain unchanged. Existing
+      CLAUDE.md and docs links retain their reference destinations, while inventories/source
+      descriptions are corrected. Existing legacy profile support in generic validators remains
+      compatible though the production catalog no longer uses it. Generic assembly refuses
+      unrecognized files and is reused unchanged.
+    integration: "Author scheduling decision after repeated Claude apply latency: the Archive
+      implementation source, complete bundle, unchanged adapter metadata, offline checks and64
+      individual installations are checkpointed locally while its eighth required host observation
+      runs from a previously frozen copied installation. Router implementation may consume that
+      committed source checkpoint without declaring Archive accepted. Archive remains in-progress
+      and its required8-case acceptance is unchanged. No concurrent canonical Archive/catalog edits
+      are allowed; remaining independent evaluation runs only in disposable copies and
+      report/lifecycle closure is separate orchestration. Any required Archive production-source
+      change pauses affected Router integration until its source and generated copies are reconciled
+      and reviewed. Router final in-progress to review requires Archive actual acceptance plus its
+      closure commit. This enables useful independent implementation while preserving final stage
+      acceptance and one catalog writer."
+  coverage_dispositions:
+    - files:
+        - AGENTS.md
+        - docs/framework.md
+        - docs/artifacts.md
+        - templates/
+        - examples/
+        - docs/superpowers/
+        - plugin/references/
+        - plugin/commands/
+        - plugin/agents/
+        - plugin/bin/
+        - scripts/lib/
+        - scripts/test-install.mjs
+        - tests/pilot.test.mjs
+        - tests/fixtures/plugin-inventory.json
+      disposition: accept-omission
+      reason: Schemas/history, direct source/adapters/helpers/runtime, generic assembly/installer and
+        fifteen stage assertions remain valid and unchanged; generated aliases maintain referenced
+        paths. Runtime exception is only runner.mjs as explicitly owned; all other runtime files
+        stay unchanged.
+    - files:
+        - .github/copilot-instructions.md
+        - .github/pull_request_template.md
+        - .cursor/rules/idd.mdc
+        - CONTRIBUTING.md
+        - tests/authoring.test.mjs
+        - tests/helpers/archive-workflows.mjs
+        - docs/plans/2026-09-13-remaining-workflow-assessment.md
+        - docs/plans/2026-09-12-portable-authoring-contract.md
+        - docs/plans/2026-09-12-claude-checkpoint-recovery.md
+        - docs/plans/2026-09-13-router-distribution-assessment.md
+        - docs/plans/2026-09-12-codex-skills-migration.md
+      disposition: accept-omission
+      reason: Shared guide links remain valid; unchanged direct authoring tests and unrelated fixture
+        README behavior remain valid. Dated assessments/history stay intact; current migration
+        progress is separately owned orchestration. No unmet validation dependency.
+    - files:
+        - scripts/evaluate-exploration.mjs
+        - scripts/evaluate-forge.mjs
+        - scripts/evaluate-reviews.mjs
+        - scripts/evaluate-archive.mjs
+        - scripts/evaluate-pilot.mjs
+        - scripts/evaluate-authoring.mjs
+        - tests/installed-execution.test.mjs
+        - tests/checkpoint.test.mjs
+        - tests/assembly.test.mjs
+        - plugin/runtime/idd-execute-spec.mjs
+        - plugin/skills/idd-implement-spec/scripts/idd-execute-spec.mjs
+        - tests/fixtures/pilot/project/docs/specs/SPEC-a1b2.yaml
+        - tests/fixtures/installed-execution/docs/specs/SPEC-c0de-greeting.yaml
+      disposition: accept-omission
+      reason: Existing standalone evaluators and fixtures retain SKILL.md; the runner API and CLI
+        bundleRoot remain unchanged. Existing protocol and assembly tests still apply and will run;
+        the new owned router tests/evaluator exercise the alternate nested entry layout. No
+        fixture/source change is required to satisfy the new acceptance criteria.
+  migration_authorization:
+    source: Repeated user approvals and unattended continuation with documented best-judgment decisions.
+    human_peer_review: pending
+    scope: Session-specific authoring/orchestration; implementation waits for committed Archive
+      source/offline/install checkpoint and independent passed gate. Router final review waits for
+      accepted Archive closure commit.
+  gap_check:
+    status: passed
+    blockers: 0
+    warnings: 0
+    report: docs/reviews/SPEC-ab84-gap-check.md
+    date: 2026-09-13

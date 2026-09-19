@@ -1,0 +1,16 @@
+intention:
+  id: INT-751d
+  product: PROD-f67b
+  statement: Users can access all portable IDD workflows through one independently installable router
+    and maintain installations without losing project work.
+  rationale: Complete standalone distribution after all stage ports while preserving canonical
+    procedures and existing reference paths.
+  priority: high
+  dependencies:
+    - INT-6f96
+  expectations:
+    - EXP-9913
+    - EXP-88ea
+    - EXP-d5df
+  owner: Jason Robey
+  status: draft

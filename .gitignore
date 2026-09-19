@@ -14,3 +14,6 @@ Thumbs.db
 # Environment
 .env
 .env.*
+
+# Development dependencies
+node_modules/

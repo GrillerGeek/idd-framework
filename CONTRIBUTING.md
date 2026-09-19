@@ -34,6 +34,10 @@ For documentation improvements, new examples, or framework refinements:
 
 We especially welcome worked examples from different domains and team sizes. If you've applied IDD to a project, consider contributing an example following the format in [`examples/`](examples/). Remove any proprietary or identifying information.
 
+For source ownership, editing conventions, versioning and available checks, see
+[Contributing with AI agents](docs/contributing-agents.md). This guide applies to
+human contributors and every coding host.
+
 ## Guidelines
 
 - **Keep it practical.** IDD is a practitioner's framework. Contributions should be grounded in real experience, not theoretical speculation.
@@ -47,4 +51,4 @@ Be respectful, constructive, and professional. We're all figuring this out toget
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+Framework documentation, templates and examples are licensed under [CC BY-SA 4.0](LICENSE). Contributions within `plugin/` are licensed under [Apache 2.0](plugin/LICENSE). Preserve existing attribution and the license boundary when adapting instructions between them.

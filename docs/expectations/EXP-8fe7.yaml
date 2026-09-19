@@ -1,0 +1,19 @@
+expectation:
+  id: EXP-8fe7
+  description: The same documented validation entry points run locally and in CI, with installation
+    probes confined to disposable projects.
+  validation_criteria: Private npm development metadata pins the YAML parser and installer, documents
+    Node >=22.20.0, and provides build:skills, check, test and test:install scripts. CI runs npm ci,
+    check and test on Linux/macOS at the minimum Node version; a separate installation probe installs
+    only a synthetic complete skill into temporary Codex/Claude projects in symlink and copy modes,
+    verifies resources/helper behavior and cleans only its own temporary roots. Documentation distinguishes
+    this foundation from pending real workflow portability.
+  edge_cases:
+  - Running the checks in a path with spaces works; ordinary check/test require no network after npm
+    ci and never install into the user’s real skill directories.
+  - An installer or network failure makes test:install fail with a clear diagnostic; file installation
+    success is never reported as successful real IDD workflow behavior.
+  complexity: medium
+  intention: INT-a0e4
+  owner: Jason Robey
+  status: draft

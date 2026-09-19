@@ -4,13 +4,12 @@ argument-hint: "[product-name]"
 allowed-tools: "Read Write Glob Bash(mkdir *) Bash(ls *) AskUserQuestion"
 ---
 
-!`mkdir -p docs/products docs/intentions docs/expectations docs/specs docs/reviews`
+Read `${CLAUDE_PLUGIN_ROOT}/skills/idd-interview/SKILL.md` and follow it as the
+canonical workflow. Pass `$ARGUMENTS` as the user selection/context, together with
+relevant decisions from this conversation. Resolve its bundled resources from
+that skill directory; artifact paths refer to the consuming project.
 
-Existing Products:
-!`ls docs/products/*.yaml 2>/dev/null | head -20 || echo "No products defined yet. This will be the first."`
+Run this workflow in the main stakeholder conversation; reuse supplied answers and confirmations. Do not dispatch the interview away from that conversation.
 
-Launch the `idd-product-interviewer` subagent to conduct the stakeholder interview. Pass any arguments provided by the user as context for the product name or domain.
-
-**Model directive:** When dispatching this subagent, you MUST explicitly pass `model: "haiku"` to the Agent/Task tool call. This subagent is tuned for the current Haiku generation (template-guided Q&A) and must not inherit the main session's model. Do NOT skip this parameter.
-
-If `$ARGUMENTS` contains a product name, pass it to the agent as initial context.
+Do not run initialization or any mutating preamble before the shared procedure
+authorizes the particular write. Use available tools and report capability failures.

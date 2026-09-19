@@ -1,0 +1,16 @@
+expectation:
+  id: EXP-c0de
+  intention: INT-c0de
+  description: Callers receive the specified greeting or TypeError, with reviewable evidence that the
+    implementation preserved project boundaries.
+  validation_criteria: greet("Ada") and greet("  Ada  ") both return "Hello, Ada!". Empty string,
+    whitespace-only string, null and number input each throw TypeError. The execution report
+    contains one evidenced row for every listed edge case, Boundary, Deliverable and automated
+    check, plus the mandatory spec_gaps_encountered section.
+  edge_cases:
+    - Leading and trailing spaces are trimmed before formatting the greeting.
+    - Empty or whitespace-only strings, null and numbers throw TypeError rather than returning a
+      greeting.
+  complexity: low
+  owner: Casey Example
+  status: ready

@@ -1,0 +1,20 @@
+expectation:
+  id: "EXP-7290"
+  intention: "INT-f2e6"
+  description: >
+    An agent beginning at AGENTS.md can discover shared contributor conventions,
+    source ownership, licensing, versioning, and currently runnable verification
+    without relying on Claude-specific instructions.
+  validation_criteria: >
+    AGENTS.md links docs/contributing-agents.md. That guide identifies canonical
+    references, current plugin structure, editing conventions, licensing and
+    versioning, and existing verification commands. CLAUDE.md, CONTRIBUTING.md,
+    Copilot instructions and Cursor rules link the shared guide. Claude model
+    assignments remain exclusively host-specific guidance. No document claims
+    that the future portable skills or npm verification commands exist yet.
+  edge_cases:
+    - "An assessment or planning request is identified as such and does not require creating an implementation Spec."
+    - "A request to execute a Spec still requires readiness, human peer review, and a passed gap-check; contributor guidance provides no bypass."
+  complexity: "low"
+  owner: "Jason Robey"
+  status: "draft"

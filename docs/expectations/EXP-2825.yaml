@@ -1,0 +1,16 @@
+expectation:
+  id: EXP-2825
+  intention: INT-53c1
+  description: Stakeholder confirmation remains meaningful in standalone and accelerated authoring.
+  validation_criteria: The main conversation retains supplied facts and asks only for missing decisions.
+    Every new Expectation has at least two explicitly confirmed edge cases before any YAML in its
+    proposed batch is saved; rejecting an edge case below that minimum prompts for a replacement. Content
+    confirmation never certifies human Spec peer review.
+  edge_cases:
+    - Already supplied explicit confirmation is reused without asking again; unconfirmed generated
+      suggestions are not saved.
+    - Rejections leaving one confirmed edge case prevent save and progression to another Expectation,
+      including quick-spec and define-outcomes.
+  complexity: high
+  owner: Jason Robey
+  status: draft

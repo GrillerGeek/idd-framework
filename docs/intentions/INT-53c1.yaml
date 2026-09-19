@@ -1,0 +1,17 @@
+intention:
+  id: INT-53c1
+  product: PROD-f67b
+  statement: Stakeholders can create linked and confirmed IDD draft artifacts through complete portable
+    authoring skills.
+  rationale: Extend the verified pilot architecture to the five cohesive authoring stages without losing
+    context, confirmation or compatibility.
+  priority: high
+  dependencies:
+    - INT-8164
+  expectations:
+    - EXP-6d96
+    - EXP-2825
+    - EXP-e66a
+    - EXP-71c6
+  owner: Jason Robey
+  status: draft

@@ -2,7 +2,7 @@
 
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC_BY--SA_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 [![Claude Code Plugin](https://img.shields.io/badge/Claude_Code-plugin-blueviolet.svg)](https://claude.com/claude-code)
-[![Framework](https://img.shields.io/badge/framework-v1.3-green.svg)](docs/framework.md)
+[![Framework](https://img.shields.io/badge/framework-v1.7-green.svg)](docs/framework.md)
 
 **A process framework that gives developers and AI agents enough context to make decisions autonomously — without waiting for someone to tell them what to do.**
 
@@ -15,6 +15,8 @@ In most agile teams, knowledge lives in the Product Owner's head. Developers wai
 Traditional agile methodologies were also designed for a world where human coding capacity was the primary constraint. AI coding agents have changed that equation. When the build phase compresses 5–10x, the bottleneck shifts from *building* to *defining, reviewing, and validating* — and every gap in context produces wrong output at machine speed.
 
 The frameworks haven't caught up. Teams are using 2-week sprints to manage work that takes 2 hours to build. They're estimating story points for tasks where effort is no longer the dominant variable. They're holding planning meetings to decompose work that AI agents can execute from a well-written specification.
+
+Contributing with Codex or another coding agent? Start with the [shared contributor guide](docs/contributing-agents.md). On Node.js 22.20.0+, use `npm ci`, `npm run build:skills`, `npm run check`, and `npm test`. These are private development tools. The local **framework 1.7 / plugin 1.7.0 candidate has implementation approval, is undergoing validation and remains unreleased**. Sixteen [portable workflow skills](plugin/README.md#portable-workflow-pilot) contain fifteen complete stages and a router. Router observations and isolated native Codex/Claude install, refresh and removal checks are accepted; all eight Archive observations are accepted and upstream implementation closures are complete. See the [installation guide](docs/installation.md), [candidate notes](docs/releases/v1.7.md) and [catch-up report](docs/reviews/2026-09-13-overnight-catch-up.md).
 
 ## The Framework
 
@@ -119,3 +121,9 @@ This work is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/
 ---
 
 *Intent-Driven Development was created by [Jason Robey](https://github.com/GrillerGeek), motivated by the belief that when AI changes how we build, we need to change how we plan, organize, and measure.*
+
+### Installed guarded execution pilot
+
+The `idd-implement-spec` bundle now includes a self-contained Node >=22.20.0 terminal runner for existing Claude authentication. It requires reviewed `execution_contract` output/check metadata and recorded readiness approval. Use `node <installed-skill>/scripts/idd-execute-spec.mjs --project <project> --spec <SPEC-ID> --check` for read-only preflight; omit `--check` to execute from a separate terminal. Never bypass the nested-session guard. The default preserves the configured model/style; optional `--implementer-model sonnet` requires an observed matching implementation model. The Sonnet option has verified model selection but remains experimental after a failed full workflow trace review. Native alias certification remains separate.
+
+The bundle carries the pinned YAML parser and ISC license; consuming projects need no dependency installation. Failures preserve partial work and controller evidence, and require author recovery. See [guarded execution](plugin/references/pilot/guarded-execution.md) for ownership, limits and report rules. Optional contributor host evaluation: `node scripts/evaluate-installed-execution.mjs` (or `--negative`, `--sonnet`). Offline tests use simulated host receipts and do not replace actual host evidence.

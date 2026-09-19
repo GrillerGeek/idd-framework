@@ -1,0 +1,342 @@
+spec:
+  id: SPEC-bffd
+  product: PROD-f67b
+  intentions:
+  - INT-a0e4
+  expectations:
+  - EXP-a49f
+  - EXP-0aff
+  - EXP-2b9e
+  - EXP-8fe7
+  status: review
+  context:
+    stack: Inherit PROD-f67b context for Markdown, YAML, JSON and Bash. Override its no-build/no-tests
+      baseline with private Node.js ESM development tooling (Node >=22.20.0), the built-in node:test runner,
+      yaml exactly 2.8.3 and skills exactly 1.5.25 as development dependencies with package-lock.json.
+      Git and Bash are available. No IDD npm package is published.
+    patterns: Explicit catalog-driven deterministic copying, one canonical source per resource and committed
+      generated output. The existing Claude orchestration skill remains a legacy host-specific bundle
+      until later workflow Specs replace it. Synthetic portable package fixtures exercise the assembler
+      without adding fictitious public workflows. This implements migration milestone 2; command/agent
+      wrapper conversion belongs to later workflow Specs.
+    conventions:
+    - 'Inherit Product conventions: immutable random IDs, five Spec blocks, additive artifact schema,
+      framework CC BY-SA 4.0 and plugin Apache 2.0.'
+    - Keep plugin canonical source files and generated plugin output in the Apache license domain; no
+      framework prose is copied into it.
+    - All validation is read-only and structural; never infer human peer review, gap-check content quality
+      or permission to execute from npm checks.
+    - Use Node built-ins plus pinned yaml/skills only; no generic schema framework or new agent host dependency.
+    - Temporary test projects are outside the checkout and tests never operate on personal installations.
+    - New development code in scripts/ and tests/ uses Apache-2.0 SPDX headers, with license text at plugin/LICENSE;
+      framework YAML/Markdown fixtures remain in their existing license domain. Document the code license
+      without changing existing LICENSE files.
+    existing_code_refs:
+    - path: plugin/skills/idd-orchestration/SKILL.md
+      note: Existing behavior/schema/source that this foundation must preserve or test.
+    - path: plugin/skills/idd-orchestration/references/spec-reference.md
+      note: Existing behavior/schema/source that this foundation must preserve or test.
+    - path: plugin/bin/idd-next-id
+      note: Existing behavior/schema/source that this foundation must preserve or test.
+    - path: plugin/bin/idd-archive-scan
+      note: Existing behavior/schema/source that this foundation must preserve or test.
+    - path: docs/specs/SPEC-test-flawed.yaml
+      note: Existing behavior/schema/source that this foundation must preserve or test.
+    - path: docs/specs/SPEC-test-clean.yaml
+      note: Existing behavior/schema/source that this foundation must preserve or test.
+    - path: docs/contributing-agents.md
+      note: Existing behavior/schema/source that this foundation must preserve or test.
+    - path: docs/framework.md
+      note: Existing behavior/schema/source that this foundation must preserve or test.
+    - path: AGENTS.md
+      note: Existing behavior/schema/source that this foundation must preserve or test.
+    auth: Public repository. Local dependency downloads and CI definitions only; no credentials, remote
+      pushes, releases, tags or personal installation changes.
+  expectations_detail:
+  - id: EXP-a49f
+    description: Maintainers can reproducibly assemble complete skill directories from an explicit source
+      catalog without changing existing Claude behavior.
+    validation: The baseline router and its six references assemble byte-for-byte with preserved file
+      modes from canonical plugin sources. A second build makes no changes; read-only check detects missing,
+      edited or extra output files and returns nonzero without writing. A synthetic portable skill builds
+      and remains self-contained when copied outside the source checkout. All 15 legacy stages are accounted
+      for as pending catalog entries, without emitting nonfunctional stage skills.
+    edge_cases:
+    - A missing resource, traversal path, symlink escape or duplicate output destination fails preflight
+      before any output changes.
+    - An unrecognized file in a managed skill directory is reported and preserved; the builder never deletes
+      arbitrary files.
+  - id: EXP-0aff
+    description: Contributors can detect artifact, metadata and package drift without rewriting historical
+      artifacts or mistaking fixtures for live work.
+    validation: Read-only validation uses explicit live, template and fixture profiles, rejects duplicate
+      keys, validates artifact structure/linkage and standalone resource closure, and reports actionable
+      file/field diagnostics. The existing deliberately flawed Spec is asserted to fail duplicate-key
+      validation, while the clean fixture is structurally valid without resolving fictional project references.
+      No mechanical check supplies human peer review or execution authorization.
+    edge_cases:
+    - The existing flawed fixture remains byte-for-byte unchanged and must produce DUPLICATE_KEY; an unexpected
+      failure in a live artifact still fails the check.
+    - Templates allow blank placeholders but enforce schema shape; ready-or-later live Specs require all
+      mechanically checkable completeness items and matching linked/detail Expectation IDs.
+  - id: EXP-2b9e
+    description: Artifact helpers avoid collisions with descriptive filenames and expose exploration references
+      reliably in disposable projects.
+    validation: Regression tests reproduce then fix suffixed-filename ID collisions and missing exploration
+      map/ticket mentions. Existing helper command names, supported type aliases, output section format
+      and read-only inventory behavior remain compatible. Tests cover an empty project, invalid type input,
+      deterministic collisions and exhaustion, paths with spaces, exploration discovery, missing status
+      and reference deduplication.
+    edge_cases:
+    - A seeded existing PROD-a1b2-description.yaml prevents emission of PROD-a1b2; repeated collisions
+      exercise 4/6/8-hex attempts and exhaustion without artifact writes.
+    - An exploration map and a decision ticket that reference other IDs both appear in MENTIONS; filenames
+      with spaces stay intact and the scan writes no project files.
+  - id: EXP-8fe7
+    description: The same documented validation entry points run locally and in CI, with installation
+      probes confined to disposable projects.
+    validation: Private npm development metadata pins the YAML parser and installer, documents Node >=22.20.0,
+      and provides build:skills, check, test and test:install scripts. CI runs npm ci, check and test
+      on Linux/macOS at the minimum Node version; a separate installation probe installs only a synthetic
+      complete skill into temporary Codex/Claude projects in symlink and copy modes, verifies resources/helper
+      behavior and cleans only its own temporary roots. Documentation distinguishes this foundation from
+      pending real workflow portability.
+    edge_cases:
+    - Running the checks in a path with spaces works; ordinary check/test require no network after npm
+      ci and never install into the user’s real skill directories.
+    - An installer or network failure makes test:install fail with a clear diagnostic; file installation
+      success is never reported as successful real IDD workflow behavior.
+  implementation_contract:
+    catalog_and_sources: 'Use plugin/skill-catalog.json with schemaVersion: 1, bundles and stages. Each
+      bundle has directory, profile (legacy-claude or portable), and files: a list of {source, destination,
+      executable} mappings. Source paths are repository-relative; destination paths are relative to that
+      bundle directory under plugin/skills. Exactly one SKILL.md destination is required. The production
+      catalog initially has only directory idd-orchestration, profile legacy-claude. Copy current router
+      bytes into plugin/workflows/idd-orchestration.md and all six reference source files into plugin/references/<existing-basename>;
+      generated destinations retain their current paths and exact bytes. Each of the 15 stages has legacyCommand
+      (existing command basename), skill (reserved idd-<stage> name) and state: planned. Planned stages
+      emit no files and do not claim portability. Current commands and agents continue referencing their
+      unchanged installed paths. No automatic text extraction or rewriting of command/agent instructions.
+      Wrapper generation is explicitly deferred to the focused stage ports.'
+    assembly: 'scripts/build-skills.mjs supports default build and --check; CLI anchors at its repository
+      root, independent of caller cwd. Expose assembly functions that accept an explicit root/catalog
+      for fixture tests, without interpreting fixture paths in the production command. Validate the whole
+      catalog and all inputs before writes. Reject missing sources, absolute paths, dot/dotdot path segments,
+      source or output symlinks, duplicate destinations, overlapping bundle directories, and paths resolving
+      outside the repository or selected bundle. Preserve source bytes; destination modes are deterministically
+      0644 or 0755 from executable. Stable sort diagnostics/mappings; no timestamps or absolute local
+      paths in generated data. On build, create/replace only declared destinations and only when bytes/mode
+      differ. Do not recursively wipe skill folders. Unknown files below any managed bundle are an error
+      in both modes and are preserved; known obsolete outputs require an explicit future migration. --check
+      writes nothing and exits nonzero for any missing/extra/different output or invalid input. No promise
+      of a multi-file atomic commit on OS I/O failure: fail immediately and require a successful rerun/check
+      before use. A synthetic portable bundle built in a temporary fixture project exercises the exact
+      production assembly function; no synthetic skill directory is added to plugin/skills.'
+    package_validation: 'scripts/check.mjs runs catalog/assembly check, metadata/resources checks, artifact
+      checks, JSON manifest/hooks validation, 15-command/14-agent inventory and model/name preservation
+      against an explicit committed inventory in tests/fixtures/plugin-inventory.json, executable checks
+      on both bin helpers and init script, Bash syntax, and git diff --check. It returns nonzero if any
+      component fails; it never regenerates output. Validate Markdown frontmatter via the duplicate-rejecting
+      YAML parser. Portable profile requires lowercase hyphen skill name matching its directory, nonempty
+      description, and no CLAUDE_PLUGIN_ROOT, /idd-framework: invocation, Agent/Task Claude dispatch syntax
+      or hardcoded Claude model directives in its skill/procedure instructions. The only legacy profile
+      production exception is the existing idd-orchestration directory and its name IDD Orchestration;
+      retain its host-specific body without advertising it as portable. Validate every declared bundle
+      file exists; local Markdown links and literal backticked references/scripts/assets paths inside
+      portable instructions resolve within the bundle, including anchors when present. Reject relative
+      references escaping the bundle even if the repository target exists. Executable resources must retain
+      executable mode and run from the installed standalone fixture. Do not claim to prove arbitrary natural-language
+      resource references or model adherence mechanically. The production Claude manifest keeps version
+      1.6.0 and existing identity; validate fields/declared paths that exist, without requiring future
+      Codex metadata.'
+    artifact_profiles: 'Use yaml.parseDocument with uniqueKeys enabled and check errors before converting
+      values. Reject multiple YAML documents and duplicate keys with stable DUPLICATE_KEY diagnostic.
+      Scope live artifacts to docs/products, intentions, expectations and specs; scope templates to templates/*-template.yaml.
+      Explicit fixture profiles in tests/fixtures/artifact-profiles.json account for docs/specs/SPEC-test-clean.yaml
+      and SPEC-test-flawed.yaml only: clean passes structure with fictional links exempted; flawed must
+      produce DUPLICATE_KEY. Assert their baseline SHA256 hashes so changing a negative fixture or widening
+      exemptions requires a reviewed fixture contract update. Do not exclude all test-named files by pattern.
+      New tests generate focused invalid fixtures in temp roots for duplicate keys, missing blocks, invalid
+      statuses, blank ready Context, missing/duplicate/mismatched linked details, fewer than two nonempty
+      edge cases, and broken parent references. Parse every other live artifact and enforce one matching
+      artifact root, nonempty unique ID, known lifecycle enum and typed hierarchy fields. Extra additive
+      fields are allowed. Drafts may contain incomplete values; ready-or-later Specs require mechanical
+      completeness items 1–10, matching linked/detail ID sets, and nonempty detail descriptions/validation/edge
+      cases. Live non-draft Expectations require nonempty validation_criteria and at least two nonempty
+      edge_cases; deferred requires deferred_reason. Resolve live parent and linked IDs against the live
+      artifact index plus any present ledger records; Spec.product may resolve by ID or an unambiguous
+      existing Product name. Use bundled ledger reference schema for ledger identity only; no archival
+      mutation or new ledger validation subsystem. Historical optional pass/warned annotations may be
+      read but cannot authorize execution; do not require evidence files to exist for done artifacts.
+      Templates require the expected root, fields and field types, but permit empty starter values and
+      empty links. Never implement the adversarial semantic gap-check or certify item 11 in these checks.'
+    helper_fixes: Retain bin command names, singular/plural type aliases, output ID format and 4/6/8-hex
+      attempt limits. In addition to exact <PREFIX>-<hash>.yaml, treat <PREFIX>-<hash>-*.yaml descriptive
+      filenames as occupied for hierarchy types; preserve EXPL directory-prefix checking. Do not change
+      generation to scan archive tags or claim cross-branch/global uniqueness. Test controlled od output
+      via a child-process-only PATH stub, never modify the caller environment. Invalid/missing type returns
+      nonzero and prints usage without writes. Archive scan preserves the three section headers, existing
+      hierarchy inventory/status/mentions and missing-status marker. Extend MENTIONS to all Markdown map/decision
+      files recursively under docs/explorations/EXPL-*; inventory/status continue listing maps only. References
+      are deduplicated per file, paths with spaces stay intact and traversal order is stable. Do not turn
+      this line-oriented inventory into a YAML parser or change status normalization in this Spec. init-idd.sh
+      remains byte-for-byte unchanged.
+    tests_and_ci: 'package.json is private: true, type: module, engines.node >=22.20.0; exact devDependencies
+      yaml 2.8.3 and skills 1.5.25, no lifecycle install hooks. Define build:skills = node scripts/build-skills.mjs,
+      check = node scripts/check.mjs, test = node --test tests/*.test.mjs, and test:install = node scripts/test-install.mjs.
+      Default tests are offline after npm ci and exercise behavior against disposable projects. test:install
+      resolves the pinned local skills executable, generates a synthetic fixture with a real helper/reference,
+      and invokes add <absolute temporary source> --agent codex claude-code --skill idd-package-probe
+      --yes separately in default/symlink and --copy modes, from separate temporary target projects. It
+      must avoid all --global flags, disable installer telemetry/audit calls with DISABLE_TELEMETRY=1,
+      capture bounded output, enforce a timeout, verify copied/linked resource bytes and executable helper
+      behavior from each installed location without relying on the source checkout, and clean only directories
+      it created. For copy-mode isolation, remove only the temporary source fixture after installation
+      before verifying. A subprocess failure/timeout or missing expected install is a failure, not a skipped
+      pass. Network access is limited to dependency acquisition; installed CLI probes should operate on
+      local fixtures. GitHub Actions validate.yml uses pull_request and push, read-only contents permission,
+      checkout/setup-node actions pinned to immutable SHAs, minimum Node 22.20.0 on ubuntu-latest and
+      macos-latest, npm ci, npm run check and npm test. A separate Ubuntu job runs npm run test:install
+      after npm ci. Keep network-dependent dependency installation failures visible. README/contributor
+      docs explain check/build/test/test:install and distinguish synthetic installer evidence from real
+      IDD host execution, which is pending the pilot milestone.'
+  boundaries:
+  - Do not port real workflow procedures, replace Claude commands or agents with wrappers, add Codex plugin
+    manifests, or claim native Codex/full npx workflow support in this Spec.
+  - Do not modify the existing Product, prior Intention/Expectation/Spec artifacts, historical reviews
+    or examples, or docs/superpowers plans; new execution evidence and orchestration annotations belong
+    to their stated owners.
+  - Do not rename Claude commands/agents, change their frontmatter or model tiers, change plugin version/identity/hooks,
+    or modify plugin/scripts/init-idd.sh.
+  - Do not change the five-block artifact schema, human peer-review requirement, strict ready/passed gate,
+    or report-only reviewer rule; structural validation never grants execution authorization.
+  - Do not add runtime dependencies to consuming projects, publish an npm package, install globally, modify
+    personal skill directories, push remote changes, create tags or releases, or change Forge/Guildhall.
+  - Do not delete unrecognized package files or modify source files during check mode. Keep implementation
+    within the listed Deliverables; Spec lifecycle/gap_check writes are orchestration-only.
+  deliverables:
+  - package.json and package-lock.json — private pinned development dependencies, runtime floor and four
+    commands.
+  - .gitignore — ignore node_modules and test output only where needed without hiding canonical/generated
+    sources.
+  - plugin/skill-catalog.json — explicit current legacy bundle mapping and complete 15-stage pending inventory.
+  - plugin/workflows/idd-orchestration.md — canonical exact-byte source of the existing router.
+  - plugin/references/ — canonical exact-byte sources for the six existing bundled references, with unchanged
+    basenames.
+  - plugin/skills/idd-orchestration/ — reproducible current output, identical bytes and modes after canonical-source
+    relocation.
+  - scripts/build-skills.mjs — deterministic assembly and nonmutating --check CLI plus fixture-testable
+    functions.
+  - scripts/check.mjs and scripts/lib/ — read-only catalog, package, artifact/profile and metadata validation
+    with actionable diagnostics.
+  - scripts/test-install.mjs — isolated pinned installer probe, bounded subprocess handling and cleanup.
+  - tests/*.test.mjs and tests/helpers/ — meaningful assembler, validator and helper regression tests
+    and reusable disposable fixtures.
+  - tests/fixtures/ — explicit plugin inventory, exact historical fixture profiles/hashes and synthetic
+    portable bundle inputs; no public placeholder skill.
+  - plugin/bin/idd-next-id — fix descriptive-filename collisions proven by regression tests.
+  - plugin/bin/idd-archive-scan — include exploration map and decision Markdown in the mentions index.
+  - .github/workflows/validate.yml — pinned-action Linux/macOS verification and separate local-fixture
+    installer job.
+  - docs/contributing-agents.md — current source ownership, setup/check commands, temporary-install guidance
+    and limitations.
+  - CLAUDE.md — update canonical source ownership/check links while preserving Claude-specific instructions.
+  - README.md and plugin/README.md — concise contributor/build links and accurate pending real-workflow
+    portability status; current plugin version remains unchanged.
+  - docs/reviews/SPEC-bffd-<UTC-timestamp>-execution.md — edge-case, Boundary, Deliverable, automated-check
+    and spec_gaps_encountered evidence, including installer probe scope and human follow-ups.
+  validation:
+    automated:
+    - npm ci completes from the committed lockfile on Node >=22.20.0; package.json is private and exact
+      versions/runtime match the contract.
+    - npm run build:skills succeeds; a second build produces identical output bytes/modes; npm run check
+      passes without source/output mutations.
+    - npm test passes all focused behavior tests, including invalid bundle input with unchanged output,
+      changed/missing/extra generated files, live/template/fixture profile distinctions, controlled ID
+      collisions/exhaustion and exploration mentions.
+    - npm run test:install installs only the synthetic complete fixture for Codex and Claude in symlink
+      and copy modes; all installed references/helper behavior pass after copy-source removal; no real
+      user skill directories change.
+    - The three Bash scripts pass bash -n; init script, command/agent files, manifest/hooks, historical
+      artifacts/reports and examples match the execution baseline byte-for-byte.
+    - git diff --check and an implementation-baseline allowlist audit pass; CI YAML parses and action
+      refs are immutable SHAs. If remote CI is not run because the branch is unpushed, report it explicitly
+      rather than treating local runs as hosted CI evidence.
+    human_review:
+    - Peer-review this concrete Spec and its catalog/profile contract before ready; plan acceptance or
+      AI gap-check alone does not establish human approval.
+    - Review source/output ownership and the explicit legacy-router exception; confirm existing Claude
+      behavior is retained and no synthetic package is advertised as an IDD workflow.
+    - Review fixture exemptions, structural-validator limits, license boundaries and docs for truthful
+      distinction between installation evidence and real host execution.
+    - Inspect hosted Linux/macOS CI results after a separately authorized push; before that, mark remote
+      CI pending rather than passed.
+  gap_check:
+    status: passed
+    blockers: 0
+    warnings: 0
+    report: docs/reviews/SPEC-bffd-gap-check.md
+    date: '2026-09-12'
+  coverage_dispositions:
+  - files:
+    - .cursor/rules/idd.mdc
+    - .github/copilot-instructions.md
+    - .github/pull_request_template.md
+    - AGENTS.md
+    - CONTRIBUTING.md
+    disposition: accept-omission
+    reason: This entry point already delegates source ownership and runnable checks to the owned shared
+      contributor guide; helper names and the linked conventions anchor remain stable.
+  - files:
+    - docs/artifacts.md
+    - docs/faq.md
+    - docs/framework.md
+    - docs/spec-authoring.md
+    disposition: accept-omission
+    reason: The matched term describes existing IDD semantics rather than the new assembler API; the five-block
+      schema, lifecycle and semantic review process remain unchanged.
+  - files:
+    - docs/plans/2026-09-12-codex-skills-migration.md
+    disposition: accept-omission
+    reason: The migration plan is author/orchestrator tracking outside this implementation allowlist;
+      its milestone status can be maintained separately without affecting foundation validation.
+  - files:
+    - docs/superpowers/plans/2026-07-28-exploration-phase-0.md
+    - examples/onboarding-portal.md
+    disposition: accept-omission
+    reason: This is historical or worked-example context, protected by the Boundary; the new tooling does
+      not change the example behavior or require historical text updates.
+  - files:
+    - plugin/agents/deep-review-lead.md
+    - plugin/agents/expectation-author.md
+    - plugin/agents/exploration-charter.md
+    - plugin/agents/exploration-resolver.md
+    - plugin/agents/idd-archivist.md
+    - plugin/agents/idd-gap-checker.md
+    - plugin/agents/idd-spec-implementer.md
+    - plugin/agents/intention-author.md
+    - plugin/agents/outcome-author.md
+    - plugin/agents/product-interviewer.md
+    - plugin/agents/quick-spec-author.md
+    - plugin/agents/spec-author.md
+    - plugin/agents/spec-reviewer.md
+    - plugin/agents/tech-lead-reviewer.md
+    - plugin/commands/archive.md
+    - plugin/commands/gap-check.md
+    - plugin/commands/implement-spec.md
+    disposition: accept-omission
+    reason: The existing Claude consumer keeps the same installed resource/helper paths and interfaces;
+      command/agent edits are expressly excluded by the compatibility Boundary.
+  - files:
+    - templates/expectation-template.yaml
+    - templates/intention-template.yaml
+    - templates/product-template.yaml
+    - templates/spec-template.yaml
+    disposition: accept-omission
+    reason: The helper invocation and artifact schema remain unchanged; regression validation reads these
+      templates without needing to rewrite them.
+  peer_review:
+    reviewer: Jason Robey
+    date: "2026-09-12"
+    outcome: approved
+    evidence: "User replied approved to the SPEC-bffd implementation approval request."

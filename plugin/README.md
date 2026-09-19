@@ -1,22 +1,33 @@
-# IDD Framework Plugin for Claude Code
+# IDD Framework Plugin for Codex and Claude Code
 
-A Claude Code plugin that automates the [Intent-Driven Development](https://github.com/GrillerGeek/idd-framework) workflow with role-specific tools for stakeholder interviews, artifact generation, and structured documentation.
+One shared plugin packages sixteen portable skills, including a complete workflow
+router. Claude also retains its fifteen command aliases and fourteen role agents.
 
 ## Installation
 
-**Option 1: Via the GrillerGeek marketplace** (recommended)
+See the [installation guide](../docs/installation.md) for native Codex, native
+Claude and standalone `npx skills` choices, local refresh/removal and prerequisites.
+The new catalogs are available in this local migration checkout; they have not
+been published to GitHub's default ref or the external Claude marketplace.
+
+Local native commands use the repository root as the marketplace source:
 
 ```bash
-claude plugin marketplace add https://github.com/GrillerGeek/skills.git
-claude plugin install idd-framework
+codex plugin marketplace add /absolute/path/to/idd-framework --json
+codex plugin add idd-framework@idd-framework-local --json
 ```
 
-**Option 2: Local testing**
+Or, from a Claude consuming project:
 
 ```bash
-git clone https://github.com/GrillerGeek/idd-framework.git
-claude --plugin-dir ./idd-framework/plugin
+claude plugin marketplace add /absolute/path/to/idd-framework --scope project
+claude plugin install idd-framework@idd-framework-local --scope project --json
 ```
+
+Avoid duplicate native and standalone installations. CLI/cache lifecycle evidence
+does not certify every native workflow. All eight Archive observations are now
+accepted, and native/router implementation closures are complete. Actual human
+review, native alias execution and publication remain pending.
 
 ## What Is IDD?
 
@@ -46,6 +57,8 @@ Each layer gives developers and AI agents the context they need to make implemen
 | `/idd-framework:define-expectations` | Define verifiable constraints with edge cases | Expectations in `docs/expectations/` |
 | `/idd-framework:write-spec` | Create an AI-ready Spec with all 5 mandatory blocks | Spec in `docs/specs/` |
 | `/idd-framework:tech-review` | Review a Spec for architectural feasibility | Review annotations on Spec |
+| `/idd-framework:gap-check` | Adversarial content and coverage review before execution | Report in `docs/reviews/` and one gate annotation |
+| `/idd-framework:implement-spec` | Build a ready, cleanly gated Spec; self-verify | Deliverables and Execution Report in `docs/reviews/` |
 | `/idd-framework:review-spec` | Validate AI output against Spec criteria | Validation report in `docs/reviews/` |
 | `/idd-framework:archive` | Consolidate terminal artifacts into the roll-up ledger (classify → human review → apply) | Archive manifest in `docs/reviews/`, then `docs/idd-ledger.yaml` |
 
@@ -63,9 +76,11 @@ Each layer gives developers and AI agents the context they need to make implemen
 |---------|---------|----------|
 | `/idd-framework:forge` | Launch the [Forge](https://github.com/JasonRobey-Burke/Forge) web UI for browsing and editing IDD artifacts | Local server at `http://localhost:4000` |
 
-Each command can be used independently. You don't have to run the full pipeline.
+Each command is an entry point with prerequisites; you do not have to start at interview. The inventory above contains all 15 commands.
 
 ## Agents
+
+The plugin supplies these 14 role agents.
 
 | Agent | Role | Color |
 |-------|------|-------|
@@ -78,6 +93,10 @@ Each command can be used independently. You don't have to run the full pipeline.
 | **idd-outcome-author** | Defines Intentions + Expectations together in one session | Green |
 | **idd-quick-spec-author** | Full pipeline: Intentions + Expectations + Spec in one session | Cyan |
 | **idd-deep-review-lead** | Multi-perspective review with Agent Teams support | Magenta |
+| **idd-exploration-charter** | Charts phase-0 maps and decision tickets | Green |
+| **idd-exploration-resolver** | Resolves one decision ticket per session | Orange |
+| **idd-gap-checker** | Reports adversarial content and coverage findings without editing the Spec | Red |
+| **idd-spec-implementer** | Builds within Boundaries and records self-verification evidence | Orange |
 | **idd-archivist** | Consolidates terminal artifacts into `docs/idd-ledger.yaml` (classify + distill) | Purple |
 
 ## Quick Start
@@ -109,7 +128,25 @@ Each command can be used independently. You don't have to run the full pipeline.
    /idd-framework:tech-review SPEC-d12e
    ```
 
-6. **After AI builds the code, validate:**
+   Resolve technical findings and record actual human peer review plus all
+   readiness items before marking ready. AI approval alone does not do this.
+
+6. **Run the pre-build gap-check:**
+   ```
+   /idd-framework:gap-check SPEC-d12e
+   ```
+   Resolve outstanding findings and rerun until passed with zero unresolved
+   blockers and warnings. The annotation and report must agree.
+
+7. **Implement the gated Spec:**
+   ```
+   /idd-framework:implement-spec SPEC-d12e
+   ```
+   The command verifies evidence before writes, acknowledges Boundaries, and
+   enters in-progress. A verified complete build enters review. Human
+   implementation approval then permits validating.
+
+8. **Validate the implementation against the Spec:**
    ```
    /idd-framework:review-spec SPEC-d12e
    ```
@@ -121,7 +158,27 @@ Each command can be used independently. You don't have to run the full pipeline.
 /idd-framework:tech-review SPEC-d12e
 ```
 
-This produces Intentions, Expectations, and a Spec in a single guided session.
+This produces Intentions, Expectations, and a Spec in a single guided session. Continue through human readiness review, gap-check, implementation and validation as above; the accelerated authoring path does not bypass execution prerequisites.
+
+## Execution contract
+
+The [bundled lifecycle reference](skills/idd-orchestration/references/spec-reference.md#status-lifecycle)
+is the installed workflow contract. Technical/deep review preserve lifecycle;
+human peer review is needed for ready. Execution requires ready, a current
+`gap_check.status: passed`, zero unresolved counts, and the matching per-Spec
+report beginning `PASS — 0 blockers, 0 warnings` with `## Coverage`. A report
+headed PASS with warnings is not executable.
+
+Accepted coverage omissions remain visible; the reviewer must confirm the author's
+reason leaves no unmet validation dependency before marking them resolved.
+Substantive warnings require resolution. Repeated checks update one annotation;
+failed completeness or unsuccessful review uses blocked and `report: null`, so an
+old report cannot authorize a build. Failed or interrupted implementations remain
+in-progress even if a partial report exists. These are agent protocol instructions,
+not an executable state validator. Resume requires a recovery decision.
+
+Native Codex and Claude packaging is implemented with isolated CLI lifecycle evidence.
+Final upstream acceptance, desktop discovery and publication remain separate.
 
 ## Output
 
@@ -133,7 +190,8 @@ docs/
   intentions/     # Intention artifacts (YAML)
   expectations/   # Expectation artifacts with edge cases (YAML)
   specs/          # AI-ready Specs with 5 mandatory blocks (YAML)
-  reviews/        # Validation reports (Markdown)
+  reviews/        # Gap-check, execution, validation and archive reports
+  explorations/   # EXPL-<id>-<slug>/map.md and decision tickets
   idd-ledger.yaml # Archive ledger: distilled records of completed/retired artifacts
 ```
 
@@ -152,12 +210,190 @@ The framework defines six roles. Each maps to a plugin agent:
 
 ## Plugin Features
 
-- **Lazy docs initialization** — The `docs/` directory structure is created only when you run an `/idd-framework:*` command
+- **Lazy docs initialization** — Commands create directories when needed; implementation checks the gate and acknowledges Boundaries before creating any
 - **User config** — Set `default_product_id` and `team_name` at plugin install for faster workflows
-- **Helper scripts** — `idd-next-id` (in `bin/`) generates a unique short-hash artifact ID (e.g., `SPEC-a3f8`); collision-free across branches
+- **Helper scripts** — `idd-next-id` (in `bin/`) generates a unique short-hash artifact ID (e.g., `SPEC-a3f8`); checked against existing live paths (reconcile unseen branch collisions during integration)
 - **Reviewer memory** — Tech lead and spec reviewer agents accumulate project-specific learnings across sessions
 - **Agent Teams support** — `/idd-framework:deep-review` uses parallel Agent Teams when the experimental flag is enabled, with graceful fallback to sequential review
+
+## Developing the plugin
+
+The maintained router is `workflows/idd-orchestration.md`. Its six historical
+reference paths map to portable sources in `references/authoring/`,
+`references/pilot/`, `references/exploration/` and `references/archive/`. From the repository root, run `npm ci` with
+Node.js 22.20.0+, edit those sources, and run `npm run build:skills` to refresh the
+committed copies in `skills/idd-orchestration/`. `skill-catalog.json` defines each
+mapping and lists fifteen implemented portable stages, sixteen public bundles
+(including the router), and no placeholder stages. The router includes complete
+`stages/<stage>/workflow.md` closures copied from the same canonical mappings.
+
+Run `npm run check` and `npm test` before submitting changes. The optional
+`npm run test:install` verifies the synthetic fixture and each pilot skill alone
+in disposable Codex and Claude projects, in copy and symlink modes. Host workflow
+evaluation is separate. All five router and eight Archive host observations have
+independent acceptance, with original failures and measured-lane limits retained.
+See the [contributor guide](../docs/contributing-agents.md#setup-assembly-and-validation)
+for check behavior, fixture profiles and CI.
 
 ## License
 
 Apache 2.0 -- see [LICENSE](LICENSE).
+
+## Portable workflow pilot
+
+This branch includes sixteen complete standalone skill bundles: fifteen direct stages and one complete router. The original three-stage pilot has a documented supported-lane acceptance; the five authoring stages have separate host evaluation evidence:
+
+| Skill | Purpose | Legacy Claude alias |
+|---|---|---|
+| `idd-orchestration` | Select and load any complete local stage | No new command alias |
+| `idd-archive` | Classify and explicitly apply reviewed archival | `/idd-framework:archive` |
+| `idd-interview` | Define a Product in the stakeholder conversation | `/idd-framework:interview` |
+| `idd-gap-check` | Adversarial Spec review, coverage and gate annotation | `/idd-framework:gap-check` |
+| `idd-implement-spec` | Gated implementation and execution evidence | `/idd-framework:implement-spec` |
+| `idd-define-intentions` | Confirmed draft outcomes from a Product | `/idd-framework:define-intentions` |
+| `idd-define-expectations` | Confirmed draft constraints and parent links | `/idd-framework:define-expectations` |
+| `idd-define-outcomes` | Linked Intention/Expectation batch | `/idd-framework:define-outcomes` |
+| `idd-quick-spec` | Confirmed draft Intention/Expectation/Spec batch | `/idd-framework:quick-spec` |
+| `idd-write-spec` | Five-block draft Spec from selected Expectations | `/idd-framework:write-spec` |
+| `idd-tech-review` | Current architectural review without lifecycle changes | `/idd-framework:tech-review` |
+| `idd-deep-review` | Three perspectives with truthful delegation fallback | `/idd-framework:deep-review` |
+| `idd-review-spec` | Evidence-based implementation validation | `/idd-framework:review-spec` |
+| `idd-forge` | Local Forge launcher with observed startup and owned stop handle | `/idd-framework:forge` |
+| `idd-chart` | Confirmed phase-zero map and factual research proposals | `/idd-framework:chart` |
+| `idd-resolve` | One eligible decision with a path-scoped claim commit | `/idd-framework:resolve` |
+
+The Claude aliases load these shared procedures. Their names and frontmatter stay
+unchanged; reviewer/implementer model choices remain in the Claude adapter. Each
+standalone bundle contains its own references and any required helper, with no
+runtime npm dependency added to the consuming project. The interview helper needs
+Bash, and artifact workflows need safe YAML parsing available in the host environment;
+missing capabilities are reported before writes. The router includes every stage
+locally and never relies on a sibling skill. Archive and router host acceptance
+are complete for the documented cases; native alias execution and published remote
+installation remain separate checks.
+
+For a local pilot, build this checkout, then run the following from a **disposable
+consuming project**, replacing the absolute source path with this checkout:
+
+```bash
+npx --yes skills@1.5.25 add /absolute/path/to/idd-framework/plugin/skills/idd-interview --agent codex claude-code --skill idd-interview
+```
+
+Use any skill in the table in both source path and `--skill` to
+install that stage alone. Add `--copy` to test a source-independent copy.
+Select just `--agent codex` or `--agent claude-code` if you want one host. These
+commands are project-scoped; avoid installing duplicate native-plugin and standalone
+copies in the same host. This branch is unpushed, so GitHub shorthand would still
+fetch the earlier repository state rather than these changes.
+
+Start a fresh session in that consuming project and request the installed skill
+by name (for example, `$idd-gap-check` in Codex or `/idd-gap-check` in Claude Code),
+or provide its installed SKILL.md path explicitly. The unattended evaluator uses
+explicit paths; selector discovery and native alias UX still need interactive
+review. Full native Codex plugin installation is a later milestone.
+
+Run `npm run test:install` for deterministic package checks. Optional host scenarios
+and evidence handling are described in the [contributor guide](../docs/contributing-agents.md#setup-assembly-and-validation).
+See the [pilot evaluation report](../docs/reviews/SPEC-b2e3-host-evaluation.md) for
+actual tested behavior and limitations. Installation success does not certify
+model behavior, human review or release readiness.
+
+The optional host evaluator can diagnose Claude output-style conflicts with
+`--claude-output-style default`. This affects only the test process, preserves the
+configured model, and is recorded separately from runs with the configured style.
+Styles that suppress intermediate messages may conflict with IDD's required
+pre-write Boundary acknowledgments; a final execution report cannot replace them.
+
+
+The implementation pilot also has an optional staged evaluation controller. It
+validates two read-only acknowledgment turns in one Claude session before enabling
+the build, and verifies evidence before changing lifecycle to review. See the
+[controller instructions](../docs/contributing-agents.md#setup-assembly-and-validation)
+and [recovery evidence](../docs/reviews/2026-09-12-claude-checkpoint-recovery.md).
+This is development tooling in the source checkout. Installing the standalone
+skill does not install that controller or certify ordinary/native Claude execution.
+
+### Installed guarded execution pilot
+
+The `idd-implement-spec` bundle now includes a self-contained Node >=22.20.0 terminal runner for existing Claude authentication. It requires reviewed `execution_contract` output/check metadata and recorded readiness approval. Use `node <installed-skill>/scripts/idd-execute-spec.mjs --project <project> --spec <SPEC-ID> --check` for read-only preflight; omit `--check` to execute from a separate terminal. Never bypass the nested-session guard. The default preserves the configured model/style; optional `--implementer-model sonnet` requires an observed matching implementation model. The Sonnet option has verified model selection but remains experimental after a failed full workflow trace review. Native alias certification remains separate.
+
+The bundle carries the pinned YAML parser and ISC license; consuming projects need no dependency installation. Failures preserve partial work and controller evidence, and require author recovery. See [guarded execution](references/pilot/guarded-execution.md) for ownership, limits and report rules. Optional contributor host evaluation: `node scripts/evaluate-installed-execution.mjs` (or `--negative`, `--sonnet`). Offline tests use simulated host receipts and do not replace actual host evidence.
+
+## Portable authoring
+
+The five authoring skills share `references/authoring/authoring.md` as their maintained procedure and each bundles its required templates, references and executable ID helper. Selection, confirmation, validation and saves stay in the stakeholder conversation. Optional Claude drafting preserves existing model policy and returns read-only proposals. Accelerated modes save no intermediate YAML until every proposed Expectation has at least two explicitly confirmed edge cases. All new artifacts remain draft; content confirmation never supplies human Spec peer review.
+
+Parent context baselines begin when loaded, and only an existing Intention expectations list may be changed. Concurrent edits or interrupted saves are reported with exact partial state; there is no automatic rollback or atomic multi-file guarantee. See the [authoring evidence](../docs/reviews/SPEC-8406-host-evaluation.md) for observed cases and limitations.
+
+### Portable review stages
+
+The three review bundles share `references/review/review.md` in the source tree. Technical/deep orchestration invalidates old approval before reviewing, preserves all Spec content/lifecycle/gap bytes, and publishes only current findings. Deep review labels actual parallel, partial or sequential coverage. Implementation validation writes only its report, runs explicitly specified safe bounded checks, and leaves unavailable historical evidence and pending human checks unverified. Such pending items prevent an unqualified Pass.
+
+See [review host evidence](../docs/reviews/SPEC-44b9-host-evaluation.md) for the current evaluation state. Native aliases and parallel dispatch are separate acceptance gates.
+
+### Portable Forge launcher
+
+Install `idd-forge` alone using the same local pattern above. It accepts `--port`, `--no-open` and `--docs` as literal arguments, launches from the consuming root through an available background process capability, and reports the actual startup URL and owned stop handle. It uses the existing unpinned `npx --yes @jasonrobey/idd-forge` policy; Node20+ and npm access may be required for the published app. It initializes no IDD artifacts.
+
+The migration evaluator substitutes an explicitly controlled local launcher in an isolated child PATH and verifies arguments, process inspection and owned cleanup; this does not certify the published UI, native aliases or cross-session persistence. See [Forge evidence](../docs/reviews/SPEC-e1d4-host-evaluation.md).
+
+### Portable exploration
+
+`idd-chart` and `idd-resolve` each install independently with complete formats/procedure and ID helper. Main conversation owns stakeholder questions, claims and serialized writes; optional Sonnet research roles remain Claude-specific and read-only. A claim commit contains only the selected tracked, clean ticket and preserves unrelated staged/dirty work. Unpublished factual research proposals can be investigated before exclusive creation; persisted tickets always require their claim. Missing human answers never become resolutions.
+
+The map is clear only when fog is empty and every ticket is resolved or out_of_scope with valid dependencies; an empty frontier alone is insufficient. The same terminal correction is included in the legacy reference. See [exploration evidence](../docs/reviews/SPEC-c11a-host-evaluation.md) for controlled facts/claim tests and unverified native/concurrent-session behavior.
+
+### Portable archival
+
+`idd-archive` classifies first and saves a fresh manifest for review. Explicit apply requires the concrete manifest committed with its unchanged reviewed input files. It creates an annotated recovery tag, saves and rereads a reconciled ledger, then removes/moves only approved paths and commits locally. Artifact records and moved-review records both contribute to the new record count; co-deleted subject reviews are links only. Sources are normalized in memory and surviving artifacts remain unchanged.
+
+Legacy manifests need reclassification to capture the new reviewed-input binding before apply. Tag recovery supports Git file modes (0644/0755); unsupported permission modes refuse. See [Archive evidence](../docs/reviews/SPEC-57b4-host-evaluation.md) for disposable trials, failures and limitations. Native aliases and remote publication remain separate verification.
+
+
+## Complete router and local distribution
+
+Install just the router from a built local checkout to access all stages:
+
+```bash
+npx --yes skills@1.5.25 add /absolute/path/to/idd-framework/plugin/skills/idd-orchestration --agent codex --skill idd-orchestration --copy
+```
+
+Use `--agent claude-code` for Claude. Ask the installed router for the intended
+outcome or stage. It loads `stages/<stage>/workflow.md` and resolves resources
+from that entry's parent, preserving the selected procedure's confirmation,
+readiness and execution gates. Routing never creates consumer directories.
+The nested implementation CLI is
+`stages/implement-spec/scripts/idd-execute-spec.mjs`; run it from a separate
+terminal when the selected workflow requires the guarded Claude controller.
+Never clear the nested-Claude guard.
+
+For bulk local installation, point `add` at `plugin/skills`, use the selected
+`--agent` and `--skill '*'`, and retain `--copy` if that is your chosen mode.
+Discovery (`add <source> --list`) exposes sixteen public names; nested entries
+are `workflow.md`, so they do not become duplicate skills. Bulk installation is
+optional: the router alone already contains the full workflow closure.
+
+Pinned skills1.5.25 skips local sources during
+`npx --yes skills@1.5.25 update idd-orchestration --project --yes`.
+This is a no-op, not a content update. Refresh a local installation by repeating
+its original `add` command with the same absolute source, selected skill, host
+and copy option. Remote update behavior is not inferred from this local test.
+
+Remove a selected skill with
+`npx --yes skills@1.5.25 remove idd-orchestration --agent codex --yes`
+(or `claude-code`). Name every intended skill explicitly; avoid `--all` across
+unrelated skills. Verify the installed paths afterward: skills1.5.25 can report
+success while retaining `.agents/skills/<name>` for other detected agents that
+share it. Retained copies remain installed, including for Codex; a success
+message alone is not complete removal. A separate Claude alias/copy can be
+removed while that canonical copy remains. Preserve other agents' shared skills;
+this procedure does not silently broaden deletion.
+
+Codex uses the project's canonical `.agents/skills` directory. Claude symlink
+mode points `.claude/skills/<name>` at that project-local copy; it does not link
+to the source checkout. Claude copy mode has an independent copied directory.
+Avoid duplicate native-plugin and standalone installations of the same skills.
+See the [router evidence](../docs/reviews/SPEC-ab84-host-evaluation.md) for observed
+scope, retained failures and unfinished acceptance.
+
+Pinned installer mode detail: targeting a single host forces copy, even without `--copy`. The four bulk observations compare explicit copy and default requests while recording actual copy mode. Genuine Claude symlinks are tested separately by the individual probe, which targets Codex and Claude together. Refresh retains actual mode; no additional host is silently selected to force a symlink.

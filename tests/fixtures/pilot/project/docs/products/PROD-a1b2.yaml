@@ -1,0 +1,15 @@
+product:
+  id: PROD-a1b2
+  name: Greeting fixture
+  status: active
+  owner: Casey Example
+  problem_statement: Fixture users need a predictable greeting.
+  target_audience: Fixture CLI users
+  value_proposition: Deterministic outputs for evaluation
+  strategic_alignment: Test installed workflow behavior
+  context:
+    stack: Node.js >=22.20.0 ESM, built-in node:test; no dependencies
+    patterns: One pure exported function
+    conventions:
+      - Use named exports and TypeError for invalid input
+    auth: None; local pure function

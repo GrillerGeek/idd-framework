@@ -1,0 +1,281 @@
+spec:
+  id: SPEC-c45b
+  product: PROD-f67b
+  intentions:
+    - INT-b7a6
+  expectations:
+    - EXP-b729
+    - EXP-d51e
+  status: review
+  context:
+    stack: Inherit PROD-f67b; current repository uses private Node >=22.20.0 tooling. Installed guarded
+      execution requires Node >=22.20.0, Git and existing Claude CLI authentication. Bundle yaml
+      2.8.3 CommonJS runtime with original ISC license; do not install dependencies into a consuming
+      project.
+    patterns: One maintained checkpoint/runtime source shared by bundled runner and evaluator;
+      declarative reviewed execution metadata; controller-owned lifecycle; generated independent
+      bundles.
+    conventions:
+      - Preserve original five-block IDD schema and existing historical artifacts. The optional
+        execution_contract annotation is required only for guarded execution.
+      - Use current user authorization for local implementation decisions and bounded disposable
+        host tests; record actual human peer review as pending.
+      - Keep original Apache/CC licensing boundaries and upstream ISC notices. No guessed
+        cross-provider model mapping.
+    existing_code_refs:
+      - path: scripts/lib/claude-checkpoint.mjs
+        note: Validated three-phase controller and acknowledgment/session evidence.
+      - path: tests/helpers/pilot.mjs
+        note: Bounded transport and preservation oracle; runtime must not depend on test code.
+      - path: plugin/workflows/implement-spec.md
+        note: Installed execution entry point and controller handoff.
+      - path: plugin/skill-catalog.json
+        note: Explicit bundle resource ownership.
+    auth: Existing host login only. No personal settings, credential, global installation or remote
+      publication changes.
+  expectations_detail:
+    - id: EXP-b729
+      description: An independently installed implementation skill can run a real reviewed Spec through
+        observable Claude checkpoints.
+      validation: A bundled Node runner validates a declarative execution_contract, obtains both visible
+        acknowledgments with read-only tools, resumes the same conversation to implement, executes
+        reviewed verification argument vectors, preserves unrelated user changes and advances
+        lifecycle only after checks. It has no imports from the source checkout or a consuming
+        project package.
+      edge_cases:
+        - Absent/invalid runtime contract, duplicate YAML, invalid readiness/gap evidence, ambiguous
+          IDs and unsafe paths refuse before workflow calls or project writes.
+        - Failed or interrupted execution keeps partial work and in-progress; unexpected model
+          lifecycle writes fail and are preserved as evidence rather than silently repaired.
+    - id: EXP-d51e
+      description: The installed execution route preserves host configuration and clearly distinguishes
+        its guarantees from native prose-only dispatch.
+      validation: Standalone copy and symlink installs carry executable runner, shared runtime, pinned
+        YAML parser and licenses. Real disposable runs use a non-a1b2 Spec ID, preserve the
+        configured model/style and dirty files, and verify actual output. CLI docs identify terminal
+        invocation, Node prerequisite, saved sessions, no nested-session bypass and optional
+        existing Claude Sonnet implementer policy.
+      edge_cases:
+        - Copy-source removal and a project outside the checkout do not break imports or resource
+          lookup.
+        - Nested Claude invocation refuses without clearing host guard variables; missing
+          runtime/CLI/authentication and session/model/style changes are explicit failures, never
+          ordinary/native certification.
+  boundaries:
+    - Do not weaken readiness, current passed gap-check, actual human readiness facts, visible
+      acknowledgments, report-only review or lifecycle ownership.
+    - Do not interpret natural-language validation prose as a shell command or infer writable paths
+      from deliverable prose. Guarded execution requires reviewed explicit execution_contract
+      metadata.
+    - Do not rewrite historical artifacts or reports, framework templates/examples, the legacy
+      router, other twelve stage procedures, command/agent frontmatter, plugin identity/version or
+      hooks in this Spec.
+    - Do not install dependencies into consuming projects, edit personal settings/credentials, clear
+      nested-Claude guard variables, bypass host permissions, push, publish, tag or update external
+      marketplaces.
+    - Do not claim hostile-code containment, atomic multi-file transactions, universal semantic
+      validation, or native alias certification from terminal runner evidence.
+    - Do not modify files outside listed Deliverables. New authoring artifacts, plan tracking and
+      orchestration status/report annotations are separately owned.
+  deliverables:
+    - plugin/runtime/ — canonical reusable checkpoint primitives, bounded transport, safe
+      artifact/profile parser, snapshot/preservation and generic runner;
+      scripts/lib/claude-checkpoint.mjs and tests/helpers/pilot.mjs adapt to shared primitives
+      without fixture-dependent runtime imports. scripts/evaluate-pilot.mjs owns compatibility
+      imports and shared-runtime source-hash provenance.
+    - plugin/vendor/yaml/ — pinned yaml 2.8.3 Node CommonJS runtime, package boundary and original
+      LICENSE; integrity inventory and provenance in scripts/check-vendor.mjs or equivalent offline
+      check. No upstream development scripts are executed.
+    - plugin/workflows/implement-spec.md, plugin/references/pilot/spec-implementer.md and new
+      plugin/references/pilot/guarded-execution.md — installed invocation, reviewed metadata
+      example, prerequisites, failure handling and explicit native/terminal distinction.
+    - plugin/skill-catalog.json, generated plugin/skills/idd-implement-spec/ and necessary
+      scripts/lib/assembly.mjs / scripts/lib/packages.mjs integration — self-contained runner and
+      all resources, including licenses. Preserve other bundles.
+    - plugin/commands/implement-spec.md and plugin/agents/idd-spec-implementer.md bodies only —
+      document supported guarded terminal path and preserve existing Sonnet policy without
+      nested-session bypass or invented host operations.
+    - scripts/evaluate-installed-execution.mjs, tests/installed-execution.test.mjs,
+      tests/fixtures/installed-execution/ and affected existing checkpoint/pilot/package tests —
+      general-ID fixture, independent functional oracle, failure tests, install closure and explicit
+      host evidence.
+    - scripts/test-install.mjs, scripts/check.mjs, README.md, plugin/README.md and
+      docs/contributing-agents.md — resource closure, vendor verification, usage and accurate
+      acceptance claims.
+    - docs/reviews/SPEC-c45b-<UTC>-execution.md and docs/reviews/SPEC-c45b-host-evaluation.md —
+      itemized checks, failures and independently reviewed installed host evidence.
+  validation:
+    automated:
+      - Full check/test suite passes on Node 22.20.0 and current Node; generated files are
+        deterministic and protected files remain unchanged.
+      - Copy/symlink installation resource checks pass, including invoking runner --check after
+        source removal; missing/invalid metadata starts no host or project writes.
+      - Offline tests cover malformed/duplicate YAML, unsafe traversal/symlink outputs, missing
+        approval/gates, absent/failed/duplicate report rows, missing/late acknowledgments, shared
+        timeout/output limits, dirty user files, stale baselines, changed lifecycle and nonzero
+        reviewed verification.
+      - Actual installed Claude positive and controller-refusal runs record source/resource hashes,
+        CLI/model/style/session identities and independent deliverable checks; negative outcomes
+        remain negative.
+      - Execution report exists and covers every edge case, Boundary, Deliverable and automated
+        check; local links and whitespace pass.
+    human_review:
+      - Independent contract/content gap-check and implementation/trace review; do not infer human
+        approval.
+      - On return, user can review installed invocation tradeoffs and the optional metadata design.
+        Earlier unattended authorization permits implementation; actual human peer review remains
+        pending.
+      - Native interactive plugin/alias UX is later integration evidence; clearly distinguish tested
+        terminal execution.
+  runtime_contract:
+    cli: node <installed-skill>/scripts/idd-execute-spec.mjs --project <existing-project> --spec
+      <SPEC-ID> [--check] [--implementer-model configured|sonnet]. Default configured model. --check
+      is read-only and invokes no model. Normal invocation detects CLAUDECODE and refuses nesting;
+      never unset it. Print actual model acknowledgments before controller mutations; preserve owned
+      run evidence in an OS-temp directory created only after orchestration acknowledgment. Emit
+      final JSON with outcome/report/evidence; nonzero exit for refusal/failure/blocked. No
+      automatic retry/resume after an interrupted build.
+    selection: Resolve exactly one regular YAML Spec by internal ID, including descriptive filenames,
+      reject symlinked Spec/gap report or ambiguous duplicate identity; require ready, safe complete
+      five blocks, peer_review.outcome approved and nonempty reviewer, gap_check passed/integer
+      zero/canonical current PASS+Coverage. Reject known stale state; do not claim cryptographic
+      historical review binding.
+    annotation:
+      version: 1
+      outputs:
+        - deliverable: 1
+          path: src/greet.mjs
+          kind: file
+        - deliverable: 2
+          path: tests/greet.test.mjs
+          kind: file
+        - deliverable: 3
+          kind: execution-report
+      checks:
+        - validation: 1
+          argv:
+            - node
+            - --test
+            - tests/greet.test.mjs
+          timeout_seconds: 10
+        - validation: 2
+          kind: preservation
+        - validation: 3
+          kind: report
+    metadata_rules: Every deliverable index 1..N is mapped exactly once; file/directory outputs use
+      nonempty normalized relative paths with no dot/parent segments, absolute paths, backslashes,
+      globs or symlink ancestors. Directory kind explicitly owns its descendants. Exactly one
+      execution-report output maps to docs/reviews/<SPEC-ID>-<UTC>-execution.md, chosen by the
+      implementing role using current UTC immediately before actual report creation; controller
+      receives the required prefix/pattern, accepts exactly one newly created matching report after
+      build, and never permits overwrite of a baseline report. Protect the selected Spec, canonical
+      gap report, installed bundle and .git regardless of output list. Every automated validation
+      index is mapped exactly once to either a nonempty argv string vector with integer
+      timeout_seconds 1..600, kind preservation or kind report. Reject unknown keys or conflicting
+      kinds. This annotation is reviewed with the Spec before readiness; runner never authors or
+      repairs it. CLI accepts only explicit known flags.
+    verification: "Snapshot project regular files/directories/symlinks by bytes/modes before writes and
+      after phases, excluding .git; record Git HEAD, branch and staged diff separately. Allow
+      changes only declared file/directory outputs, report and controller status. Existing unowned
+      dirty files and installed bundle contents/modes are preserved; new/changed symlink outputs
+      fail. Missing declared output fails. Verify model leaves the whole Spec byte-identical at
+      in-progress. Validate report headings/each required row (all pass/nonempty evidence) and no
+      recorded blocker severity, then independently run every argv check directly without shell
+      interpolation; verify snapshots after checks too. Preserve process receipts in controller
+      evidence. The report is the only output with self-check in-place finalization; controller
+      never fabricates report passes. Only after all checks change exact status in-progress to
+      review. Human-only follow-up remains pending. Compare Git HEAD, symbolic branch and staged
+      binary diff (not merely record them) at every phase and after every verification command.
+      Snapshot the real installed bundle root independently even if it is outside the project or
+      reached by a symlink; compare resource bytes and modes throughout. Verification commands are
+      read-only with respect to the whole project, including declared outputs: any
+      byte/mode/type/addition/deletion during an independent check fails and preserves evidence,
+      never silently adopts the new state or retries. Recheck output existence/type, report
+      acceptance, protected files and Git state after all commands; because checks may not mutate
+      inputs, earlier checks remain valid. Implementation may perform reviewed build side effects
+      within output ownership before returning."
+    limits: One <=600-second model budget and <=4MB combined model output across phases; each explicit
+      verification command has its own <=600-second reviewed limit and <=4MB output; kill owned
+      process groups on timeout. Snapshot refuses above 50000 entries or 512MiB total regular-file
+      content before workflow mutation; do not silently exclude node_modules or unknown directories.
+      This is coordination, not a security sandbox; independent verification must leave the project
+      unchanged; normal build side effects belong in the implementation phase and must fit explicit
+      output ownership.
+    host_policy: Standalone default keeps observed configured model and output style across one saved
+      session. Optional sonnet implementer mode retains configured orchestration model, changes to
+      Sonnet only for the implementation checkpoint using the existing Claude alias, captures its
+      actual resolved model and reuses that actual model for build. Same session required
+      throughout; no delegation. Native command retains original Sonnet dispatch metadata/policy and
+      clearly identifies the external terminal runner alternative, without spawning an unsupported
+      nested CLI. In Sonnet mode, implementation-init must identify a resolved claude-sonnet-* model
+      (not merely echo the requested alias or return an unrelated model); otherwise fail before
+      build. The exact observed Sonnet model is used and verified for the resumed build.
+    packaging: Use the existing locked yaml 2.8.3 source only, keep its original license and CommonJS
+      package boundary, and bundle runtime .js files needed for Node (no
+      declarations/browser/tests). Hash inventory verifies canonical vendored bytes against the
+      locked dependency during contributor checks. Generated bundles copy all declared resources; no
+      source-checkout, PATH helper or npm module resolution dependency. Node runtime missing/too old
+      causes an actionable refusal. Runtime parser reuse is an explicit newly authorized extension
+      beyond the original prose-only pilot; no consumer dependency installation.
+    additional_decisions: "Use YAML scalar source ranges to update status while preserving quoting,
+      comments and all other bytes; reject aliases/ambiguous lifecycle nodes rather than
+      regex-reformatting. Reject overlapping output paths and any file/directory output equal to,
+      below or containing a protected Spec/report/bundle/.git path. All declared file/directory
+      outputs must exist after implementation; deletion-only deliverables are outside version 1 and
+      must be reported unsupported at authoring time. No automatic semantic equivalence between
+      metadata and prose is claimed: author/readiness review owns agreement."
+  scenario_oracles:
+    positive: Fresh disposable Git project with spaces, descriptive SPEC-c0de-greeting.yaml and matching
+      Product/Intention/Expectation IDs c0de. Derive existing greeting fixture, add reviewed
+      execution_contract only in this new fixture, preserve dirty USER-NOTES.md. Install only
+      idd-implement-spec in copy mode, remove the copied source, invoke its bundled CLI outside the
+      source checkout with configured model/style. Expect actual six greeting cases, complete
+      report, exact status review, unchanged unrelated/installed files, observable role checkpoints
+      and controller-owned transition. Independently inspect trace and command receipts.
+    negative: "Same fixture with warnings gate: installed --check and actual runner refuse with no model
+      invocation or project mutations. Offline additional cases include missing/invalid annotation,
+      unsafe path, wrong report, in-progress, absent approval, failure/interruption and changed
+      model-owned status; refusal does not imply a Claude model refused. Include changed
+      installed-bundle target behind a symlink, unexpected Git HEAD/branch/staged-diff changes,
+      output mutation/deletion by a verification command, quoted/block-form lifecycle scalars, and a
+      requested Sonnet alias resolving to another family."
+    native_policy: If Sonnet selection is supported by current authentication, run an additional
+      disposable installed case with --implementer-model sonnet and verify actual model identity per
+      phase; otherwise record precise blocked evidence. Do not substitute another model.
+  session_authorization:
+    date: 2026-09-13
+    scope: User asked to keep implementing while asleep and finish if possible, with previous
+      authorization to make decisions and report them.
+    decision: Implement local distribution of validated checkpoints, adding explicit reviewed execution
+      metadata and bundled parser. Preserve ordinary human review facts and do not publish or edit
+      personal installations.
+  peer_review:
+    outcome: pending
+    note: Actual human peer review of this newly authored packet is not claimed; current session
+      authorization covers unattended migration implementation.
+  gap_check:
+    status: passed
+    blockers: 0
+    warnings: 0
+    report: docs/reviews/SPEC-c45b-gap-check.md
+    date: 2026-09-13
+  coverage_dispositions:
+    - files:
+        - scripts/lib/artifacts.mjs
+        - scripts/lib/yaml.mjs
+        - plugin/references/pilot/spec-reference.md
+        - package.json
+        - package-lock.json
+        - .github/workflows/validate.yml
+      disposition: accept-omission
+      reason: Existing schema/lifecycle/dependency/CI contracts remain valid; optional execution metadata
+        and vendor integrity are owned by new runtime/check integration.
+    - files:
+        - plugin/workflows/idd-orchestration.md
+        - plugin/skills/idd-orchestration/
+        - templates/
+        - examples/
+        - docs/reviews/
+      disposition: accept-omission
+      reason: Legacy router, templates/examples and historical reports remain protected; new reports and
+        migration plan tracking are separate author/orchestration writes.

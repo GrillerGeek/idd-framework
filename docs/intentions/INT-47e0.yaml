@@ -1,0 +1,16 @@
+intention:
+  id: INT-47e0
+  product: PROD-f67b
+  statement: Stakeholders can navigate unresolved decisions through portable phase-zero maps with safe
+    coordination.
+  rationale: Port chart/resolve without retaining command-layer assumptions or falsely completing maps
+    with unresolved tickets.
+  priority: high
+  dependencies:
+    - INT-a815
+  expectations:
+    - EXP-e54a
+    - EXP-f9c7
+    - EXP-bee0
+  owner: Jason Robey
+  status: draft

@@ -1,0 +1,255 @@
+spec:
+  id: SPEC-44b9
+  product: PROD-f67b
+  intentions:
+    - INT-083e
+  expectations:
+    - EXP-d2ed
+    - EXP-c659
+    - EXP-eb14
+  status: review
+  context:
+    stack: Inherit PROD-f67b Markdown/YAML/JSON; existing private Node >=22.20.0, yaml 2.8.3 and skills
+      1.5.25 verification tooling.
+    patterns: Canonical portable procedures, closed generated bundles, thin host adapters, one
+      orchestration writer and optional read-only perspectives.
+    conventions:
+      - Retain Apache plugin licensing and original CC BY-SA framework domains.
+      - Bind original file bytes/type/mode at first read; preserve unowned files and concurrent
+        edits; no atomic transaction claims.
+      - Separate technical approval, actual human review, gap gate and lifecycle; preserve all
+        existing ordinary workflow gates.
+      - Session-only authoring decisions use the user’s repeated unattended authorization; shipped
+        workflows never infer human approval.
+    existing_code_refs:
+      - path: plugin/agents/tech-lead-reviewer.md
+        note: Existing review contracts, compatibility metadata or verification architecture.
+      - path: plugin/agents/deep-review-lead.md
+        note: Existing review contracts, compatibility metadata or verification architecture.
+      - path: plugin/agents/spec-reviewer.md
+        note: Existing review contracts, compatibility metadata or verification architecture.
+      - path: plugin/commands/tech-review.md
+        note: Existing review contracts, compatibility metadata or verification architecture.
+      - path: plugin/commands/deep-review.md
+        note: Existing review contracts, compatibility metadata or verification architecture.
+      - path: plugin/commands/review-spec.md
+        note: Existing review contracts, compatibility metadata or verification architecture.
+      - path: plugin/references/pilot/spec-reference.md
+        note: Existing review contracts, compatibility metadata or verification architecture.
+      - path: plugin/workflows/gap-check.md
+        note: Existing review contracts, compatibility metadata or verification architecture.
+      - path: scripts/evaluate-authoring.mjs
+        note: Existing review contracts, compatibility metadata or verification architecture.
+      - path: tests/helpers/authoring.mjs
+        note: Existing review contracts, compatibility metadata or verification architecture.
+    auth: Existing CLI authentication for bounded disposable evaluation only; no personal
+      installation/configuration/credential or remote changes.
+  expectations_detail:
+    - id: EXP-d2ed
+      description: Technical and deep reviews remain complete and evidence-based when independently installed.
+      validation: Both standalone stages select exact internal Spec IDs in descriptive filenames, check
+        completeness 1–10 and actual repository context, detect cross-block contradictions, and
+        publish current review findings without changing lifecycle, five content blocks, human facts
+        or gap annotations. Deep review covers all three named perspectives and truthfully labels
+        parallel, partial, or sequential execution.
+      edge_cases:
+        - Malformed/ambiguous/empty selection produces an actionable response and no writes. A
+          failed or interrupted selected review must never leave an old approved annotation
+          presented as current success.
+        - Unavailable delegation uses all three sequential perspectives; partial delegation failure
+          self-reviews only failed perspectives and explicitly labels degradation. Missing
+          perspectives cannot count as complete.
+    - id: EXP-c659
+      description: Implementation validation distinguishes observed correctness from unavailable or
+        historical evidence.
+      validation: The independently installed validation stage reports every linked Expectation and each
+        edge, every Boundary, Deliverable and automated/human check against actual code/test
+        evidence. It writes only its validation report; it never repairs code or promotes lifecycle.
+        Pending human checks and unknown historical boundary evidence are explicit and prevent an
+        unqualified overall Pass.
+      edge_cases:
+        - A failing greeting implementation yields failed checks and a non-pass report while
+          preserving all project code, artifacts, dirty notes and existing test files.
+        - Unavailable, unsafe or non-command validation remains unverified rather than guessed or
+          reported passed. No historical baseline means no claim that off-limits files were
+          unchanged during the prior implementation.
+    - id: EXP-eb14
+      description: Review skills install independently with accurate compatibility and behavioral evidence.
+      validation: Three complete generated bundles install alone for both hosts in copy and symlink modes,
+        retain resources after copied source removal, and create no artifacts during setup. Six
+        Claude adapter frontmatter blocks/model policies remain identical. Offline checks and ten
+        required actual-host observations are recorded distinctly.
+      edge_cases:
+        - Resources resolve with spaces in the consuming project path without other installed IDD
+          stages or project package dependencies.
+        - Host/auth/tool failures remain failed or blocked observations; partial model traces and
+          offline oracle passes do not certify ordinary native aliases or subagent dispatch.
+  boundaries:
+    - Do not change framework schemas, lifecycle rules, human approval requirements, existing
+      live/historical artifacts, templates, examples, plugin identity/version/hooks or personal
+      settings.
+    - Do not port exploration, archival, Forge, the legacy router or native Codex packaging in this
+      Spec. Preserve the existing eight portable bundles and helper/runtime implementations.
+    - Do not rename commands or agents or change any adapter frontmatter/model metadata. Preserve
+      Claude Opus technical/deep lead and Sonnet validation policies only in Claude adapters.
+    - Do not allow review workers to write project files, repair implementation, infer stakeholder
+      decisions or certify human peer review. Only orchestration writes the explicitly owned review
+      output and annotation.
+    - Do not infer command execution from arbitrary validation prose or run
+      destructive/network/install commands as routine validation. Unavailable evidence remains
+      unverified; review cannot waive execution gates.
+    - Do not push, tag, publish, change external marketplaces, install consumer dependencies or
+      modify files outside listed Deliverables. New authoring artifacts, gate annotations, lifecycle
+      and migration tracking are separately owned orchestration work.
+  deliverables:
+    - plugin/workflows/tech-review.md, deep-review.md and review-spec.md — three portable entry
+      points.
+    - plugin/references/review/ — shared selection, preservation, annotation,
+      technical/deep/validation procedures and report schemas; reuse pilot/spec-reference.md without
+      changing it.
+    - plugin/skill-catalog.json and plugin/skills/idd-tech-review/, idd-deep-review/ and
+      idd-review-spec/ — complete declared bundles, eleven portable and four planned stages;
+      preserve other bundles.
+    - plugin/commands/tech-review.md, deep-review.md and review-spec.md;
+      plugin/agents/tech-lead-reviewer.md, deep-review-lead.md and spec-reviewer.md — six thin
+      metadata-preserving adapters.
+    - tests/review-workflows.test.mjs, tests/helpers/review-workflows.mjs and
+      tests/fixtures/review-workflows/ — offline acceptance-oracle fixtures for safe selection,
+      current review, coverage, degradation and truthful validation/preservation.
+      tests/pilot.test.mjs owns inventory count update only.
+    - scripts/evaluate-reviews.mjs — optional bounded installed real-host evaluator reusing existing
+      installer/transport without altering shared helper implementations.
+    - README.md, plugin/README.md and docs/contributing-agents.md — current inventory, installation
+      and review evidence/limitations; no unrelated doc edits.
+    - docs/reviews/SPEC-44b9-<UTC>-execution.md and docs/reviews/SPEC-44b9-host-evaluation.md —
+      itemized verification, original outcomes, independent traces and remaining gates.
+  validation:
+    automated:
+      - All existing and new tests and npm check pass on Node 22.20.0 and current runtime;
+        deterministic assembly and protected source/frontmatter/ownership checks pass.
+      - All 48 individual/all-catalog host/mode installation combinations pass with source removal
+        and no artifact setup.
+      - Offline oracles reject duplicate/malformed output, stale approval, content/lifecycle/gap
+        mutations, missing perspectives/edges, fabricated validation success, historical
+        preservation claims without evidence and unrelated writes.
+      - "Ten actual-host cases: both hosts run each of three stages on a complete fixture,
+        tech-review on an explicit boundary/deliverable contradiction, and review-spec on a failing
+        implementation. Deep happy cases use truthful sequential fallback when delegation is
+        unavailable. Current-output oracle plus independent full-trace review required for
+        acceptance; operational failures cannot substitute."
+      - Optional evaluations are limited to 600 seconds/4 MiB per case; no model calls in npm tests.
+        Report, local links and git diff --check verified after all report files exist and have been
+        reread.
+    human_review:
+      - Review technical findings, validation evidence and compatibility behavior; actual human peer
+        review remains pending under the recorded unattended-session exception.
+      - Native alias and parallel/partial-delegation host behavior remain integration gates unless
+        actually observed; synthetic tests do not certify these paths.
+  review_contract:
+    selection: Explicit ID selects exactly one safe YAML document resolved by internal identity under
+      docs/specs; descriptive names supported. Empty input lists eligible draft/ready/review for
+      technical/deep (resolve the old command/agent mismatch in favor of agent contract) or
+      in-progress/review for validation, then asks. No implicit bulk or first match.
+      Malformed/ambiguous/archived-only/no selection means no writes.
+    ownership: Orchestrator loads installed resources, snapshots full project bytes/types/modes
+      including hidden/dirty files except .git and records Git HEAD/index, with original selected
+      Spec and relevant context captured at first parse. Keep baseline in memory/tool output; no
+      scratch writes. Workers are read-only. Compare baseline before writes and current expected
+      state between output operations; late interference preserves partial output and reports exact
+      recovery, no rollback or overwrite.
+    technical_annotation: Before technical/deep review, orchestration upserts only spec.review with
+      reviewer/date/status needs-changes and one blocker finding identifying an incomplete
+      operational review. This is an operational sentinel, not a completed substantive judgment.
+      Preserve every other byte and original mode, no parse/dump whole-file reformatting; safely
+      identify YAML node range, refuse unsupported/aliased formatting. Previous report remains
+      untouched until current review completes. Operational failure retains sentinel, never copies
+      old approved output. Final annotation uses existing reviewer/date/status/findings schema;
+      status approved only if 1–10 complete and no blockers, otherwise needs-changes (rejected only
+      clearly infeasible/out-of-scope). Human pending remains explicit separately; approved is
+      content advice, never execution permission.
+    deep_report: "Canonical docs/reviews/<ID>-deep-review.md with existing six headings: Summary,
+      Architecture Findings, Boundaries & Edge Case Findings, Deliverables & Validation Findings,
+      Completeness Checklist Results, Recommendation (title is separate). Summary current
+      ID/date/status, X/10 and human recorded/pending, truthful Review Approach. Each of three
+      perspectives must have findings or explicit reviewed/no finding; each finding has severity,
+      block/field/code evidence and recommendation. Use parallel when available; failed workers
+      reviewed locally with explicit partial label. Lead validates completed current report before
+      final annotation. Failure after report save leaves sentinel and reports partial state."
+    validation_report: Canonical docs/reviews/<ID>-review.md, existing seven headings Summary,
+      Expectation Results, Boundary Results, Deliverable Results, Automated Validation, Human Review
+      Required, Recommendations. Explicit table rows for every Expectation and edge (edge rows
+      labeled <ID> edge case N), Boundary, Deliverable and automated check;
+      status/evidence/confidence High direct, Medium inferred, Low unverified. Boundary unknown is
+      Unverified, automated unavailable is Unverified, human items pending or recorded with
+      attributable evidence. Overall Fail on proven failure/violation/missing deliverable; Needs
+      Changes on partial/unverified/pending human; Pass only every required item verified and actual
+      human evidence recorded. Never infer past preservation from a baseline captured for this
+      review.
+    checks: Inspect commands before execution, run only explicitly specified safe local read-only
+      verification with bounds (at most 60 seconds/1 MiB each, total within evaluator bound); no
+      install/network/destructive commands. Narrative criteria inspected or marked unverified, no
+      guessed executable translation. Tests are not permissions to change code or fixtures. Verify
+      no unowned mutation before and after checks and report save.
+    fixtures: Descriptive SPEC-a1b2 greeting fixture with Node22 ESM pure named export, actual
+      src/greet.mjs and tests/greet.test.mjs, one EXP-a1b2 and two confirmed edges padded and
+      invalid input; dirty USER-NOTES.md. Complete technical cases may flag optional suggestions but
+      must not invent blockers. Original review approved with old date/finding, current gap
+      annotation and comment bytes must survive outside review. Explicit contradiction forbids
+      modifying src/greet.mjs while delivering changed behavior there; require blocker naming path
+      and conflicting blocks. Validation happy passes three actual test cases but human wording
+      review and historical USER-NOTES preservation are unverified; overall Needs Changes. Broken
+      fixture returns Wrong for Ada and padding and fails invalid-input behavior; require Fail and
+      actual failing output. Native models unchanged. The contradictory technical fixture seeds
+      src/greet.mjs returning Legacy, so satisfying the required Hello behavior necessarily requires
+      the forbidden modification; it is not satisfiable by leaving already-correct code unchanged.
+    offline: Synthetic output verifier fixtures cover full/partial/sequential labels with
+      per-perspective receipt statuses; missing/failed perspectives without local completion
+      rejected. These simulate acceptance and do not implement production review. Test stale
+      annotation, unsafe YAML, review replacement outside node range, no-write selection errors,
+      exact historical-evidence distinction and code mutations. Real-host receipt limits provenance
+      and independent procedural review remain separate.
+  coverage_dispositions:
+    - files:
+        - AGENTS.md
+        - docs/framework.md
+        - templates/
+        - examples/
+        - plugin/workflows/idd-orchestration.md
+        - plugin/skills/idd-orchestration/
+        - plugin/references/spec-reference.md
+        - tests/fixtures/plugin-inventory.json
+      disposition: accept-omission
+      reason: Protected schema/history/legacy router and original frontmatter inventory remain valid;
+        later router integration owns navigation.
+    - files:
+        - plugin/workflows/gap-check.md
+        - plugin/workflows/implement-spec.md
+        - plugin/references/pilot/
+        - plugin/runtime/
+        - scripts/test-install.mjs
+        - scripts/lib/assembly.mjs
+      disposition: accept-omission
+      reason: Reuse unchanged contracts and generic catalog installer/assembly; counts alone in pilot test
+        need update.
+    - files:
+        - CLAUDE.md
+        - plugin/agents/idd-archivist.md
+        - plugin/workflows/quick-spec.md
+        - plugin/workflows/write-spec.md
+        - plugin/skills/idd-quick-spec/SKILL.md
+        - plugin/skills/idd-write-spec/SKILL.md
+      disposition: accept-omission
+      reason: Current Claude model inventory/lifecycle remain valid, archival retains the same canonical
+        report paths, and authoring next-stage names remain valid. Existing generated bundles are
+        protected; no validation requires their modification.
+  gap_check:
+    status: passed
+    blockers: 0
+    warnings: 0
+    report: docs/reviews/SPEC-44b9-gap-check.md
+    date: 2026-09-13
+  migration_authorization:
+    source: User repeatedly approved migration implementation and instructed unattended continuation
+      with best-judgment decisions documented.
+    human_peer_review: pending
+    scope: Session-specific orchestration authorization, not an exception to shipped workflow gates.

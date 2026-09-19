@@ -1,0 +1,19 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "idd-framework",
+  "version": "1.7.0",
+  "description": "Intent-Driven Development framework plugin — automates the IDD workflow with role-specific tools for stakeholder interviews, artifact generation, and structured documentation",
+  "author": {
+    "name": "GrillerGeek"
+  },
+  "homepage": "https://github.com/grillergeek/idd-framework",
+  "repository": "https://github.com/grillergeek/idd-framework",
+  "license": "Apache-2.0",
+  "keywords": [
+    "idd",
+    "spec-driven",
+    "intent-driven",
+    "process",
+    "ai-ready-specs"
+  ]
+}

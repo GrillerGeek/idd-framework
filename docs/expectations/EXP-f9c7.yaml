@@ -1,0 +1,19 @@
+expectation:
+  id: EXP-f9c7
+  description: Resolving one exploration decision preserves claims, dependencies, user work and
+    truthful map completion.
+  validation_criteria: Resolve selects a frontier-eligible named or first ticket, commits only that
+    ticket claim before work, and completes at most one non-research ticket per invocation. Main
+    conversation owns HITL answers and map writes. A map becomes clear only when fog is empty and
+    every ticket is resolved or out_of_scope; claimed, blocked, open or cyclic tickets prevent
+    clear.
+  edge_cases:
+    - A claimed/blocked named ticket is refused without stealing ownership; unknown/cyclic
+      dependencies remain explicit blockers rather than a false clear state.
+    - Unrelated staged/dirty files survive the path-scoped claim commit unchanged in the index and
+      worktree. Failed claim commit prevents work and reports exact partial state; missing HITL
+      answer leaves a committed claim and one concrete question, not a fabricated resolution.
+  intention: INT-47e0
+  complexity: high
+  owner: Jason Robey
+  status: draft

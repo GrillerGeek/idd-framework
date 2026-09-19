@@ -1,0 +1,16 @@
+expectation:
+  id: EXP-71c6
+  intention: INT-53c1
+  description: Maintainers can verify complete authoring bundles while preserving Claude aliases.
+  validation_criteria: The catalog emits all five real bundles with complete resources; local individual
+    install probes pass in both hosts and copy/symlink modes. Ten command/agent frontmatter blocks remain
+    unchanged, adapter model policy stays host-specific, and real host outcomes are recorded separately
+    from package tests.
+  edge_cases:
+    - Removing a copy source leaves every installed resource and helper usable in a project with spaces
+      in its path.
+    - Unavailable host capabilities/authentication or failed model sessions remain explicitly blocked or
+      failed; default npm tests never invoke models or install globally.
+  complexity: high
+  owner: Jason Robey
+  status: draft

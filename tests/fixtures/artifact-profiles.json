@@ -1,0 +1,10 @@
+{
+  "docs/specs/SPEC-test-clean.yaml": {
+    "sha256": "8e3fd0eecb65c59aa2eb09cfb280ddf1204ec4d4c4e260a90b8eebdda72a90f7",
+    "expect": "valid"
+  },
+  "docs/specs/SPEC-test-flawed.yaml": {
+    "sha256": "20ece564e6b47927ebf06382e1e8257f1304ab4cf8a33874956e4617e6fa2787",
+    "expect": "DUPLICATE_KEY"
+  }
+}

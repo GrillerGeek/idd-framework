@@ -1,0 +1,13 @@
+intention:
+  id: INT-9e6c
+  product: PROD-f67b
+  statement: Maintainers can assess and publish the portable IDD migration from a coherent
+    evidence-backed release candidate.
+  rationale: Finish local implementation with accurate review and publication handoff.
+  priority: high
+  dependencies:
+    - INT-1d32
+  expectations:
+    - EXP-eda3
+  owner: Jason Robey
+  status: draft

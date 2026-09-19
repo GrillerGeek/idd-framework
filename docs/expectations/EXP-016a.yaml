@@ -1,0 +1,21 @@
+expectation:
+  id: EXP-016a
+  intention: INT-8164
+  description: Maintainers can distinguish package and host behavior evidence for
+    the three pilot workflows.
+  validation_criteria: All three pilot bundles install individually via pinned
+    skills into temporary Codex/Claude projects in copy and symlink modes.
+    Portable metadata/resources validate; default tests remain offline. A
+    reproducible optional host evaluation prepares disposable
+    clean/flawed/incomplete fixtures and records actual results, versions and
+    limitations. Existing Claude aliases keep frontmatter/model identity while
+    their bodies delegate to the same bundled procedures.
+  edge_cases:
+    - Removing the temporary copy source leaves each installed bundle complete;
+      installation never changes personal skill directories.
+    - An unavailable CLI, authentication, permission or model-service failure is
+      reported as blocked host evidence, never a workflow pass; native plugin
+      certification and bulk conversion wait for the pilot.
+  complexity: high
+  owner: Jason Robey
+  status: draft

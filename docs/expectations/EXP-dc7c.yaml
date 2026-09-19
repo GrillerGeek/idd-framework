@@ -1,0 +1,19 @@
+expectation:
+  id: EXP-dc7c
+  description: Maintainers can install and verify the Forge wrapper without mistaking a controlled
+    fixture for the published application.
+  validation_criteria: The generated bundle installs alone in both hosts/modes with source removal;
+    the existing Claude command frontmatter remains byte-identical and its body is a thin adapter.
+    Offline argument/lifecycle acceptance fixtures and four bounded actual-host controlled-launcher
+    observations distinguish launch success, startup failure, process cleanup and
+    published-app/native-alias limits.
+  edge_cases:
+    - Copy-source removal leaves the skill complete; no personal settings/global installation or
+      consuming npm dependency is introduced by migration tests.
+    - Controlled npx fixtures record actual argv/cwd/URL and owned process cleanup. Registry
+      metadata and any separately run real Forge smoke test are identified independently; fake
+      startup cannot certify the published UI or cross-session persistence.
+  intention: INT-a815
+  complexity: medium
+  owner: Jason Robey
+  status: draft

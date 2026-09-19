@@ -1,0 +1,323 @@
+spec:
+  id: SPEC-57b4
+  product: PROD-f67b
+  intentions:
+    - INT-6f96
+  expectations:
+    - EXP-b9a2
+    - EXP-c4ca
+    - EXP-92ce
+  status: validating
+  context:
+    stack: Existing Markdown/YAML/JSON/Bash, private Node>=22.20.0, yaml2.8.3 and skills1.5.25. Existing
+      Git and safe YAML parser capabilities required for apply.
+    patterns: Canonical portable procedure, closed bundle, main orchestration owns
+      manifests/Git/ledger/deletion, read-only optional classification/distillation/verifier
+      workers.
+    conventions:
+      - Preserve Apache plugin resources and CC BY-SA framework domains.
+      - Use exact internal identity plus source_path for duplicate/variant provenance; preserve
+        original ledger data and active artifact bytes.
+      - Capture original hash/type/mode state before safe parsing and verify after every owned
+        phase; no atomic multi-file guarantees or silent recovery.
+    existing_code_refs:
+      - path: plugin/commands/archive.md
+        note: Existing archival contract, safe orchestration and evaluation patterns.
+      - path: plugin/agents/idd-archivist.md
+        note: Existing archival contract, safe orchestration and evaluation patterns.
+      - path: plugin/references/ledger-reference.md
+        note: Existing archival contract, safe orchestration and evaluation patterns.
+      - path: plugin/bin/idd-archive-scan
+        note: Existing archival contract, safe orchestration and evaluation patterns.
+      - path: plugin/workflows/gap-check.md
+        note: Existing archival contract, safe orchestration and evaluation patterns.
+      - path: scripts/evaluate-reviews.mjs
+        note: Existing archival contract, safe orchestration and evaluation patterns.
+    auth: Existing CLI authentication only. Migration archival/annotated-tag/delete/commit tests operate
+      exclusively in disposable repositories, never this repository; no personal Git settings,
+      remote publication or installations.
+  expectations_detail:
+    - id: EXP-b9a2
+      description: Maintainers can classify archival candidates through a standalone skill without
+        deleting or rewriting active work.
+      validation: Default classify inventories artifacts and reviews, normalizes statuses in memory,
+        applies existing ledger rules, resolves internal IDs/descriptive paths, verifies done Specs
+        against code, and writes one new reviewable manifest. It surfaces orphans, unknown states,
+        deferred obligations, corrections and totals, then stops before apply.
+      edge_cases:
+        - A failed/partial Spec spot-check stays keep with status-correction; unknown/malformed
+          artifacts stay kept or cause an actionable classification limitation, never automatic
+          deletion or invented completion.
+        - Existing dated manifests are preserved with a fresh suffix. Published-doc-linked reviews
+          remain in place; source normalization never rewrites surviving artifacts.
+    - id: EXP-c4ca
+      description: Reviewed archival preserves lossless recovery and reconciles every ledger record before
+        deleting only approved files.
+      validation: Explicit apply requires a clean Git tree and committed reviewed manifest, validates all
+        paths/current identities/operations, creates a new annotated tag before mutation/deletion,
+        distills exact artifact and moved-review records, reconciles them separately and together,
+        then performs only approved removals/moves and commits. Entire Exploration content is
+        recoverable from the tag; surviving artifacts are unchanged.
+      edge_cases:
+        - Dirty tree, uncommitted/stale/unsafe manifest, untracked or unsafe Exploration assets,
+          missing files or tag failure refuse before destructive steps. Existing tags are never
+          replaced; choose a fresh numeric suffix.
+        - Ledger mismatch or failed distillation retains the recovery tag and any owned partial
+          ledger state but deletes nothing. Later interruption preserves exact partial operations
+          for recovery; never silently skip missing rows, overwrite move destinations, or edit
+          dangling-reference survivors.
+    - id: EXP-92ce
+      description: Archive packaging and behavior remain verifiable across both hosts without archiving
+        the actual project.
+      validation: One complete bundle carries portable procedure, ledger/manifest resources and existing
+        scan helper; both hosts/modes install independently after source removal. Two native adapter
+        frontmatters remain byte-identical with Claude Sonnet policy. Offline oracles and eight
+        bounded actual-host cases distinguish procedural evidence from native aliases and real
+        publication.
+      edge_cases:
+        - A disposable apply fixture with an artifact, whole Exploration and moved review yields
+          three records, exact annotated-tag recovery and unchanged survivors; old ledger records
+          remain preserved.
+        - Host/auth/Git/parser failures remain failed/blocked; no test calls models by default or
+          archives this repository. Personal configuration, remote push/tag publication and user
+          installations remain unchanged.
+  boundaries:
+    - Do not implement until SPEC-c11a is accepted and committed; serialize catalog integration.
+    - Do not archive or delete this repository’s live/historical artifacts. Destructive evaluation
+      and recovery tags are restricted to explicitly owned disposable fixtures.
+    - Do not change framework schemas/lifecycle values, existing artifacts/templates/examples,
+      helper/runtime implementations, unrelated bundles, plugin identity/version/hooks or personal
+      settings. Only the named legacy ledger reference receives narrow count/normalization
+      clarification and the additive reviewed-input binding/legacy-manifest reclassification
+      compatibility explanation.
+    - Do not alter the archive command/agent frontmatter or model metadata. Claude Sonnet policy
+      remains adapter-specific; optional workers are read-only.
+    - Do not apply a classify result without explicit apply authorization, replace tags, delete
+      before full reconciliation, change survivors, commit unrelated work, or promise atomic
+      transaction/hostile-race containment.
+    - Do not push, publish, update external marketplaces, install consumer dependencies or write
+      outside Deliverables. New authoring/gates/lifecycle/migration tracking are separate
+      orchestration work.
+  deliverables:
+    - plugin/workflows/archive.md and plugin/references/archive/ — complete portable
+      classification/apply procedure, manifest and ledger resources.
+    - plugin/references/ledger-reference.md and generated
+      plugin/skills/idd-orchestration/references/ledger-reference.md — narrow clarification of
+      in-memory-only normalization and artifact/moved-review reconciliation/counts; preserve other
+      legacy content. Explain new additive manifest input binding and legacy reclassification
+      requirement within the archival contract; ledger record fields remain unchanged.
+    - plugin/commands/archive.md and plugin/agents/idd-archivist.md bodies — thin
+      metadata-preserving adapters.
+    - plugin/skill-catalog.json and plugin/skills/idd-archive/ — closed bundle with scan helper,
+      fifteen portable/zero planned stages. tests/pilot.test.mjs count update only.
+    - tests/archive-workflows.test.mjs, tests/helpers/archive-workflows.mjs,
+      tests/fixtures/archive-workflows/ and scripts/evaluate-archive.mjs — offline fixtures/oracles
+      and optional bounded actual-host tests; reuse shared transport/install unchanged.
+    - README.md, plugin/README.md and docs/contributing-agents.md — inventory, classify/apply
+      checkpoint, correction/recovery and evidence limits.
+    - docs/reviews/SPEC-57b4-<UTC>-execution.md and docs/reviews/SPEC-57b4-host-evaluation.md —
+      exact validation/report outcomes and limitations.
+  validation:
+    automated:
+      - All prior/new tests and npm check pass on minimum/current Node; deterministic assembly,
+        metadata/protected bytes/modes, ownership and local links verified.
+      - 64 installer combinations pass including archive alone in both hosts/modes after copy-source
+        removal; scan helper works without hierarchy creation.
+      - Offline acceptance fixtures reject traversal, symlink/hardlink/stale paths, duplicate
+        operations, uncommitted manifest, bad tag/mismatch, wrong totals, survivor changes and
+        unapproved deletion; recover every removed tracked file byte/mode from an annotated tag.
+        Synthetic outcomes are not production enforcement. Add committed-change regressions for Spec
+        changes and code-only changes after classification, unchanged-content commit acceptance,
+        legacy missing-binding refusal, and co-deleted review attribution to every archived
+        duplicate-ID variant.
+      - "Eight actual-host observations: both hosts classify a mixed fixture, apply a committed
+        explicitly reviewed manifest successfully, refuse a dirty apply, and stop a deliberately
+        undistillable/mismatched apply before deletion. Configured models, copy-source removal,
+        visible scripts and independent full trace review required; model output stays capped
+        at4MiB, the default run limit is600seconds, and an explicit contributor-only
+        --timeout-seconds1200 option is permitted only for Claude apply after documented preparation
+        timeouts; cleanup never removes evidence tags before verification. Explicit Claude low
+        effort is also permitted after recorded medium timeout recovery; receipts distinguish the
+        actual effort lane, all original filesystem and Git baselines remain bound, and prior
+        failures stay retained."
+      - Success fixture archives one terminal artifact and one entire terminal Exploration, moves
+        one cross-cutting review and co-deletes one subject review, preserves one live referenced
+        artifact and old ledger record; verify3new records/one archives entry and every original
+        removed/moved byte/mode at the tag. No real repository archival.
+      - Execution report exists/nonempty and is reread before itemized passes; git diff --check and
+        accurate failure/partial-state documentation pass.
+    human_review:
+      - Review classifications, real local tag/recovery traces and count correction; actual human
+        peer review remains pending under unattended-session authorization.
+      - Native aliases, remote tag propagation and universal concurrency/crash recovery remain later
+        integration evidence.
+  archive_contract:
+    classification: No args means classify only. Safe scan helper inventory is discovery, not authority
+      to delete; safely read current artifacts and relationships by internal IDs. Normalize statuses
+      in memory; preserve surviving and candidate files. Existing canonical
+      classification/unknown/deferred/orphan/duplicate/review rules apply. Done Specs require
+      concrete read-only spot verification (available workers or truthful sequential fallback);
+      pending/failed verification cannot remain an apply-ready archive row. Main conversation saves
+      a fresh manifest after complete candidate/path/count validation, surfaces every
+      flag/correction/orphan and stops. Missing/unsafe parser gives an actionable limitation, no
+      inferred parse. Choose the new manifest path first, retain the reviewed_inputs content
+      inventory before analysis, and publish it only after rechecking all captured inputs. This
+      portable apply prerequisite is documented as a compatibility change for legacy manifests.
+    authorization: Only explicit --apply <manifest> or equivalent unambiguous session approval of that
+      concrete committed manifest invokes apply. The presence of a manifest or classify success
+      alone is not approval. Honor already supplied approval without asking again. Migration
+      fixtures explicitly supply fictional human review/approval as case facts; never certify actual
+      project human review.
+    preflight: Require own Git root, clean status including untracked files, no conflicts and manifest
+      tracked/committed at HEAD. Compare manifest and selected artifacts to captured HEAD/baseline;
+      safe parse duplicate keys rejected. Validate rows uniquely by type/internal id/source path and
+      disposition; paths must be contained in known docs artifact/review trees with safe real
+      ancestors and regular single-link files. Reject overlapping/conflicting operations, unknown
+      actions/types, path traversal, missing files, mismatched IDs, changed inputs and occupied move
+      destinations. For EXPL, manifest map row owns its exact directory only; enumerate every nested
+      file/asset, require tracked recoverable HEAD bytes/modes and no symlink/untracked/ignored
+      extra assets before authorizing whole-directory removal. Read all assets needed for safe
+      inventory; distill map and ticket resolutions without inventing asset content. Require the
+      reviewed_inputs binding before all tag/ledger/deletion operations; current HEAD/baseline
+      capture alone never establishes that a manifest is still reviewed against current content.
+    tag: Before ledger changes or deletion, create an annotated idd-archive-YYYY-MM tag at exact
+      preflight HEAD, with -2,-3 suffix on collision. Never force or move an existing tag. Verify
+      tag object is annotated, points to expected commit, and contains manifest and every selected
+      path/full EXPL tree. Tag failure stops before writes/deletion. Personal signing/hook policy is
+      respected; fixture-local controlled Git configuration is explicitly isolated.
+    reconciliation: Let A be archive artifact rows and R be move-to-archive review rows. Require exactly
+      A new artifact ledger records matched by id+source_path+tag and exactly R new type:review
+      records matched by original source_path+tag; newly added total and archives entry count are
+      A+R. Co-deleted subject reviews are links.reports on their artifact and create no extra
+      record. Keep rows create no record. Preserve all previous record/archive-entry content; never
+      deduplicate same-ID variants by ID alone. A valid candidate ledger and complete matching
+      distillation are required before any deletion. Malformed/undistillable row or count/identity
+      mismatch stops, retaining tag and any explicit owned partial state, with zero deletions.
+    apply: Orchestration alone saves ledger after original-byte checks, rereads/parses/reconciles it,
+      then removes exactly listed archive artifacts (whole EXPL directory), deletes approved subject
+      reviews, moves only approved cross-cutting reviews to absent docs/archive targets, and removes
+      the committed manifest. Recheck current expected state immediately before each operation.
+      Preserve modes and content of moves. Warn on surviving references to archived IDs without
+      rewriting survivors. Commit only the owned ledger/deletion/move changes, verify commit and
+      preservation, and remind user to push with --follow-tags later; never push automatically.
+      Failure preserves exact tag/ledger/files/index partial state and gives recovery commands for
+      the owned paths; never silently restart destructive work, roll back user edits or regenerate
+      records blindly.
+    fixture_failure: The negative undistillable fixture has an approved archive row whose required
+      source evidence cannot be safely distilled (for example malformed artifact YAML discovered
+      during current safe input validation); refusal may occur before tag and must delete nothing.
+      Offline synthetic late-ledger mismatch proves the zero-deletion acceptance oracle but is not
+      actual malicious-worker simulation. Dirty refusal uses a genuinely modified user file with the
+      manifest already committed, so it tests cleanliness separately from manifest tracking.
+    coverage: Active command/agent, canonical ledger reference and generated legacy copy own the count
+      and normalization corrections. Historical specs/plans/reports remain unchanged; IDs/status
+      enums and ledger record schema remain compatible, with count semantics clarified rather than a
+      new field.
+    reviewed_input_binding: "New manifests add manifest.reviewed_inputs with version:1,
+      excluded_manifest:<its own repository-relative path>, and files:[{path,kind,mode,sha256}]
+      sorted by path. Classification captures every Git-visible file (tracked plus untracked
+      nonignored), excluding only .git internals and this newly chosen manifest path; kinds are
+      regular file only, modes are permission bits, SHA-256 covers exact bytes. Empty directories
+      and Git index/HEAD bookkeeping are not part of this content binding, so committing the
+      reviewed input tree and manifest does not invalidate it. Every artifact, review, ledger and
+      code spot-verification input must be within this captured set; unsafe/unrepresented inputs
+      cause a limitation, not a fabricated verified result. Before saving the candidate manifest,
+      re-enumerate and compare that exact capture to prevent adoption of mid-classification changes.
+      At apply, re-enumerate the same Git-visible set excluding exactly the current manifest and
+      require exact membership/type/mode/hash equality before tagging. Changes committed after
+      classification to Spec, supporting code, old ledger or any other bound file therefore refuse
+      despite a clean tree. Human edits to this manifest (including keep/archive choices) remain
+      permitted and require the already-defined explicit approval/commit. A legacy manifest without
+      this binding remains readable historical data but is not apply-ready: classify again, review
+      and commit a new bound manifest. This is an additive internal manifest field and a documented
+      stricter apply prerequisite; Product/Intention/Expectation/Spec and ledger record schemas do
+      not change."
+    review_attribution: A co-deleted subject review is linked in links.reports of every archived record
+      with that exact subject ID, distinguished by source_path; never select one arbitrary variant.
+      If any same-ID variant stays active, the subject review must stay in place under the existing
+      active-review rule. A delete review with no archived subject, a mixed keep/archive subject, or
+      duplicated/conflicting operation is invalid at preflight. The review is removed once and
+      creates no extra record; source_path+tag retains lossless shared provenance.
+    evaluation_recovery: "September13 author recovery decision: repeated original600-second Claude apply
+      trials stopped during lengthy reasoning/preparation; default and explicit medium effort trials
+      remain failed/blocked evidence. Preserve all original fixtures/receipts. Add an optional
+      evaluation-only timeout-seconds value1200 for Claude apply, with default600 for all
+      hosts/cases; reject other values/host-case combinations before fixture creation. Record the
+      requested/actual bound and effort in each receipt. Configured model/style remain unchanged
+      unless the already documented contributor-only medium-effort experiment is explicitly
+      selected. No production procedure/runtime, phase gate, output oracle, mutation ownership
+      or4MiB bound changes. Prior successful cases completed within600seconds and remain valid
+      within this maximum; the longer case is reported as a20-minute performance lane, never
+      retroactively as ten-minute evidence. Require a fresh independent content/coverage gate on
+      this revision before implementing the option or starting its trial; then resume existing
+      in-progress implementation under this explicit author recovery decision, without fabricating
+      ready reset or human review. The medium-effort sKMCpp trial issued its inline process but
+      failed during capture on unsupported git for-each-ref -z; it timed out before a correction.
+      The next prompt may explicitly use supported --format output instead. This is retained as a
+      real command failure plus timeout, not only latency. No project mutation occurred. After the
+      V9Z3Qa1200second/medium timeout with independently recoverable partial state, allow an
+      explicit low effort evaluator lane for Claude only, keeping the configured model/output style
+      and1200second/4MiB apply bound. Default configured and medium remain supported. Capture low in
+      each receipt. The evaluator prompt must require comparing original Git HEAD/index/config/refs
+      retained at first capture against every later Git check before adopting any expected owned
+      tag/commit delta. Never recapture as a new Git baseline. Preserve V9Z3Qa partial evidence
+      without repair. This changes only optional evaluator controls and prompts, not canonical
+      Archive procedures, shipped resources, required8-case acceptance or production safety
+      contracts."
+    evaluation_clock_and_index: "September15 author recovery after ltRP7Q: preserve the actual
+      partial fixture and original failed receipt. The contributor evaluator owns an explicit
+      invocation date, captured in UTC by archiveState before the model call. Pass that exact date
+      into archivePrompt and state it as fixture-only context for new dated filenames, ledger
+      updated_at/archived_at/archive-entry date and the tag month. Validate a real ISO calendar
+      date without changing any process-wide or personal timezone, existing manifest dates or
+      production workflow date semantics. Existing strict date assertions remain unchanged; do
+      not retrospectively accept the local-date failed receipt. Add focused regression coverage
+      for a supplied invocation date different from the host day and for invalid calendar dates.
+      Clarify that Git HEAD/config/branch/refs remain bound to first capture while the index and
+      status acquire only the exact intended owned staging delta. Derive that expected delta
+      before git add, verify staged path/mode/blob and deletion membership plus absence of
+      unstaged/untracked changes, and after the owned commit require clean status and the exact
+      parent/tree delta. Do not require empty status while approved staged changes exist; never
+      recapture index/status as a new baseline or whitelist only paths. All original preservation,
+      pre-tag binding, persisted reconciliation, per-operation guards, configured model/style,
+      low-effort option,1200second bound and4MiB output cap remain. These are narrow optional
+      evaluator prompt/date plumbing and tests in existing Deliverable5, not a production engine
+      or weakened acceptance oracle. Require independent content/coverage review before editing
+      evaluator code and starting a fresh fixture; lifecycle stays in-progress. Downstream
+      integration is paused for this evaluation-only correction and must revalidate affected
+      evidence and final tests before closure."
+  coverage_dispositions:
+    - files:
+        - AGENTS.md
+        - CLAUDE.md
+        - docs/framework.md
+        - docs/artifacts.md
+        - templates/
+        - examples/
+        - docs/superpowers/
+        - plugin/workflows/idd-orchestration.md
+        - plugin/references/exploration-template.md
+        - tests/fixtures/plugin-inventory.json
+      disposition: accept-omission
+      reason: Navigation, schemas/history, terminal enums and original metadata remain valid; no surviving
+        artifact rewrite or unrelated stage behavior required.
+    - files:
+        - plugin/bin/idd-archive-scan
+        - plugin/bin/idd-next-id
+        - plugin/runtime/
+        - scripts/test-install.mjs
+        - scripts/lib/assembly.mjs
+      disposition: accept-omission
+      reason: Existing generic helper/runtime/install/assembly are reused unchanged; authoritative safe
+        parsing and count reconciliation reside in the new portable procedure.
+  gap_check:
+    status: passed
+    blockers: 0
+    warnings: 0
+    report: docs/reviews/SPEC-57b4-gap-check.md
+    date: 2026-09-15
+  migration_authorization:
+    source: Repeated user approval and unattended continuation with documented best-judgment decisions.
+    human_peer_review: pending
+    scope: Session-specific authoring/orchestration only; implementation waits for SPEC-c11a acceptance
+      and commit.

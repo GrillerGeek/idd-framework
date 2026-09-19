@@ -1,0 +1,18 @@
+expectation:
+  id: EXP-b9a2
+  description: Maintainers can classify archival candidates through a standalone skill without
+    deleting or rewriting active work.
+  validation_criteria: Default classify inventories artifacts and reviews, normalizes statuses in
+    memory, applies existing ledger rules, resolves internal IDs/descriptive paths, verifies done
+    Specs against code, and writes one new reviewable manifest. It surfaces orphans, unknown states,
+    deferred obligations, corrections and totals, then stops before apply.
+  edge_cases:
+    - A failed/partial Spec spot-check stays keep with status-correction; unknown/malformed
+      artifacts stay kept or cause an actionable classification limitation, never automatic deletion
+      or invented completion.
+    - Existing dated manifests are preserved with a fresh suffix. Published-doc-linked reviews
+      remain in place; source normalization never rewrites surviving artifacts.
+  intention: INT-6f96
+  complexity: high
+  owner: Jason Robey
+  status: draft

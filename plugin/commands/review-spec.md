@@ -4,15 +4,6 @@ argument-hint: "[spec-id]"
 allowed-tools: "Read Write Glob Grep Bash(mkdir *) Bash(ls *)"
 ---
 
-!`mkdir -p docs/products docs/intentions docs/expectations docs/specs docs/reviews`
+Load ${CLAUDE_PLUGIN_ROOT}/skills/idd-review-spec/SKILL.md and follow its canonical procedure for $ARGUMENTS. Main-conversation orchestration owns selection, original-context/preservation checks and all output writes. Do not initialize directories during discovery.
 
-Available Specs:
-!`ls docs/specs/*.yaml 2>/dev/null | head -20 || echo "No specs found. Run /idd-framework:write-spec first."`
-
-Launch the `idd-spec-reviewer` subagent to validate implementation against a Spec.
-
-**Model directive:** When dispatching this subagent, you MUST explicitly pass `model: "sonnet"` to the Agent/Task tool call. This subagent is tuned for the current Sonnet generation (validation across Expectations, Boundaries, and Deliverables with codebase verification) and must not inherit the main session's model. Do NOT skip this parameter.
-
-If `$ARGUMENTS` contains a spec ID (e.g., SPEC-d12e), pass it to the agent so it can load the correct Spec from `docs/specs/`.
-
-If no spec ID is provided, the agent will list available Specs in `docs/specs/` and identify those in "in-progress" or "review" status.
+When delegating the bounded read-only review to idd-spec-reviewer, explicitly pass model: "sonnet" and the selected Spec, project root, installed references, captured original context and (technical/deep only) successful sentinel invalidation. The role returns findings; orchestration validates and publishes them. If delegation is unavailable, announce local reviewer/orchestration phases; do not fabricate a dispatch. Review outcome never supplies human peer review or lifecycle permission.

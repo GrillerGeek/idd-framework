@@ -1,0 +1,259 @@
+spec:
+  id: SPEC-c11a
+  product: PROD-f67b
+  intentions:
+    - INT-47e0
+  expectations:
+    - EXP-e54a
+    - EXP-f9c7
+    - EXP-bee0
+  status: review
+  context:
+    stack: Existing Markdown/YAML/JSON/Bash; private Node>=22.20.0, yaml2.8.3 and skills1.5.25 tools.
+    patterns: Canonical portable stage procedures, generated closed bundles, main-conversation
+      questions/claims/writes, optional read-only research/drafting roles.
+    conventions:
+      - Preserve Apache plugin licensing, ID formats, map/ticket schemas and the
+        one-non-research-ticket limit.
+      - Retain date-safe original bytes/types/modes before parsing; safely validate complete
+        candidate edits and preserve partial state on failures.
+      - Keep user interaction in main conversation; apply user unattended migration authorization
+        only to authoring this packet, never as a shipped human-decision exception.
+    existing_code_refs:
+      - path: plugin/commands/chart.md
+        note: Existing stage contracts, portable helpers or isolated evaluation patterns.
+      - path: plugin/commands/resolve.md
+        note: Existing stage contracts, portable helpers or isolated evaluation patterns.
+      - path: plugin/agents/exploration-charter.md
+        note: Existing stage contracts, portable helpers or isolated evaluation patterns.
+      - path: plugin/agents/exploration-resolver.md
+        note: Existing stage contracts, portable helpers or isolated evaluation patterns.
+      - path: plugin/references/exploration-template.md
+        note: Existing stage contracts, portable helpers or isolated evaluation patterns.
+      - path: plugin/bin/idd-next-id
+        note: Existing stage contracts, portable helpers or isolated evaluation patterns.
+      - path: scripts/evaluate-authoring.mjs
+        note: Existing stage contracts, portable helpers or isolated evaluation patterns.
+      - path: scripts/evaluate-reviews.mjs
+        note: Existing stage contracts, portable helpers or isolated evaluation patterns.
+    auth: Existing CLI authentication for bounded disposable evaluations only. Path-scoped claim commits
+      are performed only inside test repositories during migration tests; no personal config or
+      remote actions.
+  expectations_detail:
+    - id: EXP-e54a
+      description: Stakeholders can chart a portable phase-zero map without invented human decisions or
+        unnecessary artifacts.
+      validation: The standalone chart skill reuses confirmed destination/frontier context, asks one
+        missing stakeholder question at a time, preserves precise tickets versus fog, and creates a
+        valid linked map/ticket batch only when warranted. No-fog returns the next appropriate
+        authoring phase with no project writes. Research results contain observed facts;
+        orchestration alone serializes map decisions.
+      edge_cases:
+        - Already confirmed facts are reused; absent human answers are never supplied by a worker or
+          inferred from silence. A no-fog result creates no Exploration directory.
+        - Failed/unavailable research leaves its ticket unresolved and contributes no decision gist;
+          blocked research dependencies are not skipped. Successful local factual research is
+          recorded only in its ticket with a one-line map link/gist.
+    - id: EXP-f9c7
+      description: Resolving one exploration decision preserves claims, dependencies, user work and
+        truthful map completion.
+      validation: Resolve selects a frontier-eligible named or first ticket, commits only that ticket
+        claim before work, and completes at most one non-research ticket per invocation. Main
+        conversation owns HITL answers and map writes. A map becomes clear only when fog is empty
+        and every ticket is resolved or out_of_scope; claimed, blocked, open or cyclic tickets
+        prevent clear.
+      edge_cases:
+        - A claimed/blocked named ticket is refused without stealing ownership; unknown/cyclic
+          dependencies remain explicit blockers rather than a false clear state.
+        - Unrelated staged/dirty files survive the path-scoped claim commit unchanged in the index
+          and worktree. Failed claim commit prevents work and reports exact partial state; missing
+          HITL answer leaves a committed claim and one concrete question, not a fabricated
+          resolution.
+    - id: EXP-bee0
+      description: Exploration workflows retain portable installability, native compatibility and
+        independently reviewed evidence.
+      validation: Both bundles carry complete portable format/procedure resources and ID helper where
+        needed; individual host/mode installs work after source removal. Four adapter frontmatters
+        remain identical with Claude Sonnet policy. Offline fixture/oracles and twelve actual-host
+        observations are distinguished from native aliases and concurrent-session guarantees.
+      edge_cases:
+        - Projects with spaces and existing exploration assets require no other installed stage or
+          consumer dependency. Safe exact IDs, paths, YAML frontmatter and original byte/mode
+          baselines prevent overwriting user files.
+        - Unavailable safe parser, Git claim capability or worker tools is an actionable failure or
+          truthful sequential fallback; isolated test configuration never changes personal Git/agent
+          settings or archives the real repository.
+  boundaries:
+    - Do not implement until SPEC-e1d4 is accepted and committed; serialize catalog/inventory
+      integration.
+    - Do not change artifact/map/ticket schemas, invent lifecycle values, answer stakeholder
+      questions, resolve a second non-research ticket, or treat a failed claim as ownership.
+    - Do not modify existing live/historical project artifacts, framework documents,
+      templates/examples, runtime/helper implementations, other stage bundles, plugin
+      identity/version/hooks or personal settings. Only the explicitly owned legacy Exploration
+      reference receives the terminal-predicate correction.
+    - Do not rename commands or agents or alter their frontmatter/model metadata. Claude Sonnet
+      dispatch policy stays in adapters; optional workers are read-only and never write the shared
+      map.
+    - Do not commit unrelated user changes, steal claims, bypass dependencies, claim atomic
+      multi-file/concurrent-session safety, push, tag, publish or install consumer dependencies.
+    - Do not write outside Deliverables. New authoring artifacts/gates, lifecycle and migration
+      tracking are separately owned orchestration work.
+  deliverables:
+    - plugin/workflows/chart.md and resolve.md — complete portable entry points.
+    - plugin/references/exploration/ — canonical portable format and coordination procedures,
+      derived from existing Apache sources with exact terminal/claim/research decisions.
+    - plugin/references/exploration-template.md and generated
+      plugin/skills/idd-orchestration/references/exploration-template.md — narrow terminal predicate
+      correction only; leave legacy router body and other references unchanged.
+    - plugin/commands/chart.md and resolve.md; plugin/agents/exploration-charter.md and
+      exploration-resolver.md — four thin metadata-preserving adapters.
+    - plugin/skill-catalog.json and plugin/skills/idd-chart/, idd-resolve/ — closed bundles,
+      fourteen portable/one planned stages. tests/pilot.test.mjs owns count update only.
+    - tests/exploration-workflows.test.mjs, tests/helpers/exploration-workflows.mjs,
+      tests/fixtures/exploration-workflows/ and scripts/evaluate-exploration.mjs — offline
+      fixture/oracle and optional bounded actual-host evaluation; reuse shared installer/transport
+      unchanged.
+    - README.md, plugin/README.md and docs/contributing-agents.md — inventory/invocation,
+      intentional terminal/claim correction and evidence limitations.
+    - docs/reviews/SPEC-c11a-<UTC>-execution.md and docs/reviews/SPEC-c11a-host-evaluation.md —
+      itemized checks and actual outcomes.
+  validation:
+    automated:
+      - All existing/new tests, minimum/current Node and npm check pass; deterministic assembly,
+        four adapter frontmatter blocks, protected bytes/modes/ownership and local links verified.
+      - 60 installation combinations pass including two stages × two hosts × two modes; copy-source
+        removal preserves helpers/resources and creates no setup artifacts.
+      - Offline acceptance oracles reject stolen/blocked claims, unrelated index commits, false
+        clear, fake human/research decisions, duplicate/malformed frontmatter, wrong links and
+        unowned writes; partial claim/save outcomes report exact owned state. These are oracles, not
+        a concurrent writer implementation.
+      - "Twelve actual-host observations, six in each host: chart confirmed destination plus one
+        local research ticket and one unresolved grilling ticket; chart no-fog no-write; resolve
+        local task with unrelated staged/dirty note; resolve grilling without human answer; named
+        blocked ticket refusal; research failure with unresolved ticket/no gist. Configured models,
+        copied standalone bundle/source removal, full visible scripts,600sec/4MiB limits and
+        independent full-trace review are required."
+      - Corrected terminal condition is consistent in canonical and preserved legacy Exploration
+        template. Report exists/nonempty and is reread before final itemized pass; git diff --check
+        passes.
+    human_review:
+      - Review decision quality, actual claim commits and terminal-state correction; actual human
+        peer review remains pending under unattended-session authorization.
+      - Native aliases, true parallel multi-session research/claim races and every optional
+        prototype/external tool remain separately unverified unless actually observed.
+  exploration_contract:
+    terminal: Frontier definition remains open+unclaimed+all blocked_by resolved. Clear requires no
+      meaningful fog (ignore template comments/whitespace only) AND every ticket is resolved or
+      out_of_scope. Any open/claimed ticket, missing dependency or cycle prevents clear. This
+      deliberately fixes premature-clear behavior; schema/status enums do not change. All four
+      currently active textual references found by impact sweep are owned (resolver body, charter
+      body, canonical template and generated legacy template).
+    selection: Resolve exact internal EXPL id from map frontmatter in descriptive directory; empty input
+      with multiple active maps asks selection; one may select it. Load only map initially, then
+      ticket frontmatter to compute frontier, bodies only on demand. Explicit ticket basename must
+      be contained and eligible; never override claim/dependency rules. Unknown/ambiguous/terminal
+      map or malformed frontmatter refuses before writes.
+    claim: Require a Git root and selected tracked ticket clean in both index/worktree, with no
+      unresolved conflicts. Preserve unrelated staged/dirty files. Prepare only status claimed and
+      claimed_by value, validate original bytes/mode immediately before localized write, then use a
+      path-scoped commit that includes only this ticket (git commit --only -- <ticket> or
+      equivalent). Do not change user Git settings or signing policy; failed commit means no work,
+      preserve/report exact partial state. Verify actual committed ticket and unrelated staged
+      diff/worktree before proceeding. Claims are Git coordination, not a lock across unmerged
+      repositories.
+    questions: Main conversation asks one missing HITL question at a time and reuses supplied actual
+      answers. Chart confirms destination before mapping fog; absence of fog is successful no-write
+      handoff. Resolver commits claim before working/questioning a selected ticket.
+      Grilling/prototype cannot finalize without actual human input; task/research may proceed only
+      on available authorized facts/work. One non-research ticket per invocation remains strict even
+      if user says keep going.
+    research: "Distinguish unpublished proposals from persisted tickets. For newly drafted chart tickets
+      and newly graduated research proposals after a decision, perform eligible factual research
+      before their exclusive batch creation: no shared persisted ticket exists to claim, no Git
+      claim is fabricated, and no initial commit is implied. Read-only workers receive precise
+      proposal/map context and authorized local sources. The first published ticket is resolved only
+      with validated factual evidence, or open with empty claimed_by and an explicit unresolved
+      reason when research fails/unavailable; publish a one-line decision gist only for a resolved
+      result. This is an explicit unshared-proposal exception, not permission to bypass claims on
+      existing tickets. Existing persisted research tickets use the normal tracked/clean path-scoped
+      claim before work; newly saved open tickets require a committed baseline before a later
+      resolve invocation. Apply dependency eligibility to both proposals and existing tickets; a
+      dependency on another proposal becomes resolved only from a validated successful result, never
+      merely dispatch. Gather available read-only work in parallel or truthfully sequentially;
+      serialize all project writes. Do not publish false claims or resolutions."
+    writes: Validate whole new map/ticket batch, exact safe paths/frontmatter/IDs/dependencies before
+      first save. Use exclusive creation/no-follow paths and retained full project baselines. Update
+      selected ticket resolution and map gist locally, preserve unrelated
+      sections/comments/assets/modes. New ticket numbers are next unused NN sequence, wire
+      dependencies after filenames reserved. Remove only fog actually graduated, keep details in
+      ticket; out_of_scope goes only to its map section. Avoid deleting invalidated existing tickets
+      without explicit author decision; default mark out_of_scope with reason.
+      Interruption/concurrent edit stops with precise partial-state/recovery, no automatic rollback.
+    fixtures: All factual research uses a supplied local FACTS.md and no network. Successful chart has
+      explicitly confirmed destination, notes, one precise research question answered in FACTS.md,
+      one precise grilling question left open, and a stated fog item. No-fog fixture explicitly
+      confirms no unresolved decision. Resolve task records the local supported runtime fact, with a
+      second open ticket proving one-ticket limit; unrelated note staged then further edited must
+      retain exact staged patch/worktree and remain outside claim commit. Missing-HITL fixture
+      permits claim but provides no answer; require exactly one question and no resolution. Blocked
+      fixture named ticket depends on unresolved/cyclic ticket and has empty fog; no
+      writes/falseclear. Research-failure fixture selects a question whose explicitly required local
+      source is absent; it may commit a claim but cannot invent a result or gist. New-chart research
+      operates only on unpublished proposals, then publishes validated resolved/open ticket state
+      atomically only at the per-file level via exclusive creation; no claim commit is expected for
+      those proposals. Existing research-failure fixture uses a committed open ticket and therefore
+      requires a claim commit. Offline tests additionally cover new graduated research failure,
+      prototype asset ownership/collision and unavailable-task/prototype unresolved states; those
+      synthetic cases are not actual-host certification.
+    prototype_and_task_scope: For a prototype, default to the cheapest concrete Markdown outline in a
+      newly declared exclusive path under the selected Exploration
+      assets/<ticket-basename>-prototype.md, linked from that ticket Assets section. Before writing,
+      state that exact path and artifact purpose; a selected prototype ticket authorizes this
+      bounded illustrative artifact, not changes elsewhere. If that path exists, preserve it and
+      choose a fresh numeric suffix; validate safe containment and baselines. Keep the committed
+      claim unresolved until the actual human reacts and supplies the decision; never infer approval
+      from creating the asset. Honor any explicitly required prototype format/tool instead of
+      silently substituting an inadequate outline; unavailable capability leaves the claim
+      unresolved with a concrete limitation. Task tickets may perform read-only factual work and
+      explicitly session-authorized actions only; enumerate any separately authorized output
+      paths/actions before work. Ticket text alone does not grant arbitrary project, external or
+      destructive write authority. Missing authorization/tooling yields a precise human
+      checklist/question and an unresolved committed claim. Preserve original assets and all unowned
+      files; report partial state without rollback.
+  coverage_dispositions:
+    - files:
+        - AGENTS.md
+        - CLAUDE.md
+        - docs/framework.md
+        - docs/artifacts.md
+        - templates/
+        - examples/
+        - docs/superpowers/
+        - plugin/workflows/idd-orchestration.md
+        - plugin/agents/idd-archivist.md
+        - plugin/references/ledger-reference.md
+        - tests/fixtures/plugin-inventory.json
+      disposition: accept-omission
+      reason: Schemas/history/frontmatter and navigation remain valid; archive consumes terminal enums
+        unchanged. Only active Exploration terminal predicate references require correction and are
+        owned.
+    - files:
+        - plugin/bin/idd-next-id
+        - plugin/runtime/
+        - scripts/test-install.mjs
+        - scripts/lib/assembly.mjs
+      disposition: accept-omission
+      reason: Reuse unchanged generic helpers/runtime/install/assembly; no required validation depends on
+        edits.
+  gap_check:
+    status: passed
+    blockers: 0
+    warnings: 0
+    report: docs/reviews/SPEC-c11a-gap-check.md
+    date: 2026-09-13
+  migration_authorization:
+    source: Repeated user approval and unattended continuation with documented best-judgment decisions.
+    human_peer_review: pending
+    scope: Session-specific authoring/orchestration only; implementation still waits for SPEC-e1d4
+      acceptance and commit.

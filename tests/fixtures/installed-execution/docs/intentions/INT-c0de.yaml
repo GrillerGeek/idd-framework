@@ -1,0 +1,11 @@
+intention:
+  id: INT-c0de
+  product: PROD-c0de
+  statement: Callers obtain predictable greeting behavior.
+  rationale: A small fixture reveals workflow errors without touching real projects.
+  priority: high
+  dependencies: []
+  expectations:
+    - EXP-c0de
+  owner: Casey Example
+  status: defined

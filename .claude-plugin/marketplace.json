@@ -1,0 +1,12 @@
+{
+  "name": "idd-framework-local",
+  "owner": {
+    "name": "GrillerGeek"
+  },
+  "plugins": [
+    {
+      "name": "idd-framework",
+      "source": "./plugin"
+    }
+  ]
+}

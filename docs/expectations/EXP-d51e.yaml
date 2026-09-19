@@ -1,0 +1,18 @@
+expectation:
+  id: EXP-d51e
+  intention: INT-b7a6
+  description: The installed execution route preserves host configuration and clearly distinguishes its
+    guarantees from native prose-only dispatch.
+  validation_criteria: Standalone copy and symlink installs carry executable runner, shared runtime, pinned
+    YAML parser and licenses. Real disposable runs use a non-a1b2 Spec ID, preserve the configured
+    model/style and dirty files, and verify actual output. CLI docs identify terminal invocation, Node
+    prerequisite, saved sessions, no nested-session bypass and optional existing Claude Sonnet
+    implementer policy.
+  edge_cases:
+    - Copy-source removal and a project outside the checkout do not break imports or resource lookup.
+    - Nested Claude invocation refuses without clearing host guard variables; missing
+      runtime/CLI/authentication and session/model/style changes are explicit failures, never
+      ordinary/native certification.
+  complexity: high
+  owner: Jason Robey
+  status: draft

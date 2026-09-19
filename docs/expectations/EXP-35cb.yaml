@@ -1,0 +1,17 @@
+expectation:
+  id: EXP-35cb
+  intention: INT-8164
+  description: Stakeholders can define a Product using a standalone interview
+    skill in either host.
+  validation_criteria: The installed idd-interview skill reuses supplied context,
+    asks only for missing decisions, preserves explicit exploration lineage, and
+    creates one valid Product with a bundled collision-aware helper. It has no
+    dependency on a plugin root, global PATH helper or another skill.
+  edge_cases:
+    - Missing owner or unconfirmed product facts remain questions or explicitly
+      labelled assumptions; no fabricated approval or identity.
+    - An existing descriptive Product filename prevents collision; project and
+      installed-bundle paths may contain spaces.
+  complexity: high
+  owner: Jason Robey
+  status: draft

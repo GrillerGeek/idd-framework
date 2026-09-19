@@ -1,0 +1,15 @@
+intention:
+  id: INT-1d32
+  product: PROD-f67b
+  statement: Users can install and maintain IDD through native Codex and Claude clients with one
+    compatible plugin source.
+  rationale: Complete host distribution after self-contained stage/router migration without personal
+    state changes.
+  priority: high
+  dependencies:
+    - INT-751d
+  expectations:
+    - EXP-89e9
+    - EXP-35d4
+  owner: Jason Robey
+  status: draft

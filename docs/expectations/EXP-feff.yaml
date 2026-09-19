@@ -1,0 +1,19 @@
+expectation:
+  id: EXP-feff
+  intention: INT-8164
+  description: Reviewers can gap-check single Specs and portfolios without
+    changing the contracts under review.
+  validation_criteria: The standalone idd-gap-check skill includes selection,
+    operational invalidation, completeness 1–10, report-only adversarial review,
+    coverage/dispositions, portfolio conflict reporting and current-result
+    validation. Only orchestration writes one gap_check mapping; lifecycle and
+    content remain unchanged.
+  edge_cases:
+    - Malformed YAML or an incomplete Spec cannot reuse a previous passed
+      result; incomplete entries are excluded from portfolio coverage.
+    - Missing delegation falls back to explicitly separated
+      reviewer/orchestrator roles; reviewer interruption or malformed output
+      leaves the operational blocker.
+  complexity: high
+  owner: Jason Robey
+  status: draft
