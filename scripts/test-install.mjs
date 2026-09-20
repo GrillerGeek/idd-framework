@@ -8,11 +8,16 @@ import { runProcess } from './lib/process.mjs';
 import { spawnSync } from 'node:child_process';
 import { portableFixture, workspace } from '../tests/helpers/workspace.mjs';
 
-export function installerExecutable() {
-  const packageRoot=path.join(repositoryRoot,'node_modules/skills');
+export function installerExecutable(env=process.env) {
+  const supplied=env.SKILLS_CLI_PATH;
+  const executable=supplied?fs.realpathSync(supplied):path.join(repositoryRoot,'node_modules/skills/bin/cli.mjs');
+  const packageRoot=path.dirname(path.dirname(executable));
   const metadata=JSON.parse(fs.readFileSync(path.join(packageRoot,'package.json'),'utf8'));
-  assert.equal(metadata.version,'1.5.25','installer must match the reviewed pin');
-  return path.join(packageRoot,'bin/cli.mjs');
+  const expected=env.SKILLS_EXPECTED_VERSION??'1.5.25';
+  assert.match(expected,/^\d+\.\d+\.\d+$/, 'expected installer version must be exact');
+  assert.equal(metadata.name,'skills','installer must be the skills package');
+  assert.equal(metadata.version,expected,'installer must match the explicitly selected version');
+  return executable;
 }
 export function installLocal(source,target,name,{copy=false,stateRoot=target,agents=['codex','claude-code']}={}) {
   return runProcess(process.execPath,[installerExecutable(),'add',source,'--agent',...agents,'--skill',name,'--yes',...(copy?['--copy']:[])],{
@@ -62,9 +67,28 @@ export function probeInstall() {
         }
       }
     }
+    // Exercise repository discovery as well as the direct-bundle installs above.
+    const router=production.bundles.find(b=>b.directory==='idd-orchestration');
+    assert.ok(router,'complete router is present');
+    for(const agent of ['codex','claude-code']) {
+      const target=path.join(ownedRoot,`repository ${agent}`);fs.mkdirSync(target);
+      installLocal(repositoryRoot,target,router.directory,{copy:true,agents:[agent]});
+      const parent=path.join(target,agent==='codex'?'.agents/skills':'.claude/skills');
+      assert.deepEqual(fs.readdirSync(parent),[router.directory]);
+      const installed=path.join(parent,router.directory);
+      assert.equal(fs.lstatSync(installed).isSymbolicLink(),false);
+      const actual=fs.readdirSync(installed,{recursive:true,withFileTypes:true}).filter(f=>f.isFile()).map(f=>path.relative(installed,path.join(f.parentPath,f.name))).sort();
+      assert.deepEqual(actual,router.files.map(f=>f.destination).sort());
+      for(const file of router.files) {
+        const destination=path.join(installed,file.destination);
+        assert.deepEqual(fs.readFileSync(destination),fs.readFileSync(path.join(repositoryRoot,'plugin/skills',router.directory,file.destination)));
+        assert.equal(fs.statSync(destination).mode&0o777,file.executable?0o755:0o644);
+      }
+      console.log(`PASS: repository discovery, ${agent}, complete router bytes and modes`);
+    }
   } finally {fs.rmSync(ownedRoot,{recursive:true,force:true});}
 }
 if(process.argv[1] && path.resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
-  try {probeInstall();console.log('Package installation verified; host workflow behavior requires separate evaluation.');}
+  try {console.log(`Installer: ${installerExecutable()}`);probeInstall();console.log('Package installation verified; host workflow behavior requires separate evaluation.');}
   catch(error){console.error(error.message);process.exitCode=1;}
 }

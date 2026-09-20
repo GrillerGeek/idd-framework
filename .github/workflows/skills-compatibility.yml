@@ -1,0 +1,34 @@
+name: Skills installer compatibility
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  installer:
+    name: skills (${{ matrix.installer }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    continue-on-error: ${{ matrix.installer == 'latest' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        installer: ['latest']
+    env:
+      DISABLE_TELEMETRY: '1'
+      DO_NOT_TRACK: '1'
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 22.20.0
+      - run: npm ci
+      - name: Acquire installer without lifecycle scripts
+        run: npm install --prefix "$RUNNER_TEMP/skills-installer" --ignore-scripts --no-audit --no-fund --package-lock=false skills@${{ matrix.installer }}
+      - name: Record exact installer version
+        run: |
+          node -e 'const fs=require("fs"),p=require("path");const cli=p.join(process.env.RUNNER_TEMP,"skills-installer/node_modules/skills/bin/cli.mjs");const m=require(p.resolve(cli,"../../package.json"));if(!/^\d+\.\d+\.\d+$/.test(m.version))throw Error("Expected exact version");fs.appendFileSync(process.env.GITHUB_ENV,`SKILLS_CLI_PATH=${cli}\nSKILLS_EXPECTED_VERSION=${m.version}\n`);console.log(`Testing skills ${m.version}`)'
+      - name: Verify copied bundles and repository discovery
+        run: node scripts/test-install.mjs

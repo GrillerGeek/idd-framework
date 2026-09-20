@@ -49,23 +49,29 @@ project using the catalog maintained in this repository.
 
 ### Alternative: `npx skills`
 
-For a skill-only installation, run this in your project with Node.js and npm
-available:
+With **Node.js 22.20.0+**, npm and Git available, run this in your project:
 
 ```bash
-npx --yes skills@1.5.25 add https://github.com/GrillerGeek/idd-framework/tree/main --skill idd-orchestration --agent codex --copy --yes
+npx skills@1.5.25 add GrillerGeek/idd-framework --skill idd-orchestration
 ```
 
-The router includes all fifteen IDD workflow stages. Replace `--agent codex`
-with `--agent claude-code` for Claude. Choose either the native plugin or
-standalone skills in a client to avoid duplicate entry points. Standalone skills
-do not install Claude's native agents. After restarting your app, ask it to use
-`idd-orchestration` to interview you about your product. The `/idd-framework:*`
-examples below are native Claude plugin commands; skill-only installs use the
-installed skill names instead.
+The interactive installer lets you choose your coding app and installation scope.
+Choose **project** to keep the skill with this project; choose **global** if you
+want it available across projects. Version `1.5.25` is the tested installer pin,
+not the IDD version.
 
-For local development, updates, removal and host prerequisites, see the
-[installation guide](docs/installation.md).
+**Start with `idd-orchestration`.** This single skill includes all fifteen IDD
+workflow stages; you do not need to select or install each stage. Individual
+stage skills remain available for users who want a narrower installation.
+
+Standalone skills do not install Claude's native agents. After restarting your
+app, ask it to use `idd-orchestration` to interview you about your product.
+The `/idd-framework:*` examples below are native Claude plugin commands;
+skill-only installs use the installed skill names instead.
+
+Choose the native plugin or standalone skill route in a client to avoid duplicate
+entry points. The [installation guide](docs/installation.md#standalone-skills)
+covers explicit app selection, verification, updates and removal.
 
 ## Try it in your project
 
