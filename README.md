@@ -14,23 +14,13 @@ edge cases and unclear boundaries before implementation; validation checks the
 result against the agreed outcome. You can also use the framework and templates
 without installing a plugin.
 
-## IDD and Guildhall: which do I need?
-
-| Tool | What it does | Use it when |
-|---|---|---|
-| **IDD** — this repository | Defines the purpose, expected behavior, boundaries and validation criteria; manages artifact review and lifecycle. | You need to decide what to build and make the requirements clear. |
-| **[Guildhall](https://github.com/GrillerGeek/guildhall)** | Coordinates independent coding specialists through tests, implementation and reviews, ending with a PR draft. | You have a concrete task or reviewed Spec and want a structured build. |
-
-Use either tool independently, or use **IDD to define and review → Guildhall to
-build and review → IDD to validate**. IDD also has its own implementation workflow;
-select one execution owner for a Spec rather than starting both runners on it.
-Installing both does not automatically start either workflow.
+**IDD works on its own. Guildhall is an optional companion, not a dependency.**
 
 ## Install
 
-The commands below install **IDD 1.7.1 and Guildhall 0.9.1 from their published
-main branches**. No source clone or contributor build is required. Choose the
-section for your coding app; run only the IDD commands if you do not need Guildhall.
+Install **IDD 1.7.1 from its published main branch**. Choose one route below for
+your coding app. No source clone, contributor build or Guildhall installation is
+required.
 
 ### Codex
 
@@ -39,13 +29,10 @@ Run in a terminal with the Codex CLI and Git installed:
 ```bash
 codex plugin marketplace add GrillerGeek/idd-framework --ref main --json
 codex plugin add idd-framework@idd-framework-local --json
-
-codex plugin marketplace add GrillerGeek/guildhall --ref main --json
-codex plugin add guildhall@guildhall-local --json
 ```
 
-Start a new Codex session in the project you want to work on. The catalog names
-end in `-local` for compatibility; these commands download from GitHub and do not
+Start a new Codex session in the project you want to work on. The catalog name
+ends in `-local` for compatibility; these commands download from GitHub and do not
 require a local clone.
 
 ### Claude Code
@@ -55,38 +42,30 @@ Run in a terminal from the project you want to work on, with Claude Code and Git
 ```bash
 claude plugin marketplace add https://github.com/GrillerGeek/idd-framework.git --scope project
 claude plugin install idd-framework@idd-framework-local --scope project
-
-claude plugin marketplace add https://github.com/GrillerGeek/guildhall.git --scope project
-claude plugin install guildhall@guildhall-local --scope project
 ```
 
-Restart Claude Code in that project. These commands use project scope; omit the
-other tool's pair of commands if you only want one. The catalogs are maintained
-in the two source repositories.
+Restart Claude Code in that project. These commands install the plugin for that
+project using the catalog maintained in this repository.
 
 ### Alternative: `npx skills`
 
-For a skill-only installation, run these in your project with Node.js and npm
+For a skill-only installation, run this in your project with Node.js and npm
 available:
 
 ```bash
 npx --yes skills@1.5.25 add https://github.com/GrillerGeek/idd-framework/tree/main --skill idd-orchestration --agent codex --copy --yes
-npx --yes skills@1.5.25 add https://github.com/GrillerGeek/guildhall/tree/main --skill guildhall-quest --agent codex --copy --yes
 ```
 
-The IDD router includes all fifteen workflow stages. Replace `--agent codex` with
-`--agent claude-code` for Claude. Other installer targets may support skills, but
-Guildhall execution also needs independent worker contexts and shell tools.
-Standalone skills do not install Claude's native agents or hooks. Choose either
-the native plugin or standalone skills for each tool in a client to avoid duplicate
-entry points. After restarting your app, ask it to use `idd-orchestration` to
-interview you about your product, or `guildhall-quest` to prototype a small task.
-The `/idd-framework:*` and `/guildhall:quest` examples below are native Claude
-plugin commands; skill-only installs use the installed skill names instead.
+The router includes all fifteen IDD workflow stages. Replace `--agent codex`
+with `--agent claude-code` for Claude. Choose either the native plugin or
+standalone skills in a client to avoid duplicate entry points. Standalone skills
+do not install Claude's native agents. After restarting your app, ask it to use
+`idd-orchestration` to interview you about your product. The `/idd-framework:*`
+examples below are native Claude plugin commands; skill-only installs use the
+installed skill names instead.
 
 For local development, updates, removal and host prerequisites, see the
-[IDD installation guide](docs/installation.md) and
-[Guildhall installation guide](https://github.com/GrillerGeek/guildhall/blob/main/docs/installation.md).
+[installation guide](docs/installation.md).
 
 ## Try it in your project
 
@@ -108,7 +87,27 @@ the Spec and resolve gap-check findings before building. You can enter at a late
 stage if those artifacts already exist.
 
 Once a Spec is ready, has recorded human readiness approval and a current clean
-gap-check, hand it to Guildhall using the actual ID generated in your project:
+gap-check, use IDD's implementation workflow or hand the Spec to your development
+team. After building, review the implementation as a human and use IDD's
+validation workflow. AI review does not replace human approval.
+
+IDD helpers use Bash; YAML workflows need a safe parser. IDD's optional guarded
+execution runner additionally requires Node.js **22.20.0+** and an authenticated
+Claude terminal, even when planning from another app. See
+[execution prerequisites](docs/installation.md).
+
+## Optional: use with Guildhall
+
+[Guildhall](https://github.com/GrillerGeek/guildhall) adds a team of independent
+coding specialists for test-first implementation and reviews. Install it only if
+you want that execution workflow; IDD's planning, review, implementation and
+validation workflows can be used without it. Follow
+[Guildhall's installation instructions](https://github.com/GrillerGeek/guildhall#install)
+when you choose to add it.
+
+Together, the workflow is **IDD to define and review → Guildhall to build and
+review → IDD to validate**. With Guildhall installed and an IDD Spec ready for
+execution, use the actual Spec ID generated in your project:
 
 ```text
 # Codex
@@ -118,14 +117,9 @@ $guildhall-quest Implement SPEC-<your-id> using its boundaries and validation cr
 /guildhall:quest Implement SPEC-<your-id> using its boundaries and validation criteria.
 ```
 
-After the build, review the implementation as a human and use IDD's validation
-workflow. AI review does not replace human approval. Guildhall stops at `review`;
-implementation approval and QA govern the later lifecycle transitions.
-
-IDD helpers use Bash; YAML workflows need a safe parser. IDD's optional guarded
-execution runner additionally requires Node.js **22.20.0+** and an authenticated
-Claude terminal, even when planning from another app. It is separate from a
-Guildhall quest; see [execution prerequisites](docs/installation.md).
+Choose one execution owner for a Spec; do not start IDD's runner and Guildhall on
+it simultaneously. Guildhall stops at `review`; human implementation approval
+and QA govern the later lifecycle transitions.
 
 ## The Framework
 

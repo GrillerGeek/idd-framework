@@ -8,8 +8,9 @@ dependencies to a consuming project.
 
 Plugin **1.7.1** is available on the repository's `main` branch. The commands
 below use the repository-owned catalogs directly; their `-local` names are stable
-identifiers and do not mean a local clone is required. For installation of IDD
-and Guildhall together, start with the [main README](../README.md#install).
+identifiers and do not mean a local clone is required. IDD works independently;
+Guildhall is optional. See [using IDD with Guildhall](../README.md#optional-use-with-guildhall)
+if you want to add its coding workflow.
 
 ## Choose one installation
 
