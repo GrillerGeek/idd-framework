@@ -123,40 +123,81 @@ while cached version directories remain. This is uninstallation, not cache
 purging. An unrelated plugin in a separate marketplace remains registered and
 unchanged. Do not remove a marketplace shared by plugins you want to retain.
 
-## Standalone skills through the pinned installer
+## Standalone skills
 
-From the consuming project, install only the complete router:
-
-```bash
-npx --yes skills@1.5.25 add https://github.com/GrillerGeek/idd-framework/tree/main --agent codex --skill idd-orchestration --copy --yes
-```
-
-Use `--agent claude-code` for Claude, or select both agents explicitly. Replace
-`--skill idd-orchestration` with a direct stage to install it alone.
-Use `npx --yes skills@1.5.25 add https://github.com/GrillerGeek/idd-framework/tree/main --list`
-to discover all sixteen names. For bulk installation, select `--skill '*'` with the desired hosts.
-
-Pinned 1.5.25 forces copy for a single host, even without `--copy`. When both Codex
-and Claude are selected without `--copy`, Claude uses a symlink into the project's
-canonical `.agents/skills`; it does not link to the source checkout. Installed
-copies and router resources were verified after source removal.
-
-Local sources are skipped by `skills update`. To refresh, repeat the original
-`add` command with the same source, skill, host and copy options. Do not call the
-local update no-op a successful content update. Remote update behavior has not
-been inferred from the local refresh tests.
-
-Remove a named standalone skill with:
+Use Node.js **22.20.0+**, npm and Git. Start in the project where you want the
+skill available. For an interactive installation:
 
 ```bash
-npx --yes skills@1.5.25 remove idd-orchestration --agent codex --yes
+npx skills@1.5.25 add GrillerGeek/idd-framework --skill idd-orchestration
 ```
 
-Use `claude-code` for Claude and explicit names for other selected skills. Avoid
-`--all` across unrelated skills. Verify paths afterward: the installer may report
-success while retaining `.agents/skills/<name>` for other detected hosts sharing
-that directory. Retained copies remain installed, including for Codex. Do not
-silently broaden deletion to other hosts to force complete removal.
+Choose your app and scope in the installer. The steps below use **project scope**
+and an explicit copy for Codex. Substitute `claude-code` for `codex` when using
+Claude. For a global installation, add `--global` to install, list and remove;
+use `--global` instead of `--project` for updates.
+
+The recommended `idd-orchestration` skill contains every workflow stage and its
+resources. You do not need all sixteen separately installed skills. Advanced
+users can replace the selected name with a stage such as `idd-interview`.
+
+### Install and verify
+
+```bash
+npx --yes skills@1.5.25 add GrillerGeek/idd-framework --skill idd-orchestration --agent codex --copy --yes
+npx skills@1.5.25 list --agent codex
+```
+
+Look for `idd-orchestration` in the listing. Restart your coding app, then ask it
+to use `idd-orchestration` for a stakeholder interview.
+This verifies discovery; executing a workflow still depends on the host's tools
+and the workflow's own prerequisites.
+
+### Update
+
+To refresh this named skill from its recorded GitHub source:
+
+```bash
+npx skills@1.5.25 update idd-orchestration --project --yes
+```
+
+This command uses the installer lockfile and detected project destinations.
+To retain an explicit target app and copy method, or repair an installed copy,
+repeat the full `add` command above instead. Restart the app afterward. Updates
+replace installed resources; keep project instructions in your project rather
+than editing the installed bundle.
+
+Both installer 1.5.25 and 1.7.0 were exercised against the current published source:
+refresh retained the expected bytes and reinstallation repaired a deliberately
+modified fixture. This is not evidence of an upgrade between two published
+releases. Local-path sources are skipped by `skills update`; repeat their `add`
+command after updating the source instead.
+
+### Remove
+
+```bash
+npx skills@1.5.25 remove idd-orchestration --agent codex --yes
+npx skills@1.5.25 list --agent codex
+```
+
+Removal was verified in single-host copy fixtures, preserving an unrelated
+skill. In projects sharing `.agents/skills` across hosts, a copy may remain for
+another host; inspect the listing and selected path rather than assuming success
+means every shared copy was deleted. Avoid `--all` when keeping other skills.
+
+### Local sources and advanced discovery
+
+Replace `GrillerGeek/idd-framework` with `/absolute/path/to/idd-framework` or the direct
+`plugin/skills/idd-orchestration` directory to install local development files.
+To inspect available skills without installing:
+
+```bash
+npx skills@1.5.25 add GrillerGeek/idd-framework --list
+```
+
+For advanced bulk use, select `--skill '*'` with explicit agents. The complete
+router is sufficient for normal onboarding. Native Claude commands and agents
+require the native plugin route.
 
 ## Evidence and remaining checks
 

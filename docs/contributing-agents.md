@@ -333,3 +333,31 @@ are retained, with independent review separate from output checks. See
 [installation guide](installation.md). Archive/Router acceptance and native
 implementation closures are complete. Fresh desktop sessions, actual native alias
 execution, human review and publication are not inferred from CLI inventory.
+
+## Skills installer compatibility
+
+The documented installer remains `skills@1.5.25`. CI tests that pin and runs a
+separate, advisory `latest` check in `skills-compatibility.yml`; a future upstream
+failure does not silently change the supported pin or block unrelated work.
+The workflow records the resolved version and disables acquisition lifecycle
+scripts and installer telemetry. It can also be run through workflow_dispatch.
+These are package installation checks, not model execution certification.
+
+Acquire a candidate installer explicitly into a disposable directory:
+
+```bash
+npm install --prefix /tmp/skills-candidate --ignore-scripts --no-audit --no-fund --package-lock=false skills@1.7.0
+```
+
+Test it without modifying the repository lockfile:
+
+```bash
+SKILLS_CLI_PATH=/tmp/skills-candidate/node_modules/skills/bin/cli.mjs SKILLS_EXPECTED_VERSION=1.7.0 node scripts/test-install.mjs
+```
+
+The default remains the locked local dependency. Alternate package identity and
+version must match explicitly. The suite covers all bundles and repository-root
+discovery of the complete router for Codex and Claude.
+
+See [the onboarding verification](reviews/2026-09-20-skills-onboarding.md) for
+remote refresh/removal evidence and the separate directory-discovery limitation.
