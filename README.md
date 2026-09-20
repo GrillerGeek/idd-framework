@@ -1,22 +1,131 @@
 # Intent-Driven Development Framework
 
-[![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC_BY--SA_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
-[![Claude Code Plugin](https://img.shields.io/badge/Claude_Code-plugin-blueviolet.svg)](https://claude.com/claude-code)
+[![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC_BY--SA_4.0-lightgrey.svg)](LICENSE)
 [![Framework](https://img.shields.io/badge/framework-v1.7-green.svg)](docs/framework.md)
+[![Plugin](https://img.shields.io/badge/plugin-v1.7.1-blue.svg)](plugin/README.md)
 
-**A process framework that gives developers and AI agents enough context to make decisions autonomously — without waiting for someone to tell them what to do.**
+**Turn an idea into a reviewed specification that developers and AI agents can build.**
 
----
+Intent-Driven Development (IDD) is a planning and delivery framework with plugins
+for **Codex and Claude Code**, plus portable Agent Skills. It guides you from a
+stakeholder interview to linked Product, Intention, Expectation and Spec YAML
+files in your project's `docs/` directory. Reviews check for missing decisions,
+edge cases and unclear boundaries before implementation; validation checks the
+result against the agreed outcome. You can also use the framework and templates
+without installing a plugin.
 
-## The Problem
+## IDD and Guildhall: which do I need?
 
-In most agile teams, knowledge lives in the Product Owner's head. Developers wait for clarification. AI agents guess when context is missing. Every ambiguous user story becomes a decision bottleneck — someone has to ask a question, wait for an answer, or make an assumption and hope it's right.
+| Tool | What it does | Use it when |
+|---|---|---|
+| **IDD** — this repository | Defines the purpose, expected behavior, boundaries and validation criteria; manages artifact review and lifecycle. | You need to decide what to build and make the requirements clear. |
+| **[Guildhall](https://github.com/GrillerGeek/guildhall)** | Coordinates independent coding specialists through tests, implementation and reviews, ending with a PR draft. | You have a concrete task or reviewed Spec and want a structured build. |
 
-Traditional agile methodologies were also designed for a world where human coding capacity was the primary constraint. AI coding agents have changed that equation. When the build phase compresses 5–10x, the bottleneck shifts from *building* to *defining, reviewing, and validating* — and every gap in context produces wrong output at machine speed.
+Use either tool independently, or use **IDD to define and review → Guildhall to
+build and review → IDD to validate**. IDD also has its own implementation workflow;
+select one execution owner for a Spec rather than starting both runners on it.
+Installing both does not automatically start either workflow.
 
-The frameworks haven't caught up. Teams are using 2-week sprints to manage work that takes 2 hours to build. They're estimating story points for tasks where effort is no longer the dominant variable. They're holding planning meetings to decompose work that AI agents can execute from a well-written specification.
+## Install
 
-Contributing with Codex or another coding agent? Start with the [shared contributor guide](docs/contributing-agents.md). On Node.js 22.20.0+, use `npm ci`, `npm run build:skills`, `npm run check`, and `npm test`. These are private development tools. The local **framework 1.7 / plugin 1.7.1 candidate has implementation approval, is undergoing validation and remains unreleased**. Sixteen [portable workflow skills](plugin/README.md#portable-workflow-pilot) contain fifteen complete stages and a router. Router observations and isolated native Codex/Claude install, refresh and removal checks are accepted; all eight Archive observations are accepted and upstream implementation closures are complete. See the [installation guide](docs/installation.md), [candidate notes](docs/releases/v1.7.md) and [catch-up report](docs/reviews/2026-09-13-overnight-catch-up.md).
+The commands below install **IDD 1.7.1 and Guildhall 0.9.1 from their published
+main branches**. No source clone or contributor build is required. Choose the
+section for your coding app; run only the IDD commands if you do not need Guildhall.
+
+### Codex
+
+Run in a terminal with the Codex CLI and Git installed:
+
+```bash
+codex plugin marketplace add GrillerGeek/idd-framework --ref main --json
+codex plugin add idd-framework@idd-framework-local --json
+
+codex plugin marketplace add GrillerGeek/guildhall --ref main --json
+codex plugin add guildhall@guildhall-local --json
+```
+
+Start a new Codex session in the project you want to work on. The catalog names
+end in `-local` for compatibility; these commands download from GitHub and do not
+require a local clone.
+
+### Claude Code
+
+Run in a terminal from the project you want to work on, with Claude Code and Git installed:
+
+```bash
+claude plugin marketplace add https://github.com/GrillerGeek/idd-framework.git --scope project
+claude plugin install idd-framework@idd-framework-local --scope project
+
+claude plugin marketplace add https://github.com/GrillerGeek/guildhall.git --scope project
+claude plugin install guildhall@guildhall-local --scope project
+```
+
+Restart Claude Code in that project. These commands use project scope; omit the
+other tool's pair of commands if you only want one. The catalogs are maintained
+in the two source repositories.
+
+### Alternative: `npx skills`
+
+For a skill-only installation, run these in your project with Node.js and npm
+available:
+
+```bash
+npx --yes skills@1.5.25 add https://github.com/GrillerGeek/idd-framework/tree/main --skill idd-orchestration --agent codex --copy --yes
+npx --yes skills@1.5.25 add https://github.com/GrillerGeek/guildhall/tree/main --skill guildhall-quest --agent codex --copy --yes
+```
+
+The IDD router includes all fifteen workflow stages. Replace `--agent codex` with
+`--agent claude-code` for Claude. Other installer targets may support skills, but
+Guildhall execution also needs independent worker contexts and shell tools.
+Standalone skills do not install Claude's native agents or hooks. Choose either
+the native plugin or standalone skills for each tool in a client to avoid duplicate
+entry points. After restarting your app, ask it to use `idd-orchestration` to
+interview you about your product, or `guildhall-quest` to prototype a small task.
+The `/idd-framework:*` and `/guildhall:quest` examples below are native Claude
+plugin commands; skill-only installs use the installed skill names instead.
+
+For local development, updates, removal and host prerequisites, see the
+[IDD installation guide](docs/installation.md) and
+[Guildhall installation guide](https://github.com/GrillerGeek/guildhall/blob/main/docs/installation.md).
+
+## Try it in your project
+
+In **Codex**, start with:
+
+```text
+$idd-orchestration Interview me about a tool that helps volunteers schedule shifts.
+```
+
+In **Claude Code** with the native plugin:
+
+```text
+/idd-framework:interview I want to build a tool that helps volunteers schedule shifts.
+```
+
+Answer the interview questions to create a Product artifact. Continue through
+Intentions, measurable Expectations and a Spec with explicit Boundaries. Review
+the Spec and resolve gap-check findings before building. You can enter at a later
+stage if those artifacts already exist.
+
+Once a Spec is ready, has recorded human readiness approval and a current clean
+gap-check, hand it to Guildhall using the actual ID generated in your project:
+
+```text
+# Codex
+$guildhall-quest Implement SPEC-<your-id> using its boundaries and validation criteria.
+
+# Claude Code native plugin
+/guildhall:quest Implement SPEC-<your-id> using its boundaries and validation criteria.
+```
+
+After the build, review the implementation as a human and use IDD's validation
+workflow. AI review does not replace human approval. Guildhall stops at `review`;
+implementation approval and QA govern the later lifecycle transitions.
+
+IDD helpers use Bash; YAML workflows need a safe parser. IDD's optional guarded
+execution runner additionally requires Node.js **22.20.0+** and an authenticated
+Claude terminal, even when planning from another app. It is separate from a
+Guildhall quest; see [execution prerequisites](docs/installation.md).
 
 ## The Framework
 
@@ -42,7 +151,7 @@ Product          →  Why does this exist?
 
 ### Key Differences from Traditional Agile
 
-- **Phase 0 (/chart + /resolve)** — efforts too foggy to interview get an Exploration map of decision tickets, resolved one per session until the way is clear.
+- **Phase 0 (Chart + Resolve)** — efforts too foggy to interview get an Exploration map of decision tickets, resolved one per session until the way is clear.
 - **Autonomy through context** — developers and AI agents get enough information to make decisions without waiting for clarification
 - **Continuous flow** with WIP limits replaces time-boxed sprints
 - **Spec quality** is the primary throughput metric, not velocity
@@ -53,37 +162,27 @@ Product          →  Why does this exist?
 - **Context inheritance** eliminates repeated boilerplate across specs
 - A new **Spec Author** role bridges business intent and AI execution
 
-## Quick Start
+## Learn more
 
-1. **Understand the philosophy** → [`docs/autonomy.md`](docs/autonomy.md) — why context enables autonomy
-2. **Read the framework** → [`docs/framework.md`](docs/framework.md) — the complete process definition; see [§10 The Seven-Stage Workflow](docs/framework.md#10-the-seven-stage-workflow) for how IDD (paired with Guildhall) maps to the emerging AI-coding workflow
-3. **See it in action** → [`examples/`](examples/) — a worked example using the full hierarchy, plus a [real case study](examples/self-hosted-v13.md) of IDD building its own v1.3 release (the gap-check gate caught 16 defects in Specs that had passed the completeness checklist)
-4. **Use the templates** → [`templates/`](templates/) — copy-paste starter templates for each artifact
-5. **Understand the roles** → [`docs/roles.md`](docs/roles.md)
-6. **Set up metrics** → [`docs/metrics.md`](docs/metrics.md)
-
-## Documentation
-
-| Document | Description |
-|----------|-------------|
-| [Autonomy Through Context](docs/autonomy.md) | The core philosophy — how the hierarchy enables developer autonomy |
-| [Framework](docs/framework.md) | Complete process definition — artifacts, lifecycle, ceremonies |
-| [Artifacts](docs/artifacts.md) | Detailed definitions and field reference for Product, Intention, Expectation, and Spec |
-| [Spec Authoring Guide](docs/spec-authoring.md) | How to write AI-ready Specs — with do's, don'ts, and the completeness checklist |
-| [Roles](docs/roles.md) | Role definitions and responsibilities in IDD |
-| [Metrics](docs/metrics.md) | Primary and secondary metrics for measuring process health |
-| [Adoption Guide](docs/adoption.md) | How to pilot IDD with your team |
-| [FAQ](docs/faq.md) | Common questions and concerns |
+| Start here | What you will find |
+|---|---|
+| [Autonomy Through Context](docs/autonomy.md) | Why purpose and boundaries enable independent decisions |
+| [Framework](docs/framework.md) | Workflow, lifecycle and the complete process |
+| [Examples](examples/) | Worked artifacts and a [self-hosted case study](examples/self-hosted-v13.md) |
+| [Templates](templates/) | YAML starters you can use without a plugin |
+| [Spec Authoring](docs/spec-authoring.md) | How to write a buildable Spec |
+| [Artifacts](docs/artifacts.md) | Field reference |
+| [Adoption](docs/adoption.md), [Roles](docs/roles.md), [Metrics](docs/metrics.md) | Bringing IDD into a team |
+| [Plugin reference](plugin/README.md) | Workflow entry points and detailed execution options |
+| [FAQ](docs/faq.md) | Common questions |
 
 ## Relationship to Spec-Driven Development
 
-IDD builds on the [Spec-Driven Development](https://github.com/github/spec-kit) movement but extends it in a specific direction. Where SDD focuses on the spec-to-code pipeline (how to give AI agents better instructions), IDD provides the **upstream layers** that answer *what* should be specified and *why*, along with the **process wrapper** that governs how specs flow through a team.
-
-Think of it this way:
-- **SDD** answers: "How do I write a good spec for an AI agent?"
-- **IDD** answers: "How does my team decide what to spec, ensure it's complete, track it through delivery, and measure whether the process is working?"
-
-IDD is compatible with SDD tools like GitHub Spec Kit, Kiro, Tessl, and others. The Spec artifact in IDD is designed to export in formats these tools can consume.
+IDD builds on Spec-Driven Development by adding the upstream context: why the
+product exists, which outcomes matter and how a team decides that work is ready.
+The Spec connects that context to implementation and validation. See the
+[framework](docs/framework.md) for the full workflow and its relationship to other
+AI development approaches.
 
 ## Influences and Acknowledgments
 
@@ -97,33 +196,17 @@ IDD draws on ideas from many sources in the evolving conversation about AI-assis
 - [Intent Engineering](https://www.squer.io/blog/why-we-created-the-intent-engineer) (SQUER)
 - Kanban, Lean, and flow-based delivery principles
 
-## AI Agent Configuration
-
-This repo includes instructions for major AI coding agents so they can generate valid IDD artifacts without the plugin:
-
-| Agent | Config File | Notes |
-|-------|------------|-------|
-| **Any / Codex** | `AGENTS.md` | Universal reference — artifact schemas, workflow, rules |
-| **Claude Code** | `CLAUDE.md` | References AGENTS.md + plugin docs, repo conventions |
-| **GitHub Copilot** | `.github/copilot-instructions.md` | References AGENTS.md + editing conventions |
-| **Cursor** | `.cursor/rules/idd.mdc` | References AGENTS.md + key rules |
-
 ## Contributing
 
-We welcome contributions. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-This framework is early and evolving. If you're experimenting with AI-assisted development processes, we'd love to hear what's working and what isn't. Open an issue, start a discussion, or submit a PR.
+Start with [CONTRIBUTING.md](CONTRIBUTING.md) and the
+[shared contributor guide](docs/contributing-agents.md). Agent instructions live
+in [AGENTS.md](AGENTS.md); Claude, Cursor and Copilot configurations extend it.
+Contributor setup uses Node.js 22.20.0+, `npm ci`, `npm run build:skills`,
+`npm run check` and `npm test`. These are development tools, not consumer setup.
 
 ## License
 
-This work is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). You are free to share and adapt this material for any purpose, including commercial, as long as you give appropriate credit and distribute contributions under the same license.
+Framework documentation, templates and examples are
+[CC BY-SA 4.0](LICENSE). Plugin contents are [Apache 2.0](plugin/LICENSE).
 
----
-
-*Intent-Driven Development was created by [Jason Robey](https://github.com/GrillerGeek), motivated by the belief that when AI changes how we build, we need to change how we plan, organize, and measure.*
-
-### Installed guarded execution pilot
-
-The `idd-implement-spec` bundle now includes a self-contained Node >=22.20.0 terminal runner for existing Claude authentication. It requires reviewed `execution_contract` output/check metadata and recorded readiness approval. Use `node <installed-skill>/scripts/idd-execute-spec.mjs --project <project> --spec <SPEC-ID> --check` for read-only preflight; omit `--check` to execute from a separate terminal. Never bypass the nested-session guard. The default preserves the configured model/style; optional `--implementer-model sonnet` requires an observed matching implementation model. The Sonnet option has verified model selection but remains experimental after a failed full workflow trace review. Native alias certification remains separate.
-
-The bundle carries the pinned YAML parser and ISC license; consuming projects need no dependency installation. Failures preserve partial work and controller evidence, and require author recovery. See [guarded execution](plugin/references/pilot/guarded-execution.md) for ownership, limits and report rules. Optional contributor host evaluation: `node scripts/evaluate-installed-execution.mjs` (or `--negative`, `--sonnet`). Offline tests use simulated host receipts and do not replace actual host evidence.
+Intent-Driven Development was created by [Jason Robey](https://github.com/GrillerGeek).
