@@ -19,7 +19,6 @@ jobs:
     env:
       DISABLE_TELEMETRY: '1'
       DO_NOT_TRACK: '1'
-      SKILLS_CLI_PATH: ${{ runner.temp }}/skills-installer/node_modules/skills/bin/cli.mjs
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
@@ -30,6 +29,6 @@ jobs:
         run: npm install --prefix "$RUNNER_TEMP/skills-installer" --ignore-scripts --no-audit --no-fund --package-lock=false skills@${{ matrix.installer }}
       - name: Record exact installer version
         run: |
-          node -e 'const fs=require("fs"),p=require("path");const m=require(p.resolve(process.env.SKILLS_CLI_PATH,"../../package.json"));if(!/^\d+\.\d+\.\d+$/.test(m.version))throw Error("Expected exact version");fs.appendFileSync(process.env.GITHUB_ENV,`SKILLS_EXPECTED_VERSION=${m.version}\n`);console.log(`Testing skills ${m.version}`)'
+          node -e 'const fs=require("fs"),p=require("path");const cli=p.join(process.env.RUNNER_TEMP,"skills-installer/node_modules/skills/bin/cli.mjs");const m=require(p.resolve(cli,"../../package.json"));if(!/^\d+\.\d+\.\d+$/.test(m.version))throw Error("Expected exact version");fs.appendFileSync(process.env.GITHUB_ENV,`SKILLS_CLI_PATH=${cli}\nSKILLS_EXPECTED_VERSION=${m.version}\n`);console.log(`Testing skills ${m.version}`)'
       - name: Verify copied bundles and repository discovery
         run: node scripts/test-install.mjs
