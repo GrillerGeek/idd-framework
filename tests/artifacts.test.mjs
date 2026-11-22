@@ -125,3 +125,10 @@ test('a rendered brief beside Product YAML is not parsed as an artifact',t=>{
  write(dir,'tests/fixtures/artifact-profiles.json','{}');
  assert.deepEqual(validateArtifacts(dir,{profiles:{}}).errors,[]);
 });
+
+for(const [name,lessons,ok] of [['one lesson',['Name the queue owner.'],true],['four lessons',['a','b','c','d'],false],['empty lesson',[''],false],['non-list lessons','a',false]])test(`ledger lessons: ${name}`,t=>{
+ const dir=workspace(t);hierarchy(dir);
+ write(dir,'docs/idd-ledger.yaml',stringify({ledger:{records:[{id:'SPEC-dead',type:'spec',title:'Archived',lessons}]}}));
+ const errors=validateArtifacts(dir,{profiles:{}}).errors;
+ if(ok)assert.deepEqual(errors,[]);else assert.ok(errors.some(e=>/lessons/.test(e)),errors.join('\n'));
+});

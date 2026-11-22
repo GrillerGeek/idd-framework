@@ -154,7 +154,13 @@ export function validateArtifacts(root, { profiles = readJSON(root, 'tests/fixtu
   if (fs.existsSync(path.join(root,ledgerPath))) capture(() => {
     const ledger = parseYAML(fs.readFileSync(path.join(root,ledgerPath),'utf8'),ledgerPath)?.ledger;
     need(object(ledger) && Array.isArray(ledger.records), ledgerPath, 'ledger.records', 'expected records array');
-    for (const record of ledger.records) if (Object.hasOwn(fields,record.type)) add(record.id,record.type,ledgerPath,{ name: record.title });
+    for (const record of ledger.records) {
+      if (record?.lessons !== undefined) capture(() => {
+        need(Array.isArray(record.lessons) && record.lessons.length <= 3, ledgerPath, `${record.id}.lessons`, 'expected at most 3 lines');
+        strings(record.lessons, ledgerPath, `${record.id}.lessons`, true);
+      });
+      if (Object.hasOwn(fields,record.type)) add(record.id,record.type,ledgerPath,{ name: record.title });
+    }
   });
   function reference(id, type, file, field, allowName = false, allowEmpty = false) {
     if (!nonempty(id)) {

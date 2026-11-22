@@ -41,3 +41,9 @@ test('retro contract names its report, lessons and approval gate', () => {
   const text = fs.readFileSync(path.join(root,'plugin/references/retro/retro.md'),'utf8');
   for (const phrase of [/docs\/reviews\/SPEC-<id>-retro\.md/, /lessons/, /spec_gaps_encountered/, /docs\/guildhall\/plans\//, /upstream feedback/i, /approv/i, /CLAUDE\.md|AGENTS\.md/]) assert.match(text, phrase);
 });
+
+test('review-spec nudges retro and archive warns when it is missing', () => {
+  assert.match(fs.readFileSync(path.join(root,'plugin/references/review/review.md'),'utf8'), /retro workflow/);
+  const archive = fs.readFileSync(path.join(root,'plugin/references/archive/archive.md'),'utf8');
+  assert.match(archive, /retro-missing/); assert.match(archive, /lessons/);
+});

@@ -41,6 +41,8 @@ ledger:
       source_path: docs/specs/SPEC-030.yaml
       archive_tag: idd-archive-2026-06
       archived_at: "2026-06-12"
+      lessons:                   # optional, 1-3 lines from retro reports (newest first)
+        - "Name the owning queue in the Spec context."
 ```
 
 Field notes:
@@ -51,6 +53,7 @@ Field notes:
 | `disposition` | `completed` (terminal success) \| `superseded` (replaced — set `links.superseded_by`) \| `deferred` (intentionally parked; capture the reason in `evidence`) \| `abandoned` (orphaned draft, never finished) |
 | `verified` | `code` when completion was spot-verified against the codebase; `frontmatter` when the status field was trusted; `n/a` for abandoned/review records |
 | `evidence` | One sentence. For `code`-verified records, name what was checked. For `deferred`, restate the deferred_reason. |
+| `lessons` | Optional. Copied from the `lessons` frontmatter of the Spec's retro reports (`docs/reviews/SPEC-<id>-retro*.md`), newest first, at most three nonempty lines. Retro reports are co-archived under `links.reports`. |
 | `links.reports` | Review files deleted alongside this artifact; their content is recoverable at the same tag. |
 
 Review files moved (not deleted) get a minimal record: `id` = filename stem, `type: review`, `disposition: completed`, and the new path in `evidence`.
