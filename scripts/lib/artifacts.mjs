@@ -23,6 +23,39 @@ function strings(v, file, field, complete = false, minimum = 0) {
   need(Array.isArray(v), file, field, 'expected array');
   need(v.every(x => typeof x === 'string' && (!complete || nonempty(x))) && v.length >= minimum, file, field, `expected ${minimum}+ ${complete ? 'nonempty ' : ''}strings`);
 }
+// Optional Product records produced by grilling authoring (glossary, decisions, open questions).
+const decisionId = /^D-[a-f0-9]{4,8}$/, questionId = /^Q-[a-f0-9]{4,8}$/;
+function records(value, file, field) {
+  if (value[field] === undefined) return [];
+  need(Array.isArray(value[field]) && value[field].every(object), file, field, 'expected list of mappings');
+  return value[field];
+}
+function optionalString(entry, key, file, field) {
+  if (entry[key] !== undefined) need(typeof entry[key] === 'string', file, `${field}.${key}`, 'expected string');
+}
+function grillingRecords(value, file) {
+  for (const entry of records(value, file, 'glossary')) {
+    for (const key of ['term','definition']) need(nonempty(entry[key]), file, `glossary.${key}`, 'must not be empty');
+    if (entry.avoid !== undefined) strings(entry.avoid, file, 'glossary.avoid', true);
+  }
+  const ids = new Set();
+  const unique = (id, field) => { need(!ids.has(id), file, field, `duplicate ID ${id}`); ids.add(id); };
+  for (const entry of records(value, file, 'decisions')) {
+    need(typeof entry.id === 'string' && decisionId.test(entry.id), file, 'decisions.id', 'expected D- plus 4-8 lowercase hex');
+    unique(entry.id, 'decisions.id');
+    need(nonempty(entry.decision), file, 'decisions.decision', 'must not be empty');
+    for (const key of ['decided_by','decided_at','rationale']) optionalString(entry, key, file, 'decisions');
+    if (entry.resolves !== undefined) need(typeof entry.resolves === 'string' && questionId.test(entry.resolves), file, 'decisions.resolves', 'expected Q- question ID');
+    if (entry.alternatives !== undefined) strings(entry.alternatives, file, 'decisions.alternatives', true);
+  }
+  for (const entry of records(value, file, 'open_questions')) {
+    need(typeof entry.id === 'string' && questionId.test(entry.id), file, 'open_questions.id', 'expected Q- plus 4-8 lowercase hex');
+    unique(entry.id, 'open_questions.id');
+    need(nonempty(entry.question), file, 'open_questions.question', 'must not be empty');
+    need(['tech-lead','stakeholder'].includes(entry.needs), file, 'open_questions.needs', 'expected tech-lead or stakeholder');
+    if (entry.relates_to !== undefined) strings(entry.relates_to, file, 'open_questions.relates_to', true);
+  }
+}
 export function validateArtifact(text, { file = '<artifact>', kind = 'spec', template = false } = {}) {
   const document = parseYAML(text, file);
   need(object(document) && Object.keys(document).length === 1 && object(document[kind]), file, kind, 'expected one matching artifact root');
@@ -48,6 +81,7 @@ export function validateArtifact(text, { file = '<artifact>', kind = 'spec', tem
       for (const ref of value.context.existing_code_refs) need(object(ref) && typeof ref.path === 'string' && typeof ref.note === 'string', file, 'context.existing_code_refs', 'expected path/note strings');
     }
   }
+  if (kind === 'product') grillingRecords(value, file);
   if (kind === 'intention') for (const key of ['dependencies','expectations']) strings(value[key], file, key);
   if (kind === 'expectation') {
     strings(value.edge_cases, file, 'edge_cases', complete, complete ? 2 : 0);
