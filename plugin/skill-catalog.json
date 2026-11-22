@@ -816,6 +816,16 @@
           "executable": false
         },
         {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "stages/retro/references/brief-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/product-template.md",
+          "destination": "stages/retro/references/product-template.md",
+          "executable": false
+        },
+        {
           "source": "plugin/references/pilot/spec-reference.md",
           "destination": "stages/retro/references/spec-reference.md",
           "executable": false
@@ -1844,6 +1854,16 @@
         {
           "source": "plugin/references/retro/retro.md",
           "destination": "references/retro.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "references/brief-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/product-template.md",
+          "destination": "references/product-template.md",
           "executable": false
         },
         {

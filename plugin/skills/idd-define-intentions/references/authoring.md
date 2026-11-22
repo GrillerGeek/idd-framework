@@ -22,7 +22,7 @@ Resolve exploration lineage across explicitly supplied EXPL IDs/maps and all sel
 
 **Product records.** Vocabulary, decisions and open questions settled during authoring belong to the Product: append them to its glossary, decisions and open_questions lists (IDs `D-`/`Q-` plus four random lowercase hex, unique within the Product). Answering an open question removes it and adds a decision with `resolves`. List every Product change explicitly in the batch summary; it rides the same save confirmation. A technical question the stakeholder will not decide becomes an open question with `needs: tech-lead` and optional `relates_to` Intention/Expectation IDs, never a guess.
 
-**Relevant open questions.** An open question is relevant to a Spec when its relates_to includes one of the Spec's Expectations or their Intentions, or when relates_to is empty. write-spec and quick-spec must resolve every relevant open question — record the answer as a decision — or stop without saving the Spec and name the questions and who must answer them.
+**Relevant open questions.** An open question is relevant to a Spec when its relates_to includes one of the Spec's Expectations or their Intentions, or when relates_to is empty. write-spec and quick-spec must resolve every relevant open question — record the answer as a decision — or stop without saving the Spec and name the questions and who must answer them. A question must be answered by the role named in `needs` (a stakeholder may also answer a tech-lead question); `decided_by` names the person who actually answered. Accepting an agent recommendation counts only when that person gives it; the session's operator does not answer on someone else's behalf.
 
 Reuse facts and explicit confirmations already present in this conversation. Ask only about missing or ambiguous choices. Distinguish confirmed facts, proposed suggestions and explicitly delegated assumptions; do not infer stakeholder confirmation from silence, agent proposals or passing tests.
 
@@ -58,13 +58,13 @@ Permitted output ownership by mode:
 
 | Mode | New files | Existing edits |
 |---|---|---|
-| define-intentions | docs/intentions/INT-*.yaml | none |
-| define-expectations | docs/expectations/EXP-*.yaml | only new child IDs in selected parent expectations list |
-| define-outcomes | new Intention and Expectation YAML | none |
-| quick-spec | new Intention, Expectation and Spec YAML | none |
+| define-intentions | docs/intentions/INT-*.yaml | Product grilling records only |
+| define-expectations | docs/expectations/EXP-*.yaml | only new child IDs in selected parent expectations list; Product grilling records |
+| define-outcomes | new Intention and Expectation YAML | Product grilling records only |
+| quick-spec | new Intention, Expectation and Spec YAML | Product grilling records only |
 | write-spec | docs/specs/SPEC-*.yaml | none, except Product grilling records when it resolves an open question |
 
-All modes except write-spec may also make **append-only Product grilling edits** (glossary, decisions, open_questions) and must re-render the Product brief; write-spec re-renders the brief only when it changed the Product. A Product edit changes only those lists: re-read the Product immediately before the edit, compare it with the retained baseline, and stop on any difference. Use a localized edit that preserves every byte outside the edited lists; if that cannot be assured, stop and report rather than re-serialize the Product. The brief lives beside the Product YAML with the same filename stem and a `.md` extension; follow [the brief template](brief-template.md), and never overwrite a file at that path that lacks the generated header.
+Every mode may make **Product grilling edits**: append glossary terms, decisions and open questions; the only removal is an answered open question, replaced by a decision whose resolves names it. Existing glossary terms and decisions are never rewritten or deleted. Modes that edit the Product, and all PM-path modes after saving, re-render the Product brief; write-spec re-renders only when it changed the Product. A Product edit changes only those lists: re-read the Product immediately before the edit, compare it with the retained baseline, and stop on any difference. Use a localized edit that preserves every byte outside the edited lists; if that cannot be assured, stop and report rather than re-serialize the Product. The brief lives beside the Product YAML with the same filename stem and a `.md` extension; follow [the brief template](brief-template.md), and never overwrite a file at that path that lacks the generated header.
 
 Before the first save, capture bytes/types/modes for all existing project files (including dirty/untracked/hidden files and installed skills) and directory inventory, excluding only .git internals. Retain this baseline in memory or captured tool output. Include relevant parent bytes/types/modes and verify every target is absent and regular-path-safe. Preserve pre-existing dirty and untracked user work, comments, modes and installed resources. Compare every relevant parent against its original context-load baseline, and recheck reserved IDs/target absence immediately before starting writes. The wider pre-write snapshot must agree with those original parent bytes/types/modes. If a parent changed or a target appeared, stop without workflow writes and report the conflict.
 

@@ -132,3 +132,17 @@ for(const [name,lessons,ok] of [['one lesson',['Name the queue owner.'],true],['
  const errors=validateArtifacts(dir,{profiles:{}}).errors;
  if(ok)assert.deepEqual(errors,[]);else assert.ok(errors.some(e=>/lessons/.test(e)),errors.join('\n'));
 });
+
+test('relates_to must name live Intentions or Expectations', t => {
+  const dir = workspace(t); hierarchy(dir);
+  const p = path.join(dir,'docs/products/PROD-a1b2.yaml'), d = parseYAML(fs.readFileSync(p,'utf8'),p);
+  d.product.open_questions = [{id:'Q-1b2c',question:'Which provider?',needs:'tech-lead',relates_to:['INT-7c12']}];
+  fs.writeFileSync(p, stringify(d));
+  assert.ok(validateArtifacts(dir,{profiles:{}}).errors.some(e => /relates_to/.test(e)));
+  d.product.open_questions[0].relates_to = ['INT-a1b2','EXP-a1b2']; fs.writeFileSync(p, stringify(d));
+  assert.deepEqual(validateArtifacts(dir,{profiles:{}}).errors, []);
+});
+test('relates_to entries must be INT or EXP IDs', () => {
+  const d = grilledProduct(); d.product.open_questions[0].relates_to = ['SPEC-a1b2'];
+  assert.throws(() => validateArtifact(stringify(d),{kind:'product'}), /SCHEMA/);
+});

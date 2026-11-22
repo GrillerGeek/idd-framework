@@ -53,7 +53,10 @@ function grillingRecords(value, file) {
     unique(entry.id, 'open_questions.id');
     need(nonempty(entry.question), file, 'open_questions.question', 'must not be empty');
     need(['tech-lead','stakeholder'].includes(entry.needs), file, 'open_questions.needs', 'expected tech-lead or stakeholder');
-    if (entry.relates_to !== undefined) strings(entry.relates_to, file, 'open_questions.relates_to', true);
+    if (entry.relates_to !== undefined) {
+      strings(entry.relates_to, file, 'open_questions.relates_to', true);
+      need(entry.relates_to.every(id => /^(?:INT|EXP)-[A-Za-z0-9]+$/.test(id)), file, 'open_questions.relates_to', 'expected Intention or Expectation IDs');
+    }
   }
 }
 export function validateArtifact(text, { file = '<artifact>', kind = 'spec', template = false } = {}) {
@@ -179,6 +182,7 @@ export function validateArtifacts(root, { profiles = readJSON(root, 'tests/fixtu
       for (const id of v.dependencies) reference(id,'intention',file,'dependencies',false,draft);
       for (const id of v.expectations) reference(id,'expectation',file,'expectations',false,draft);
     }
+    if (kind === 'product') for (const q of v.open_questions ?? []) for (const id of q.relates_to ?? []) reference(id,id.startsWith('INT-')?'intention':'expectation',file,'open_questions.relates_to');
     if (kind === 'expectation') reference(v.intention,'intention',file,'intention',false,draft);
     if (kind === 'spec') {
       reference(v.product,'product',file,'product',true,draft);

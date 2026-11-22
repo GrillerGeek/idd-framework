@@ -27,9 +27,10 @@ capability without inventing a tool call.
    artifact. Resolve an existing product name/ID before editing it; otherwise
    create a new Product. Do not overwrite an unrelated Product. For an existing
    Product, keep its exact original bytes as the baseline and grill only its
-   gaps: missing or empty fields, an empty glossary, open questions, child
-   Expectations with fewer than two confirmed edge cases, and claims the project
-   contradicts. Do not re-ask confirmed fields unless something contradicts them.
+   gaps: missing or empty fields, an empty glossary, open questions and claims
+   the project contradicts. Report child Expectations with fewer than two
+   confirmed edge cases and suggest the outcome workflows for them; interview
+   writes only the Product and its brief. Do not re-ask confirmed fields unless something contradicts them.
 2. Look up the facts the project can answer before asking: stack and versions,
    architecture patterns, conventions and authentication model. Then grill the
    stakeholder in rounds as the grilling discipline describes, with a
@@ -58,12 +59,13 @@ capability without inventing a tool call.
    product root, required nonempty fields, ID/file agreement, context types and
    the optional glossary, decisions and open_questions shapes in the template.
    If safe parsing cannot be assured, stop without artifact or directory writes.
-   Then save one YAML document at docs/products/PROD-<hash>.yaml. Create only
-   docs/products when needed. Keep status discovery for a new Product and omit
+   Then save one YAML document: a new Product at docs/products/PROD-<hash>.yaml,
+   an existing Product in place at its current path. Create only docs/products
+   when needed. Keep status discovery for a new Product and omit
    optional exploration entirely when no lineage is known. If context explicitly
    names an EXPL ID, map, or parent's exploration field, resolve and preserve that
    ID; contradictory lineage needs a stakeholder decision. Do not save an empty
-   exploration value. Omit empty optional lists rather than saving placeholders.
+   exploration value. Empty optional lists may be omitted.
 6. Reread the saved file and confirm it matches the validated document. A parser
    silently keeping the last key is insufficient. Then render the brief beside it
    from the saved artifacts, following the brief template, and reread it.

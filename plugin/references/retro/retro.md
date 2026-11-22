@@ -37,7 +37,7 @@ Route each candidate by what went wrong:
 | The Spec lacked a fact the implementer needed | Product context, glossary or decisions | This conversation, after approval |
 | Vocabulary confusion | Product glossary | This conversation |
 | A judgement-call mistake the reviewer missed | Product `context.conventions` (inherited by Specs, read in review) | This conversation |
-| A mechanical mistake (fixed pattern, banned API, file location, import shape) | An automated check in the project | A follow-on draft Spec |
+| A mechanical mistake (fixed pattern, banned API, file location, import shape) | An automated check in the project | A follow-on Spec proposal, authored with quick-spec |
 | Slow to find a file or fact | A navigation pointer from a file the agent already reads, or Product context code references | This conversation |
 | The gap-check should have caught it | Gap-checker attack list | Upstream feedback |
 | A template or completeness-checklist gap | IDD template or checklist | Upstream feedback |
@@ -52,8 +52,8 @@ Rules:
 - Installed IDD files are read-only in a consuming project. Improvements to
   IDD itself are written up as **upstream feedback** for the framework's
   maintainers, not applied.
-- A follow-on Spec for a check is drafted, never executed here; it goes through
-  the normal review and gap-check gates.
+- A follow-on Spec for a check is proposed here and authored with quick-spec,
+  never executed here; it goes through the normal review and gap-check gates.
 
 ## 3. Present and decide
 
@@ -64,11 +64,23 @@ not approval. No candidates is a valid outcome; say so plainly.
 
 ## 4. Apply approved fixes
 
-- Product edits follow the shared authoring rules: safe duplicate-rejecting
-  YAML parsing, baseline comparison immediately before the write, localized
-  edits, stop on concurrent change. Re-render the Product brief afterwards.
-- Draft follow-on Specs only for approved mechanical checks, with a new ID from
-  the bundled ID helper and status draft.
+- An approved retro may edit these Product fields and nothing else:
+  `context.conventions`, `context.patterns`, `context.stack`, `context.auth`,
+  and the grilling records (`glossary`, `decisions`, `open_questions`) described
+  in [the Product template](product-template.md). Existing glossary terms and
+  decisions are appended to, never rewritten.
+- Product edit safety: parse with a duplicate-key-rejecting YAML parser; keep the
+  Product's original bytes from step 1; re-read immediately before writing and
+  stop without writing if anything changed; use a localized edit that preserves
+  every byte outside the edited fields; validate the result against the Product
+  template; reread after saving. If any of this cannot be assured, stop and
+  report.
+- After a Product edit, re-render its brief following
+  [the brief template](brief-template.md).
+- Approved mechanical checks become **proposals for a follow-on Spec**, not
+  files: record the proposed Intention, Expectation (with two edge cases) and
+  check in the report, and recommend running the quick-spec workflow to author
+  them through the normal confirmation, review and gap-check gates.
 - Edit nothing else.
 
 ## 5. Report

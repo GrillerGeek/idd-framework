@@ -47,3 +47,30 @@ test('review-spec nudges retro and archive warns when it is missing', () => {
   const archive = fs.readFileSync(path.join(root,'plugin/references/archive/archive.md'),'utf8');
   assert.match(archive, /retro-missing/); assert.match(archive, /lessons/);
 });
+
+test('authoring entry points permit Product grilling records and the brief', () => {
+  for (const stage of ['define-intentions','define-expectations','define-outcomes','quick-spec','write-spec']) {
+    const text = fs.readFileSync(path.join(root,`plugin/workflows/${stage}.md`),'utf8');
+    assert.doesNotMatch(text, /byte-identical/, stage);
+    assert.match(text, /Product grilling records/, stage);
+  }
+  const auth = fs.readFileSync(path.join(root,'plugin/references/authoring/authoring.md'),'utf8');
+  assert.doesNotMatch(auth, /\| (define-intentions|define-outcomes|quick-spec) \|[^\n]*\| none \|/);
+  assert.doesNotMatch(auth, /All modes except write-spec/);
+  assert.match(auth, /answered by the role named in needs|role named in `needs`/);
+});
+test('retro bundle carries the rules and templates it applies', () => {
+  for (const dest of ['references/brief-template.md','references/product-template.md']) {
+    assert.ok(destinations('idd-retro').includes(dest), dest);
+    assert.ok(destinations('idd-orchestration').includes('stages/retro/'+dest), 'routed '+dest);
+  }
+  const text = fs.readFileSync(path.join(root,'plugin/references/retro/retro.md'),'utf8');
+  assert.match(text, /\(brief-template\.md\)/); assert.match(text, /context\.conventions/);
+  assert.doesNotMatch(text, /follow the shared authoring rules/i);
+  assert.match(text, /quick-spec/);
+});
+test('interview saves existing Products in place and agrees with templates on empty lists', () => {
+  const text = fs.readFileSync(path.join(root,'plugin/workflows/interview.md'),'utf8');
+  assert.match(text, /existing Product[^.]*its current path/);
+  assert.doesNotMatch(text, /Omit empty optional lists rather than saving placeholders/);
+});
