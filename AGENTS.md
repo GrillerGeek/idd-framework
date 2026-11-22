@@ -58,7 +58,12 @@ product:
     conventions:
       - ""                        # Coding standards and project-specific rules
     auth: ""                      # Authentication/authorization model
+  glossary: []                    # Optional: [{term, definition, avoid?}] — vocabulary only, inherited by Specs
+  decisions: []                   # Optional: [{id: D-xxxx, decision, decided_by, decided_at, alternatives?, rationale?, resolves?}]
+  open_questions: []              # Optional: [{id: Q-xxxx, question, needs: tech-lead|stakeholder, relates_to?}]
 ```
+
+The rendered brief at `docs/products/<same stem>.md` is generated from this YAML; never edit it by hand.
 
 ### Intention
 

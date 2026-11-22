@@ -31,6 +31,29 @@ product:
     conventions:
       - ""
     auth: ""
+  # GLOSSARY — settled project vocabulary (optional). Terms only, no implementation detail.
+  # Specs inherit it with the rest of the Product context.
+  glossary: []
+  #  - term: "Hold"                  # the project's canonical word
+  #    definition: ""                # one tight definition
+  #    avoid: ["reservation"]        # optional: words not to use for this concept
+
+  # DECISIONS — every stakeholder decision made while grilling (optional)
+  decisions: []
+  #  - id: "D-3f2a"                  # D- plus random 4-hex, unique within this Product
+  #    decision: ""                  # what was decided
+  #    decided_by: ""                # who decided
+  #    decided_at: "2026-11-22"      # when
+  #    alternatives: []              # three-gate decisions only: options rejected
+  #    rationale: ""                 # three-gate decisions only: why this option
+  #    resolves: "Q-91c0"            # optional: the open question this answered
+
+  # OPEN QUESTIONS — unresolved items, kept honest (optional)
+  open_questions: []
+  #  - id: "Q-91c0"                  # Q- plus random 4-hex, unique within this Product
+  #    question: ""
+  #    needs: "tech-lead"            # tech-lead | stakeholder
+  #    relates_to: []                # optional: INT-/EXP- IDs it affects; empty = whole Product
 ```
 
 ## Field Descriptions
@@ -47,6 +70,9 @@ product:
 | `strategic_alignment` | Yes | Which organizational priorities this serves |
 | `context` | Recommended | Tech stack, patterns, conventions, and auth — inherited by all child Specs |
 | `exploration` | No | EXPL id of the originating phase-0 Exploration; inherited at creation |
+| `glossary` | No | Settled project vocabulary: `term`, `definition`, optional `avoid` list. Vocabulary only — no implementation detail. Inherited by Specs. |
+| `decisions` | No | Every stakeholder decision from grilling: `id` (`D-` + 4 hex), `decision`, `decided_by`, `decided_at`. Three-gate decisions (hard to reverse, surprising without context, real trade-off) add `alternatives` and `rationale`. `resolves` links an answered open question. |
+| `open_questions` | No | Unresolved items: `id` (`Q-` + 4 hex), `question`, `needs` (`tech-lead` or `stakeholder`), optional `relates_to` Intention/Expectation IDs (empty = whole Product). An answered question is removed and recorded as a decision with `resolves`. |
 
 ## Guidance
 
@@ -55,6 +81,10 @@ product:
 - **Value proposition should be measurable.** "Improves efficiency" is weak. "Reduces onboarding time from 3 weeks to 1 week" is strong.
 - **Context is inherited.** Define it once here; Specs inherit and override as needed.
 - **Products are stable.** If you're changing the Product frequently, the scope is probably too narrow (that's an Intention).
+- **Glossary is vocabulary, not a spec.** One canonical word per concept, defined tightly. Record words to avoid when people use several names for the same thing.
+- **Record every decision; reserve full entries for three-gate ones.** Only decisions that are hard to reverse, surprising without context and the result of a real trade-off need `alternatives` and `rationale`.
+- **Never guess a technical answer.** A technical question the stakeholder can't answer and the repo doesn't settle becomes an open question with `needs: tech-lead`. write-spec resolves it or stops; gap-check blocks a Spec while a relevant question is open.
+- **The YAML is canonical.** A readable brief is rendered beside it (`docs/products/<same stem>.md`). Correct the brief by asking for a change, never by editing the brief.
 
 ## Status Lifecycle
 
