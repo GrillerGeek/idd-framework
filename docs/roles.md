@@ -16,6 +16,7 @@ IDD redefines team roles to reflect the shift from coding-centric to specificati
 - Prioritize the Spec queue continuously (not just at sprint planning)
 - Participate in Validation Reviews to confirm Expectations are met
 - Decide when an Intention is fulfilled
+- Own the **PM path**: grill through interview and outcome authoring, then hand off the rendered Product brief. Record technical questions you can't answer as `needs: tech-lead` open questions instead of guessing
 
 ---
 
@@ -53,6 +54,8 @@ IDD redefines team roles to reflect the shift from coding-centric to specificati
 - Review AI-generated code against Boundaries and established patterns
 - Conduct Architecture Check meetings (weekly)
 - Review recovery and rework decisions; preserve the strict execution gate rather than override outstanding findings
+- Answer `needs: tech-lead` open questions on the Product; a relevant unanswered question blocks its Spec at gap-check
+- Approve or reject retro candidates that change conventions or add automated checks
 
 ---
 

@@ -24,8 +24,8 @@ Codex can maintain this checkout through AGENTS.md and this guide. Native Codex
 and Claude plugins and portable skills have verified local implementation. See
 the [installation guide](installation.md) and current
 [catch-up report](reviews/2026-09-13-overnight-catch-up.md) for choices and limits.
-Fifteen standalone stages have complete bundles, covering interview, authoring, technical/deep
-review, gap-check, guarded implementation, validation, Forge, exploration and archival. Archive
+Sixteen standalone stages have complete bundles, covering interview, authoring, technical/deep
+review, gap-check, guarded implementation, validation, retro, Forge, exploration and archival. Archive
 host acceptance is complete for all eight required cases; the complete router has accepted integration evidence, with native Codex/Claude packaging and its isolated lifecycle checks complete. See the [pilot instructions](../plugin/README.md#portable-workflow-pilot)
 for local installation and recorded host-evaluation limits.
 
@@ -42,7 +42,7 @@ for local installation and recorded host-evaluation limits.
 | `examples/` | Worked hierarchies; historical cases remain historical evidence |
 | `plugin/commands/`, `plugin/agents/` | Claude entry points; all stage bodies are thin adapters; frontmatter owns names and models |
 | `plugin/workflows/`, `plugin/references/` | Canonical router, portable stage procedures and reference sources; edit these |
-| `plugin/skill-catalog.json` | Explicit source/destination mappings, fifteen stages and sixteen bundles |
+| `plugin/skill-catalog.json` | Explicit source/destination mappings, sixteen stages and seventeen bundles |
 | `plugin/skills/` | Committed generated complete router and standalone stage bundles; rebuild rather than edit |
 | `scripts/`, `tests/`, `.github/workflows/validate.yml` | Assembly, validation, regression tests and CI |
 | `plugin/bin/`, `plugin/scripts/` | ID generation, archive inventory, and directory initialization helpers |
@@ -132,8 +132,8 @@ Checks never rewrite artifacts, infer human peer review, detect every semantic
 gap, or grant execution permission.
 
 The orchestration skill remains an explicit `legacy-claude` bundle with unchanged
-resources. Fifteen catalog stages are `pilot` and require matching portable bundles;
-all fifteen stages now emit complete bundles; no placeholder stage remains. Pilot
+resources. Sixteen catalog stages are `pilot` and require matching portable bundles;
+all sixteen stages now emit complete bundles; no placeholder stage remains. Pilot
 references are maintained in `plugin/references/pilot/`; retain parity with the
 legacy contract when future changes affect both. Installation evidence alone
 does not prove real workflow behavior.
@@ -274,7 +274,7 @@ After documented preparation timeouts, Archive evaluation additionally accepts `
 
 ## Router distribution verification
 
-The router has all fifteen stage closures under `stages/<stage>/`, with nested
+The router has all sixteen stage closures under `stages/<stage>/`, with nested
 `workflow.md` entries and one public root `SKILL.md`. Catalog mappings reuse each
 direct source exactly. The only direct workflow/runtime changes in this milestone
 are interview's loaded-entry root clarification and guarded execution's safe

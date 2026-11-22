@@ -1,12 +1,12 @@
 # Install IDD in Codex or Claude Code
 
-This checkout contains sixteen portable skills: fifteen workflow stages and one
+This checkout contains seventeen portable skills: sixteen workflow stages and one
 router with every stage resource included. Native packaging supports both clients
-and preserves Claude's fifteen commands, fourteen agents and two optional
+and preserves Claude's sixteen commands, fourteen agents and two optional
 configuration fields. Installation does not create IDD artifacts or add npm
 dependencies to a consuming project.
 
-Plugin **1.7.1** is available on the repository's `main` branch. The commands
+Plugin **1.8.0** is available on the repository's `main` branch. The commands
 below use the repository-owned catalogs directly; their `-local` names are stable
 identifiers and do not mean a local clone is required. IDD works independently;
 Guildhall is optional. See [using IDD with Guildhall](../README.md#optional-use-with-guildhall)
@@ -16,14 +16,14 @@ if you want to add its coding workflow.
 
 | Choice | What it provides |
 |---|---|
-| Native Codex plugin | All sixteen skills through Codex's plugin installation |
-| Native Claude plugin | Sixteen portable skills plus the existing fifteen commands and fourteen role agents |
+| Native Codex plugin | All seventeen skills through Codex's plugin installation |
+| Native Claude plugin | Seventeen portable skills plus the existing sixteen commands and fourteen role agents |
 | Standalone router | One `idd-orchestration` skill containing every stage, template and helper |
 | Individual standalone skills | Only the explicitly selected stages |
 
 Avoid installing the same skills through both native and standalone routes in one
-client. Native Claude's component display groups commands with skills: `Skills(31)`
-means fifteen legacy commands plus sixteen portable skills, not 31 distinct stages.
+client. Native Claude's component display groups commands with skills: `Skills(33)`
+means sixteen legacy commands plus seventeen portable skills, not 33 distinct stages.
 
 ## Prerequisites and optional local development
 
@@ -138,7 +138,7 @@ Claude. For a global installation, add `--global` to install, list and remove;
 use `--global` instead of `--project` for updates.
 
 The recommended `idd-orchestration` skill contains every workflow stage and its
-resources. You do not need all sixteen separately installed skills. Advanced
+resources. You do not need all seventeen separately installed skills. Advanced
 users can replace the selected name with a stage such as `idd-interview`.
 
 ### Install and verify

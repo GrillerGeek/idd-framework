@@ -1,7 +1,7 @@
 # IDD Framework Plugin for Codex and Claude Code
 
-One shared plugin packages sixteen portable skills, including a complete workflow
-router. Claude also retains its fifteen command aliases and fourteen role agents.
+One shared plugin packages seventeen portable skills, including a complete workflow
+router. Claude also retains its sixteen command aliases and fourteen role agents.
 
 ## Installation
 
@@ -52,7 +52,7 @@ Each layer gives developers and AI agents the context they need to make implemen
 |---------|---------|----------|
 | `/idd-framework:chart` | Chart a phase-0 Exploration map from a loose idea too foggy for /interview | Exploration map in `docs/explorations/` |
 | `/idd-framework:resolve` | Work exactly one decision ticket on an Exploration map | Resolved ticket + updated map in `docs/explorations/` |
-| `/idd-framework:interview` | Conduct a stakeholder interview | Product definition in `docs/products/` |
+| `/idd-framework:interview` | Grill stakeholders in rounds with recommended answers; record vocabulary, decisions and open questions | Product definition and readable brief in `docs/products/` |
 | `/idd-framework:define-intentions` | Decompose a Product into outcomes | Intentions in `docs/intentions/` |
 | `/idd-framework:define-expectations` | Define verifiable constraints with edge cases | Expectations in `docs/expectations/` |
 | `/idd-framework:write-spec` | Create an AI-ready Spec with all 5 mandatory blocks | Spec in `docs/specs/` |
@@ -60,6 +60,7 @@ Each layer gives developers and AI agents the context they need to make implemen
 | `/idd-framework:gap-check` | Adversarial content and coverage review before execution | Report in `docs/reviews/` and one gate annotation |
 | `/idd-framework:implement-spec` | Build a ready, cleanly gated Spec; self-verify | Deliverables and Execution Report in `docs/reviews/` |
 | `/idd-framework:review-spec` | Validate AI output against Spec criteria | Validation report in `docs/reviews/` |
+| `/idd-framework:retro` | Propose evidence-traced improvements after validation; apply only approved ones | Retro report in `docs/reviews/`, approved Product edits, upstream feedback |
 | `/idd-framework:archive` | Consolidate terminal artifacts into the roll-up ledger (classify → human review → apply) | Archive manifest in `docs/reviews/`, then `docs/idd-ledger.yaml` |
 
 ### Accelerated Workflows
@@ -76,7 +77,9 @@ Each layer gives developers and AI agents the context they need to make implemen
 |---------|---------|----------|
 | `/idd-framework:forge` | Launch the [Forge](https://github.com/JasonRobey-Burke/Forge) web UI for browsing and editing IDD artifacts | Local server at `http://localhost:4000` |
 
-Each command is an entry point with prerequisites; you do not have to start at interview. The inventory above contains all 15 commands.
+Each command is an entry point with prerequisites; you do not have to start at interview. The inventory above contains all 16 commands.
+
+**PM path.** A product manager can run interview → define-outcomes (or define-intentions → define-expectations) and hand off the rendered Product brief. Technical questions they can't answer are recorded as `needs: tech-lead` open questions; write-spec resolves them and gap-check blocks a Spec while a relevant one is open.
 
 ## Agents
 
@@ -223,7 +226,7 @@ reference paths map to portable sources in `references/authoring/`,
 `references/pilot/`, `references/exploration/` and `references/archive/`. From the repository root, run `npm ci` with
 Node.js 22.20.0+, edit those sources, and run `npm run build:skills` to refresh the
 committed copies in `skills/idd-orchestration/`. `skill-catalog.json` defines each
-mapping and lists fifteen implemented portable stages, sixteen public bundles
+mapping and lists sixteen implemented portable stages, seventeen public bundles
 (including the router), and no placeholder stages. The router includes complete
 `stages/<stage>/workflow.md` closures copied from the same canonical mappings.
 
@@ -241,7 +244,7 @@ Apache 2.0 -- see [LICENSE](LICENSE).
 
 ## Portable workflow pilot
 
-This branch includes sixteen complete standalone skill bundles: fifteen direct stages and one complete router. The original three-stage pilot has a documented supported-lane acceptance; the five authoring stages have separate host evaluation evidence:
+This branch includes seventeen complete standalone skill bundles: sixteen direct stages and one complete router. The original three-stage pilot has a documented supported-lane acceptance; the five authoring stages have separate host evaluation evidence:
 
 | Skill | Purpose | Legacy Claude alias |
 |---|---|---|
@@ -258,6 +261,7 @@ This branch includes sixteen complete standalone skill bundles: fifteen direct s
 | `idd-tech-review` | Current architectural review without lifecycle changes | `/idd-framework:tech-review` |
 | `idd-deep-review` | Three perspectives with truthful delegation fallback | `/idd-framework:deep-review` |
 | `idd-review-spec` | Evidence-based implementation validation | `/idd-framework:review-spec` |
+| `idd-retro` | Propose-only, evidence-traced improvements after validation | `/idd-framework:retro` |
 | `idd-forge` | Local Forge launcher with observed startup and owned stop handle | `/idd-framework:forge` |
 | `idd-chart` | Confirmed phase-zero map and factual research proposals | `/idd-framework:chart` |
 | `idd-resolve` | One eligible decision with a path-scoped claim commit | `/idd-framework:resolve` |
@@ -369,7 +373,7 @@ Never clear the nested-Claude guard.
 
 For bulk local installation, point `add` at `plugin/skills`, use the selected
 `--agent` and `--skill '*'`, and retain `--copy` if that is your chosen mode.
-Discovery (`add <source> --list`) exposes sixteen public names; nested entries
+Discovery (`add <source> --list`) exposes seventeen public names; nested entries
 are `workflow.md`, so they do not become duplicate skills. Bulk installation is
 optional: the router alone already contains the full workflow closure.
 

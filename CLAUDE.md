@@ -8,8 +8,8 @@ Assessments and planning do not automatically start managed Spec execution.
 ## Claude Code integration
 
 The distributable plugin lives in `plugin/`. Its [README](plugin/README.md)
-lists all 15 `/idd-framework:*` commands and 14 role agents, including phase-0
-`chart`/`resolve`, the eight core stages, accelerated workflows, `archive`, and
+lists all 16 `/idd-framework:*` commands and 14 role agents, including phase-0
+`chart`/`resolve`, the eight core stages, `retro`, accelerated workflows, `archive`, and
 `forge`. Commands own orchestration; role agents perform the dispatched work.
 
 **Model assignment strategy** (in each agent's frontmatter `model:` field):
@@ -38,7 +38,7 @@ Assignments are explicit (not `inherit`) so a user running Opus in their main se
 
 Run `npm run check` and `npm test` for contributor validation. The shared guide
 describes setup, the isolated `npm run test:install` probe and separate actual-host
-evidence. Sixteen bundle entrypoints represent fifteen stages plus the complete
+evidence. Seventeen bundle entrypoints represent sixteen stages plus the complete
 router. Archive and router observations are accepted for their documented cases;
 native alias execution and published-ref installation remain separate.
 

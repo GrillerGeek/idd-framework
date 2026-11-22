@@ -116,6 +116,10 @@ IDD replaces the sprint cycle with a continuous flow model anchored by spec read
 | **6. Validate** | Automated + human validation against Expectations | All Expectations verified; edge cases covered | QA + Product Owner |
 | **7. Deploy** | Release to environment; confirm in production | Deployment successful; monitoring stable | DevOps + Tech Lead |
 
+**Retro (after Validate, before archive).** A propose-only retro reads the Spec's Execution Reports (`spec_gaps_encountered`), gap-check and validation reports, and any build-team plan, then proposes evidence-traced fixes: Product context, glossary or decisions; automated checks (as follow-on Specs); reviewer conventions; and upstream feedback on IDD templates or the gap-checker. Nothing changes without human approval. Its report's `lessons` survive archive in the ledger. Retro is optional but nudged: validation recommends it, and archive warns when a Spec with recorded gaps has none.
+
+**Grilling the Define phase.** The interview and outcome authoring stages ask in rounds, with a recommended answer for every question, look facts up instead of asking, and record vocabulary, decisions and open questions in the Product. A product manager can own Product, Intentions and Expectations and hand off a rendered Product brief; technical questions they can't answer become `needs: tech-lead` open questions that write-spec must resolve and gap-check enforces.
+
 ### Spec Completeness Checklist
 
 A Spec is not ready for AI execution until it passes this checklist. This replaces "Definition of Ready."
@@ -272,7 +276,7 @@ See [roles.md](roles.md) for detailed role definitions. Summary:
 | **Spec Review** | Sprint Planning + Refinement | As Specs reach Ready | 30 min | Validate completeness and human readiness review; execution additionally requires a clean gap-check |
 | **Flow Sync** | Daily Standup | 2–3x per week | 15 min | Review WIP board; surface blockers |
 | **Validation Review** | Sprint Review / Demo | Per Spec completion | 30 min | PO validates Expectations; accept or return |
-| **Process Retro** | Sprint Retrospective | Biweekly or monthly | 45 min | Review metrics; improve process |
+| **Process Retro** | Sprint Retrospective | Biweekly or monthly | 45 min | Review metrics and the `lessons` from per-Spec retros; improve process |
 | **Architecture Check** | N/A (new) | Weekly | 30 min | Review coherence across active Specs |
 
 ### What Goes Away
@@ -327,7 +331,7 @@ That is IDD's founding premise (§1): when the build phase compresses 5–10×, 
 
 | # | Stage | The question it answers | IDD lifecycle phase(s) |
 |---|---|---|---|
-| 1 | **Grill** | How do I brief an AI well? | **Define** — interview the stakeholder into a Product, rather than writing a perfect prompt |
+| 1 | **Grill** | How do I brief an AI well? | **Define** — grill the stakeholder in rounds into a Product with vocabulary, decisions and open questions, rather than writing a perfect prompt |
 | 2 | **Research** *(optional)* | How do I keep it grounded in current facts? | **Specify** — the Spec's Context block captures stack, patterns, conventions, and code references; external sources are curated into Context rather than left to model memory |
 | 3 | **Prototype** *(optional)* | How do I test an idea before committing? | *Outside core IDD* — a disposable spike to react to, not an artifact that flows through the hierarchy |
 | 4 | **PRD/Plan** | How do we end up at the right place? | **Define + Specify** — an Intention states *what* the outcome is; Expectations state *how we'll know it's right*, which is the written-down definition of "done" |
@@ -351,7 +355,7 @@ The IDD plugin's `/idd-framework:*` commands carry the upstream stages; the **Gu
 | 4 | PRD/Plan | `/define-intentions`, `/define-expectations` (or `/define-outcomes`) | — |
 | 5 | Issues/Tasks | `/write-spec` (or `/quick-spec`); one Spec per chunk | Mordain's committed `plan.md` orders the quest into TDD-sequenced tasks |
 | 6 | Implement | `/implement-spec` — managed, single-agent build with self-verification | `/quest` — TDD loop: Seraphine (red tests) → Bruga (green code) → Tink (refactor) |
-| 7 | Review | `/gap-check` (before execution), `/review-spec` (after) | Parallel reviewer fan-out — Oriana (security) and Cassian (docs) always-on, plus gated specialists; Rook drafts the PR |
+| 7 | Review | `/gap-check` (before execution), `/review-spec` (after), `/retro` (learn and improve before archive) | Parallel reviewer fan-out — Oriana (security) and Cassian (docs) always-on, plus gated specialists; Rook drafts the PR |
 
 **The Spec is the seam.** IDD produces a complete, gap-checked Spec; Guildhall is built to consume it ("Integrates with IDD-framework specs"). That gives you two execution paths off the *same* artifact: run `/implement-spec` for a managed single-agent build, or hand the Spec to `/quest` when you want the full TDD-ordered guild with parallel specialist review. Stage 6 — the "loop and subagents" doing the work — is the only stage where you let the agent move fast, because stages 1–5 already did the deciding.
 
@@ -387,3 +391,6 @@ Add the rest as the habit takes. The leverage is in the order, not the tooling.
 | **Gap-Check Gate** | Adversarial review stage run after a Spec reaches Ready and before execution begins; requires zero unresolved Blockers and Warnings before execution; aims to catch ambiguity, contradictions, and missing context before the build |
 | **Execution Report** | Artifact produced by the executing agent upon completing a Spec; records every Boundary acknowledged, a self-verification table against all Expectations and Deliverables, and any Spec gaps encountered during execution; stored alongside the Spec |
 | **Flow Sync** | Brief alignment meeting replacing daily standup |
+| **Product Brief** | Readable Markdown rendering of a Product and its live Intentions and Expectations, generated beside the Product YAML; the handoff a build team reads |
+| **Open Question** | Unresolved Product item marked `needs: tech-lead` or `needs: stakeholder`; a relevant open question blocks its Spec at gap-check |
+| **Retro** | Propose-only, evidence-traced review after validation that routes fixes to Product context, automated checks, reviewer conventions or upstream feedback, applying only what a human approves |
