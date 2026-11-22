@@ -28,3 +28,16 @@ test('grilling reference defines rounds, confirmation and tech-lead flags', () =
   const text = fs.readFileSync(path.join(root,'plugin/references/authoring/grilling.md'),'utf8');
   for (const phrase of [/recommended answer/i, /silence/i, /needs: tech-lead/, /frontier/i, /shared understanding/i]) assert.match(text, phrase);
 });
+
+test('retro stage is catalogued, bundled and routed', () => {
+  const c = catalog();
+  assert.ok(c.stages.some(s => s.skill === 'idd-retro' && s.legacyCommand === 'retro' && s.state === 'pilot'));
+  for (const dest of ['SKILL.md','references/retro.md','references/spec-reference.md','scripts/idd-next-id','LICENSE']) assert.ok(destinations('idd-retro').includes(dest), `idd-retro missing ${dest}`);
+  assert.ok(destinations('idd-orchestration').includes('stages/retro/workflow.md'));
+  assert.match(fs.readFileSync(path.join(root,'plugin/workflows/idd-orchestration.md'),'utf8'), /stages\/retro\/workflow\.md/);
+  assert.ok(fs.existsSync(path.join(root,'plugin/commands/retro.md')));
+});
+test('retro contract names its report, lessons and approval gate', () => {
+  const text = fs.readFileSync(path.join(root,'plugin/references/retro/retro.md'),'utf8');
+  for (const phrase of [/docs\/reviews\/SPEC-<id>-retro\.md/, /lessons/, /spec_gaps_encountered/, /docs\/guildhall\/plans\//, /upstream feedback/i, /approv/i, /CLAUDE\.md|AGENTS\.md/]) assert.match(text, phrase);
+});

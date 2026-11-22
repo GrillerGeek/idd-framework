@@ -806,6 +806,31 @@
           "executable": false
         },
         {
+          "source": "plugin/workflows/retro.md",
+          "destination": "stages/retro/workflow.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/retro/retro.md",
+          "destination": "stages/retro/references/retro.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/spec-reference.md",
+          "destination": "stages/retro/references/spec-reference.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/bin/idd-next-id",
+          "destination": "stages/retro/scripts/idd-next-id",
+          "executable": true
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "stages/retro/LICENSE",
+          "executable": false
+        },
+        {
           "source": "plugin/workflows/review-spec.md",
           "destination": "stages/review-spec/workflow.md",
           "executable": false
@@ -1806,6 +1831,37 @@
           "executable": false
         }
       ]
+    },
+    {
+      "directory": "idd-retro",
+      "profile": "portable",
+      "files": [
+        {
+          "source": "plugin/workflows/retro.md",
+          "destination": "SKILL.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/retro/retro.md",
+          "destination": "references/retro.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/spec-reference.md",
+          "destination": "references/spec-reference.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/bin/idd-next-id",
+          "destination": "scripts/idd-next-id",
+          "executable": true
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "LICENSE",
+          "executable": false
+        }
+      ]
     }
   ],
   "stages": [
@@ -1867,6 +1923,11 @@
     {
       "legacyCommand": "resolve",
       "skill": "idd-resolve",
+      "state": "pilot"
+    },
+    {
+      "legacyCommand": "retro",
+      "skill": "idd-retro",
       "state": "pilot"
     },
     {

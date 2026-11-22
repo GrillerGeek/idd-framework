@@ -5,7 +5,7 @@ import {nativeFixture,containedNative,verifyNativeConsumer,packageSnapshot,verif
 import {snapshot} from '../plugin/runtime/snapshot.mjs';
 function fixture(t){const d=workspace(t);for(const p of ['plugin','tests/fixtures/plugin-inventory.json','.agents/plugins/marketplace.json','.claude-plugin/marketplace.json']){const to=path.join(d,p);fs.mkdirSync(path.dirname(to),{recursive:true});fs.cpSync(path.join(root,p),to,{recursive:true});}return d;}
 function change(dir,file,mutate){const p=path.join(dir,file),d=JSON.parse(fs.readFileSync(p));mutate(d);fs.writeFileSync(p,JSON.stringify(d,null,2)+'\n');}
-test('native package uses distinct portable/compat schemas and repository-root catalogs',()=>{const r=validateNativeDistribution(root);assert.equal(r.skills,16);assert.equal(r.pluginRoot,path.join(root,'plugin'));validatePlugin(root);});
+test('native package uses distinct portable/compat schemas and repository-root catalogs',()=>{const r=validateNativeDistribution(root);assert.equal(r.skills,17);assert.equal(r.pluginRoot,path.join(root,'plugin'));validatePlugin(root);});
 for(const [name,file,mutate]of [
   ['missing schema','plugin/plugin.json',d=>delete d.$schema],['wrong schema','plugin/plugin.json',d=>d.$schema='https://example.invalid/schema'],
   ...['skills','interface','userConfig','hooks','apps','mcpServers'].map(k=>['undeclared '+k,'plugin/plugin.json',d=>d[k]={}]),
