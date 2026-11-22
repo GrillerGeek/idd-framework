@@ -158,3 +158,13 @@ test('clean fixture explicitly dispositions every installed gap-review resource 
  const catalog=JSON.parse(fs.readFileSync(path.join(root,'plugin/skill-catalog.json'))),bundle=catalog.bundles.find(b=>b.directory==='idd-gap-check');
  for(const host of ['.agents','.claude'])for(const file of bundle.files)assert.ok(accepted.has(`${host}/skills/idd-gap-check/${file.destination}`),file.destination);
 });
+
+test('interview oracle accepts a generated brief beside the Product and rejects a stray or headerless one',async t=>{
+ const dir=workspace(t),state=setupScenario(dir,'interview');const data=parse(fs.readFileSync(path.join(dir,'docs/products/PROD-a1b2-existing.yaml'),'utf8'));
+ data.product={...data.product,id:'PROD-cafe',name:'Example Desk',owner:'Casey Example',status:'discovery',exploration:'EXPL-cafe',problem_statement:'Duplicate support triage across two queues',target_audience:'Support coordinators',value_proposition:'Reduce two queues to one',strategic_alignment:'Faster response',context:{stack:'Node 22 ESM',patterns:'One local service',conventions:['Named exports'],auth:'None'}};
+ write(dir,'docs/products/PROD-cafe.yaml',stringify(data));
+ write(dir,'docs/products/PROD-cafe.md','<!-- Generated from docs/products/PROD-cafe.yaml on 2026-11-22. Do not edit; ask for changes and re-render. -->\n# Example Desk\n');
+ assert.equal((await verifyScenario(dir,state,'Saved supplied Product and brief')).outcome,'passed');
+ write(dir,'docs/products/PROD-cafe.md','# Example Desk\n');await assert.rejects(()=>verifyScenario(dir,state,'Saved'),/generated header/);
+ fs.rmSync(path.join(dir,'docs/products/PROD-cafe.md'));write(dir,'docs/products/PROD-beef.md','<!-- Generated from x -->\n');await assert.rejects(()=>verifyScenario(dir,state,'Saved'));
+});

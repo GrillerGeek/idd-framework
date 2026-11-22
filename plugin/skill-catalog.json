@@ -686,6 +686,16 @@
           "executable": false
         },
         {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "stages/interview/references/brief-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "stages/interview/references/grilling.md",
+          "executable": false
+        },
+        {
           "source": "plugin/bin/idd-next-id",
           "destination": "stages/interview/scripts/idd-next-id",
           "executable": true
@@ -834,6 +844,16 @@
         {
           "source": "plugin/references/pilot/product-template.md",
           "destination": "references/product-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "references/brief-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "references/grilling.md",
           "executable": false
         },
         {
