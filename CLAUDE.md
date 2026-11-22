@@ -15,10 +15,9 @@ lists all 15 `/idd-framework:*` commands and 14 role agents, including phase-0
 **Model assignment strategy** (in each agent's frontmatter `model:` field):
 
 - **opus** — reasoning-heavy synthesis: `deep-review-lead`, `tech-lead-reviewer`, `idd-gap-checker` (adversarial cross-block analysis)
-- **sonnet** — structured synthesis with codebase scanning: `spec-author`, `quick-spec-author`, `spec-reviewer`, `outcome-author`, `idd-spec-implementer`, `exploration-charter`, `exploration-resolver`, `idd-archivist`
-- **haiku** — template-guided decomposition metadata: `product-interviewer`, `intention-author`, `expectation-author`
+- **sonnet** — structured synthesis with codebase scanning: `spec-author`, `quick-spec-author`, `spec-reviewer`, `outcome-author`, `idd-spec-implementer`, `exploration-charter`, `exploration-resolver`, `idd-archivist`, and the grilling PM-path roles `product-interviewer`, `intention-author`, `expectation-author` (recommended answers and contradiction spotting are reasoning work)
 
-Portable authoring keeps selection, stakeholder questions, confirmation, validation and saving in the main conversation. Optional `intention-author`/`expectation-author` drafting uses Haiku; `outcome-author`/`quick-spec-author`/`spec-author` drafting uses Sonnet. These roles return read-only proposals. Interview also stays in the stakeholder conversation. Existing role metadata is preserved; it does not authorize background agents to save unconfirmed artifacts.
+Portable authoring keeps selection, stakeholder questions, confirmation, validation and saving in the main conversation. All optional drafting roles (`intention-author`, `expectation-author`, `outcome-author`, `quick-spec-author`, `spec-author`) use Sonnet. These roles return read-only proposals. Interview also stays in the stakeholder conversation. Existing role metadata is preserved; it does not authorize background agents to save unconfirmed artifacts.
 
 Assignments are explicit (not `inherit`) so a user running Opus in their main session doesn't pay Opus rates for a stakeholder interview. When editing agents, preserve the model assignment unless the agent's responsibilities materially change tier.
 
