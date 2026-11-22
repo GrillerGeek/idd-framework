@@ -6,7 +6,7 @@ description: Create a draft five-block IDD Spec from selected Expectations with 
 
 # Write a Spec
 
-Run mode **write-spec** in the stakeholder's current conversation. Input: one or more Expectation IDs. Produce new draft Spec only; all existing parent artifacts remain byte-identical. Read [the shared authoring procedure](references/authoring.md) and [Spec contract](references/spec-reference.md) before authoring. These resources and the [ID helper](scripts/idd-next-id) resolve relative to this installed skill; use absolute quoted paths and the consuming project as cwd. No other skill, plugin root, global helper or consumer dependency is required.
+Run mode **write-spec** in the stakeholder's current conversation. Input: one or more Expectation IDs. Produce new draft Spec only; all existing parent artifacts remain byte-identical. Read [the shared authoring procedure](references/authoring.md) and [Spec contract](references/spec-reference.md) before authoring. Also read [the grilling discipline](references/grilling.md) and [the brief template](references/brief-template.md). These resources and the [ID helper](scripts/idd-next-id) resolve relative to this installed skill; use absolute quoted paths and the consuming project as cwd. No other skill, plugin root, global helper or consumer dependency is required.
 
 Reuse confirmed facts already supplied. Ask only for missing selection, decisions or confirmation; no directories or artifacts while awaiting answers. Drafting roles may return read-only proposals when explicitly supported, but this conversation owns stakeholder interaction, validation and saving. Apply the entire shared procedure, including the batch confirmation gate in accelerated modes. Content confirmation is not human peer review.
 

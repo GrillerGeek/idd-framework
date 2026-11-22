@@ -121,6 +121,10 @@ not waive substantive content warnings. Count each unresolved finding once.
 
 ---
 
+### 3d — Open Product questions
+
+Read the parent Product's `open_questions`, if any. A question is relevant to this Spec when its `relates_to` includes one of the Spec's Expectations or their Intentions, or when `relates_to` is empty. Every relevant unresolved question is a **Blocker**: quote its ID, text and `needs` value, and name who must answer it. The Spec cannot be executed until the answer is recorded as a Product decision and reflected in the Spec.
+
 ## Step 4 — Classify and Score Each Finding
 
 **Severity taxonomy (impact-based):**

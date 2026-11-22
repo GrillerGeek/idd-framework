@@ -131,6 +131,16 @@
           "executable": false
         },
         {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "stages/define-expectations/references/grilling.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "stages/define-expectations/references/brief-template.md",
+          "executable": false
+        },
+        {
           "source": "plugin/references/authoring/expectation-template.md",
           "destination": "stages/define-expectations/references/expectation-template.md",
           "executable": false
@@ -156,6 +166,16 @@
           "executable": false
         },
         {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "stages/define-intentions/references/grilling.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "stages/define-intentions/references/brief-template.md",
+          "executable": false
+        },
+        {
           "source": "plugin/references/authoring/intention-template.md",
           "destination": "stages/define-intentions/references/intention-template.md",
           "executable": false
@@ -178,6 +198,16 @@
         {
           "source": "plugin/references/authoring/authoring.md",
           "destination": "stages/define-outcomes/references/authoring.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "stages/define-outcomes/references/grilling.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "stages/define-outcomes/references/brief-template.md",
           "executable": false
         },
         {
@@ -716,6 +746,16 @@
           "executable": false
         },
         {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "stages/quick-spec/references/grilling.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "stages/quick-spec/references/brief-template.md",
+          "executable": false
+        },
+        {
           "source": "plugin/references/authoring/intention-template.md",
           "destination": "stages/quick-spec/references/intention-template.md",
           "executable": false
@@ -813,6 +853,16 @@
         {
           "source": "plugin/references/authoring/authoring.md",
           "destination": "stages/write-spec/references/authoring.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "stages/write-spec/references/grilling.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "stages/write-spec/references/brief-template.md",
           "executable": false
         },
         {
@@ -1360,6 +1410,16 @@
           "executable": false
         },
         {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "references/grilling.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "references/brief-template.md",
+          "executable": false
+        },
+        {
           "source": "plugin/references/authoring/intention-template.md",
           "destination": "references/intention-template.md",
           "executable": false
@@ -1391,6 +1451,16 @@
           "executable": false
         },
         {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "references/grilling.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "references/brief-template.md",
+          "executable": false
+        },
+        {
           "source": "plugin/references/authoring/expectation-template.md",
           "destination": "references/expectation-template.md",
           "executable": false
@@ -1419,6 +1489,16 @@
         {
           "source": "plugin/references/authoring/authoring.md",
           "destination": "references/authoring.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "references/grilling.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "references/brief-template.md",
           "executable": false
         },
         {
@@ -1455,6 +1535,16 @@
         {
           "source": "plugin/references/authoring/authoring.md",
           "destination": "references/authoring.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "references/grilling.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "references/brief-template.md",
           "executable": false
         },
         {
@@ -1496,6 +1586,16 @@
         {
           "source": "plugin/references/authoring/authoring.md",
           "destination": "references/authoring.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "references/grilling.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "references/brief-template.md",
           "executable": false
         },
         {

@@ -8,7 +8,10 @@ import { root } from './helpers/workspace.mjs';
 
 const catalog = () => JSON.parse(fs.readFileSync(path.join(root,'plugin/skill-catalog.json'),'utf8'));
 const destinations = directory => catalog().bundles.find(b => b.directory === directory)?.files.map(f => f.destination) ?? [];
-export const grillingStages = ['interview'];
+export const grillingStages = ['interview','define-intentions','define-expectations','define-outcomes','quick-spec','write-spec'];
+test('gap-checker blocks on unresolved relevant open questions', () => {
+  assert.match(fs.readFileSync(path.join(root,'plugin/references/pilot/gap-reviewer.md'),'utf8'), /open_questions[\s\S]*\*\*Blocker\*\*/);
+});
 
 for (const stage of grillingStages) test(`${stage} bundles ship grilling and brief references, direct and routed`, () => {
   for (const ref of ['references/grilling.md','references/brief-template.md']) {
