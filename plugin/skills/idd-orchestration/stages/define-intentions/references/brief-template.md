@@ -23,7 +23,7 @@ YAML artifacts**; the YAML stays canonical.
 ## Skeleton
 
 ```markdown
-<!-- Generated from <product yaml path> and its live Intentions/Expectations on <YYYY-MM-DD>. Do not edit; ask for changes and re-render. -->
+<!-- Generated from <product yaml path> on <YYYY-MM-DD>. Do not edit; ask for changes and re-render. -->
 # <Product name> (<PROD-id>)
 
 **Status:** <status> · **Owner:** <owner>

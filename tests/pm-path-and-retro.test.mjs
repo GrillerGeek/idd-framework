@@ -28,6 +28,17 @@ test('grilling reference defines rounds, confirmation and tech-lead flags', () =
   const text = fs.readFileSync(path.join(root,'plugin/references/authoring/grilling.md'),'utf8');
   for (const phrase of [/recommended answer/i, /silence/i, /needs: tech-lead/, /frontier/i, /shared understanding/i]) assert.match(text, phrase);
 });
+test('grilling records only decisions the Product fields do not already state', () => {
+  const text = fs.readFileSync(path.join(root,'plugin/references/authoring/grilling.md'),'utf8');
+  assert.doesNotMatch(text, /Record every stakeholder decision/);
+  assert.match(text, /Do not restate the Product's own fields as decisions/);
+  assert.match(text, /Omit an empty `relates_to`/);
+});
+test('brief header does not claim children that may not exist', () => {
+  const text = fs.readFileSync(path.join(root,'plugin/references/authoring/brief-template.md'),'utf8');
+  assert.doesNotMatch(text, /and its live Intentions\/Expectations on/);
+  assert.match(text, /<!-- Generated from <product yaml path> on <YYYY-MM-DD>\./);
+});
 
 test('retro stage is catalogued, bundled and routed', () => {
   const c = catalog();

@@ -76,13 +76,20 @@ answer it if they choose.
 
 ## Recording decisions
 
-- Record every stakeholder decision in the candidate `decisions` list with
-  `decided_by` and `decided_at`.
+- Record a stakeholder decision in the candidate `decisions` list, with
+  `decided_by` and `decided_at`, when it settles something the Product's
+  fields do not already say: scope, priority, a trade-off, a rejected option,
+  a constraint, or the answer to an open question.
+  Do not restate the Product's own fields as decisions; name, owner, problem,
+  audience, value, alignment and context are already recorded where they live. No real choices is fine: leave
+  `decisions` empty.
 - Give a decision a full entry — `alternatives` and `rationale` — only when all
   three are true: it is hard to reverse, it would surprise a later reader
   without context, and it was a real trade-off between genuine options.
 - When an answer resolves an open question, remove the question and add a
   decision with `resolves: <Q-id>`.
+- Omit an empty `relates_to`; a question with no `relates_to` concerns the
+  whole Product.
 - Decision and question IDs are `D-` or `Q-` plus four random lowercase hex
   characters, unique within the Product.
 
