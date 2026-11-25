@@ -173,7 +173,7 @@ A Spec cannot enter **Ready** status until every item passes:
 
 5. **Specs should be focused.** Prefer Specs that address a cohesive set of Expectations. If a Spec covers an entire feature with unrelated concerns, split it. Tightly-coupled deliverables can stay together.
 
-6. **IDs are random short hashes.** Use `idd-next-id <type>` (in `plugin/bin/`) to generate a new ID — it produces a 4-hex-char suffix like `SPEC-a3f8` and ensures uniqueness against existing files in the working tree. IDs are immutable once assigned. Pre-existing sequential IDs in the form `SPEC-001`, `INT-002`, etc. remain valid; mixed format is supported indefinitely.
+6. **IDs are random short hashes.** Use `idd-next-id <type>` (in `plugin/scripts/`) to generate a new ID — it produces a 4-hex-char suffix like `SPEC-a3f8` and ensures uniqueness against existing files in the working tree. IDs are immutable once assigned. Pre-existing sequential IDs in the form `SPEC-001`, `INT-002`, etc. remain valid; mixed format is supported indefinitely.
 
 7. **Status lifecycle.** Artifacts progress through their status values in order. Don't skip states. Technical/deep review annotate outcomes while preserving lifecycle status. Author/orchestrator owns ready after all eleven checklist items; orchestration owns implementation transitions, human implementation approval gates review → validating, and QA/Product Owner validation gates validating → done. Follow the linked lifecycle contract.
 

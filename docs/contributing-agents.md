@@ -45,7 +45,7 @@ for local installation and recorded host-evaluation limits.
 | `plugin/skill-catalog.json` | Explicit source/destination mappings, sixteen stages and seventeen bundles |
 | `plugin/skills/` | Committed generated complete router and standalone stage bundles; rebuild rather than edit |
 | `scripts/`, `tests/`, `.github/workflows/validate.yml` | Assembly, validation, regression tests and CI |
-| `plugin/bin/`, `plugin/scripts/` | ID generation, archive inventory, and directory initialization helpers |
+| `plugin/scripts/` | ID generation, archive inventory, and directory initialization helpers |
 | `plugin/.claude-plugin/plugin.json`, `plugin/hooks/hooks.json` | Plugin identity/configuration and currently empty hooks |
 | `docs/plans/`, `docs/reviews/` | Plans, gap-checks, execution evidence, and validation reports |
 
@@ -74,7 +74,7 @@ Do not silently rewrite completed artifacts or historical reports.
 - Keep all five Spec blocks, explicit Boundaries, at least two edge cases per
   Expectation, and Product-level context inheritance. Reviewers report gaps;
   authors resolve them. Minor execution choices follow the lifecycle contract.
-- Generate new IDs with `bash plugin/bin/idd-next-id <type>` from the project root.
+- Generate new IDs with `bash plugin/scripts/idd-next-id <type>` from the project root.
   IDs are immutable random hashes; existing sequential IDs remain valid. Check
   collisions against live artifacts and archive records when integrating branches;
   independent branches cannot guarantee uniqueness against each other's unseen work.
@@ -207,8 +207,8 @@ semantic review quality and human approval still need review. See
 [the pilot evaluation report](reviews/SPEC-b2e3-host-evaluation.md) for actual runs.
 
 For a quick dependency-free check, `git diff --check` and
-`bash -n plugin/bin/idd-next-id plugin/bin/idd-archive-scan plugin/scripts/init-idd.sh`
-remain available. `bash plugin/bin/idd-archive-scan` produces read-only inventory,
+`bash -n plugin/scripts/idd-next-id plugin/scripts/idd-archive-scan plugin/scripts/init-idd.sh`
+remain available. `bash plugin/scripts/idd-archive-scan` produces read-only inventory,
 including references from exploration maps and nested decision Markdown; it does
 not validate YAML or execute archival.
 

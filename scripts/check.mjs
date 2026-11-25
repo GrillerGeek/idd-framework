@@ -19,7 +19,7 @@ export function checkRepository(root = repositoryRoot) {
   run(() => validateNativeDistribution(root));
   run(() => checkVendor(root));
   run(() => errors.push(...validateArtifacts(root).errors));
-  const helpers = ['plugin/bin/idd-next-id','plugin/bin/idd-archive-scan','plugin/scripts/init-idd.sh'];
+  const helpers = ['plugin/scripts/idd-next-id','plugin/scripts/idd-archive-scan','plugin/scripts/init-idd.sh'];
   run(() => {
     for (const helper of helpers) if (!(fs.statSync(path.join(root,helper)).mode & 0o111)) throw new Error(`${helper}: MODE: executable bit required`);
   });

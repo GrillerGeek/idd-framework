@@ -30,7 +30,7 @@ Assignments are explicit (not `inherit`) so a user running Opus in their main se
   loaded `SKILL.md` or `workflow.md` determines its local resource root.
   Claude command adapters use `CLAUDE_PLUGIN_ROOT` to reach those bundles;
   portable stages need no plugin-root variable or sibling skill.
-- `plugin/bin/idd-next-id` generates artifact IDs; `plugin/bin/idd-archive-scan`
+- `plugin/scripts/idd-next-id` generates artifact IDs; `plugin/scripts/idd-archive-scan`
   provides read-only archive inventory. Create output directories lazily.
 - `plugin/hooks/hooks.json` currently defines no hooks.
 - `plugin/.claude-plugin/plugin.json` owns plugin identity, version, and
