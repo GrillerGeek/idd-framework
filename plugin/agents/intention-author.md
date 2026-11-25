@@ -21,7 +21,7 @@ description: |
   </commentary>
   </example>
 
-model: haiku
+model: sonnet
 color: green
 effort: medium
 maxTurns: 15

@@ -8,17 +8,16 @@ Assessments and planning do not automatically start managed Spec execution.
 ## Claude Code integration
 
 The distributable plugin lives in `plugin/`. Its [README](plugin/README.md)
-lists all 15 `/idd-framework:*` commands and 14 role agents, including phase-0
-`chart`/`resolve`, the eight core stages, accelerated workflows, `archive`, and
+lists all 16 `/idd-framework:*` commands and 14 role agents, including phase-0
+`chart`/`resolve`, the eight core stages, `retro`, accelerated workflows, `archive`, and
 `forge`. Commands own orchestration; role agents perform the dispatched work.
 
 **Model assignment strategy** (in each agent's frontmatter `model:` field):
 
 - **opus** — reasoning-heavy synthesis: `deep-review-lead`, `tech-lead-reviewer`, `idd-gap-checker` (adversarial cross-block analysis)
-- **sonnet** — structured synthesis with codebase scanning: `spec-author`, `quick-spec-author`, `spec-reviewer`, `outcome-author`, `idd-spec-implementer`, `exploration-charter`, `exploration-resolver`, `idd-archivist`
-- **haiku** — template-guided decomposition metadata: `product-interviewer`, `intention-author`, `expectation-author`
+- **sonnet** — structured synthesis with codebase scanning: `spec-author`, `quick-spec-author`, `spec-reviewer`, `outcome-author`, `idd-spec-implementer`, `exploration-charter`, `exploration-resolver`, `idd-archivist`, and the grilling PM-path roles `product-interviewer`, `intention-author`, `expectation-author` (recommended answers and contradiction spotting are reasoning work)
 
-Portable authoring keeps selection, stakeholder questions, confirmation, validation and saving in the main conversation. Optional `intention-author`/`expectation-author` drafting uses Haiku; `outcome-author`/`quick-spec-author`/`spec-author` drafting uses Sonnet. These roles return read-only proposals. Interview also stays in the stakeholder conversation. Existing role metadata is preserved; it does not authorize background agents to save unconfirmed artifacts.
+Portable authoring keeps selection, stakeholder questions, confirmation, validation and saving in the main conversation. All optional drafting roles (`intention-author`, `expectation-author`, `outcome-author`, `quick-spec-author`, `spec-author`) use Sonnet. These roles return read-only proposals. Interview also stays in the stakeholder conversation. Existing role metadata is preserved; it does not authorize background agents to save unconfirmed artifacts.
 
 Assignments are explicit (not `inherit`) so a user running Opus in their main session doesn't pay Opus rates for a stakeholder interview. When editing agents, preserve the model assignment unless the agent's responsibilities materially change tier.
 
@@ -39,7 +38,7 @@ Assignments are explicit (not `inherit`) so a user running Opus in their main se
 
 Run `npm run check` and `npm test` for contributor validation. The shared guide
 describes setup, the isolated `npm run test:install` probe and separate actual-host
-evidence. Sixteen bundle entrypoints represent fifteen stages plus the complete
+evidence. Seventeen bundle entrypoints represent sixteen stages plus the complete
 router. Archive and router observations are accepted for their documented cases;
 native alias execution and published-ref installation remain separate.
 

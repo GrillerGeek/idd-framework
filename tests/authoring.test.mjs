@@ -53,3 +53,16 @@ test('replacement oracle recognizes needs 2 as an explicit minimum',t=>{const pr
 test('confirmation oracle accepts a concrete candidate table',t=>{const project=workspace(t),state=setupAuthoring(project,'define-expectations','missing-confirmation');const message='Please confirm these edge cases?\n| Case | Expected | Difference |\n|---|---|---|\n| Padding | Trim padding | Unlike plain name |\n| Null | Throw TypeError | Unlike a string |';assert.equal(verifyAuthoring(project,state,response(message)).outcome,'passed');});
 
 test('replacement oracle accepts singular edge with an explicit two minimum',t=>{const project=workspace(t),state=setupAuthoring(project,'quick-spec','accelerated-rejected-edge');assert.equal(verifyAuthoring(project,state,response('Do you confirm this replacement? One edge is confirmed; at least two are required. Nothing saved.')).outcome,'passed');});
+
+test('oracle accepts a rendered brief and Product grilling appends from PM-path authoring',t=>{
+ const project=workspace(t),state=setupAuthoring(project,'define-outcomes');proposal(project,state);
+ const p=path.join(project,productFile),d=YAML.parse(fs.readFileSync(p,'utf8'));d.product.decisions=[{id:'D-3f2a',decision:'Greetings trim padding.',decided_by:facts.owner,decided_at:'2026-11-22'}];fs.writeFileSync(p,YAML.stringify(d));
+ write(project,productFile.replace(/\.yaml$/,'.md'),'<!-- Generated from '+productFile+' on 2026-11-22. Do not edit; ask for changes and re-render. -->\n# Greeting Library\n');
+ assert.equal(verifyAuthoring(project,state,response('Saved the confirmed draft artifacts and re-rendered the brief.')).outcome,'passed');
+});
+for(const violation of ['product-field','headerless-brief','write-spec-brief'])test(`oracle rejects ${violation}`,t=>{
+ const stage=violation==='write-spec-brief'?'write-spec':'define-outcomes',project=workspace(t),state=setupAuthoring(project,stage);proposal(project,state);
+ if(violation==='product-field'){const p=path.join(project,productFile),d=YAML.parse(fs.readFileSync(p,'utf8'));d.product.owner='Someone Else';fs.writeFileSync(p,YAML.stringify(d));}
+ else write(project,productFile.replace(/\.yaml$/,'.md'),violation==='headerless-brief'?'# Greeting Library\n':'<!-- Generated from x -->\n');
+ assert.throws(()=>verifyAuthoring(project,state,response('Saved drafts.')));
+});

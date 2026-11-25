@@ -28,6 +28,16 @@ The Product is the highest-level artifact. It defines the business problem, targ
 | Context | Product-level tech stack, patterns, conventions, auth — **inherited by all child Specs**. Strongly recommended: without it, every Spec must define its own Context from scratch. |
 | Success Criteria | How do we know this Product is successful at the business level? |
 
+### Grilling Records (optional)
+
+The interview and the PM-path authoring stages record what they settle directly in the Product YAML. A readable brief is rendered beside it at `docs/products/<same stem>.md`; the YAML stays canonical and the brief is never hand-edited.
+
+| Field | Description |
+|---|---|
+| Glossary | Settled project vocabulary (`term`, `definition`, optional `avoid`). Vocabulary only — no implementation detail. Inherited by Specs. |
+| Decisions | Every stakeholder decision (`D-` + 4 hex ID). Decisions that are hard to reverse, surprising without context and the result of a real trade-off also record `alternatives` and `rationale`. |
+| Open Questions | Unresolved items (`Q-` + 4 hex ID) marked `needs: tech-lead` or `needs: stakeholder`, optionally scoped with `relates_to`. A Spec cannot pass gap-check while a relevant question is open. |
+
 ### Authorship
 
 - **Created by:** Product Owner with input from business sponsor and leadership

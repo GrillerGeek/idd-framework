@@ -48,6 +48,7 @@ Track these after the team has established baseline primary metrics.
 | Human Review Time | Time from Review to approval/return | Review capacity indicator |
 | Intention Fulfillment Rate | % of Intentions with all Expectations at Done | Product progress measure; replaces burn-down |
 | Spec Completeness Score | % of checklist items satisfied at Spec Review | Spec authoring quality measure |
+| Retro Lessons Applied | Approved retro candidates applied per validated Spec, and how often the same lesson recurs | Shows whether the system learns; a recurring lesson means the fix went to the wrong place (prose instead of a check) |
 | Spec Gaps per Execution Report | Count of gaps (ambiguities, contradictions, or missing context) recorded in an Execution Report during implementation | Lagging counterpart to Gap-Check Findings per Spec — gaps that survive the gate and surface during execution indicate the gap-check stage needs calibration or the Spec required more adversarial scrutiny; target direction is zero, and persistent non-zero readings point to systemic Spec authoring weaknesses |
 
 ---

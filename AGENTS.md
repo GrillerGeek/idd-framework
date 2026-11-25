@@ -58,7 +58,12 @@ product:
     conventions:
       - ""                        # Coding standards and project-specific rules
     auth: ""                      # Authentication/authorization model
+  glossary: []                    # Optional: [{term, definition, avoid?}] — vocabulary only, inherited by Specs
+  decisions: []                   # Optional: [{id: D-xxxx, decision, decided_by, decided_at, alternatives?, rationale?, resolves?}]
+  open_questions: []              # Optional: [{id: Q-xxxx, question, needs: tech-lead|stakeholder, relates_to?}]
 ```
+
+The rendered brief at `docs/products/<same stem>.md` is generated from this YAML; never edit it by hand.
 
 ### Intention
 
@@ -174,11 +179,11 @@ A Spec cannot enter **Ready** status until every item passes:
 
 ## Workflow Phases
 
-The IDD workflow has 8 phases. You can enter at any phase:
+The IDD workflow has 9 phases. You can enter at any phase:
 
 | Phase | Input | Output | Directory |
 |-------|-------|--------|-----------|
-| 1. Interview | Stakeholder conversation | Product YAML | `docs/products/` |
+| 1. Interview | Stakeholder conversation, grilled in rounds | Product YAML + rendered brief | `docs/products/` |
 | 2. Intentions | Product artifact | Intention YAMLs | `docs/intentions/` |
 | 3. Expectations | Intention artifact | Expectation YAMLs | `docs/expectations/` |
 | 4. Spec | Expectation artifacts | Spec YAML | `docs/specs/` |
@@ -186,6 +191,9 @@ The IDD workflow has 8 phases. You can enter at any phase:
 | 6. Gap-Check | Spec artifact | Gap-check report + `gap_check` annotation | `docs/reviews/` + annotation in `docs/specs/` |
 | 7. Implementation | Gated Spec | Deliverables + Execution Report | Codebase + `docs/reviews/` |
 | 8. Validation | Spec + implementation | Validation report | `docs/reviews/` |
+| 9. Retro | Validated Spec + its reports | Retro report; approved Product edits; upstream feedback | `docs/reviews/` |
+
+Interview and Intention/Expectation authoring follow the grilling discipline (`plugin/references/authoring/grilling.md`): rounds of numbered questions with recommended answers, facts looked up rather than asked, and Product `glossary`, `decisions` and `open_questions` recorded as they settle. Retro is propose-only (`plugin/references/retro/retro.md`).
 
 ### The Gap-Check Gate (Phase 6)
 

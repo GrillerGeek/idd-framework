@@ -25,7 +25,7 @@ export async function evaluateNative(host) {
       const details=await command(['plugin','details',pluginId]);result.componentDetails=details;
       const skills=/Skills \((\d+)\)\s+([^\n]+)/.exec(details),agents=/Agents \((\d+)\)\s+([^\n]+)/.exec(details);
       const expectedSkills=[...fs.readdirSync(path.join(s.source,'plugin/skills')),...fs.readdirSync(path.join(s.source,'plugin/commands')).filter(f=>f.endsWith('.md')).map(f=>f.slice(0,-3))].sort();
-      assert.equal(Number(skills?.[1]),31,'Claude combines15 commands and16 skills');assert.deepEqual(skills[2].split(', ').sort(),expectedSkills);assert.equal(Number(agents?.[1]),14);assert.deepEqual(agents[2].split(', ').sort(),fs.readdirSync(path.join(s.source,'plugin/agents')).filter(f=>f.endsWith('.md')).map(f=>f.slice(0,-3)).sort());
+      assert.equal(Number(skills?.[1]),33,'Claude combines16 commands and17 skills');assert.deepEqual(skills[2].split(', ').sort(),expectedSkills);assert.equal(Number(agents?.[1]),14);assert.deepEqual(agents[2].split(', ').sort(),fs.readdirSync(path.join(s.source,'plugin/agents')).filter(f=>f.endsWith('.md')).map(f=>f.slice(0,-3)).sort());
     }
     const marker='\n<!-- Owned native refresh fixture -->\n',cachebuster=new Date().toISOString().replace(/[-:.]/g,'');let refreshedVersion;
     for(const file of ['plugin.json','.codex-plugin/plugin.json','.claude-plugin/plugin.json']){const p=path.join(s.source,'plugin',file),d=JSON.parse(fs.readFileSync(p));d.version=d.version.split('+')[0]+'+codex.'+cachebuster;refreshedVersion=d.version;fs.writeFileSync(p,JSON.stringify(d,null,2)+'\n');}

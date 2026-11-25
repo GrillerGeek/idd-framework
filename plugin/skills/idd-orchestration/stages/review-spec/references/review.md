@@ -71,6 +71,6 @@ Write only docs/reviews/<SPEC-ID>-review.md after a complete candidate is prepar
 - Deliverable Results: exact Deliverable, Present/Missing/Incomplete/Unverified, evidence and confidence.
 - Automated Validation: exact check, Pass/Fail/Unverified, actual command/exit/output or explanation, confidence. Do not claim executed tests from source inspection alone.
 - Human Review Required: every original item pending or recorded with attributable actual evidence; never substitute your own judgment.
-- Recommendations: concrete next actions and unresolved evidence, with no automatic lifecycle transition.
+- Recommendations: concrete next actions and unresolved evidence, with no automatic lifecycle transition. When the Spec's execution reports list any `spec_gaps_encountered`, its gap-check raised findings, or this review has any non-Pass row, recommend running the retro workflow for this Spec before archive.
 
 Confidence is High for directly observed evidence, Medium for inference, Low for unavailable evidence. Report aggregate counts from item rows. Surface test failures prominently. Do not fabricate historical boundary success or an unqualified Pass from correct code alone.

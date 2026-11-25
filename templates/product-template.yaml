@@ -29,3 +29,27 @@ product:
     conventions:
       - ""
     auth: ""
+
+  # GLOSSARY — settled project vocabulary (optional). Terms only, no implementation detail.
+  # Specs inherit it with the rest of the Product context.
+  glossary: []
+  #  - term: "Hold"                  # the project's canonical word
+  #    definition: ""                # one tight definition
+  #    avoid: ["reservation"]        # optional: words not to use for this concept
+
+  # DECISIONS — every stakeholder decision made while grilling (optional)
+  decisions: []
+  #  - id: "D-3f2a"                  # D- plus random 4-hex, unique within this Product
+  #    decision: ""                  # what was decided
+  #    decided_by: ""                # who decided
+  #    decided_at: "2026-11-22"      # when
+  #    alternatives: []              # three-gate decisions only: options rejected
+  #    rationale: ""                 # three-gate decisions only: why this option
+  #    resolves: "Q-91c0"            # optional: the open question this answered
+
+  # OPEN QUESTIONS — unresolved items, kept honest (optional)
+  open_questions: []
+  #  - id: "Q-91c0"                  # Q- plus random 4-hex, unique within this Product
+  #    question: ""
+  #    needs: "tech-lead"            # tech-lead | stakeholder
+  #    relates_to: []                # optional: INT-/EXP- IDs it affects; empty = whole Product

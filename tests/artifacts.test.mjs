@@ -96,3 +96,53 @@ for (const [kind,file,parent] of [['spec','docs/specs/SPEC-a1b2.yaml','product']
  data[kind].status='draft';write(dir,file,stringify(data));
  assert.deepEqual(validateArtifacts(dir,{profiles:{}}).errors,[]);
 });
+
+function grilledProduct() { return {product:{id:'PROD-a1b2',name:'Test product',status:'active',owner:'Test',problem_statement:'Problem',target_audience:'Users',value_proposition:'Value',strategic_alignment:'Goal',context:{stack:'Node',patterns:'CLI',conventions:[],auth:'N/A'},
+ glossary:[{term:'Hold',definition:'A temporary claim.',avoid:['reservation']}],
+ decisions:[{id:'D-3f2a',decision:'Holds expire after 15 minutes.',decided_by:'Jane Doe',decided_at:'2026-11-22',alternatives:['No expiry'],rationale:'Scarce inventory.',resolves:'Q-91c0'}],
+ open_questions:[{id:'Q-1b2c',question:'Which provider?',needs:'tech-lead',relates_to:['INT-7c21']}]}}; }
+test('product accepts optional glossary, decisions and open questions',()=>{
+ assert.doesNotThrow(()=>validateArtifact(stringify(grilledProduct()),{kind:'product'}));
+});
+for(const [name,edit] of [
+ ['glossary entry without definition',p=>delete p.glossary[0].definition],
+ ['glossary avoid not a string list',p=>p.glossary[0].avoid='reservation'],
+ ['sequential decision id',p=>p.decisions[0].id='D1'],
+ ['duplicate decision id',p=>p.decisions.push({...p.decisions[0]})],
+ ['empty decision text',p=>p.decisions[0].decision=''],
+ ['malformed resolves link',p=>p.decisions[0].resolves='Q1'],
+ ['unknown needs value',p=>p.open_questions[0].needs='techlead'],
+ ['uppercase question id',p=>p.open_questions[0].id='Q-ZZZZ'],
+ ['relates_to not an array',p=>p.open_questions[0].relates_to='INT-7c21'],
+ ['decision and question share an id',p=>p.open_questions[0].id='D-3f2a'],
+ ['glossary not a list',p=>p.glossary={Hold:'x'}],
+]) test(`product rejects ${name}`,()=>{
+ const d=grilledProduct();edit(d.product);assert.throws(()=>validateArtifact(stringify(d),{kind:'product'}),/SCHEMA/);
+});
+
+test('a rendered brief beside Product YAML is not parsed as an artifact',t=>{
+ const dir=workspace(t);hierarchy(dir);write(dir,'docs/products/PROD-a1b2.md','# Test product brief\n\nproduct: {not: yaml: here\n');
+ write(dir,'tests/fixtures/artifact-profiles.json','{}');
+ assert.deepEqual(validateArtifacts(dir,{profiles:{}}).errors,[]);
+});
+
+for(const [name,lessons,ok] of [['one lesson',['Name the queue owner.'],true],['four lessons',['a','b','c','d'],false],['empty lesson',[''],false],['non-list lessons','a',false]])test(`ledger lessons: ${name}`,t=>{
+ const dir=workspace(t);hierarchy(dir);
+ write(dir,'docs/idd-ledger.yaml',stringify({ledger:{records:[{id:'SPEC-dead',type:'spec',title:'Archived',lessons}]}}));
+ const errors=validateArtifacts(dir,{profiles:{}}).errors;
+ if(ok)assert.deepEqual(errors,[]);else assert.ok(errors.some(e=>/lessons/.test(e)),errors.join('\n'));
+});
+
+test('relates_to must name live Intentions or Expectations', t => {
+  const dir = workspace(t); hierarchy(dir);
+  const p = path.join(dir,'docs/products/PROD-a1b2.yaml'), d = parseYAML(fs.readFileSync(p,'utf8'),p);
+  d.product.open_questions = [{id:'Q-1b2c',question:'Which provider?',needs:'tech-lead',relates_to:['INT-7c12']}];
+  fs.writeFileSync(p, stringify(d));
+  assert.ok(validateArtifacts(dir,{profiles:{}}).errors.some(e => /relates_to/.test(e)));
+  d.product.open_questions[0].relates_to = ['INT-a1b2','EXP-a1b2']; fs.writeFileSync(p, stringify(d));
+  assert.deepEqual(validateArtifacts(dir,{profiles:{}}).errors, []);
+});
+test('relates_to entries must be INT or EXP IDs', () => {
+  const d = grilledProduct(); d.product.open_questions[0].relates_to = ['SPEC-a1b2'];
+  assert.throws(() => validateArtifact(stringify(d),{kind:'product'}), /SCHEMA/);
+});

@@ -131,6 +131,16 @@
           "executable": false
         },
         {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "stages/define-expectations/references/grilling.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "stages/define-expectations/references/brief-template.md",
+          "executable": false
+        },
+        {
           "source": "plugin/references/authoring/expectation-template.md",
           "destination": "stages/define-expectations/references/expectation-template.md",
           "executable": false
@@ -156,6 +166,16 @@
           "executable": false
         },
         {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "stages/define-intentions/references/grilling.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "stages/define-intentions/references/brief-template.md",
+          "executable": false
+        },
+        {
           "source": "plugin/references/authoring/intention-template.md",
           "destination": "stages/define-intentions/references/intention-template.md",
           "executable": false
@@ -178,6 +198,16 @@
         {
           "source": "plugin/references/authoring/authoring.md",
           "destination": "stages/define-outcomes/references/authoring.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "stages/define-outcomes/references/grilling.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "stages/define-outcomes/references/brief-template.md",
           "executable": false
         },
         {
@@ -686,6 +716,16 @@
           "executable": false
         },
         {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "stages/interview/references/brief-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "stages/interview/references/grilling.md",
+          "executable": false
+        },
+        {
           "source": "plugin/bin/idd-next-id",
           "destination": "stages/interview/scripts/idd-next-id",
           "executable": true
@@ -703,6 +743,16 @@
         {
           "source": "plugin/references/authoring/authoring.md",
           "destination": "stages/quick-spec/references/authoring.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "stages/quick-spec/references/grilling.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "stages/quick-spec/references/brief-template.md",
           "executable": false
         },
         {
@@ -756,6 +806,41 @@
           "executable": false
         },
         {
+          "source": "plugin/workflows/retro.md",
+          "destination": "stages/retro/workflow.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/retro/retro.md",
+          "destination": "stages/retro/references/retro.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "stages/retro/references/brief-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/product-template.md",
+          "destination": "stages/retro/references/product-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/spec-reference.md",
+          "destination": "stages/retro/references/spec-reference.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/bin/idd-next-id",
+          "destination": "stages/retro/scripts/idd-next-id",
+          "executable": true
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "stages/retro/LICENSE",
+          "executable": false
+        },
+        {
           "source": "plugin/workflows/review-spec.md",
           "destination": "stages/review-spec/workflow.md",
           "executable": false
@@ -806,6 +891,16 @@
           "executable": false
         },
         {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "stages/write-spec/references/grilling.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "stages/write-spec/references/brief-template.md",
+          "executable": false
+        },
+        {
           "source": "plugin/references/pilot/spec-reference.md",
           "destination": "stages/write-spec/references/spec-reference.md",
           "executable": false
@@ -834,6 +929,16 @@
         {
           "source": "plugin/references/pilot/product-template.md",
           "destination": "references/product-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "references/brief-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "references/grilling.md",
           "executable": false
         },
         {
@@ -1340,6 +1445,16 @@
           "executable": false
         },
         {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "references/grilling.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "references/brief-template.md",
+          "executable": false
+        },
+        {
           "source": "plugin/references/authoring/intention-template.md",
           "destination": "references/intention-template.md",
           "executable": false
@@ -1371,6 +1486,16 @@
           "executable": false
         },
         {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "references/grilling.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "references/brief-template.md",
+          "executable": false
+        },
+        {
           "source": "plugin/references/authoring/expectation-template.md",
           "destination": "references/expectation-template.md",
           "executable": false
@@ -1399,6 +1524,16 @@
         {
           "source": "plugin/references/authoring/authoring.md",
           "destination": "references/authoring.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "references/grilling.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "references/brief-template.md",
           "executable": false
         },
         {
@@ -1435,6 +1570,16 @@
         {
           "source": "plugin/references/authoring/authoring.md",
           "destination": "references/authoring.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "references/grilling.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "references/brief-template.md",
           "executable": false
         },
         {
@@ -1476,6 +1621,16 @@
         {
           "source": "plugin/references/authoring/authoring.md",
           "destination": "references/authoring.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/grilling.md",
+          "destination": "references/grilling.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "references/brief-template.md",
           "executable": false
         },
         {
@@ -1686,6 +1841,47 @@
           "executable": false
         }
       ]
+    },
+    {
+      "directory": "idd-retro",
+      "profile": "portable",
+      "files": [
+        {
+          "source": "plugin/workflows/retro.md",
+          "destination": "SKILL.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/retro/retro.md",
+          "destination": "references/retro.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/authoring/brief-template.md",
+          "destination": "references/brief-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/product-template.md",
+          "destination": "references/product-template.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/references/pilot/spec-reference.md",
+          "destination": "references/spec-reference.md",
+          "executable": false
+        },
+        {
+          "source": "plugin/bin/idd-next-id",
+          "destination": "scripts/idd-next-id",
+          "executable": true
+        },
+        {
+          "source": "plugin/LICENSE",
+          "destination": "LICENSE",
+          "executable": false
+        }
+      ]
     }
   ],
   "stages": [
@@ -1747,6 +1943,11 @@
     {
       "legacyCommand": "resolve",
       "skill": "idd-resolve",
+      "state": "pilot"
+    },
+    {
+      "legacyCommand": "retro",
+      "skill": "idd-retro",
       "state": "pilot"
     },
     {

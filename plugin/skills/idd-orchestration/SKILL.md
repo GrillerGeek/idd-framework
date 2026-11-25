@@ -38,6 +38,7 @@ explain the choice and required context, then stop before authoring or execution
 | Find pre-execution content and coverage gaps | [Gap-check](stages/gap-check/workflow.md) |
 | Implement a ready, cleanly gated Spec | [Implementation](stages/implement-spec/workflow.md) |
 | Validate the implementation against a Spec | [Validation](stages/review-spec/workflow.md) |
+| Learn from a validated Spec and propose improvements | [Retro](stages/retro/workflow.md) |
 | Launch the Forge artifact browser | [Forge](stages/forge/workflow.md) |
 | Classify or explicitly apply reviewed archival | [Archive](stages/archive/workflow.md) |
 

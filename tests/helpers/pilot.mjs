@@ -75,7 +75,7 @@ export async function verifyScenario(directory, state, transcript, {verification
   const after=projectSnapshot(directory),changes=Object.keys({...state.before,...after}).filter(f=>JSON.stringify(state.before[f])!==JSON.stringify(after[f]));
   const execution=/^docs\/reviews\/SPEC-a1b2-\d{8}T\d{6}Z-execution\.md$/;
   const allow = file => {
-    if(state.scenario==='interview')return /^docs\/products\/PROD-[a-f0-9]{4,8}\.yaml$/.test(file) && !state.before[file];
+    if(state.scenario==='interview')return /^docs\/products\/PROD-[a-f0-9]{4,8}\.(?:yaml|md)$/.test(file) && !state.before[file];
     if(state.scenario.startsWith('gap-'))return file===specFile || (state.scenario!=='gap-incomplete' && file===gapFile);
     if(state.scenario==='implement-clean')return [specFile,'src/','src/greet.mjs','tests/','tests/greet.test.mjs'].includes(file)||execution.test(file);
     return false;
@@ -90,7 +90,9 @@ export async function verifyScenario(directory, state, transcript, {verification
   }
   assert.ok(transcript.trim(),'Missing host response');
   if(state.scenario==='interview') {
-    const newFiles=changes.filter(f=>/^docs\/products\/PROD-/.test(f));assert.equal(newFiles.length,1);
+    const newFiles=changes.filter(f=>/^docs\/products\/PROD-.*\.yaml$/.test(f));assert.equal(newFiles.length,1);
+    const briefs=changes.filter(f=>f.endsWith('.md'));assert.ok(briefs.every(f=>f===newFiles[0].replace(/\.yaml$/,'.md')),'Brief must share the Product YAML stem');
+    for(const brief of briefs)assert.match(fs.readFileSync(path.join(directory,brief),'utf8'),/^<!-- Generated from /,'Brief must carry the generated header');
     const data=validateArtifact(fs.readFileSync(path.join(directory,newFiles[0]),'utf8'),{kind:'product'});
     assert.equal(data.name,'Example Desk');assert.equal(data.owner,'Casey Example');assert.equal(data.exploration,'EXPL-cafe');
     assert.equal(path.basename(newFiles[0]),`${data.id}.yaml`);assert.notEqual(data.id,'PROD-a1b2');

@@ -74,7 +74,7 @@ export function validatePlugin(root, catalog = readJSON(root,'plugin/skill-catal
   for (const kind of ['commands','agents']) {
     const directory = path.join(root,'plugin',kind);
     const files = fs.readdirSync(directory).filter(f => f.endsWith('.md')).sort();
-    if (JSON.stringify(files) !== JSON.stringify(Object.keys(expected[kind]).sort()) || files.length !== (kind === 'commands' ? 15 : 14)) fail(`plugin/${kind}`,'INVENTORY','command/agent filenames changed');
+    if (JSON.stringify(files) !== JSON.stringify(Object.keys(expected[kind]).sort()) || files.length !== (kind === 'commands' ? 16 : 14)) fail(`plugin/${kind}`,'INVENTORY','command/agent filenames changed');
     for (const name of files) {
       const file = `plugin/${kind}/${name}`, text = fs.readFileSync(path.join(root,file),'utf8');
       frontmatter(text,file);
@@ -84,7 +84,7 @@ export function validatePlugin(root, catalog = readJSON(root,'plugin/skill-catal
   const commands = Object.keys(expected.commands).map(f => f.replace(/\.md$/,'')).sort();
   if (JSON.stringify(catalog.stages.map(s => s.legacyCommand).sort()) !== JSON.stringify(commands)) fail('plugin/skill-catalog.json','INVENTORY','every legacy command needs a stage record');
   const manifest = readJSON(root,'plugin/.claude-plugin/plugin.json');
-  if (JSON.stringify(manifest) !== JSON.stringify(expected.manifest) || manifest.version !== '1.7.1') fail('plugin/.claude-plugin/plugin.json','MANIFEST_CHANGED','manifest differs from reviewed baseline');
+  if (JSON.stringify(manifest) !== JSON.stringify(expected.manifest) || manifest.version !== '1.8.0') fail('plugin/.claude-plugin/plugin.json','MANIFEST_CHANGED','manifest differs from reviewed baseline');
   for (const field of ['commands','agents','skills','hooks','mcpServers','lspServers']) {
     const values = Array.isArray(manifest[field]) ? manifest[field] : [manifest[field]];
     for (let value of values) if (typeof value === 'string') {
@@ -104,10 +104,10 @@ export function validateNativeDistribution(root) {
   strict(portable,['$schema',...fields],'portable manifest');strict(compat,[...fields,'skills','interface'],'Codex compatibility manifest');
   assert.equal(portable.$schema,'https://agent-plugins.org/schemas/1.0.0/plugin.schema.json','Portable schema');
   for(const k of fields){assert.deepEqual(portable[k],claude[k],`Common Claude metadata ${k}`);assert.deepEqual(compat[k],portable[k],`Common compatibility metadata ${k}`);}
-  assert.equal(portable.name,'idd-framework');assert.equal(portable.version,'1.7.1');assert.equal(portable.license,'Apache-2.0');
+  assert.equal(portable.name,'idd-framework');assert.equal(portable.version,'1.8.0');assert.equal(portable.license,'Apache-2.0');
   assert.equal(compat.skills,'./skills/','Legacy declaration must preserve fixed discovery');
   const skills=containedPath(root,'plugin/skills');assert.ok(fs.statSync(skills).isDirectory(),'Fixed skills discovery requires a directory');
-  const catalog=json('plugin/skill-catalog.json');assert.equal(catalog.bundles.length,16);assert.deepEqual(fs.readdirSync(skills).sort(),catalog.bundles.map(b=>b.directory).sort(),'Native skill inventory');
+  const catalog=json('plugin/skill-catalog.json');assert.equal(catalog.bundles.length,17);assert.deepEqual(fs.readdirSync(skills).sort(),catalog.bundles.map(b=>b.directory).sort(),'Native skill inventory');
   for(const b of catalog.bundles)assert.ok(fs.statSync(containedPath(root,`plugin/skills/${b.directory}/SKILL.md`)).isFile(),'Missing skill entry');
   validateBundles(root,catalog);
   const display=['displayName','shortDescription','longDescription','developerName','category','capabilities','websiteURL','defaultPrompt'];strict(compat.interface,display,'Codex interface');

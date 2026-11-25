@@ -91,7 +91,7 @@ export function bulkLifecycle(owned,{host,copy}) {
   const unrelatedBefore=installedSnapshot(project,unrelated),notes=fs.readFileSync(path.join(project,'USER-NOTES.md'));
   const cli=args=>installerReceipt(owned,project,args,receipts);
   const discovered=cli(['add',source,'--list']);
-  const found=[...discovered.matchAll(/^│\s+(idd-[a-z-]+)\s*$/gm)].map(m=>m[1]).sort();assert.deepEqual(found,skillNames,'Pinned discovery must expose exactly16 public names');
+  const found=[...discovered.matchAll(/^│\s+(idd-[a-z-]+)\s*$/gm)].map(m=>m[1]).sort();assert.deepEqual(found,skillNames,'Pinned discovery must expose exactly17 public names');
   cli(['add',source,'--agent',agent,'--skill',...skillNames,'--yes',...(copy?['--copy']:[])]);
   const inventory=cli(['list','--agent',agent]);for(const name of skillNames)assert.ok(inventory.includes(name));
   const checkModes=()=>{for(const name of skillNames){const p=installedPath(project,host,name);assert.ok(fs.realpathSync(p).startsWith(fs.realpathSync(project)+path.sep));assert.equal(fs.lstatSync(p).isSymbolicLink(),false,'Pinned single-host install forces copy');}};

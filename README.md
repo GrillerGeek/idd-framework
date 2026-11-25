@@ -1,8 +1,8 @@
 # Intent-Driven Development Framework
 
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC_BY--SA_4.0-lightgrey.svg)](LICENSE)
-[![Framework](https://img.shields.io/badge/framework-v1.7-green.svg)](docs/framework.md)
-[![Plugin](https://img.shields.io/badge/plugin-v1.7.1-blue.svg)](plugin/README.md)
+[![Framework](https://img.shields.io/badge/framework-v1.8-green.svg)](docs/framework.md)
+[![Plugin](https://img.shields.io/badge/plugin-v1.8.0-blue.svg)](plugin/README.md)
 
 **Turn an idea into a reviewed specification that developers and AI agents can build.**
 
@@ -18,7 +18,7 @@ without installing a plugin.
 
 ## Install
 
-Install **IDD 1.7.1 from its published main branch**. Choose one route below for
+Install **IDD 1.8.0 from its published main branch**. Choose one route below for
 your coding app. No source clone, contributor build or Guildhall installation is
 required.
 
@@ -60,7 +60,7 @@ Choose **project** to keep the skill with this project; choose **global** if you
 want it available across projects. Version `1.5.25` is the tested installer pin,
 not the IDD version.
 
-**Start with `idd-orchestration`.** This single skill includes all fifteen IDD
+**Start with `idd-orchestration`.** This single skill includes all sixteen IDD
 workflow stages; you do not need to select or install each stage. Individual
 stage skills remain available for users who want a narrower installation.
 
