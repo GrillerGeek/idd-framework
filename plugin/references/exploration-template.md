@@ -20,7 +20,7 @@ docs/explorations/EXPL-<id>-<slug>/
 
 ```markdown
 ---
-id: EXPL-<id>                 # from bin/idd-next-id exploration
+id: EXPL-<id>                 # from scripts/idd-next-id exploration
 title: <short name>
 status: charting               # charting | resolving | clear | abandoned
 created: <ISO8601>

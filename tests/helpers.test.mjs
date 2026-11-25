@@ -6,7 +6,7 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { workspace,write,snapshot,root } from './helpers/workspace.mjs';
 
-function invoke(helper,dir,args=[],env=process.env) {return spawnSync('bash',[path.join(root,'plugin/bin',helper),...args],{cwd:dir,env,encoding:'utf8',timeout:10000});}
+function invoke(helper,dir,args=[],env=process.env) {return spawnSync('bash',[path.join(root,'plugin/scripts',helper),...args],{cwd:dir,env,encoding:'utf8',timeout:10000});}
 function stub(t,dir) {
   const bin=workspace(t);write(bin,'od','#!/bin/sh\ncase "$*" in\n *-N2*) printf " a1 b2\\n" ;;\n *-N3*) printf " c3 d4 e5\\n" ;;\n *-N4*) printf " f6 a7 b8 c9\\n" ;;\nesac\n',0o755);
   return {...process.env,PATH:bin+path.delimiter+process.env.PATH};

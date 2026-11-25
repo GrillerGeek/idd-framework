@@ -1,6 +1,6 @@
 {
   "commands": {
-    "archive.md": "591463a3441cf5c10e6daa57b7dae5a67fd9b1c0632a7af16ebe13787b54d02c",
+    "archive.md": "d6fced12bfe1d3080fb9af744fa6b9e9784ab72aa7592649e544d4040c0e95ac",
     "chart.md": "1201e6e7fe8d7aeaf8561a6071591f45aa3351f3cb8c50b240734a896b2be58e",
     "deep-review.md": "18dc5540522fb261d48e8aaceb5914d3af0788bdf9663dd5fe7250af94eaee09",
     "define-expectations.md": "2a87e385c3806521dcd2358266940a2ba7304680ce44cc8fbdc26273e403a28d",
@@ -35,7 +35,7 @@
   },
   "manifest": {
     "name": "idd-framework",
-    "version": "1.8.0",
+    "version": "1.8.1",
     "description": "Intent-Driven Development framework plugin \u2014 automates the IDD workflow with role-specific tools for stakeholder interviews, artifact generation, and structured documentation",
     "author": {
       "name": "GrillerGeek"

@@ -6,7 +6,7 @@ and preserves Claude's sixteen commands, fourteen agents and two optional
 configuration fields. Installation does not create IDD artifacts or add npm
 dependencies to a consuming project.
 
-Plugin **1.8.0** is available on the repository's `main` branch. The commands
+Plugin **1.8.1** is available on the repository's `main` branch. The commands
 below use the repository-owned catalogs directly; their `-local` names are stable
 identifiers and do not mean a local clone is required. IDD works independently;
 Guildhall is optional. See [using IDD with Guildhall](../README.md#optional-use-with-guildhall)
